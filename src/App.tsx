@@ -38,7 +38,7 @@ function App() {
       setUsername(name);
 
       // Загружаем прогресс
-      fetch(`http://localhost:8000/api/progress/${id}`)
+      fetch(`${backendUrl}/api/progress/${id}`)
         .then((res) => res.json())
         .then((data) => setCookies(data.clicks || 0));
     }
