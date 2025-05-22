@@ -4,6 +4,7 @@ import './App.css'
 const backendUrl = 'https://clicker-backend-8wcb.onrender.com';
 
 function App() {
+  const tg = window.Telegram?.WebApp;
   const id = window.Telegram?.WebApp?.initDataUnsafe?.user?.id;
 
   const [cookies, setCookies] = useState(0)
@@ -27,28 +28,28 @@ function App() {
   }
 
   useEffect(() => {
-  console.log("Компонент App смонтирован");
-  const tg = window.Telegram?.WebApp;
-  console.log("tg: ", tg);
+    console.log("Компонент App смонтирован");
+    const tg = window.Telegram?.WebApp;
+    console.log("tg: ", tg);
 
-  if (tg) {
-    tg.ready();
-    const id = tg.initDataUnsafe?.user?.id;
-    const name = tg.initDataUnsafe?.user?.first_name || "гость";
-    setUsername(name);
+    if (tg) {
+      tg.ready();
+      const id = tg.initDataUnsafe?.user?.id;
+      const name = tg.initDataUnsafe?.user?.first_name || "гость";
+      setUsername(name);
 
-    // Загружаем прогресс
-    fetch(`http://localhost:8000/api/progress/${id}`)
-      .then((res) => res.json())
-      .then((data) => setCookies(data.clicks || 0));
-  }
+      // Загружаем прогресс
+      fetch(`http://localhost:8000/api/progress/${id}`)
+        .then((res) => res.json())
+        .then((data) => setCookies(data.clicks || 0));
+    }
 }, []);
 
   return (
       <div className="card">
         <div>{'Привет, ' + username}</div>
         <div>{'Тортик кликер некоторый'}</div>
-        
+        <div>{JSON.stringify(tg)}</div>
         {'Денег за клик: ' + modifyer}
         <button onClick={handleClick}>
           Денег: {cookies}
