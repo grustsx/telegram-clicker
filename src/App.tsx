@@ -18,7 +18,6 @@ function App() {
   } 
 
   const handleClick = () => {
-    
     setCookies((prev) => prev + modifyer)
     fetch(`${backendUrl}/api/click`, {
       method: "POST",
@@ -28,7 +27,10 @@ function App() {
   }
 
   useEffect(() => {
+  console.log("Компонент App смонтирован");
   const tg = window.Telegram?.WebApp;
+  console.log("tg: ", tg);
+
   if (tg) {
     tg.ready();
     const id = tg.initDataUnsafe?.user?.id;
