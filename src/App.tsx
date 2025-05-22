@@ -49,7 +49,6 @@ function App() {
       <div className="card">
         <div>{'Привет, ' + username}</div>
         <div>{'Тортик кликер некоторый'}</div>
-        <div>{JSON.stringify(tg)}</div>
         {'Денег за клик: ' + modifyer}
         <button onClick={handleClick}>
           Денег: {cookies}
