@@ -15,6 +15,7 @@ function App() {
 
   return (
       <div className="card">
+        {'Тортик кликер некоторый'}
         {'Денег за клик: ' + modifyer}
         <button onClick={() => setCount((count) => count + modifyer)}>
           Денег: {count}
