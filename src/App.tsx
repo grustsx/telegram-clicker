@@ -4,7 +4,6 @@ import './App.css'
 const backendUrl = 'https://clicker-backend-8wcb.onrender.com';
 
 function App() {
-  const tg = window.Telegram?.WebApp;
   const id = window.Telegram?.WebApp?.initDataUnsafe?.user?.id;
 
   const [cookies, setCookies] = useState(0)
