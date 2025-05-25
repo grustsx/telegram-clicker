@@ -5,7 +5,7 @@ import { IS_DEV } from './env';
 const backendUrl = 'https://clicker-backend-8wcb.onrender.com';
 
 type GetProgressResponse = {
-  clicks: number;
+  currency: number;
 };
 
 const mockedTg: {
@@ -95,7 +95,7 @@ function App() {
 
       if (!id) return;
       getProgress(id)
-        .then((res) => setCookies(res.clicks))
+        .then((res) => setCookies(res.currency))
         .catch((err) => {
           setError(err);
         });
