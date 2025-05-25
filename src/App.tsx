@@ -3,7 +3,11 @@ import React from 'react';
 import './App.css';
 const backendUrl = 'https://clicker-backend-8wcb.onrender.com';
 
-const IS_DEV = false;
+const IS_DEV = true;
+
+type GetProgressResponse = {
+  clicks: number;
+};
 
 const mockedTg: {
   WebApp: {
@@ -36,6 +40,9 @@ function App() {
   const [isBoosted, setIsBoosted] = React.useState(false);
   const [modifyer, setModifyer] = React.useState(1);
 
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState(null);
+
   const buyBoost = () => {
     setIsBoosted(true);
     setCookies((prev) => prev - 15);
@@ -53,6 +60,30 @@ function App() {
     });
   };
 
+  async function getProgress(id: number): Promise<GetProgressResponse> {
+    try {
+      setLoading(true);
+
+      const response = await fetch(`${backendUrl}/api/progress/${id}`);
+
+      if (!response.ok) {
+        throw new Error(`Ошибка: ${response.status} ${response.statusText}`);
+      }
+
+      const data: GetProgressResponse = await response.json();
+      return data;
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Ошибка при загрузке пользователя:', error.message);
+      } else {
+        console.error('Неизвестная ошибка:', error);
+      }
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  }
+
   React.useEffect(() => {
     console.log('Компонент App смонтирован');
 
@@ -62,17 +93,23 @@ function App() {
       const name = tg.WebApp.initDataUnsafe?.user?.first_name || 'гость';
       setUsername(name);
 
-      // Загружаем прогресс
-      fetch(`${backendUrl}/api/progress/${id}`)
-        .then((res) => res.json())
-        .then((data) => setCookies(data.clicks || 0));
+      if (!id) return;
+      getProgress(id)
+        .then((res) => setCookies(res.clicks))
+        .catch((err) => setError(err));
     }
   }, [tg]);
 
-  return (
+  if (error) {
+    return <div>{error}</div>;
+  }
+
+  return loading ? (
+    <div>Загрузка...</div>
+  ) : (
     <div className="card">
       <div>{'Привет, ' + username}</div>
-      <div>{'Тортик кликер некоторый'}</div>
+      <div>Тортик кликер некоторый</div>
       <div>
         {'id: ' +
           tg?.WebApp.initDataUnsafe?.user?.id +
