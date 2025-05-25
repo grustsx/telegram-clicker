@@ -4,8 +4,10 @@ import './App.css';
 import { IS_DEV } from './env';
 const backendUrl = 'https://clicker-backend-8wcb.onrender.com';
 
-type GetProgressResponse = {
-  currency: number;
+type GetUserDataResponse = {
+  userData: {
+    currency: number;
+  };
 };
 
 const mockedTg: {
@@ -54,23 +56,23 @@ function App() {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        telegram_user: tg?.WebApp?.initDataUnsafe?.user,
+        telegramUser: tg?.WebApp?.initDataUnsafe?.user,
         count: 1,
       }),
     });
   };
 
-  async function getProgress(id: number): Promise<GetProgressResponse> {
+  async function getUserData(id: number): Promise<GetUserDataResponse> {
     try {
       setLoading(true);
 
-      const response = await fetch(`${backendUrl}/api/progress/${id}`);
+      const response = await fetch(`${backendUrl}/api/userData/${id}`);
 
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status} ${response.statusText}`);
       }
 
-      const data: GetProgressResponse = await response.json();
+      const data: GetUserDataResponse = await response.json();
       return data;
     } catch (error) {
       if (error instanceof Error) {
@@ -94,8 +96,8 @@ function App() {
       setUsername(name);
 
       if (!id) return;
-      getProgress(id)
-        .then((res) => setCookies(+res.currency))
+      getUserData(id)
+        .then((res) => setCookies(+res.userData.currency))
         .catch((err) => {
           setError(err);
         });
