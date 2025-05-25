@@ -96,12 +96,14 @@ function App() {
       if (!id) return;
       getProgress(id)
         .then((res) => setCookies(res.clicks))
-        .catch((err) => setError(err));
+        .catch((err) => {
+          setError(err);
+        });
     }
   }, [tg]);
 
   if (error) {
-    return <div>{JSON.stringify(error)}</div>;
+    return <div>Ошибка! Скорее всего это специально не работает сейчас</div>;
   }
 
   return loading ? (
