@@ -1,4 +1,5 @@
 import React from 'react';
+import throttle from './utils/throttle';
 
 import './App.css';
 import { IS_DEV } from './env';
@@ -50,8 +51,7 @@ function App() {
     setModifyer((modifyer) => modifyer + 1);
   };
 
-  const handleClick = () => {
-    setCookies((prev) => prev + modifyer);
+  const fetchClicks = () => {
     fetch(`${backendUrl}/api/clicks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -59,7 +59,14 @@ function App() {
         telegramUser: tg?.WebApp?.initDataUnsafe?.user,
         count: 1,
       }),
-    });
+    })
+  };
+
+  const throttledFetchClicks = React.useCallback(throttle(fetchClicks, 1000),  [tg?.WebApp?.initDataUnsafe?.user]);
+
+  const handleClick = () => {
+    setCookies((prev) => prev + modifyer);
+    throttledFetchClicks();
   };
 
   async function getUserData(id: number): Promise<GetUserDataResponse> {
