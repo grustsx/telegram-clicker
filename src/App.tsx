@@ -110,12 +110,6 @@ function App() {
     <div className="card">
       <div>{'Привет, ' + username}</div>
       <div>Тортик кликер некоторый</div>
-      <div>
-        {'id: ' +
-          tg?.WebApp.initDataUnsafe?.user?.id +
-          ' ' +
-          typeof tg?.WebApp.initDataUnsafe?.user?.id}
-      </div>
       <button onClick={handleClick}>Денег: {cookies}</button>
       {isBoosted ? (
         <button disabled>Куплено</button>
