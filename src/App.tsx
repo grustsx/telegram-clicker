@@ -34,10 +34,10 @@ const mockedTg: {
 function App() {
   const tg = IS_DEV ? mockedTg : window.Telegram;
 
-  const [cookies, setCookies] = React.useState(0);
+  const [cookies, setCookies] = React.useState<number>(0);
   const [username, setUsername] = React.useState('неизвестен');
   const [isBoosted, setIsBoosted] = React.useState(false);
-  const [modifyer, setModifyer] = React.useState(1);
+  const [modifyer, setModifyer] = React.useState<number>(1);
 
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -95,7 +95,7 @@ function App() {
 
       if (!id) return;
       getProgress(id)
-        .then((res) => setCookies(res.currency))
+        .then((res) => setCookies(+res.currency))
         .catch((err) => {
           setError(err);
         });
