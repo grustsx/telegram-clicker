@@ -1,5 +1,4 @@
 import React from 'react';
-import throttle from './utils/throttle';
 
 import './App.css';
 import { IS_DEV } from './env';
@@ -11,16 +10,18 @@ type GetUserDataResponse = {
   };
 };
 
+type TgUser = {
+  first_name?: string;
+  last_name?: string;
+  id?: number;
+  username?: string;
+};
+
 const mockedTg: {
   WebApp: {
     ready: () => void;
     initDataUnsafe?: {
-      user?: {
-        first_name?: string;
-        last_name?: string;
-        id?: number;
-        username?: string;
-      };
+      user?: TgUser | undefined;
     };
   };
 } = {
@@ -38,6 +39,7 @@ function App() {
   const tg = IS_DEV ? mockedTg : window.Telegram;
 
   const [cookies, setCookies] = React.useState<number>(0);
+
   const [username, setUsername] = React.useState('неизвестен');
   const [isBoosted, setIsBoosted] = React.useState(false);
   const [modifyer, setModifyer] = React.useState<number>(1);
@@ -45,29 +47,47 @@ function App() {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
 
+  const pendingClicks = React.useRef<number>(0);
+
   const buyBoost = () => {
     setIsBoosted(true);
     setCookies((prev) => prev - 15);
     setModifyer((modifyer) => modifyer + 1);
   };
 
-  const fetchClicks = () => {
-    fetch(`${backendUrl}/api/clicks`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        telegramUser: tg?.WebApp?.initDataUnsafe?.user,
-        count: 1,
-      }),
-    })
-  };
+  const fetchClicks = React.useCallback(
+    (count: number) => {
+      if (count === 0) return;
+      fetch(`${backendUrl}/api/clicks`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          telegramUser: tg?.WebApp?.initDataUnsafe?.user,
+          count,
+        }),
+      });
+    },
+    [tg?.WebApp?.initDataUnsafe?.user],
+  );
 
-  const throttledFetchClicks = React.useCallback(throttle(fetchClicks, 1000),  [tg?.WebApp?.initDataUnsafe?.user]);
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      if (pendingClicks.current > 0) {
+        fetchClicks(pendingClicks.current);
+        pendingClicks.current = 0;
+      }
+    }, 2000);
 
-  const handleClick = () => {
+    return () => {
+      fetchClicks(pendingClicks.current);
+      clearInterval(interval);
+    };
+  }, [fetchClicks]);
+
+  const handleClick = React.useCallback(() => {
     setCookies((prev) => prev + modifyer);
-    throttledFetchClicks();
-  };
+    pendingClicks.current += 1;
+  }, [modifyer]);
 
   async function getUserData(id: number): Promise<GetUserDataResponse> {
     try {
