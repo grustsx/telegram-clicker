@@ -167,9 +167,16 @@ function App() {
       <div>Тортик кликер некоторый</div>
       <button onClick={handleClick}>Денег: {currency}</button>
       {currencyPerSecond > 0 ? (
-        <button disabled>Куплено</button>
+        <>
+          <div>{'Прирост: ' + currencyPerSecond + ' денег в секунду'}</div>
+          <button disabled>Куплено</button>
+        </>
       ) : (
-        <button onClick={buyBoost}>Ивестировать в кал 0 денег (выгодно)</button>
+        <>
+          <button onClick={buyBoost}>
+            Ивестировать в кал 0 денег (выгодно)
+          </button>
+        </>
       )}
     </div>
   );
