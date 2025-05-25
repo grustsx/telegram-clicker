@@ -1,9 +1,8 @@
 import React from 'react';
 
 import './App.css';
+import { IS_DEV } from './env';
 const backendUrl = 'https://clicker-backend-8wcb.onrender.com';
-
-const IS_DEV = false;
 
 type GetProgressResponse = {
   clicks: number;
@@ -102,7 +101,7 @@ function App() {
   }, [tg]);
 
   if (error) {
-    return <div>{error}</div>;
+    return <div>{JSON.stringify(error)}</div>;
   }
 
   return loading ? (
