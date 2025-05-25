@@ -3,7 +3,7 @@ import React from 'react';
 import './App.css';
 const backendUrl = 'https://clicker-backend-8wcb.onrender.com';
 
-const IS_DEV = true;
+const IS_DEV = false;
 
 type GetProgressResponse = {
   clicks: number;
