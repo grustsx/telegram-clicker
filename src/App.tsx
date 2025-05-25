@@ -7,6 +7,7 @@ const backendUrl = 'https://clicker-backend-8wcb.onrender.com';
 type GetUserDataResponse = {
   userData: {
     currency: number;
+    currency_per_second: number;
   };
 };
 
@@ -38,11 +39,10 @@ const mockedTg: {
 function App() {
   const tg = IS_DEV ? mockedTg : window.Telegram;
 
-  const [cookies, setCookies] = React.useState<number>(0);
+  const [currency, setCurrency] = React.useState<number>(0);
+  const [currencyPerSecond, setCurrencyPerSecond] = React.useState<number>(0);
 
   const [username, setUsername] = React.useState('неизвестен');
-  const [isBoosted, setIsBoosted] = React.useState(false);
-  const [modifyer, setModifyer] = React.useState<number>(1);
 
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
@@ -50,10 +50,24 @@ function App() {
   const pendingClicks = React.useRef<number>(0);
 
   const buyBoost = () => {
-    setIsBoosted(true);
-    setCookies((prev) => prev - 15);
-    setModifyer((modifyer) => modifyer + 1);
+    setCurrencyPerSecond((prev) => prev + 1);
+    fetchCps(1, tg?.WebApp?.initDataUnsafe?.user);
   };
+
+  const fetchCps = React.useCallback(
+    (count: number, telegramUser: TgUser | undefined) => {
+      if (count === 0 || !telegramUser) return;
+      fetch(`${backendUrl}/api/increaseCps`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          telegramUser,
+          count,
+        }),
+      });
+    },
+    [],
+  );
 
   const fetchClicks = React.useCallback(
     (count: number) => {
@@ -71,23 +85,30 @@ function App() {
   );
 
   React.useEffect(() => {
-    const interval = setInterval(() => {
+    const fetchInterval = setInterval(() => {
       if (pendingClicks.current > 0) {
         fetchClicks(pendingClicks.current);
         pendingClicks.current = 0;
       }
     }, 2000);
 
+    const currencyInterval = setInterval(() => {
+      if (currencyPerSecond > 0) {
+        setCurrency((prev) => prev + currencyPerSecond);
+      }
+    }, 1000);
+
     return () => {
       fetchClicks(pendingClicks.current);
-      clearInterval(interval);
+      clearInterval(fetchInterval);
+      clearInterval(currencyInterval);
     };
-  }, [fetchClicks]);
+  }, [currencyPerSecond, fetchClicks]);
 
   const handleClick = React.useCallback(() => {
-    setCookies((prev) => prev + modifyer);
+    setCurrency((prev) => prev + 1);
     pendingClicks.current += 1;
-  }, [modifyer]);
+  }, []);
 
   async function getUserData(id: number): Promise<GetUserDataResponse> {
     try {
@@ -124,7 +145,10 @@ function App() {
 
       if (!id) return;
       getUserData(id)
-        .then((res) => setCookies(+res.userData.currency))
+        .then((res) => {
+          setCurrency(+res.userData.currency);
+          setCurrencyPerSecond(+res.userData.currency_per_second);
+        })
         .catch((err) => {
           setError(err);
         });
@@ -141,13 +165,11 @@ function App() {
     <div className="card">
       <div>{'Привет, ' + username}</div>
       <div>Тортик кликер некоторый</div>
-      <button onClick={handleClick}>Денег: {cookies}</button>
-      {isBoosted ? (
+      <button onClick={handleClick}>Денег: {currency}</button>
+      {currencyPerSecond > 0 ? (
         <button disabled>Куплено</button>
       ) : (
-        <button disabled onClick={buyBoost}>
-          улучшения не доступны
-        </button>
+        <button onClick={buyBoost}>Ивестировать в кал 0 денег (выгодно)</button>
       )}
     </div>
   );
