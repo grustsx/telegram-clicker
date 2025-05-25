@@ -51,11 +51,12 @@ function App() {
 
   const handleClick = () => {
     setCookies((prev) => prev + modifyer);
-    fetch(`${backendUrl}/api/click`, {
+    fetch(`${backendUrl}/api/clicks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         telegram_user: tg?.WebApp?.initDataUnsafe?.user,
+        count: 1,
       }),
     });
   };
