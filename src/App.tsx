@@ -4,10 +4,23 @@ import './App.css';
 import { IS_DEV } from './env';
 const backendUrl = 'https://clicker-backend-8wcb.onrender.com';
 
+type Building = {
+  building_id: number;
+  name: string;
+  level: number;
+  base_price: number;
+  multiplier: number;
+  income_per_second: number;
+};
 type GetUserDataResponse = {
   userData: {
-    currency: number;
-    currency_per_second: number;
+    user: {
+      id: number;
+      currency: number;
+      currency_per_second: number;
+      currency_per_click: number;
+    };
+    buildings: Building[];
   };
 };
 
@@ -35,12 +48,18 @@ const mockedTg: {
     },
   },
 };
+const getPrice = (building: Building) => {
+  return Math.floor(
+    building.base_price * Math.pow(building.multiplier, building.level),
+  );
+};
 
 function App() {
   const tg = IS_DEV ? mockedTg : window.Telegram;
 
   const [currency, setCurrency] = React.useState<number>(0);
   const [currencyPerSecond, setCurrencyPerSecond] = React.useState<number>(0);
+  const [buildings, setBuildings] = React.useState<Building[]>([]);
 
   const [username, setUsername] = React.useState('неизвестен');
 
@@ -49,20 +68,33 @@ function App() {
 
   const pendingClicks = React.useRef<number>(0);
 
-  const buyBoost = () => {
-    setCurrencyPerSecond((prev) => prev + 1);
-    fetchCps(1, tg?.WebApp?.initDataUnsafe?.user);
+  const upgradeBuilding = (building: Building) => {
+    setCurrencyPerSecond((prev) => prev + building.income_per_second);
+    setCurrency((prev) => prev - getPrice(building));
+    setBuildings((prev) =>
+      prev.map((build: Building) => {
+        if (building !== build) return build;
+        return {
+          ...build,
+          level: build.level + 1,
+        };
+      }),
+    );
+    fetchUpgradeBuilding(
+      building.building_id,
+      tg?.WebApp?.initDataUnsafe?.user,
+    );
   };
 
-  const fetchCps = React.useCallback(
-    (count: number, telegramUser: TgUser | undefined) => {
-      if (count === 0 || !telegramUser) return;
-      fetch(`${backendUrl}/api/increaseCps`, {
+  const fetchUpgradeBuilding = React.useCallback(
+    (building_id: number, telegramUser: TgUser | undefined) => {
+      if (!telegramUser) return;
+      fetch(`${backendUrl}/api/upgradeBuilding`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          telegramUser,
-          count,
+          telegram_user: telegramUser,
+          building_id,
         }),
       });
     },
@@ -146,8 +178,9 @@ function App() {
       if (!id) return;
       getUserData(id)
         .then((res) => {
-          setCurrency(+res.userData.currency);
-          setCurrencyPerSecond(+res.userData.currency_per_second);
+          setCurrency(+res.userData.user.currency);
+          setCurrencyPerSecond(+res.userData.user.currency_per_second);
+          setBuildings(res.userData.buildings);
         })
         .catch((err) => {
           setError(err);
@@ -164,20 +197,16 @@ function App() {
   ) : (
     <div className="card">
       <div>{'Привет, ' + username}</div>
-      <div>Тортик кликер некоторый</div>
+      <div>{'Заработок: ' + currencyPerSecond + ' в секунду'}</div>
       <button onClick={handleClick}>Денег: {currency}</button>
-      {currencyPerSecond > 0 ? (
-        <>
-          <div>{'Прирост: ' + currencyPerSecond + ' денег в секунду'}</div>
-          <button disabled>Куплено</button>
-        </>
-      ) : (
-        <>
-          <button onClick={buyBoost}>
-            Ивестировать в кал 0 денег (выгодно)
-          </button>
-        </>
-      )}
+      {buildings.map((building) => (
+        <button
+          disabled={currency < getPrice(building)}
+          onClick={() => upgradeBuilding(building)}
+        >
+          {building.name + ': ' + getPrice(building) + ' денег'}
+        </button>
+      ))}
     </div>
   );
 }
