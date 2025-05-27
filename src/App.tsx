@@ -199,14 +199,23 @@ function App() {
       <div>{'Привет, ' + username}</div>
       <div>{'Заработок: ' + currencyPerSecond + ' в секунду'}</div>
       <button onClick={handleClick}>Денег: {currency}</button>
-      {buildings.map((building) => (
-        <button
-          disabled={currency < getPrice(building)}
-          onClick={() => upgradeBuilding(building)}
-        >
-          {building.name + ': ' + getPrice(building) + ' денег'}
-        </button>
-      ))}
+      {buildings
+        .sort((a, b) => a.building_id - b.building_id)
+        .map((building) => (
+          <div className="row">
+            <button
+              key={building.building_id}
+              disabled={currency < getPrice(building)}
+              onClick={() => upgradeBuilding(building)}
+            >
+              {building.name + ': ' + getPrice(building) + ' денег'}
+            </button>
+            <div>{'lvl: ' + building.level}</div>
+            <div>
+              {'доход: ' + +building.level * +building.income_per_second}
+            </div>
+          </div>
+        ))}
     </div>
   );
 }
