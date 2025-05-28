@@ -14,7 +14,7 @@ export type GetUserDataResponse = {
       currency_per_second: number;
       currency_per_click: number;
     };
-    buildings: Building[];
+    buildings: BuildingType[];
   };
 };
 
