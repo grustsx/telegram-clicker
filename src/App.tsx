@@ -2,34 +2,10 @@ import React from 'react';
 
 import './App.css';
 import { IS_DEV } from './env';
-const backendUrl = 'https://clicker-backend-8wcb.onrender.com';
-
-type Building = {
-  building_id: number;
-  name: string;
-  level: number;
-  base_price: number;
-  multiplier: number;
-  income_per_second: number;
-};
-type GetUserDataResponse = {
-  userData: {
-    user: {
-      id: number;
-      currency: number;
-      currency_per_second: number;
-      currency_per_click: number;
-    };
-    buildings: Building[];
-  };
-};
-
-type TgUser = {
-  first_name?: string;
-  last_name?: string;
-  id?: number;
-  username?: string;
-};
+import type { BuildingType, TgUser } from './types';
+import { getUserData, sendClicks, sendUpgradeBuilding } from './api';
+import { Building, Loader } from './components';
+import { getPrice } from './utils';
 
 const mockedTg: {
   WebApp: {
@@ -48,18 +24,14 @@ const mockedTg: {
     },
   },
 };
-const getPrice = (building: Building) => {
-  return Math.floor(
-    building.base_price * Math.pow(building.multiplier, building.level),
-  );
-};
 
 function App() {
   const tg = IS_DEV ? mockedTg : window.Telegram;
+  const tgUser = tg?.WebApp.initDataUnsafe?.user;
 
   const [currency, setCurrency] = React.useState<number>(0);
   const [currencyPerSecond, setCurrencyPerSecond] = React.useState<number>(0);
-  const [buildings, setBuildings] = React.useState<Building[]>([]);
+  const [buildings, setBuildings] = React.useState<BuildingType[]>([]);
 
   const [username, setUsername] = React.useState('неизвестен');
 
@@ -68,11 +40,12 @@ function App() {
 
   const pendingClicks = React.useRef<number>(0);
 
-  const upgradeBuilding = (building: Building) => {
+  const upgradeBuilding = (building: BuildingType) => {
+    if (!tgUser) return;
     setCurrencyPerSecond((prev) => prev + building.income_per_second);
     setCurrency((prev) => prev - getPrice(building));
     setBuildings((prev) =>
-      prev.map((build: Building) => {
+      prev.map((build: BuildingType) => {
         if (building !== build) return build;
         return {
           ...build,
@@ -80,48 +53,14 @@ function App() {
         };
       }),
     );
-    fetchUpgradeBuilding(
-      building.building_id,
-      tg?.WebApp?.initDataUnsafe?.user,
-    );
+    sendUpgradeBuilding(building.building_id, tgUser);
   };
-
-  const fetchUpgradeBuilding = React.useCallback(
-    (building_id: number, telegramUser: TgUser | undefined) => {
-      if (!telegramUser) return;
-      fetch(`${backendUrl}/api/upgradeBuilding`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          telegram_user: telegramUser,
-          building_id,
-        }),
-      });
-    },
-    [],
-  );
-
-  const fetchClicks = React.useCallback(
-    (count: number) => {
-      if (count === 0) return;
-      fetch(`${backendUrl}/api/clicks`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          telegramUser: tg?.WebApp?.initDataUnsafe?.user,
-          count,
-        }),
-      });
-    },
-    [tg?.WebApp?.initDataUnsafe?.user],
-  );
 
   React.useEffect(() => {
     const fetchInterval = setInterval(() => {
-      if (pendingClicks.current > 0) {
-        fetchClicks(pendingClicks.current);
-        pendingClicks.current = 0;
-      }
+      if (!tgUser || pendingClicks.current <= 0) return;
+      sendClicks(pendingClicks.current, tgUser);
+      pendingClicks.current = 0;
     }, 2000);
 
     const currencyInterval = setInterval(() => {
@@ -131,40 +70,16 @@ function App() {
     }, 1000);
 
     return () => {
-      fetchClicks(pendingClicks.current);
       clearInterval(fetchInterval);
       clearInterval(currencyInterval);
+      if (tgUser) sendClicks(pendingClicks.current, tgUser);
     };
-  }, [currencyPerSecond, fetchClicks]);
+  }, [currencyPerSecond, tgUser]);
 
   const handleClick = React.useCallback(() => {
     setCurrency((prev) => prev + 1);
     pendingClicks.current += 1;
   }, []);
-
-  async function getUserData(id: number): Promise<GetUserDataResponse> {
-    try {
-      setLoading(true);
-
-      const response = await fetch(`${backendUrl}/api/userData/${id}`);
-
-      if (!response.ok) {
-        throw new Error(`Ошибка: ${response.status} ${response.statusText}`);
-      }
-
-      const data: GetUserDataResponse = await response.json();
-      return data;
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error('Ошибка при загрузке пользователя:', error.message);
-      } else {
-        console.error('Неизвестная ошибка:', error);
-      }
-      throw error;
-    } finally {
-      setLoading(false);
-    }
-  }
 
   React.useEffect(() => {
     console.log('Компонент App смонтирован');
@@ -176,6 +91,7 @@ function App() {
       setUsername(name);
 
       if (!id) return;
+      setLoading(true);
       getUserData(id)
         .then((res) => {
           setCurrency(+res.userData.user.currency);
@@ -184,6 +100,9 @@ function App() {
         })
         .catch((err) => {
           setError(err);
+        })
+        .finally(() => {
+          setLoading(false);
         });
     }
   }, [tg]);
@@ -193,7 +112,7 @@ function App() {
   }
 
   return loading ? (
-    <div>Загрузка...</div>
+    <Loader />
   ) : (
     <div className="card">
       <div>{'Привет, ' + username}</div>
@@ -202,19 +121,11 @@ function App() {
       {buildings
         .sort((a, b) => a.building_id - b.building_id)
         .map((building) => (
-          <div className="row">
-            <button
-              key={building.building_id}
-              disabled={currency < getPrice(building)}
-              onClick={() => upgradeBuilding(building)}
-            >
-              {building.name + ': ' + getPrice(building) + ' денег'}
-            </button>
-            <div>{'lvl: ' + building.level}</div>
-            <div>
-              {'доход: ' + +building.level * +building.income_per_second}
-            </div>
-          </div>
+          <Building
+            building={building}
+            upgradeBuilding={upgradeBuilding}
+            currency={currency}
+          />
         ))}
     </div>
   );
