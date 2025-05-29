@@ -5,3 +5,36 @@
 # Запуск
 
 `npm run dev`
+
+# Структура проекта
+
+src/
+├── app/
+│ ├── store.ts # Redux store
+│ └── hooks.ts # useAppSelector/useAppDispatch
+
+├── components/ # Переиспользуемые UI-компоненты
+│ ├── Loader.tsx
+│ └── Button.tsx
+
+├── state/ # Один слайс со всем состоянием
+│ └── gameSlice.ts # Хранит всё: пользователь, здания и т.д.
+
+├── pages/ # Страницы (SPA или Next.js)
+│ └── Home.tsx
+
+├── styles/ # Tailwind config & глобальные стили
+│ ├── index.css # Импорт Tailwind layers: base, components, utilities
+│ └── tailwind.config.ts # При кастомизации (если нужен ts)
+
+├── types/ # Общие типы
+│ └── index.ts
+
+├── utils/ # Утилиты (форматирование, расчёты и пр.)
+│ └── calcIncome.ts
+
+├── assets/ # Картинки, иконки, SVG
+│ └── cake.svg
+
+├── App.tsx
+└── main.tsx or index.tsx

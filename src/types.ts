@@ -1,12 +1,12 @@
 export type BuildingType = {
-  building_id: number;
+  buildingId: number;
   name: string;
   level: number;
-  base_price: number;
+  basePrice: number;
   multiplier: number;
-  income_per_second: number;
+  increasePerSecond: number;
 };
-export type GetUserDataResponse = {
+export type GetUserDataResponseType = {
   userData: {
     user: {
       id: number;
@@ -18,7 +18,7 @@ export type GetUserDataResponse = {
   };
 };
 
-export type TgUser = {
+export type TgUserType = {
   first_name?: string;
   last_name?: string;
   id?: number;
