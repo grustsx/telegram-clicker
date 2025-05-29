@@ -36,8 +36,8 @@ const gameSlice = createSlice({
       const building = state.buildings.find((b) => b.buildingId === buildingId);
 
       if (building) {
-        building.level += 1;
         state.currency -= getBuildingPrice(building);
+        building.level += 1;
       }
     },
     updateCurrencyPerSecond(state) {
