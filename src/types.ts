@@ -4,7 +4,7 @@ export type BuildingType = {
   level: number;
   basePrice: number;
   multiplier: number;
-  increasePerSecond: number;
+  incomePerSecond: number;
 };
 export type GetUserDataResponseType = {
   userData: {

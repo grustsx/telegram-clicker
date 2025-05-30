@@ -15,7 +15,7 @@ const Building = ({
   building: BuildingType;
   disabled: boolean;
 }) => {
-  const { buildingId, name, level, increasePerSecond } = building;
+  const { buildingId, name, level, incomePerSecond } = building;
   const dispatch = useAppDispatch();
 
   const userId = useAppSelector(selectUserId);
@@ -32,7 +32,7 @@ const Building = ({
         {name + ': ' + getBuildingPrice(building) + ' денег'}
       </button>
       <div>{'lvl: ' + level}</div>
-      <div>{'доход: ' + +level * +increasePerSecond}</div>
+      <div>{'доход: ' + +level * +incomePerSecond}</div>
     </div>
   );
 };

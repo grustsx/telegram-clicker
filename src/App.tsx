@@ -30,8 +30,6 @@ const mockedTg: {
 function App() {
   const tg = IS_DEV ? mockedTg : window.Telegram;
 
-  console.log('App');
-
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {

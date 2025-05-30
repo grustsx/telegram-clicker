@@ -42,7 +42,7 @@ const gameSlice = createSlice({
     },
     updateCurrencyPerSecond(state) {
       state.currencyPerSecond = state.buildings.reduce(
-        (prev, building) => prev + building.level * building.increasePerSecond,
+        (prev, building) => prev + building.level * building.incomePerSecond,
         0,
       );
     },
