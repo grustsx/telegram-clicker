@@ -6,7 +6,7 @@ import {
   updateCurrencyPerSecond,
 } from '../state/gameSlice';
 import type { BuildingType } from '../types';
-import { getBuildingPrice } from '../utils/getBuildingPrice';
+import { getPrice } from '../utils/getPrice';
 
 const Building = ({
   building,
@@ -29,7 +29,10 @@ const Building = ({
   return (
     <div className="row">
       <button disabled={disabled} onClick={handleClick}>
-        {name + ': ' + getBuildingPrice(building) + ' денег'}
+        {name +
+          ': ' +
+          getPrice(building.basePrice, building.multiplier, building.level) +
+          ' денег'}
       </button>
       <div>{'lvl: ' + level}</div>
       <div>{'доход: ' + +level * +incomePerSecond}</div>

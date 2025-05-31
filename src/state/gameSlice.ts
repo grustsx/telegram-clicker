@@ -1,12 +1,17 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { BuildingType, TgUserType } from '../types';
 import { getUserData } from './thunk';
-import { getBuildingPrice } from '../utils/getBuildingPrice';
+import { getPrice, getCurrencyPerClick } from '../utils';
 
 export interface GameState {
   currency: number;
   currencyPerSecond: number;
-  currencyPerClick: number;
+  clickInfo: {
+    currencyPerClick: number;
+    clickLevel: number;
+    clickUpgradeBasePrice: number;
+    clickUpgradeMultipler: number;
+  };
   user: TgUserType;
   buildings: BuildingType[];
   loading: boolean;
@@ -15,10 +20,15 @@ export interface GameState {
 const initialState: GameState = {
   loading: true,
   currency: 0,
-  currencyPerSecond: 0,
-  currencyPerClick: 1,
+  clickInfo: {
+    currencyPerClick: 1,
+    clickLevel: 0,
+    clickUpgradeBasePrice: 0,
+    clickUpgradeMultipler: 0,
+  },
   user: {},
   buildings: [],
+  currencyPerSecond: 0,
 };
 
 const gameSlice = createSlice({
@@ -26,7 +36,7 @@ const gameSlice = createSlice({
   initialState,
   reducers: {
     incrementCurrencyByClick(state) {
-      state.currency += state.currencyPerClick;
+      state.currency += state.clickInfo.currencyPerClick;
     },
     incrementCurrencyByPerSecond(state) {
       state.currency += state.currencyPerSecond;
@@ -36,7 +46,11 @@ const gameSlice = createSlice({
       const building = state.buildings.find((b) => b.buildingId === buildingId);
 
       if (building) {
-        state.currency -= getBuildingPrice(building);
+        state.currency -= getPrice(
+          building.basePrice,
+          building.multiplier,
+          building.level,
+        );
         building.level += 1;
       }
     },
@@ -44,6 +58,19 @@ const gameSlice = createSlice({
       state.currencyPerSecond = state.buildings.reduce(
         (prev, building) => prev + building.level * building.incomePerSecond,
         0,
+      );
+    },
+    incrementClickLevel(state) {
+      state.currency -= getPrice(
+        state.clickInfo.clickUpgradeBasePrice,
+        state.clickInfo.clickUpgradeMultipler,
+        state.clickInfo.clickLevel,
+      );
+      state.clickInfo.clickLevel += 1;
+    },
+    updateCurrencyPerClick(state) {
+      state.clickInfo.currencyPerClick = getCurrencyPerClick(
+        state.clickInfo.clickLevel,
       );
     },
     setUserData(state, action: PayloadAction<TgUserType>) {
@@ -59,7 +86,14 @@ const gameSlice = createSlice({
         const updatedState = {
           currency: +action.payload.user.currency,
           currencyPerSecond: +action.payload.user.currencyPerSecond,
-          currencyPerClick: +action.payload.user.currencyPerClick,
+          clickInfo: {
+            clickLevel: +action.payload.user.clickLevel,
+            currencyPerClick: getCurrencyPerClick(
+              +action.payload.user.clickLevel,
+            ),
+            clickUpgradeBasePrice: +action.payload.user.clickUpgradeBasePrice,
+            clickUpgradeMultipler: +action.payload.user.clickUpgradeMultipler,
+          },
           buildings: action.payload.buildings,
         };
         Object.assign(state, updatedState);
@@ -77,5 +111,7 @@ export const {
   updateCurrencyPerSecond,
   incrementCurrencyByPerSecond,
   setUserData,
+  incrementClickLevel,
+  updateCurrencyPerClick,
 } = gameSlice.actions;
 export default gameSlice.reducer;

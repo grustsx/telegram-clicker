@@ -9,4 +9,6 @@ export const selectBuildings = (state: RootState) => state.game.buildings;
 
 export const selectUserId = (state: RootState) => state.game.user.id;
 
+export const selectClickInfo = (state: RootState) => state.game.clickInfo;
+
 export const selectLoading = (state: RootState) => state.game.loading;
