@@ -1,6 +1,6 @@
 import { useAppSelector } from '../app/hooks';
 import { selectBuildings, selectCurrency } from '../app/selectors';
-import { Building, ClickUpgrade, IncrementButton } from '../components';
+import { Building, IncrementButton } from '../components';
 import { getPrice } from '../utils/getPrice';
 
 function MainPage() {
@@ -10,7 +10,7 @@ function MainPage() {
   return (
     <div className="card">
       <IncrementButton />
-      <ClickUpgrade />
+      {/* <ClickUpgrade /> */}
       {[...buildings]
         .sort((a, b) => a.buildingId - b.buildingId)
         .map((building) => (
