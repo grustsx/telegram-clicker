@@ -7,6 +7,14 @@ function MainPage() {
   const buildings = useAppSelector(selectBuildings);
   const currency = useAppSelector(selectCurrency);
 
+  const getIsShowed = (buildingId: number): boolean => {
+    if (buildingId === 1) return true;
+    return (
+      (buildings.find((building) => building.buildingId === buildingId - 1)
+        ?.level || 0) > 0
+    );
+  };
+
   return (
     <div className="card">
       <IncrementButton />
@@ -17,6 +25,7 @@ function MainPage() {
           <Building
             building={building}
             key={building.buildingId}
+            showed={getIsShowed(building.buildingId)}
             disabled={
               currency <
               getPrice(building.basePrice, building.multiplier, building.level)

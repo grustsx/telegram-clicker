@@ -12,9 +12,11 @@ import { getPrice } from '../utils/getPrice';
 const Building = ({
   building,
   disabled,
+  showed,
 }: {
   building: BuildingType;
   disabled: boolean;
+  showed: boolean;
 }) => {
   const { buildingId, name, level, incomePerSecond } = building;
   const dispatch = useAppDispatch();
@@ -28,18 +30,20 @@ const Building = ({
   };
 
   return (
-    <div className="row">
-      <button disabled={disabled} onClick={handleClick}>
-        {name +
-          ': ' +
-          formatLargeNumber(
-            getPrice(building.basePrice, building.multiplier, building.level),
-          ) +
-          ' денег'}
-      </button>
-      <div>{'lvl: ' + level}</div>
-      <div>{'доход: ' + formatLargeNumber(+level * +incomePerSecond)}</div>
-    </div>
+    showed && (
+      <div className="row">
+        <button disabled={disabled} onClick={handleClick}>
+          {name +
+            ': ' +
+            formatLargeNumber(
+              getPrice(building.basePrice, building.multiplier, building.level),
+            ) +
+            ' денег'}
+        </button>
+        <div>{'lvl: ' + level}</div>
+        <div>{'доход: ' + formatLargeNumber(+level * +incomePerSecond)}</div>
+      </div>
+    )
   );
 };
 export default Building;
