@@ -10,6 +10,7 @@ import {
   incrementCurrencyByPerSecond,
 } from '../state/gameSlice';
 import { sendClicks } from '../api';
+import { formatLargeNumber } from '../utils/format';
 
 const IncrementButton = () => {
   const pendingClicks = React.useRef<number>(0);
@@ -47,8 +48,12 @@ const IncrementButton = () => {
 
   return (
     <>
-      <div>{'Заработок: ' + currencyPerSecond + ' в секунду'}</div>
-      <button onClick={handleClick}>Денег: {currency}</button>
+      <div>
+        {'Заработок: ' + formatLargeNumber(currencyPerSecond) + ' в секунду'}
+      </div>
+      <button onClick={handleClick}>
+        Денег: {formatLargeNumber(currency)}
+      </button>
     </>
   );
 };
