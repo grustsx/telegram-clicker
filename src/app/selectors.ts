@@ -12,3 +12,5 @@ export const selectUserId = (state: RootState) => state.game.user.id;
 export const selectClickInfo = (state: RootState) => state.game.clickInfo;
 
 export const selectLoading = (state: RootState) => state.game.loading;
+
+export const selectErrorMessage = (state: RootState) => state.game.errorMessage;

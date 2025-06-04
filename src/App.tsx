@@ -3,11 +3,12 @@ import React from 'react';
 import './App.css';
 import { IS_DEV } from './env';
 import { MainPage } from './pages';
-import type { TgUserType } from './types';
+import type { TgUserType } from './types/types';
 import { Loader } from './components';
 import { setUserData } from './state/gameSlice';
 import { useAppDispatch } from './app/hooks';
 import { getUserData } from './state/thunk';
+import ErrorHandler from './components/ErrorHandler';
 
 const mockedTg: {
   WebApp: {
@@ -41,7 +42,9 @@ function App() {
 
   return (
     <Loader>
-      <MainPage />
+      <ErrorHandler>
+        <MainPage />
+      </ErrorHandler>
     </Loader>
   );
 }

@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { BuildingType, TgUserType } from '../types';
+import type { BuildingType, TgUserType } from '../types/types';
 import { getUserData } from './thunk';
 import { getPrice, getCurrencyPerClick } from '../utils';
 
@@ -15,6 +15,7 @@ export interface GameState {
   user: TgUserType;
   buildings: BuildingType[];
   loading: boolean;
+  errorMessage: string;
 }
 
 const initialState: GameState = {
@@ -29,6 +30,7 @@ const initialState: GameState = {
   user: {},
   buildings: [],
   currencyPerSecond: 0,
+  errorMessage: '',
 };
 
 const gameSlice = createSlice({
@@ -99,8 +101,11 @@ const gameSlice = createSlice({
         Object.assign(state, updatedState);
         state.loading = false;
       })
-      .addCase(getUserData.rejected, (state) => {
+      .addCase(getUserData.rejected, (state, action) => {
         state.loading = false;
+        const payload = action.payload as string;
+
+        state.errorMessage = payload || 'Произошла неизвестная ошибка';
       });
   },
 });

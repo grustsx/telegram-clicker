@@ -5,7 +5,7 @@ import {
   incrementBuildingLevel,
   updateCurrencyPerSecond,
 } from '../state/gameSlice';
-import type { BuildingType } from '../types';
+import type { BuildingType } from '../types/types';
 import { formatLargeNumber } from '../utils/format';
 import { getPrice } from '../utils/getPrice';
 
