@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { BuildingType, TgUserType } from '../types/types';
-import { getUserData } from './thunk';
+import { getUserAndDictionaries } from './thunk';
 import { getPrice, getCurrencyPerClick } from '../utils';
 
 export interface GameState {
@@ -81,27 +81,37 @@ const gameSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getUserData.pending, (state) => {
+      .addCase(getUserAndDictionaries.pending, (state) => {
         state.loading = true;
       })
-      .addCase(getUserData.fulfilled, (state, action) => {
+      .addCase(getUserAndDictionaries.fulfilled, (state, action) => {
+        const { userInfo, dictionaries } = action.payload;
+
         const updatedState = {
-          currency: +action.payload.user.currency,
-          currencyPerSecond: +action.payload.user.currencyPerSecond,
+          currency: +userInfo.user.currency,
+          currencyPerSecond: +userInfo.user.currencyPerSecond,
           clickInfo: {
-            clickLevel: +action.payload.user.clickLevel,
-            currencyPerClick: getCurrencyPerClick(
-              +action.payload.user.clickLevel,
-            ),
-            clickUpgradeBasePrice: +action.payload.user.clickUpgradeBasePrice,
-            clickUpgradeMultipler: +action.payload.user.clickUpgradeMultipler,
+            clickLevel: +userInfo.user.clickLevel,
+            currencyPerClick: getCurrencyPerClick(+userInfo.user.clickLevel),
+            clickUpgradeBasePrice: +userInfo.user.clickUpgradeBasePrice,
+            clickUpgradeMultipler: +userInfo.user.clickUpgradeMultipler,
           },
-          buildings: action.payload.buildings,
+          buildings: dictionaries.buildings.map((building: BuildingType) => ({
+            buildingId: building.buildingId,
+            name: building.name,
+            level: userInfo.buildings.find(
+              (userBuilding: { buildingId: number; level: number }) =>
+                userBuilding.buildingId === building.buildingId,
+            ).level,
+            basePrice: building.basePrice,
+            multiplier: building.multiplier,
+            incomePerSecond: building.incomePerSecond,
+          })),
         };
         Object.assign(state, updatedState);
         state.loading = false;
       })
-      .addCase(getUserData.rejected, (state, action) => {
+      .addCase(getUserAndDictionaries.rejected, (state, action) => {
         state.loading = false;
         const payload = action.payload as string;
 

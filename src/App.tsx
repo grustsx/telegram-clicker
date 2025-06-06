@@ -7,7 +7,7 @@ import type { TgUserType } from './types/types';
 import { Loader } from './components';
 import { setUserData } from './state/gameSlice';
 import { useAppDispatch } from './app/hooks';
-import { getUserData } from './state/thunk';
+import { getUserAndDictionaries } from './state/thunk';
 import ErrorHandler from './components/ErrorHandler';
 
 const mockedTg: {
@@ -36,8 +36,9 @@ function App() {
   React.useEffect(() => {
     const user: TgUserType | undefined = tg?.WebApp?.initDataUnsafe?.user;
     if (!user) return;
+    console.log('effect');
     dispatch(setUserData(user));
-    dispatch(getUserData());
+    dispatch(getUserAndDictionaries());
   }, [dispatch, tg?.WebApp?.initDataUnsafe?.user]);
 
   return (

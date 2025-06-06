@@ -18,3 +18,29 @@ export const getUserData = createAsyncThunk(
     }
   },
 );
+
+export const getDictionaries = createAsyncThunk(
+  'game/getDictionaries',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await api.get(`/api/dictionaries`);
+      return data;
+    } catch (err) {
+      console.log(err);
+      const error = err as AxiosError<ApiErrorResponse>;
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  },
+);
+
+export const getUserAndDictionaries = createAsyncThunk(
+  'data/getUserAndDictionaries',
+  async (_, thunkAPI) => {
+    const [userInfo, dictionaries] = await Promise.all([
+      thunkAPI.dispatch(getUserData()).unwrap(),
+      thunkAPI.dispatch(getDictionaries()).unwrap(),
+    ]);
+
+    return { userInfo, dictionaries };
+  },
+);
