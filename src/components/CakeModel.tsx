@@ -6,7 +6,7 @@ import { Group, Raycaster, Vector2, Vector3 } from 'three';
 const MAX_TILT = Math.PI / 16;
 
 function CakeModel({ onClick }: { onClick: () => void }) {
-  const { scene } = useGLTF('/public/models/cake/scene.gltf');
+  const { scene } = useGLTF('/models/cake/scene.gltf');
   const { camera, gl } = useThree();
 
   const baseRef = useRef<Group>(null); // начальный поворот
