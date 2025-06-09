@@ -17,7 +17,9 @@ type TabName = (typeof TabNames)[keyof typeof TabNames];
 const TabComponentsMap = {
   [TabNames.MAIN]: <MainPage />,
   [TabNames.BUILDINGS]: <BuildingsPage />,
-  [TabNames.UPGRADES]: <div />,
+  [TabNames.UPGRADES]: (
+    <div className="text-black text-4xl">Улучшения в разработке</div>
+  ),
 };
 
 function PageController() {
