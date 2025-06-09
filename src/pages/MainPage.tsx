@@ -1,37 +1,22 @@
 import { useAppSelector } from '../app/hooks';
-import { selectBuildings, selectCurrency } from '../app/selectors';
-import { Building, IncrementButton } from '../components';
-import { getPrice } from '../utils/getPrice';
+import { selectCurrency, selectCurrencyPerSecond } from '../app/selectors';
+import { IncrementButton } from '../components';
+import { formatLargeNumber } from '../utils/format';
 
 function MainPage() {
-  const buildings = useAppSelector(selectBuildings);
   const currency = useAppSelector(selectCurrency);
 
-  const getIsShowed = (buildingId: number): boolean => {
-    if (buildingId === 1) return true;
-    return (
-      (buildings.find((building) => building.buildingId === buildingId - 1)
-        ?.level || 0) > 0
-    );
-  };
+  const currencyPerSecond = useAppSelector(selectCurrencyPerSecond);
 
   return (
-    <div className="card">
+    <div className="pt-8 w-full h-full bg-radial from-tortik-yellow via-tortik-orange via-40% to-indigo-900">
+      <div className="text-2xl text-shadow-lg">
+        {'Заработок: ' + formatLargeNumber(currencyPerSecond) + ' в секунду'}
+      </div>
+      <div className="text-2xl text-shadow-lg">
+        Денег: {formatLargeNumber(currency)}
+      </div>
       <IncrementButton />
-      {/* <ClickUpgrade /> */}
-      {[...buildings]
-        .sort((a, b) => a.buildingId - b.buildingId)
-        .map((building) => (
-          <Building
-            building={building}
-            key={building.buildingId}
-            showed={getIsShowed(building.buildingId)}
-            disabled={
-              currency <
-              getPrice(building.basePrice, building.multiplier, building.level)
-            }
-          />
-        ))}
     </div>
   );
 }

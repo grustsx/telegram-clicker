@@ -24,6 +24,8 @@ const Building = ({
   const userId = useAppSelector(selectUserId);
 
   const handleClick = () => {
+    if (disabled) return;
+
     dispatch(incrementBuildingLevel(buildingId));
     dispatch(updateCurrencyPerSecond());
     sendUpgradeBuilding(buildingId, userId);
@@ -31,17 +33,20 @@ const Building = ({
 
   return (
     showed && (
-      <div className="row">
-        <button disabled={disabled} onClick={handleClick}>
-          {name +
-            ': ' +
-            formatLargeNumber(
-              getPrice(building.basePrice, building.multiplier, building.level),
-            ) +
-            ' денег'}
-        </button>
-        <div>{'lvl: ' + level}</div>
-        <div>{'доход: ' + formatLargeNumber(+level * +incomePerSecond)}</div>
+      <div
+        className={`p-4 flex flex-row justify-between items-center text-lg text-shadow-lg shadow-md ${disabled ? 'bg-black/5 text-black/50' : 'bg-white/5 text-tortik-white'}`}
+        onClick={handleClick}
+      >
+        <div className="w-1/5">{name}</div>
+        <div className="w-1/5">
+          {formatLargeNumber(
+            getPrice(building.basePrice, building.multiplier, building.level),
+          ) + ' денег'}
+        </div>
+        <div className="w-1/5">{level + ' lvl'}</div>
+        <div className="w-1/5">
+          {'доход: ' + formatLargeNumber(+level * +incomePerSecond)}
+        </div>
       </div>
     )
   );

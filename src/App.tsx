@@ -2,7 +2,7 @@ import React from 'react';
 
 import './App.css';
 import { IS_DEV } from './env';
-import { MainPage } from './pages';
+import { PageController } from './pages';
 import type { TgUserType } from './types/types';
 import { Loader } from './components';
 import { setUserData } from './state/gameSlice';
@@ -36,7 +36,6 @@ function App() {
   React.useEffect(() => {
     const user: TgUserType | undefined = tg?.WebApp?.initDataUnsafe?.user;
     if (!user) return;
-    console.log('effect');
     dispatch(setUserData(user));
     dispatch(getUserAndDictionaries());
   }, [dispatch, tg?.WebApp?.initDataUnsafe?.user]);
@@ -44,7 +43,7 @@ function App() {
   return (
     <Loader>
       <ErrorHandler>
-        <MainPage />
+        <PageController />
       </ErrorHandler>
     </Loader>
   );

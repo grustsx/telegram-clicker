@@ -1,6 +1,7 @@
 import { useState, useEffect, type ReactElement } from 'react';
 import { selectLoading } from '../app/selectors';
 import { useAppSelector } from '../app/hooks';
+import loadingGif from '../assets/loading.gif';
 
 const loadingMessagesArray = [
   'Загрузка...',
@@ -24,6 +25,15 @@ const Loader = ({ children }: { children: ReactElement }) => {
       clearInterval(interval);
     };
   }, []);
-  return loading ? <div>{loadingMessagesArray[messageIndex]}</div> : children;
+  return loading ? (
+    <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-tortik-orange overflow-hidden">
+      <img src={loadingGif} alt="Загрузка..." className="w-64 h-64" />
+      <div className="text-3xl text-tortik-white">
+        {loadingMessagesArray[messageIndex]}
+      </div>
+    </div>
+  ) : (
+    children
+  );
 };
 export default Loader;

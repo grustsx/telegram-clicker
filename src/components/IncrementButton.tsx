@@ -1,23 +1,18 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import {
-  selectCurrency,
-  selectCurrencyPerSecond,
-  selectUserId,
-} from '../app/selectors';
+import { selectCurrencyPerSecond, selectUserId } from '../app/selectors';
 import {
   incrementCurrencyByClick,
   incrementCurrencyByPerSecond,
 } from '../state/gameSlice';
 import { sendClicks } from '../api';
-import { formatLargeNumber } from '../utils/format';
+import CakeScene from './CakeScene';
 
 const IncrementButton = () => {
   const pendingClicks = React.useRef<number>(0);
 
   const dispatch = useAppDispatch();
 
-  const currency = useAppSelector(selectCurrency);
   const currencyPerSecond = useAppSelector(selectCurrencyPerSecond);
   const userId = useAppSelector(selectUserId);
 
@@ -41,20 +36,12 @@ const IncrementButton = () => {
     };
   }, [currencyPerSecond, dispatch, userId]);
 
-  const handleClick = () => {
+  const handleClick = React.useCallback(() => {
     dispatch(incrementCurrencyByClick());
     pendingClicks.current += 1;
-  };
+  }, [dispatch]);
 
-  return (
-    <>
-      <div>
-        {'Заработок: ' + formatLargeNumber(currencyPerSecond) + ' в секунду'}
-      </div>
-      <button onClick={handleClick}>
-        Денег: {formatLargeNumber(currency)}
-      </button>
-    </>
-  );
+  return <CakeScene onClick={handleClick} />;
 };
-export default IncrementButton;
+
+export default React.memo(IncrementButton);
