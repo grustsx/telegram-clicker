@@ -21,6 +21,14 @@ function CakeModel({ onClick }: { onClick: () => void }) {
       (tiltTarget.x - tiltRef.current.rotation.x) * 0.3;
     tiltRef.current.rotation.z +=
       (tiltTarget.z - tiltRef.current.rotation.z) * 0.3;
+
+    if (
+      Math.abs(tiltRef.current.rotation.x - tiltTarget.x) < 0.01 &&
+      Math.abs(tiltRef.current.rotation.z - tiltTarget.z) < 0.01 &&
+      (tiltTarget.x !== 0 || tiltTarget.z !== 0)
+    ) {
+      setTiltTarget({ x: 0, z: 0 }); // возврат
+    }
   });
 
   const handleClick = (e: React.MouseEvent) => {
@@ -48,17 +56,17 @@ function CakeModel({ onClick }: { onClick: () => void }) {
     }
   };
 
-  const handleUnClick = () => {
-    if (!tiltRef.current) return;
+  //   const handleUnClick = () => {
+  //     if (!tiltRef.current) return;
 
-    if (
-      Math.abs(tiltRef.current.rotation.x - tiltTarget.x) < 0.01 &&
-      Math.abs(tiltRef.current.rotation.z - tiltTarget.z) < 0.01 &&
-      (tiltTarget.x !== 0 || tiltTarget.z !== 0)
-    ) {
-      setTiltTarget({ x: 0, z: 0 }); // возврат
-    }
-  };
+  //     if (
+  //       Math.abs(tiltRef.current.rotation.x - tiltTarget.x) < 0.01 &&
+  //       Math.abs(tiltRef.current.rotation.z - tiltTarget.z) < 0.01 &&
+  //       (tiltTarget.x !== 0 || tiltTarget.z !== 0)
+  //     ) {
+  //       setTiltTarget({ x: 0, z: 0 }); // возврат
+  //     }
+  //   };
 
   return (
     <group
@@ -68,12 +76,12 @@ function CakeModel({ onClick }: { onClick: () => void }) {
     >
       <group
         ref={tiltRef}
-        onPointerDown={handleClick}
-        onPointerUp={(e) => {
-          e.stopPropagation();
-          handleUnClick();
-        }}
-        onPointerLeave={handleUnClick}
+        onClick={handleClick}
+        // onPointerUp={(e) => {
+        //   e.stopPropagation();
+        //   handleUnClick();
+        // }}
+        // onPointerLeave={handleUnClick}
       >
         <primitive object={scene} scale={0.02} />
       </group>
