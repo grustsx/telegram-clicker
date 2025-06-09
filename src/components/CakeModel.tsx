@@ -2,12 +2,11 @@ import React, { useRef, useState } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { Group, Raycaster, Vector2, Vector3 } from 'three';
-import modelUrl from '../assets/models/cake/scene.gltf?url';
 
 const MAX_TILT = Math.PI / 16;
 
 function CakeModel({ onClick }: { onClick: () => void }) {
-  const { scene } = useGLTF(modelUrl);
+  const { scene } = useGLTF('/public/models/cake/scene.gltf');
   const { camera, gl } = useThree();
 
   const baseRef = useRef<Group>(null); // начальный поворот
