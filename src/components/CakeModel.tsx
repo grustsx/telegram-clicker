@@ -32,6 +32,8 @@ function CakeModel({ onClick }: { onClick: () => void }) {
   });
 
   const handleClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+
     const bounds = gl.domElement.getBoundingClientRect();
     const mouse = new Vector2(
       ((e.clientX - bounds.left) / bounds.width) * 2 - 1,
