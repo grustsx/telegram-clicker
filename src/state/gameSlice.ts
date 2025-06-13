@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { BuildingType, TgUserType } from '../types/types';
+import type { BuildingType, SkillType, TgUserType } from '../types/types';
 import { getUserAndDictionaries } from './thunk';
 import { getPrice, getCurrencyPerClick } from '../utils';
 
@@ -16,6 +16,7 @@ export interface GameState {
   buildings: BuildingType[];
   loading: boolean;
   errorMessage: string;
+  skillTree: SkillType[];
 }
 
 const initialState: GameState = {
@@ -31,6 +32,35 @@ const initialState: GameState = {
   buildings: [],
   currencyPerSecond: 0,
   errorMessage: '',
+  skillTree: [
+    {
+      id: 'root',
+      name: 'Start',
+      description: 'Начальный скилл',
+      position: { x: 0, y: 0 },
+    },
+    {
+      id: 'a1',
+      name: 'Скорость',
+      description: 'Увеличивает скорость клика',
+      requires: ['root'],
+      position: { x: -1, y: 1 },
+    },
+    {
+      id: 'a2',
+      name: 'Автоклик',
+      description: 'Пассивный доход',
+      requires: ['root'],
+      position: { x: 1, y: 1 },
+    },
+    {
+      id: 'b1',
+      name: 'Мега-клик',
+      description: 'Большой бонус',
+      requires: ['a1', 'a2'],
+      position: { x: 0, y: 2 },
+    },
+  ],
 };
 
 const gameSlice = createSlice({
@@ -113,9 +143,9 @@ const gameSlice = createSlice({
       })
       .addCase(getUserAndDictionaries.rejected, (state, action) => {
         state.loading = false;
-        const payload = action.payload as string;
+        const errorMessage = action.error.message as string;
 
-        state.errorMessage = payload || 'Произошла неизвестная ошибка';
+        state.errorMessage = errorMessage || 'Произошла неизвестная ошибка';
       });
   },
 });

@@ -14,3 +14,5 @@ export const selectClickInfo = (state: RootState) => state.game.clickInfo;
 export const selectLoading = (state: RootState) => state.game.loading;
 
 export const selectErrorMessage = (state: RootState) => state.game.errorMessage;
+
+export const selectSkillTree = (state: RootState) => state.game.skillTree;

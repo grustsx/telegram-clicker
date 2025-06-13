@@ -24,3 +24,11 @@ export type TgUserType = {
   id?: number;
   username?: string;
 };
+
+export type SkillType = {
+  id: string;
+  name: string;
+  description: string;
+  position: { x: number; y: number };
+  requires?: string[];
+};

@@ -18,7 +18,7 @@ const IncrementButton = () => {
 
   React.useEffect(() => {
     const fetchInterval = setInterval(() => {
-      if (!userId || pendingClicks.current <= 0) return;
+      if (!userId) return;
       sendClicks(pendingClicks.current, userId);
       pendingClicks.current = 0;
     }, 2000);

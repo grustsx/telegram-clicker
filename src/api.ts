@@ -21,7 +21,7 @@ export const sendUpgradeClickLevel = (
 };
 
 export const sendClicks = (count: number, userId: number) => {
-  if (!userId || count === 0) return;
+  if (!userId) return;
 
   return api.post(`/api/users/${userId}/clicks`, {
     count,

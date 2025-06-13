@@ -34,7 +34,7 @@ const Building = ({
   return (
     showed && (
       <div
-        className={`p-4 flex flex-row justify-between items-center text-lg text-shadow-lg shadow-md ${disabled ? 'bg-black/5 text-black/50' : 'bg-white/5 text-tortik-white'}`}
+        className={`p-4 flex flex-row justify-between items-center text-lg text-shadow-lg shadow-md cursor-pointer select-none ${disabled ? 'bg-black/5 text-black/50' : 'bg-white/5 text-tortik-white'} hover:bg-tortik-orange/50`}
         onClick={handleClick}
       >
         <div className="w-1/5">{name}</div>
