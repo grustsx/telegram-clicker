@@ -6,6 +6,8 @@ import { getPrice, getCurrencyPerClick } from '../utils';
 export interface GameState {
   currency: number;
   currencyPerSecond: number;
+  storage: number;
+  storageCurrency: number;
   clickInfo: {
     currencyPerClick: number;
     clickLevel: number;
@@ -61,12 +63,18 @@ const initialState: GameState = {
       position: { x: 0, y: 2 },
     },
   ],
+  storage: 0,
+  storageCurrency: 0,
 };
 
 const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
+    claimStorage(state) {
+      state.currency += state.storageCurrency;
+      state.storageCurrency = 0;
+    },
     incrementCurrencyByClick(state) {
       state.currency += state.clickInfo.currencyPerClick;
     },
@@ -120,6 +128,8 @@ const gameSlice = createSlice({
         const updatedState = {
           currency: +userInfo.user.currency,
           currencyPerSecond: +userInfo.user.currencyPerSecond,
+          storage: +userInfo.user.storage,
+          storageCurrency: +userInfo.user.storageCurrency,
           clickInfo: {
             clickLevel: +userInfo.user.clickLevel,
             currencyPerClick: getCurrencyPerClick(+userInfo.user.clickLevel),
@@ -154,6 +164,7 @@ export const {
   incrementCurrencyByClick,
   incrementBuildingLevel,
   updateCurrencyPerSecond,
+  claimStorage,
   incrementCurrencyByPerSecond,
   setUserData,
   incrementClickLevel,

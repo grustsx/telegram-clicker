@@ -1,6 +1,6 @@
 import { useAppSelector } from '../app/hooks';
 import { selectCurrency, selectCurrencyPerSecond } from '../app/selectors';
-import { IncrementButton } from '../components';
+import { IncrementButton, Storage } from '../components';
 import { formatLargeNumber } from '../utils/format';
 
 function MainPage() {
@@ -16,6 +16,7 @@ function MainPage() {
       <div className="text-2xl text-shadow-lg">
         Денег: {formatLargeNumber(currency)}
       </div>
+      <Storage />
       <IncrementButton />
     </div>
   );
