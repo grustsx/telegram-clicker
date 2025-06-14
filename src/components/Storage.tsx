@@ -21,8 +21,6 @@ const Storage = () => {
     sendClaimStorage(userId);
   };
 
-  console.log(storage, cps);
-
   return (
     <div
       className={`text-2xl select-none ${storageCurrency > 0 ? 'text-tortik-yellow hover:bg-tortik-orange/50 cursor-pointer' : 'text-tortik-white'}`}

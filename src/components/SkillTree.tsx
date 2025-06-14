@@ -24,7 +24,7 @@ function SkillTree() {
   };
 
   return (
-    <div className="relative w-full h-[500px] grid grid-cols-5 grid-rows-5">
+    <div className="relative w-full h-full">
       {skills.map((skill) => {
         const state = computeState(skill);
         const color =
@@ -37,9 +37,11 @@ function SkillTree() {
         return (
           <div
             key={skill.id}
-            className={`absolute left-[${skill.position.x * 100 + 250}px] top-[${
-              skill.position.y * 100
-            }px] w-24 h-24 ${color} rounded-lg p-2 text-center cursor-pointer`}
+            className={`absolute w-24 h-24 ${color} rounded-lg p-2 text-center cursor-pointer`}
+            style={{
+              left: `${skill.position.x * 100 + 250}px`,
+              top: `${skill.position.y * 100}px`,
+            }}
             onClick={() => onClick(skill)}
           >
             <strong>{skill.name}</strong>

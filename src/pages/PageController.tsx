@@ -5,7 +5,7 @@ import CakeSvg from '../assets/cake.svg?react';
 import BuildingSvg from '../assets/building.svg?react';
 import UpgradeSvg from '../assets/upgrade.svg?react';
 import BuildingsPage from './BuildingsPage';
-// import SkillTree from '../components/SkillTree';
+import SkillTree from '../components/SkillTree';
 
 const TabNames = {
   MAIN: 'main',
@@ -18,7 +18,7 @@ type TabName = (typeof TabNames)[keyof typeof TabNames];
 const TabComponentsMap = {
   [TabNames.MAIN]: <MainPage />,
   [TabNames.BUILDINGS]: <BuildingsPage />,
-  [TabNames.UPGRADES]: <div />,
+  [TabNames.UPGRADES]: <SkillTree />,
 };
 
 function PageController() {
