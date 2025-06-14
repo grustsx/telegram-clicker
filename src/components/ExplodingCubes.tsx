@@ -37,7 +37,10 @@ function FallingParticles({
   return (
     <>
       {springs.map(({ position, opacity }, i) => (
-        <a.mesh key={i} position={position}>
+        <a.mesh
+          key={i}
+          position={position as unknown as [number, number, number]}
+        >
           <planeGeometry args={[0.05, 0.05]} />
           <a.meshStandardMaterial transparent opacity={opacity} color="brown" />
         </a.mesh>
