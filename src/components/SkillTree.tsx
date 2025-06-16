@@ -24,7 +24,7 @@ function SkillTree() {
   };
 
   return (
-    <div className="relative w-full h-full">
+    <div className="relative w-[1000px] h-[1000px] bg-radial from-tortik-orange via-indigo-900 to-black">
       {skills.map((skill) => {
         const state = computeState(skill);
         const color =

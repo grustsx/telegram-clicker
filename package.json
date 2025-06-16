@@ -20,6 +20,7 @@
     "howler": "^2.2.4",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-draggable-scroll": "^1.2.0",
     "react-redux": "^9.2.0",
     "three": "^0.177.0"
   },
