@@ -1,12 +1,10 @@
-import  {useRef } from "react";
-import useScrollOnDrag from "react-draggable-scroll";
-
 import {SkillTree} from "../components";
+import useDragScroll from "../hooks/useDragScroll";
 
 function SkillTreePage() {
-    const containerRef = useRef(null);
-    const { events } = useScrollOnDrag(containerRef);
-    return  <div {...events} ref={containerRef} className="w-full h-full overflow-scroll "><SkillTree/></div>
+    const containerRef = useDragScroll<HTMLDivElement>();
+
+    return  <div  ref={containerRef} className="w-full h-full overflow-scroll "><SkillTree/></div>
 }
 
 export default SkillTreePage;
