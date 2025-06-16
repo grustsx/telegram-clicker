@@ -1,0 +1,10 @@
+diff --git a/node_modules/react-draggable-scroll/index.ts b/node_modules/react-draggable-scroll/index.ts
+index 03616e4..61f098f 100644
+--- a/node_modules/react-draggable-scroll/index.ts
++++ b/node_modules/react-draggable-scroll/index.ts
+@@ -1,4 +1,4 @@
+-import React, { RefObject, useCallback, useEffect, useRef } from "react";
++import React, { type RefObject, useCallback, useEffect, useRef } from "react";
+ import invariant from "tiny-invariant";
+ 
+ type RunScrollParams = {
