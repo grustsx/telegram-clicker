@@ -17,6 +17,8 @@ export const selectErrorMessage = (state: RootState) => state.game.errorMessage;
 
 export const selectSkillTree = (state: RootState) => state.game.skillTree;
 
+export const selectSkillPoints = (state: RootState) => state.game.skillPoints;
+
 export const selectStorage = (state: RootState) => ({
   storage: state.game.storage,
   storageCurrency: state.game.storageCurrency,
