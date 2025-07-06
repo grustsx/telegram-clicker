@@ -231,7 +231,7 @@ const gameSlice = createSlice({
       const skillId = action.payload;
       const skill = state.skillTree.find((skill) => skill.id === skillId);
 
-      if (!skill || skill?.price > state.skillPoints) return;
+      if (!skill || skill?.price > state.skillPoints || skill?.unlocked) return;
       state.skillPoints = state.skillPoints - skill.price;
       skill.unlocked = true;
     },
