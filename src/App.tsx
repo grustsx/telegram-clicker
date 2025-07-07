@@ -7,7 +7,7 @@ import type { TgUserType } from './types/types';
 import { Loader } from './components';
 import { setUserData } from './state/gameSlice';
 import { useAppDispatch } from './app/hooks';
-import { getUserAndDictionaries } from './state/thunk';
+import { getUserAndDictionaries, getUserData } from './state/thunk';
 import ErrorHandler from './components/ErrorHandler';
 
 const mockedTg: {
@@ -39,6 +39,26 @@ function App() {
     dispatch(setUserData(user));
     dispatch(getUserAndDictionaries());
   }, [dispatch, tg?.WebApp?.initDataUnsafe?.user]);
+
+  React.useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        dispatch(getUserData());
+      }
+    };
+
+    const handlePageShow = () => {
+      dispatch(getUserData());
+    };
+
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('pageshow', handlePageShow);
+
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('pagehide', handlePageShow);
+    };
+  }, [dispatch]);
 
   return (
     <Loader>
