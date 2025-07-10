@@ -7,7 +7,7 @@ import type { TgUserType } from './types/types';
 import { Loader } from './components';
 import { setUserData } from './state/gameSlice';
 import { useAppDispatch } from './app/hooks';
-import { getUserAndDictionaries, getUserData } from './state/thunk';
+import { getUserAndDictionaries } from './state/thunk';
 import ErrorHandler from './components/ErrorHandler';
 
 const mockedTg: {
@@ -48,7 +48,7 @@ function App() {
     };
 
     const handlePageShow = () => {
-      dispatch(getUserAndDictionaries());
+      //dispatch(getUserAndDictionaries());
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
