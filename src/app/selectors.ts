@@ -1,13 +1,15 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { type RootState } from './store';
+import { getCurrencyPerClick } from '../utils';
+import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
 
 export const selectCurrency = (state: RootState) => state.game.currency;
 
-export const selectCurrencyPerSecond = (state: RootState) =>
-  state.game.currencyPerSecond;
+// export const selectCurrencyPerSecond = (state: RootState) =>
+//   state.game.currencyPerSecond;
 
-export const selectCurrencyPerClick = (state: RootState) =>
-  state.game.currencyPerClick;
+// export const selectCurrencyPerClick = (state: RootState) =>
+//   state.game.currencyPerClick;
 
 export const selectBuildings = (state: RootState) => state.game.buildings;
 
@@ -30,5 +32,29 @@ export const selectUnlockedSkillsIds = createSelector(
   [selectSkillTree],
   (skills) => {
     return skills.filter((skill) => skill.unlocked).map((skill) => skill.id);
+  },
+);
+
+export const selectCurrencyPerClick = createSelector(
+  [selectUnlockedSkillsIds, selectBuildings],
+  (unlockedSkillsIds, buildings) => {
+    return getCurrencyPerClick(
+      unlockedSkillsIds,
+      buildings.reduce((prev, building) => prev + building.level, 0),
+    );
+  },
+);
+
+export const selectCurrencyPerSecond = createSelector(
+  [selectUnlockedSkillsIds, selectBuildings],
+  (unlockedSkillsIds, buildings) => {
+    return getCurrencyPerSecond(
+      unlockedSkillsIds,
+      buildings.map((building) => ({
+        level: building.level,
+        income: building.incomePerSecond,
+        id: building.buildingId,
+      })),
+    );
   },
 );

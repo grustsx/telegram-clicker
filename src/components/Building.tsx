@@ -1,10 +1,7 @@
 import { sendUpgradeBuilding } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectUnlockedSkillsIds, selectUserId } from '../app/selectors';
-import {
-  incrementBuildingLevel,
-  updateCurrencyPerSecond,
-} from '../state/gameSlice';
+import { incrementBuildingLevel } from '../state/gameSlice';
 import type { BuildingType } from '../types/types';
 import { formatLargeNumber } from '../utils/format';
 import { getPrice } from '../utils/getPrice';
@@ -28,7 +25,6 @@ const Building = ({
     if (disabled) return;
 
     dispatch(incrementBuildingLevel(buildingId));
-    dispatch(updateCurrencyPerSecond());
     sendUpgradeBuilding(buildingId, userId);
   };
 

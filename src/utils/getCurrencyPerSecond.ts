@@ -1,10 +1,10 @@
 const buildingIdToSkillIdMap: Record<number, string> = {
-  1: '9',
-  2: '10',
-  3: '11',
-  4: '12',
-  5: '13',
-  6: '14',
+  1: '13',
+  2: '14',
+  3: '15',
+  4: '16',
+  5: '17',
+  6: '18',
 };
 
 export const getCurrencyPerSecond = (
@@ -22,7 +22,8 @@ export const getCurrencyPerSecond = (
       0,
     ) *
       (1 + 0.05 * skill('3')) *
+      (1 + 0.05 * skill('5')) *
       (1 + 0.05 * skill('6')) *
-      (1 + 0.05 * skill('5')),
+      (1 + 0.1 * skill('11')),
   );
 };

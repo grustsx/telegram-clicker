@@ -9,6 +9,6 @@ export const getPrice = (
   };
 
   return Math.floor(
-    +basePrice * Math.pow(+multiplier, +level) * (1 - 0.05 * skill('8')),
+    +basePrice * Math.pow(+multiplier, +level) * (1 - 0.05 * skill('9')),
   );
 };

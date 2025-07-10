@@ -7,11 +7,9 @@ import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
 
 export interface GameState {
   currency: number;
-  currencyPerSecond: number;
   storage: number;
   storageCurrency: number;
   skillPoints: number;
-  currencyPerClick: number;
   user: TgUserType;
   buildings: BuildingType[];
   loading: boolean;
@@ -22,11 +20,9 @@ export interface GameState {
 const initialState: GameState = {
   loading: true,
   currency: 0,
-  currencyPerClick: 1,
   skillPoints: 0,
   user: {},
   buildings: [],
-  currencyPerSecond: 0,
   errorMessage: '',
   skillsTree: [],
   storage: 0,
@@ -42,7 +38,16 @@ const gameSlice = createSlice({
       state.storageCurrency = 0;
     },
     incrementCurrencyByPerSecond(state) {
-      state.currency += state.currencyPerSecond;
+      state.currency += getCurrencyPerSecond(
+        state.skillsTree
+          .filter((skill) => skill.unlocked)
+          .map((skill) => skill.id),
+        state.buildings.map((building: BuildingType) => ({
+          level: building.level,
+          income: building.incomePerSecond,
+          id: building.buildingId,
+        })),
+      );
     },
     incrementBuildingLevel(state, action: PayloadAction<number>) {
       const buildingId = action.payload;
@@ -61,23 +66,8 @@ const gameSlice = createSlice({
         state.skillPoints += 1;
       }
     },
-    updateCurrencyPerSecond(state) {
-      state.currencyPerSecond = getCurrencyPerSecond(
-        state.skillsTree
-          .filter((skill) => skill.unlocked)
-          .map((skill) => skill.id),
-        state.buildings.map((building: BuildingType) => ({
-          level: building.level,
-          income: building.incomePerSecond,
-          id: building.buildingId,
-        })),
-      );
-    },
     incrementCurrencyByClick(state) {
-      state.currency += state.currencyPerClick;
-    },
-    updateCurrencyPerClick(state) {
-      state.currencyPerClick = getCurrencyPerClick(
+      state.currency += getCurrencyPerClick(
         state.skillsTree
           .filter((skill) => skill.unlocked)
           .map((skill) => skill.id),
@@ -121,27 +111,9 @@ const gameSlice = createSlice({
 
         const updatedState = {
           currency: +userInfo.user.currency,
-          currencyPerSecond: getCurrencyPerSecond(
-            userInfo.unlockedSkills,
-            userInfo.buildings.map((building) => ({
-              level: building.level,
-              income:
-                dictionaries.buildings.find(
-                  ({ buildingId }) => buildingId === building.buildingId,
-                )?.incomePerSecond || 0,
-              id: building.buildingId,
-            })),
-          ),
           storage: +userInfo.user.storage,
           storageCurrency: +userInfo.user.storageCurrency,
           skillPoints: +userInfo.user.skillPoints,
-          currencyPerClick: getCurrencyPerClick(
-            userInfo.unlockedSkills,
-            userInfo.buildings.reduce(
-              (prev, building) => prev + building.level,
-              0,
-            ),
-          ),
           buildings: dictionaries.buildings.map((building) => ({
             buildingId: building.buildingId,
             name: building.name,
@@ -170,11 +142,9 @@ const gameSlice = createSlice({
 export const {
   incrementCurrencyByClick,
   incrementBuildingLevel,
-  updateCurrencyPerSecond,
   claimStorage,
   incrementCurrencyByPerSecond,
   setUserData,
   buySkill,
-  updateCurrencyPerClick,
 } = gameSlice.actions;
 export default gameSlice.reducer;

@@ -1,11 +1,7 @@
 import { sendBuySkill } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectUserId } from '../app/selectors';
-import {
-  buySkill,
-  updateCurrencyPerClick,
-  updateCurrencyPerSecond,
-} from '../state/gameSlice';
+import { buySkill } from '../state/gameSlice';
 
 import type { HelpInfo } from './SkillTree';
 
@@ -24,8 +20,6 @@ const SkillHelper = ({
 
   const buyChosenSkill = (skillId: string) => {
     dispatch(buySkill(skillId));
-    dispatch(updateCurrencyPerClick());
-    dispatch(updateCurrencyPerSecond());
 
     sendBuySkill(id, userId);
   };
