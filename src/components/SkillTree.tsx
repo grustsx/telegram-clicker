@@ -49,7 +49,7 @@ function SkillTree() {
       )}
       <div className="fixed">{'Очки улучшения: ' + skillPoints}</div>
       {skills
-        .filter((skill) => computeState(skill) !== 'locked')
+        .filter((skill) => computeState(skill) !== 'locked' && !skill.hidden)
         .map((skill) => {
           const state = computeState(skill);
           const color =

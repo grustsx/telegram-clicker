@@ -1,6 +1,6 @@
 export const SKILLS_INFO: Record<
   string,
-  { description: string; position: { x: number; y: number } }
+  { description: string; position: { x: number; y: number }; hidden?: boolean }
 > = {
   '1': {
     description: 'Два клика по цене одного',
@@ -62,6 +62,7 @@ export const SKILLS_INFO: Record<
   '15': {
     description: '+ 10 мин к складу',
     position: { x: 700, y: 100 },
+    hidden: true,
   },
   '16': {
     description: '+ 10 мин к складу',

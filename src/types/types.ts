@@ -22,4 +22,5 @@ export type SkillType = {
   position: { x: number; y: number };
   requires?: string[];
   unlocked?: boolean;
+  hidden?: boolean;
 };
