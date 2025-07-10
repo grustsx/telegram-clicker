@@ -1,3 +1,4 @@
+import { createSelector } from '@reduxjs/toolkit';
 import { type RootState } from './store';
 
 export const selectCurrency = (state: RootState) => state.game.currency;
@@ -24,3 +25,10 @@ export const selectStorage = (state: RootState) => ({
   storage: state.game.storage,
   storageCurrency: state.game.storageCurrency,
 });
+
+export const selectUnlockedSkillsIds = createSelector(
+  [selectSkillTree],
+  (skills) => {
+    return skills.filter((skill) => skill.unlocked).map((skill) => skill.id);
+  },
+);

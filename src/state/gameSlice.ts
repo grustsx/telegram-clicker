@@ -53,6 +53,9 @@ const gameSlice = createSlice({
           building.basePrice,
           building.multiplier,
           building.level,
+          state.skillsTree
+            .filter((skill) => skill.unlocked)
+            .map((skill) => skill.id),
         );
         building.level += 1;
         state.skillPoints += 1;

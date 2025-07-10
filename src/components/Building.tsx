@@ -1,6 +1,6 @@
 import { sendUpgradeBuilding } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { selectUserId } from '../app/selectors';
+import { selectUnlockedSkillsIds, selectUserId } from '../app/selectors';
 import {
   incrementBuildingLevel,
   updateCurrencyPerSecond,
@@ -22,6 +22,7 @@ const Building = ({
   const dispatch = useAppDispatch();
 
   const userId = useAppSelector(selectUserId);
+  const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
 
   const handleClick = () => {
     if (disabled) return;
@@ -40,7 +41,12 @@ const Building = ({
         <div className="w-1/5">{name}</div>
         <div className="w-1/5">
           {formatLargeNumber(
-            getPrice(building.basePrice, building.multiplier, building.level),
+            getPrice(
+              building.basePrice,
+              building.multiplier,
+              building.level,
+              unlockedSkills,
+            ),
           ) + ' денег'}
         </div>
         <div className="w-1/5">{level + ' lvl'}</div>
