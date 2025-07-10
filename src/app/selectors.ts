@@ -9,13 +9,11 @@ export const selectBuildings = (state: RootState) => state.game.buildings;
 
 export const selectUserId = (state: RootState) => state.game.user.id;
 
-export const selectClickInfo = (state: RootState) => state.game.clickInfo;
-
 export const selectLoading = (state: RootState) => state.game.loading;
 
 export const selectErrorMessage = (state: RootState) => state.game.errorMessage;
 
-export const selectSkillTree = (state: RootState) => state.game.skillTree;
+export const selectSkillTree = (state: RootState) => state.game.skillsTree;
 
 export const selectSkillPoints = (state: RootState) => state.game.skillPoints;
 

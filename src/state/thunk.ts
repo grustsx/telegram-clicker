@@ -2,7 +2,11 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { RootState } from '../app/store';
 import api from '../axios';
 import type { AxiosError } from 'axios';
-import type { ApiErrorResponse } from '../types/api';
+import type {
+  ApiErrorResponse,
+  GetDictionariesType,
+  GetUserDataType,
+} from '../types/api';
 
 export const getUserData = createAsyncThunk(
   'game/getUserData',
@@ -10,7 +14,7 @@ export const getUserData = createAsyncThunk(
     try {
       const userId = (getState() as RootState).game.user.id;
       const { data } = await api.get(`/api/users/${userId}`);
-      return data;
+      return data as GetUserDataType;
     } catch (err) {
       console.log(err);
       const error = err as AxiosError<ApiErrorResponse>;
@@ -24,7 +28,7 @@ export const getDictionaries = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await api.get(`/api/dictionaries`);
-      return data;
+      return data as GetDictionariesType;
     } catch (err) {
       console.log(err);
       const error = err as AxiosError<ApiErrorResponse>;
