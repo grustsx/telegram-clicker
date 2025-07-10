@@ -47,16 +47,10 @@ function App() {
       }
     };
 
-    const handlePageShow = () => {
-      //dispatch(getUserAndDictionaries());
-    };
-
     document.addEventListener('visibilitychange', handleVisibilityChange);
-    window.addEventListener('pageshow', handlePageShow);
 
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
-      window.removeEventListener('pagehide', handlePageShow);
     };
   }, [dispatch]);
 
