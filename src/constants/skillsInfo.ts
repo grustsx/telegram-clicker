@@ -19,11 +19,11 @@ export const SKILLS_INFO: Record<
     position: { x: 100, y: 400 },
   },
   '5': {
-    description: 'Все будут жопу рвать. 1% ко всему',
+    description: 'Все будут жопу рвать. 5% ко всему',
     position: { x: 300, y: 400 },
   },
   '6': {
-    description: '5% к эффективномти башнен',
+    description: '5% к эффективноcти башнен',
     position: { x: 500, y: 400 },
   },
   '7': {

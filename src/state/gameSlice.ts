@@ -3,6 +3,7 @@ import type { BuildingType, SkillType, TgUserType } from '../types/types';
 import { getUserAndDictionaries } from './thunk';
 import { getPrice, getCurrencyPerClick } from '../utils';
 import { SKILLS_INFO } from '../constants/skillsInfo';
+import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
 
 export interface GameState {
   currency: number;
@@ -58,9 +59,15 @@ const gameSlice = createSlice({
       }
     },
     updateCurrencyPerSecond(state) {
-      state.currencyPerSecond = state.buildings.reduce(
-        (prev, building) => prev + building.level * building.incomePerSecond,
-        0,
+      state.currencyPerSecond = getCurrencyPerSecond(
+        state.skillsTree
+          .filter((skill) => skill.unlocked)
+          .map((skill) => skill.id),
+        state.buildings.map((building: BuildingType) => ({
+          level: building.level,
+          income: building.incomePerSecond,
+          id: building.buildingId,
+        })),
       );
     },
     incrementCurrencyByClick(state) {
@@ -110,7 +117,17 @@ const gameSlice = createSlice({
 
         const updatedState = {
           currency: +userInfo.user.currency,
-          currencyPerSecond: +userInfo.user.currencyPerSecond,
+          currencyPerSecond: getCurrencyPerSecond(
+            userInfo.unlockedSkills,
+            userInfo.buildings.map((building) => ({
+              level: building.level,
+              income:
+                dictionaries.buildings.find(
+                  ({ buildingId }) => buildingId === building.buildingId,
+                )?.incomePerSecond || 0,
+              id: building.buildingId,
+            })),
+          ),
           storage: +userInfo.user.storage,
           storageCurrency: +userInfo.user.storageCurrency,
           skillPoints: +userInfo.user.skillPoints,
@@ -125,7 +142,7 @@ const gameSlice = createSlice({
             buildingId: building.buildingId,
             name: building.name,
             level: userInfo.buildings.find(
-              (userBuilding: { buildingId: number; level: number }) =>
+              (userBuilding: { buildingId: number }) =>
                 userBuilding.buildingId === building.buildingId,
             )?.level,
             basePrice: building.basePrice,
