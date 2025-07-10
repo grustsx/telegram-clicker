@@ -3,7 +3,11 @@ import { Canvas } from '@react-three/fiber';
 import CakeModel from './CakeModel';
 import React from 'react';
 
-function CakeScene({ onClick }: { onClick: () => void }) {
+function CakeScene({
+  onClick,
+}: {
+  onClick: (e: React.PointerEvent<Element>) => void;
+}) {
   return (
     <div className="w-full h-full">
       <Canvas camera={{ position: [0, 1, 5], fov: 50 }}>

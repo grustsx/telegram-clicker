@@ -1,5 +1,7 @@
-import { useAppDispatch } from '../app/hooks';
-import { buySkill } from '../state/gameSlice';
+import { sendBuySkill } from '../api';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { selectUserId } from '../app/selectors';
+import { buySkill, updateCurrencyPerClick } from '../state/gameSlice';
 
 import type { HelpInfo } from './SkillTree';
 
@@ -14,9 +16,13 @@ const SkillHelper = ({
 }) => {
   const { id, name, description, price, unlocked } = helpInfo;
   const dispatch = useAppDispatch();
+  const userId = useAppSelector(selectUserId);
 
   const buyChosenSkill = (skillId: string) => {
     dispatch(buySkill(skillId));
+    dispatch(updateCurrencyPerClick());
+
+    sendBuySkill(id, userId);
   };
 
   return (

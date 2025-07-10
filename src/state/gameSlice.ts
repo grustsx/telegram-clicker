@@ -67,7 +67,12 @@ const gameSlice = createSlice({
       state.currency += state.currencyPerClick;
     },
     updateCurrencyPerClick(state) {
-      state.currencyPerClick = getCurrencyPerClick();
+      state.currencyPerClick = getCurrencyPerClick(
+        state.skillsTree
+          .filter((skill) => skill.unlocked)
+          .map((skill) => skill.id),
+        state.buildings.reduce((prev, building) => prev + building.level, 0),
+      );
     },
     setUserData(state, action: PayloadAction<TgUserType>) {
       state.user = action.payload;
@@ -109,7 +114,13 @@ const gameSlice = createSlice({
           storage: +userInfo.user.storage,
           storageCurrency: +userInfo.user.storageCurrency,
           skillPoints: +userInfo.user.skillPoints,
-          currencyPerClick: getCurrencyPerClick(),
+          currencyPerClick: getCurrencyPerClick(
+            userInfo.unlockedSkills,
+            userInfo.buildings.reduce(
+              (prev, building) => prev + building.level,
+              0,
+            ),
+          ),
           buildings: dictionaries.buildings.map((building) => ({
             buildingId: building.buildingId,
             name: building.name,

@@ -1,6 +1,10 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { selectCurrencyPerSecond, selectUserId } from '../app/selectors';
+import {
+  selectCurrencyPerClick,
+  selectCurrencyPerSecond,
+  selectUserId,
+} from '../app/selectors';
 import {
   incrementCurrencyByClick,
   incrementCurrencyByPerSecond,
@@ -8,12 +12,25 @@ import {
 import { sendClicks } from '../api';
 import CakeScene from './CakeScene';
 
+type FloatingNumber = {
+  id: number;
+  x: number;
+  y: number;
+  value: string;
+};
+
+let idCounter = 0;
+
 const IncrementButton = () => {
+  const [numbers, setNumbers] = React.useState<FloatingNumber[]>([]);
+
   const pendingClicks = React.useRef<number>(0);
 
   const dispatch = useAppDispatch();
 
   const currencyPerSecond = useAppSelector(selectCurrencyPerSecond);
+  const currencyPerClick = useAppSelector(selectCurrencyPerClick);
+
   const userId = useAppSelector(selectUserId);
 
   React.useEffect(() => {
@@ -36,12 +53,43 @@ const IncrementButton = () => {
     };
   }, [currencyPerSecond, dispatch, userId]);
 
-  const handleClick = React.useCallback(() => {
-    dispatch(incrementCurrencyByClick());
-    pendingClicks.current += 1;
-  }, [dispatch]);
+  const handleClick = React.useCallback(
+    (e: React.PointerEvent<Element>) => {
+      dispatch(incrementCurrencyByClick());
+      pendingClicks.current += 1;
 
-  return <CakeScene onClick={handleClick} />;
+      const newNumber: FloatingNumber = {
+        id: idCounter++,
+        x: e.clientX,
+        y: e.clientY,
+        value: `+${currencyPerClick}`, // или подставляй своё значение
+      };
+      setNumbers((prev) => [...prev, newNumber]);
+
+      setTimeout(() => {
+        setNumbers((prev) => prev.filter((n) => n.id !== newNumber.id));
+      }, 500);
+    },
+    [currencyPerClick, dispatch],
+  );
+
+  return (
+    <>
+      <CakeScene onClick={handleClick} />
+      {numbers.map((n) => (
+        <span
+          key={n.id}
+          className="fixed pointer-events-none text-tortik-orange text-3xl font-semibold z-50"
+          style={{
+            left: n.x,
+            top: n.y,
+          }}
+        >
+          {n.value}
+        </span>
+      ))}
+    </>
+  );
 };
 
 export default React.memo(IncrementButton);

@@ -8,7 +8,11 @@ import { playPressSound, playReleaseSound } from '../utils/playCakeSound';
 
 const MAX_TILT = Math.PI / 16;
 
-export default function CakeModel({ onClick }: { onClick: () => void }) {
+export default function CakeModel({
+  onClick,
+}: {
+  onClick: (e: React.PointerEvent<Element>) => void;
+}) {
   const { scene } = useGLTF('/models/cake/scene.gltf');
   const { camera, gl } = useThree();
 
@@ -52,7 +56,7 @@ export default function CakeModel({ onClick }: { onClick: () => void }) {
 
   const handlePointerDown = (e: React.PointerEvent) => {
     e.stopPropagation();
-    onClick();
+    onClick(e);
     setIsHolding(true);
     playPressSound();
     gl.domElement.setPointerCapture(e.pointerId);
