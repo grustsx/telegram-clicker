@@ -43,12 +43,14 @@ function App() {
   React.useEffect(() => {
     const handleVisibilityChange = () => {
       if (document.visibilityState === 'visible') {
-        dispatch(getUserData());
+        console.log('gere');
+        dispatch(getUserAndDictionaries());
       }
     };
 
     const handlePageShow = () => {
-      dispatch(getUserData());
+      // console.log('ffgere');
+      // dispatch(getUserAndDictionaries());
     };
 
     document.addEventListener('visibilitychange', handleVisibilityChange);
