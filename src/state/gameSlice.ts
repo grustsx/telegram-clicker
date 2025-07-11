@@ -37,7 +37,7 @@ const gameSlice = createSlice({
       state.currency += state.storageCurrency;
       state.storageCurrency = 0;
     },
-    incrementCurrencyByPerSecond(state) {
+    updateCurrencyByCPS(state) {
       state.currency += getCurrencyPerSecond(
         state.skillsTree
           .filter((skill) => skill.unlocked)
@@ -66,7 +66,7 @@ const gameSlice = createSlice({
         state.skillPoints += 1;
       }
     },
-    incrementCurrencyByClick(state) {
+    updateCurrencyByClick(state) {
       state.currency += getCurrencyPerClick(
         state.skillsTree
           .filter((skill) => skill.unlocked)
@@ -140,10 +140,10 @@ const gameSlice = createSlice({
 });
 
 export const {
-  incrementCurrencyByClick,
+  updateCurrencyByClick,
   incrementBuildingLevel,
   claimStorage,
-  incrementCurrencyByPerSecond,
+  updateCurrencyByCPS,
   setUserData,
   buySkill,
 } = gameSlice.actions;

@@ -1,14 +1,7 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import {
-  selectCurrencyPerClick,
-  selectCurrencyPerSecond,
-  selectUserId,
-} from '../app/selectors';
-import {
-  incrementCurrencyByClick,
-  incrementCurrencyByPerSecond,
-} from '../state/gameSlice';
+import { selectCurrencyPerClick, selectUserId } from '../app/selectors';
+import { updateCurrencyByClick } from '../state/gameSlice';
 import { sendClicks } from '../api';
 import CakeScene from './CakeScene';
 
@@ -28,7 +21,6 @@ const IncrementButton = () => {
 
   const dispatch = useAppDispatch();
 
-  const currencyPerSecond = useAppSelector(selectCurrencyPerSecond);
   const currencyPerClick = useAppSelector(selectCurrencyPerClick);
 
   const userId = useAppSelector(selectUserId);
@@ -40,22 +32,15 @@ const IncrementButton = () => {
       pendingClicks.current = 0;
     }, 2000);
 
-    const currencyInterval = setInterval(() => {
-      if (currencyPerSecond > 0) {
-        dispatch(incrementCurrencyByPerSecond());
-      }
-    }, 1000);
-
     return () => {
       clearInterval(fetchInterval);
-      clearInterval(currencyInterval);
       if (userId) sendClicks(pendingClicks.current, userId);
     };
-  }, [currencyPerSecond, dispatch, userId]);
+  }, [dispatch, userId]);
 
   const handleClick = React.useCallback(
     (e: React.PointerEvent<Element>) => {
-      dispatch(incrementCurrencyByClick());
+      dispatch(updateCurrencyByClick());
       pendingClicks.current += 1;
 
       const newNumber: FloatingNumber = {

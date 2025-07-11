@@ -9,6 +9,8 @@ import { setUserData } from './state/gameSlice';
 import { useAppDispatch } from './app/hooks';
 import { getUserAndDictionaries } from './state/thunk';
 import ErrorHandler from './components/ErrorHandler';
+import useCurrencyPerSecond from './hooks/useUpdateCurrencyByCPS';
+import useRefreshData from './hooks/useRefreshData';
 
 const mockedTg: {
   WebApp: {
@@ -40,19 +42,8 @@ function App() {
     dispatch(getUserAndDictionaries());
   }, [dispatch, tg?.WebApp?.initDataUnsafe?.user]);
 
-  React.useEffect(() => {
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === 'visible') {
-        dispatch(getUserAndDictionaries());
-      }
-    };
-
-    document.addEventListener('visibilitychange', handleVisibilityChange);
-
-    return () => {
-      document.removeEventListener('visibilitychange', handleVisibilityChange);
-    };
-  }, [dispatch]);
+  useRefreshData();
+  useCurrencyPerSecond();
 
   return (
     <Loader>
