@@ -9,7 +9,7 @@ function MainPage() {
   const currencyPerSecond = useAppSelector(selectCurrencyPerSecond);
 
   return (
-    <div className="pt-8 w-full h-full bg-radial from-tortik-yellow via-tortik-orange via-40% to-indigo-900">
+    <div className="text-tortik-white pt-8 w-full h-full bg-radial from-tortik-yellow via-tortik-orange via-40% to-indigo-900">
       <div className="text-2xl text-shadow-lg">
         {'Заработок: ' + formatLargeNumber(currencyPerSecond) + ' в секунду'}
       </div>

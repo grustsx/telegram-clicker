@@ -21,7 +21,7 @@ function BuildingsPage() {
   };
 
   return (
-    <div className="pt-8 w-full h-full bg-radial from-tortik-orange to-indigo-900 flex flex-col">
+    <div className="pt-8 w-full h-full text-tortik-white bg-radial from-tortik-orange to-indigo-900 flex flex-col">
       {[...buildings]
         .sort((a, b) => a.buildingId - b.buildingId)
         .map((building) => (
