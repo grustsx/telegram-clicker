@@ -35,6 +35,11 @@ export const selectUnlockedSkillsIds = createSelector(
   },
 );
 
+export const selectSkillById = (skillId: string) =>
+  createSelector([selectSkillTree], (skills) => {
+    return skills.find((skill) => skill.id === skillId);
+  });
+
 export const selectCurrencyPerClick = createSelector(
   [selectUnlockedSkillsIds, selectBuildings],
   (unlockedSkillsIds, buildings) => {

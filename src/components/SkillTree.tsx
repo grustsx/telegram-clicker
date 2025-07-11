@@ -5,16 +5,9 @@ import { selectSkillPoints, selectSkillTree } from '../app/selectors';
 import SkillHelper from './SkillHelper';
 
 type SkillState = 'locked' | 'available' | 'unlocked' | 'mysterious';
-export type HelpInfo = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  unlocked?: boolean;
-};
 
 function SkillTree() {
-  const [helpInfo, setHelpInfo] = useState<HelpInfo | null>(null);
+  const [selectedSkillId, setSelectedSkillId] = useState<string | null>(null);
 
   const skills = useAppSelector(selectSkillTree);
   const skillPoints = useAppSelector(selectSkillPoints);
@@ -38,26 +31,16 @@ function SkillTree() {
     return 'locked';
   };
 
-  const onClick = (skill: SkillType) => {
-    setHelpInfo({
-      id: skill.id,
-      name: skill.name,
-      description: skill.description,
-      price: skill.price,
-      unlocked: skill.unlocked,
-    });
-  };
-
   return (
     <div className="relative min-w-[1200px] w-full min-h-[2200px] h-full bg-radial from-tortik-orange via-indigo-900 to-black">
-      {helpInfo && (
+      {selectedSkillId && (
         <SkillHelper
-          helpInfo={helpInfo}
+          skillId={selectedSkillId}
           skillPoints={skillPoints}
-          onClose={() => setHelpInfo(null)}
+          onClose={() => setSelectedSkillId(null)}
         />
       )}
-      <div className="fixed">{'Очки улучшения: ' + skillPoints}</div>
+      <div className="fixed z-20">{'Очки улучшения: ' + skillPoints}</div>
       <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
         {skills
           .filter((skill) => computeState(skill) !== 'locked' && !skill.hidden)
@@ -113,7 +96,9 @@ function SkillTree() {
                 left: `${skill.position.x}px`,
                 top: `${skill.position.y + 200}px`,
               }}
-              onClick={() => state !== 'mysterious' && onClick(skill)}
+              onClick={() =>
+                state !== 'mysterious' && setSelectedSkillId(skill.id)
+              }
             >
               <strong>{state === 'mysterious' ? '???' : skill.name}</strong>
             </div>
