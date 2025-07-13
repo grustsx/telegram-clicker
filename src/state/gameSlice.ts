@@ -123,7 +123,7 @@ const gameSlice = createSlice({
           storageCurrency: userInfo.user.storageCurrency,
           skillPoints: userInfo.user.skillPoints,
           buildings: dictionaries.buildings.map((building) => ({
-            buildingId: building.id,
+            id: building.id,
             name: building.name,
             level: findById<UserBuildingType>(userInfo.buildings, building.id)
               ?.level,

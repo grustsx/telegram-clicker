@@ -15,7 +15,7 @@ const Building = ({
   disabled: boolean;
   showed: boolean;
 }) => {
-  const { buildingId, name, level, incomePerSecond } = building;
+  const { id, name, level, incomePerSecond } = building;
   const dispatch = useAppDispatch();
 
   const userId = useAppSelector(selectUserId);
@@ -24,8 +24,8 @@ const Building = ({
   const handleClick = () => {
     if (disabled) return;
 
-    dispatch(incrementBuildingLevel(buildingId));
-    sendUpgradeBuilding(buildingId, userId);
+    dispatch(incrementBuildingLevel(id));
+    sendUpgradeBuilding(id, userId);
   };
 
   return (
