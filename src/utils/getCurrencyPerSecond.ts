@@ -1,17 +1,17 @@
-const buildingIdToSkillIdMap: Record<number, string> = {
-  1: '13',
-  2: '14',
-  3: '15',
-  4: '16',
-  5: '17',
-  6: '18',
+const buildingIdToSkillIdMap: Record<number, number> = {
+  1: 13,
+  2: 14,
+  3: 15,
+  4: 16,
+  5: 17,
+  6: 18,
 };
 
 export const getCurrencyPerSecond = (
-  skills: string[],
+  skills: number[],
   buildings: { level: number; income: number; id: number }[],
 ) => {
-  const skill = (id: string) => {
+  const skill = (id: number) => {
     return skills.includes(id) ? 1 : 0;
   };
 
@@ -21,9 +21,9 @@ export const getCurrencyPerSecond = (
         prev + level * income * (1 + 0.1 * skill(buildingIdToSkillIdMap[id])),
       0,
     ) *
-      (1 + 0.05 * skill('3')) *
-      (1 + 0.05 * skill('5')) *
-      (1 + 0.05 * skill('6')) *
-      (1 + 0.1 * skill('11')),
+      (1 + 0.05 * skill(3)) *
+      (1 + 0.05 * skill(5)) *
+      (1 + 0.05 * skill(6)) *
+      (1 + 0.1 * skill(11)),
   );
 };

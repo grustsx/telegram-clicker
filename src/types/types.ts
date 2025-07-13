@@ -1,5 +1,5 @@
 export type BuildingType = {
-  buildingId: number;
+  id: number;
   name: string;
   level: number;
   basePrice: number;
@@ -15,12 +15,19 @@ export type TgUserType = {
 };
 
 export type SkillType = {
-  id: string;
+  id: number;
   name: string;
   description: string;
   price: number;
   position: { x: number; y: number };
-  requires?: string[];
+  requires?: number[];
   unlocked?: boolean;
   hidden?: boolean;
+};
+
+export type SpellType = {
+  id: number;
+  name: string;
+  cooldownSeconds: number;
+  availableAt: number;
 };

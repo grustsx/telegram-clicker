@@ -8,7 +8,7 @@ const SkillHelper = ({
   skillPoints,
   onClose,
 }: {
-  skillId: string;
+  skillId: number;
   skillPoints: number;
   onClose: () => void;
 }) => {
@@ -20,7 +20,7 @@ const SkillHelper = ({
 
   const { name, description, price, unlocked } = skill;
 
-  const buyChosenSkill = (id: string) => {
+  const buyChosenSkill = (id: number) => {
     dispatch(buySkill(id));
     sendBuySkill(id, userId);
   };

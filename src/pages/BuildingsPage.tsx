@@ -15,20 +15,20 @@ function BuildingsPage() {
   const getIsShowed = (buildingId: number): boolean => {
     if (buildingId === 1) return true;
     return (
-      (buildings.find((building) => building.buildingId === buildingId - 1)
-        ?.level || 0) > 0
+      (buildings.find((building) => building.id === buildingId - 1)?.level ||
+        0) > 0
     );
   };
 
   return (
     <div className="pt-8 w-full h-full text-tortik-white bg-radial from-tortik-orange to-indigo-900 flex flex-col">
       {[...buildings]
-        .sort((a, b) => a.buildingId - b.buildingId)
+        .sort((a, b) => a.id - b.id)
         .map((building) => (
           <Building
             building={building}
-            key={building.buildingId}
-            showed={getIsShowed(building.buildingId)}
+            key={building.id}
+            showed={getIsShowed(building.id)}
             disabled={
               currency <
               getPrice(

@@ -35,7 +35,7 @@ export const selectUnlockedSkillsIds = createSelector(
   },
 );
 
-export const selectSkillById = (skillId: string) =>
+export const selectSkillById = (skillId: number) =>
   createSelector([selectSkillTree], (skills) => {
     return skills.find((skill) => skill.id === skillId);
   });
@@ -58,7 +58,7 @@ export const selectCurrencyPerSecond = createSelector(
       buildings.map((building) => ({
         level: building.level,
         income: building.incomePerSecond,
-        id: building.buildingId,
+        id: building.id,
       })),
     );
   },

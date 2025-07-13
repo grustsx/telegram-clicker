@@ -23,8 +23,18 @@ export const sendClaimStorage = (userId: number | undefined) => {
   return api.post(`/api/users/${userId}/claim-storage`);
 };
 
-export const sendBuySkill = (skillId: string, userId: number | undefined) => {
+export const sendBuySkill = (skillId: number, userId: number | undefined) => {
   if (!userId || !skillId) return;
 
   return api.post(`/api/users/${userId}/skills/${skillId}`);
+};
+
+export const sendCastSpell = (
+  spellId: number,
+  userId: number | undefined,
+  payload: { buildingId: number },
+) => {
+  if (!userId || !spellId) return;
+
+  return api.post(`/api/users/${userId}/spell/${spellId}`, payload);
 };

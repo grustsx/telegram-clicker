@@ -7,7 +7,7 @@ import SkillHelper from './SkillHelper';
 type SkillState = 'locked' | 'available' | 'unlocked' | 'mysterious';
 
 function SkillTree() {
-  const [selectedSkillId, setSelectedSkillId] = useState<string | null>(null);
+  const [selectedSkillId, setSelectedSkillId] = useState<number | null>(null);
 
   const skills = useAppSelector(selectSkillTree);
   const skillPoints = useAppSelector(selectSkillPoints);

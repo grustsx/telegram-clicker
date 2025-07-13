@@ -14,25 +14,40 @@ export type GetUserDataType = {
     storage: number;
     storageCurrency: number;
   };
-  buildings: {
-    buildingId: number;
-    level: number;
-  }[];
-  unlockedSkills: string[];
+  buildings: UserBuildingType[];
+  spells: UserSpellType[];
+  unlockedSkills: number[];
+};
+
+export type UserSpellType = {
+  id: number;
+  availableAt: number;
+};
+
+export type UserBuildingType = {
+  id: number;
+  level: number;
 };
 
 export type GetDictionariesType = {
   buildings: {
-    buildingId: number;
+    id: number;
     name: string;
     basePrice: number;
     multiplier: number;
     incomePerSecond: number;
   }[];
-  skillsTree: {
-    id: string;
+  skillsTree: UserSkillType[];
+  spells: {
+    id: number;
     name: string;
-    price: number;
-    requires: string[];
+    cooldownSeconds: number;
   }[];
+};
+
+export type UserSkillType = {
+  id: number;
+  name: string;
+  price: number;
+  requires: number[];
 };
