@@ -5,6 +5,7 @@ export type BuildingType = {
   basePrice: number;
   multiplier: number;
   incomePerSecond: number;
+  upgraded: boolean;
 };
 
 export type TgUserType = {
@@ -29,5 +30,5 @@ export type SpellType = {
   id: number;
   name: string;
   cooldownSeconds: number;
-  availableAt: number;
+  remainSeconds: number;
 };

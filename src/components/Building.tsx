@@ -1,7 +1,11 @@
-import { sendUpgradeBuilding } from '../api';
+import { sendCastSpell, sendUpgradeBuilding } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { selectUnlockedSkillsIds, selectUserId } from '../app/selectors';
-import { incrementBuildingLevel } from '../state/gameSlice';
+import {
+  selectSpellById,
+  selectUnlockedSkillsIds,
+  selectUserId,
+} from '../app/selectors';
+import { castSpell, incrementBuildingLevel } from '../state/gameSlice';
 import type { BuildingType } from '../types/types';
 import { formatLargeNumber } from '../utils/format';
 import { getPrice } from '../utils/getPrice';
@@ -15,12 +19,15 @@ const Building = ({
   disabled: boolean;
   showed: boolean;
 }) => {
-  const { id, name, level, incomePerSecond } = building;
+  const { id, name, level, incomePerSecond, upgraded } = building;
   const dispatch = useAppDispatch();
 
   const userId = useAppSelector(selectUserId);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
 
+  const sugarSpell = useAppSelector(selectSpellById(1));
+  if (!sugarSpell) return;
+  const isSugarSpellAbailable = sugarSpell.remainSeconds <= 0;
   const handleClick = () => {
     if (disabled) return;
 
@@ -28,14 +35,21 @@ const Building = ({
     sendUpgradeBuilding(id, userId);
   };
 
+  const handleCastUpdate = () => {
+    if (upgraded) return;
+
+    dispatch(castSpell({ spellId: 1, spellPayload: { buildingId: id } }));
+    sendCastSpell(1, userId, { buildingId: id });
+  };
+
   return (
     showed && (
       <div
-        className={`p-4 flex flex-row justify-between items-center text-lg text-shadow-lg shadow-md cursor-pointer select-none ${disabled ? 'bg-black/5 text-black/50' : 'bg-white/5 text-tortik-white'} hover:bg-tortik-orange/50`}
+        className={`p-4 flex flex-row justify-between items-center text-lg text-shadow-lg shadow-md cursor-pointer select-none ${disabled ? 'bg-black/5 text-black/50' : upgraded ? 'bg-indigo-300/5 text-tortik-yellow/50' : 'bg-white/5 text-tortik-white'} hover:bg-tortik-orange/50`}
         onClick={handleClick}
       >
-        <div className="w-1/5">{name}</div>
-        <div className="w-1/5">
+        <div className="w-1/6">{name}</div>
+        <div className="w-1/6">
           {formatLargeNumber(
             getPrice(
               building.basePrice,
@@ -45,9 +59,14 @@ const Building = ({
             ),
           ) + ' денег'}
         </div>
-        <div className="w-1/5">{level + ' lvl'}</div>
-        <div className="w-1/5">
+        <div className="w-1/6">{level + ' lvl'}</div>
+        <div className="w-1/6">
           {'доход: ' + formatLargeNumber(+level * +incomePerSecond)}
+        </div>
+        <div className="w-1/6">
+          <button onClick={handleCastUpdate}>
+            {isSugarSpellAbailable ? 'UPD' : 'NO'}
+          </button>
         </div>
       </div>
     )

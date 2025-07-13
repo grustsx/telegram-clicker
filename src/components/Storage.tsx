@@ -23,7 +23,7 @@ const Storage = () => {
 
   return (
     <div
-      className={`text-2xl ${storageCurrency > 0 ? 'text-tortik-yellow hover:bg-tortik-orange/50 cursor-pointer' : 'text-tortik-white'}`}
+      className={`text-2xl text-shadow-lg ${storageCurrency > 0 ? 'text-tortik-yellow hover:bg-tortik-orange/50 cursor-pointer' : 'text-tortik-white'}`}
       onClick={handleClick}
     >{`Хранилище: ${storageCurrency} / ${storage * cps}${storageCurrency ? ' собрать' : ''}`}</div>
   );

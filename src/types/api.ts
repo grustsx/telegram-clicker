@@ -27,6 +27,7 @@ export type UserSpellType = {
 export type UserBuildingType = {
   id: number;
   level: number;
+  upgraded?: boolean;
 };
 
 export type GetDictionariesType = {

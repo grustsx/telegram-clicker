@@ -6,7 +6,7 @@ import type {
   TgUserType,
 } from '../types/types';
 import { getUserAndDictionaries } from './thunk';
-import { getPrice, getCurrencyPerClick } from '../utils';
+import { getPrice, getCurrencyPerClick, nowUnix } from '../utils';
 import { SKILLS_INFO } from '../constants/skillsInfo';
 import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
 import { findById } from '../utils/findById';
@@ -46,6 +46,33 @@ const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
+    castSpell(
+      state,
+      action: PayloadAction<{
+        spellId: number;
+        spellPayload?: { buildingId: number };
+      }>,
+    ) {
+      const { spellId, spellPayload } = action.payload;
+
+      const spell = findById(state.spells, spellId);
+
+      if (!spell) return;
+
+      const remailnSeconds = spell.remainSeconds || 0;
+
+      if (remailnSeconds > 0) return;
+
+      spell.remainSeconds = spell.cooldownSeconds;
+
+      if (spell.id === 1 && spellPayload) {
+        const building = findById(state.buildings, spellPayload.buildingId);
+
+        if (!building) return;
+
+        building.upgraded = true;
+      }
+    },
     claimStorage(state) {
       state.currency += state.storageCurrency;
       state.storageCurrency = 0;
@@ -62,22 +89,27 @@ const gameSlice = createSlice({
         })),
       );
     },
+    updateSpellsRemain(state, action: PayloadAction<number>) {
+      const seconds = action.payload;
+
+      state.spells.map((spell) => Math.max(spell.remainSeconds - seconds || 0));
+    },
     incrementBuildingLevel(state, action: PayloadAction<number>) {
       const buildingId = action.payload;
-      const building = state.buildings.find((b) => b.id === buildingId);
+      const building = findById(state.buildings, buildingId);
 
-      if (building) {
-        state.currency -= getPrice(
-          building.basePrice,
-          building.multiplier,
-          building.level,
-          state.skillsTree
-            .filter((skill) => skill.unlocked)
-            .map((skill) => skill.id),
-        );
-        building.level += 1;
-        state.skillPoints += 1;
-      }
+      if (!building) return;
+
+      state.currency -= getPrice(
+        building.basePrice,
+        building.multiplier,
+        building.level,
+        state.skillsTree
+          .filter((skill) => skill.unlocked)
+          .map((skill) => skill.id),
+      );
+      building.level += 1;
+      state.skillPoints += 1;
     },
     updateCurrencyByClick(state) {
       state.currency += getCurrencyPerClick(
@@ -122,21 +154,33 @@ const gameSlice = createSlice({
           storage: userInfo.user.storage,
           storageCurrency: userInfo.user.storageCurrency,
           skillPoints: userInfo.user.skillPoints,
-          buildings: dictionaries.buildings.map((building) => ({
-            id: building.id,
-            name: building.name,
-            level: findById<UserBuildingType>(userInfo.buildings, building.id)
-              ?.level,
-            basePrice: building.basePrice,
-            multiplier: building.multiplier,
-            incomePerSecond: building.incomePerSecond,
-          })),
+          buildings: dictionaries.buildings.map((building) => {
+            const userBuilding = findById<UserBuildingType>(
+              userInfo.buildings,
+              building.id,
+            );
+            return {
+              id: building.id,
+              name: building.name,
+              level: userBuilding?.level,
+              upgraded: userBuilding?.upgraded,
+              basePrice: building.basePrice,
+              multiplier: building.multiplier,
+              incomePerSecond: building.incomePerSecond,
+            };
+          }),
           skillsTree,
-          spells: dictionaries.spells.map((spell) => ({
-            ...spell,
-            availableAt: findById<UserSpellType>(userInfo.spells, spell.id)
-              ?.availableAt,
-          })),
+          spells: dictionaries.spells.map((spell) => {
+            const userSpell = findById<UserSpellType>(
+              userInfo.spells,
+              spell.id,
+            );
+            if (!userSpell) return spell;
+            return {
+              ...spell,
+              remainSeconds: Math.max(0, userSpell.availableAt - nowUnix()),
+            };
+          }),
         };
         Object.assign(state, updatedState);
         state.loading = false;
@@ -156,6 +200,8 @@ export const {
   claimStorage,
   updateCurrencyByCPS,
   setUserData,
+  castSpell,
   buySkill,
+  updateSpellsRemain,
 } = gameSlice.actions;
 export default gameSlice.reducer;

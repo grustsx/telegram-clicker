@@ -2,6 +2,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { type RootState } from './store';
 import { getCurrencyPerClick } from '../utils';
 import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
+import { findById } from '../utils/findById';
 
 export const selectCurrency = (state: RootState) => state.game.currency;
 
@@ -23,6 +24,8 @@ export const selectSkillTree = (state: RootState) => state.game.skillsTree;
 
 export const selectSkillPoints = (state: RootState) => state.game.skillPoints;
 
+export const selectSpells = (state: RootState) => state.game.spells;
+
 export const selectStorage = (state: RootState) => ({
   storage: state.game.storage,
   storageCurrency: state.game.storageCurrency,
@@ -37,7 +40,12 @@ export const selectUnlockedSkillsIds = createSelector(
 
 export const selectSkillById = (skillId: number) =>
   createSelector([selectSkillTree], (skills) => {
-    return skills.find((skill) => skill.id === skillId);
+    return findById(skills, skillId);
+  });
+
+export const selectSpellById = (spellId: number) =>
+  createSelector([selectSpells], (spells) => {
+    return findById(spells, spellId);
   });
 
 export const selectCurrencyPerClick = createSelector(
