@@ -1,6 +1,6 @@
 import { useAppSelector } from '../app/hooks';
 import { selectCurrency, selectCurrencyPerSecond } from '../app/selectors';
-import { IncrementButton, Storage, Sugar } from '../components';
+import { AppVersion, IncrementButton, Storage, Sugar } from '../components';
 import { formatLargeNumber } from '../utils/format';
 
 function MainPage() {
@@ -10,6 +10,7 @@ function MainPage() {
 
   return (
     <div className="text-tortik-white pt-8 w-full h-full bg-radial from-tortik-yellow via-tortik-orange via-40% to-indigo-900">
+      <AppVersion />
       <div className="text-2xl text-shadow-lg">
         {'Заработок: ' + formatLargeNumber(currencyPerSecond) + ' в секунду'}
       </div>

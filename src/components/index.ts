@@ -7,3 +7,4 @@ export { default as ExplodingCubes } from './ExplodingCubes';
 export { default as SkillTree } from './SkillTree';
 export { default as SkillHelper } from './SkillHelper';
 export { default as Sugar } from './Sugar';
+export { default as AppVersion } from './AppVersion';
