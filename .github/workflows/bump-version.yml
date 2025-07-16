@@ -1,4 +1,4 @@
-name: Bump version and push tag
+name: Bump version, push tag, deploy to Vercel
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  bump-version:
+  bump-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,8 +18,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
+          git config user.name "Nikita"
+          git config user.email "nikkita@example.com"
 
       - uses: actions/setup-node@v4
         with:
@@ -31,3 +31,6 @@ jobs:
           npm version patch -m "chore(release): %s"
 
       - run: git push origin HEAD --follow-tags
+
+      - name: Deploy to Vercel
+        run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }}
