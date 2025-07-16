@@ -92,7 +92,9 @@ const gameSlice = createSlice({
     updateSpellsRemain(state, action: PayloadAction<number>) {
       const seconds = action.payload;
 
-      state.spells.map((spell) => Math.max(spell.remainSeconds - seconds || 0));
+      state.spells.forEach((spell) => {
+        spell.remainSeconds = Math.max(spell.remainSeconds - seconds, 0);
+      });
     },
     incrementBuildingLevel(state, action: PayloadAction<number>) {
       const buildingId = action.payload;
