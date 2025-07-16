@@ -6,6 +6,20 @@
 
 `npm run dev`
 
+# Версии
+
+Версия изменяется сама с коммитом x.x.1 -> x.x.2
+
+Другой апгрейд только с командой (все изменения должны быть закоммичены):
+Для точного изменения команда:
+`npm version 0.1.0 -m "chore(release): %s"`
+
+x.1.x -> x.2.x:
+`npm version minor -m "chore(release): %s"`
+
+1.x.x -> 2.x.x:
+`npm version major -m "chore(release): %s"`
+
 # Структура проекта
 
 src/
