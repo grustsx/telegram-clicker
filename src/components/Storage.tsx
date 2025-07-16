@@ -13,6 +13,7 @@ const Storage = () => {
 
   const { storage, storageCurrency } = useAppSelector(selectStorage);
   const userId = useAppSelector(selectUserId);
+
   const cps = useAppSelector(selectCurrencyPerSecond);
 
   const handleClick = () => {
