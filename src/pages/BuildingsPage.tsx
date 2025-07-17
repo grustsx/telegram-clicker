@@ -1,14 +1,11 @@
 import { useAppSelector } from '../app/hooks';
-import {
-  selectBuildings,
-  selectCurrency,
-  selectUnlockedSkillsIds,
-} from '../app/selectors';
+import { selectCurrency, selectUnlockedSkillsIds } from '../app/selectors';
 import { Building } from '../components';
+import { selectAllBuildings } from '../state/buildingsSlice';
 import { getPrice } from '../utils/getPrice';
 
 function BuildingsPage() {
-  const buildings = useAppSelector(selectBuildings);
+  const buildings = useAppSelector(selectAllBuildings);
   const currency = useAppSelector(selectCurrency);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
 

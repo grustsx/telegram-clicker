@@ -3,10 +3,9 @@ import { type RootState } from './store';
 import { getCurrencyPerClick } from '../utils';
 import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
 import { findById } from '../utils/findById';
+import { selectAllBuildings } from '../state/buildingsSlice';
 
 export const selectCurrency = (state: RootState) => state.game.currency;
-
-export const selectBuildings = (state: RootState) => state.game.buildings;
 
 export const selectUserId = (state: RootState) => state.game.user.id;
 
@@ -33,8 +32,11 @@ export const selectUnlockedSkillsIds = createSelector(
 );
 
 export const selectBuildingLevelsSum = createSelector(
-  (state: RootState) => state.game.buildings,
-  (buildings) => buildings.reduce((sum, b) => sum + b.level, 0),
+  (state: RootState) => state.buildings,
+  (buildings) =>
+    buildings.ids
+      .map((id) => buildings.entities[id])
+      .reduce((sum, b) => sum + b.level, 0),
 );
 
 export const selectSpellById = createSelector(
@@ -43,17 +45,14 @@ export const selectSpellById = createSelector(
 );
 
 export const selectCurrencyPerClick = createSelector(
-  [selectUnlockedSkillsIds, selectBuildings],
-  (unlockedSkillsIds, buildings) => {
-    return getCurrencyPerClick(
-      unlockedSkillsIds,
-      buildings.reduce((prev, building) => prev + building.level, 0),
-    );
+  [selectUnlockedSkillsIds, selectBuildingLevelsSum],
+  (unlockedSkillsIds, buildingsCount) => {
+    return getCurrencyPerClick(unlockedSkillsIds, buildingsCount);
   },
 );
 
 export const selectCurrencyPerSecond = createSelector(
-  [selectUnlockedSkillsIds, selectBuildings],
+  [selectUnlockedSkillsIds, selectAllBuildings],
   (unlockedSkillsIds, buildings) => {
     return getCurrencyPerSecond(unlockedSkillsIds, buildings);
   },

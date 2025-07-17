@@ -5,8 +5,7 @@ import {
   selectUnlockedSkillsIds,
   selectUserId,
 } from '../app/selectors';
-import { castSpell } from '../state/gameSlice';
-import { buyBuildingLevel } from '../state/thunk';
+import { buyBuildingLevel, castSpell } from '../state/thunk';
 import type { BuildingType } from '../types/types';
 import { formatLargeNumber } from '../utils/format';
 import { getPrice } from '../utils/getPrice';

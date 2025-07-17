@@ -11,16 +11,22 @@ import {
   decreaseCurrency,
   decreaseSkillPoints,
   increaseCurrency,
-  incrementBuildingLevel,
+  incrementSkillPoints,
+  refreshSpellRemainsSeconds,
 } from './gameSlice';
 import {
   selectBuildingLevelsSum,
   selectUnlockedSkillsIds,
 } from '../app/selectors';
 import { getCurrencyPerClick, getPrice } from '../utils';
-import { findById } from '../utils/findById';
 import { selectSkillById, unlockSkill } from './skillsSlice';
 import { createAppAsyncThunk } from '../app/thunk';
+import {
+  incrementBuildingLevel,
+  selectAllBuildings,
+  selectBuildingById,
+  upgradeBuilding,
+} from './buildingsSlice';
 
 export const getUserData = createAppAsyncThunk(
   'game/getUserData',
@@ -71,7 +77,7 @@ export const updateCurrencyByCPS = createAppAsyncThunk(
 
     const unlockedSkillIds = selectUnlockedSkillsIds(state);
 
-    const buildings = state.game.buildings;
+    const buildings = selectAllBuildings(state);
 
     const delta = getCurrencyPerSecond(unlockedSkillIds, buildings);
 
@@ -96,10 +102,10 @@ export const updateCurrencyByClick = createAppAsyncThunk(
 );
 
 export const buyBuildingLevel = createAppAsyncThunk(
-  'game/incrementBuildingLevel',
+  'buildings/incrementBuildingLevel',
   async (buildingId: number, { getState, dispatch }) => {
     const state = getState();
-    const building = findById(state.game.buildings, buildingId);
+    const building = selectBuildingById(state, buildingId);
 
     if (!building) return;
 
@@ -114,6 +120,7 @@ export const buyBuildingLevel = createAppAsyncThunk(
     if (state.game.currency < price) return;
 
     dispatch(incrementBuildingLevel(buildingId));
+    dispatch(incrementSkillPoints());
     dispatch(decreaseCurrency(price));
   },
 );
@@ -121,7 +128,7 @@ export const buyBuildingLevel = createAppAsyncThunk(
 export const buySkill = createAppAsyncThunk(
   'skills/buySkill',
   async (skillId: number, { getState, dispatch }) => {
-    const state = getState() as RootState;
+    const state = getState();
     const skill = selectSkillById(state, skillId);
 
     if (!skill || skill.unlocked) return;
@@ -132,5 +139,24 @@ export const buySkill = createAppAsyncThunk(
 
     dispatch(decreaseSkillPoints(skill.price));
     dispatch(unlockSkill(skillId));
+  },
+);
+
+export const castSpell = createAppAsyncThunk(
+  'game/castSpell',
+  async (
+    {
+      spellId,
+      spellPayload,
+    }: { spellId: number; spellPayload?: { buildingId: number } },
+    { dispatch },
+  ) => {
+    dispatch(refreshSpellRemainsSeconds(spellId));
+
+    switch (spellId) {
+      case 1:
+        if (!spellPayload?.buildingId) return;
+        dispatch(upgradeBuilding(spellPayload.buildingId));
+    }
   },
 );

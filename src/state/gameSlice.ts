@@ -1,9 +1,9 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { BuildingType, SpellType, TgUserType } from '../types/types';
+import type { SpellType, TgUserType } from '../types/types';
 import { getUserAndDictionaries } from './thunk';
 import { nowUnix } from '../utils';
 import { findById } from '../utils/findById';
-import type { UserBuildingType, UserSpellType } from '../types/api';
+import type { UserSpellType } from '../types/api';
 
 export interface GameState {
   currency: number;
@@ -11,7 +11,6 @@ export interface GameState {
   storageCurrency: number;
   skillPoints: number;
   user: TgUserType;
-  buildings: BuildingType[];
   loading: boolean;
   errorMessage: string;
   spells: SpellType[];
@@ -22,7 +21,6 @@ const initialState: GameState = {
   currency: 0,
   skillPoints: 0,
   user: {},
-  buildings: [],
   errorMessage: '',
   storage: 0,
   storageCurrency: 0,
@@ -33,32 +31,12 @@ const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
-    castSpell(
-      state,
-      action: PayloadAction<{
-        spellId: number;
-        spellPayload?: { buildingId: number };
-      }>,
-    ) {
-      const { spellId, spellPayload } = action.payload;
-
+    refreshSpellRemainsSeconds(state, action: PayloadAction<number>) {
+      const spellId = action.payload;
       const spell = findById(state.spells, spellId);
-
       if (!spell) return;
 
-      const remailnSeconds = spell.remainSeconds || 0;
-
-      if (remailnSeconds > 0) return;
-
       spell.remainSeconds = spell.cooldownSeconds;
-
-      if (spell.id === 1 && spellPayload) {
-        const building = findById(state.buildings, spellPayload.buildingId);
-
-        if (!building) return;
-
-        building.upgraded = true;
-      }
     },
     claimStorage(state) {
       state.currency += state.storageCurrency;
@@ -80,13 +58,7 @@ const gameSlice = createSlice({
         spell.remainSeconds = Math.max(spell.remainSeconds - seconds, 0);
       });
     },
-    incrementBuildingLevel(state, action: PayloadAction<number>) {
-      const buildingId = action.payload;
-      const building = findById(state.buildings, buildingId);
-
-      if (!building) return;
-
-      building.level += 1;
+    incrementSkillPoints(state) {
       state.skillPoints += 1;
     },
     setUserData(state, action: PayloadAction<TgUserType>) {
@@ -106,21 +78,6 @@ const gameSlice = createSlice({
           storage: userInfo.user.storage,
           storageCurrency: userInfo.user.storageCurrency,
           skillPoints: userInfo.user.skillPoints,
-          buildings: dictionaries.buildings.map((building) => {
-            const userBuilding = findById<UserBuildingType>(
-              userInfo.buildings,
-              building.id,
-            );
-            return {
-              id: building.id,
-              name: building.name,
-              level: userBuilding?.level,
-              upgraded: userBuilding?.upgraded,
-              basePrice: building.basePrice,
-              multiplier: building.multiplier,
-              incomePerSecond: building.incomePerSecond,
-            };
-          }),
           spells: dictionaries.spells.map((spell) => {
             const userSpell = findById<UserSpellType>(
               userInfo.spells,
@@ -146,13 +103,13 @@ const gameSlice = createSlice({
 });
 
 export const {
-  incrementBuildingLevel,
+  incrementSkillPoints,
   claimStorage,
   increaseCurrency,
   decreaseCurrency,
   decreaseSkillPoints,
   setUserData,
-  castSpell,
   updateSpellsRemain,
+  refreshSpellRemainsSeconds,
 } = gameSlice.actions;
 export default gameSlice.reducer;
