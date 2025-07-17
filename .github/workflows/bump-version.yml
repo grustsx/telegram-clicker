@@ -18,8 +18,8 @@ jobs:
 
       - name: Configure Git
         run: |
-          git config user.name "Nikita"
-          git config user.email "nikkita@example.com"
+          git config user.name "Upgrade Version"
+          git config user.email "email@example.com"
 
       - uses: actions/setup-node@v4
         with:

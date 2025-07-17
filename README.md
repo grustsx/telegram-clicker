@@ -12,7 +12,7 @@
 
 Другой апгрейд только с командой (все изменения должны быть закоммичены):
 Для точного изменения команда:
-`npm version 0.1.0 -m "chore(release): %s"`
+`npm version 2.2.8 -m "chore(release): %s"`
 
 x.1.x -> x.2.x:
 `npm version minor -m "chore(release): %s"`
