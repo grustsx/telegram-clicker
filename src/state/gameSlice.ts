@@ -1,9 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { SpellType, TgUserType } from '../types/types';
+import type { TgUserType } from '../types/types';
 import { getUserAndDictionaries } from './thunk';
-import { nowUnix } from '../utils';
-import { findById } from '../utils/findById';
-import type { UserSpellType } from '../types/api';
 
 export interface GameState {
   currency: number;
@@ -13,7 +10,6 @@ export interface GameState {
   user: TgUserType;
   loading: boolean;
   errorMessage: string;
-  spells: SpellType[];
 }
 
 const initialState: GameState = {
@@ -24,20 +20,12 @@ const initialState: GameState = {
   errorMessage: '',
   storage: 0,
   storageCurrency: 0,
-  spells: [],
 };
 
 const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
-    refreshSpellRemainsSeconds(state, action: PayloadAction<number>) {
-      const spellId = action.payload;
-      const spell = findById(state.spells, spellId);
-      if (!spell) return;
-
-      spell.remainSeconds = spell.cooldownSeconds;
-    },
     claimStorage(state) {
       state.currency += state.storageCurrency;
       state.storageCurrency = 0;
@@ -50,13 +38,6 @@ const gameSlice = createSlice({
     },
     decreaseCurrency(state, action: PayloadAction<number>) {
       state.currency -= action.payload;
-    },
-    updateSpellsRemain(state, action: PayloadAction<number>) {
-      const seconds = action.payload;
-
-      state.spells.forEach((spell) => {
-        spell.remainSeconds = Math.max(spell.remainSeconds - seconds, 0);
-      });
     },
     incrementSkillPoints(state) {
       state.skillPoints += 1;
@@ -71,25 +52,15 @@ const gameSlice = createSlice({
         state.loading = true;
       })
       .addCase(getUserAndDictionaries.fulfilled, (state, action) => {
-        const { userInfo, dictionaries } = action.payload;
+        const { user } = action.payload.userInfo;
 
         const updatedState = {
-          currency: userInfo.user.currency,
-          storage: userInfo.user.storage,
-          storageCurrency: userInfo.user.storageCurrency,
-          skillPoints: userInfo.user.skillPoints,
-          spells: dictionaries.spells.map((spell) => {
-            const userSpell = findById<UserSpellType>(
-              userInfo.spells,
-              spell.id,
-            );
-            if (!userSpell) return spell;
-            return {
-              ...spell,
-              remainSeconds: Math.max(0, userSpell.availableAt - nowUnix()),
-            };
-          }),
+          currency: user.currency,
+          storage: user.storage,
+          storageCurrency: user.storageCurrency,
+          skillPoints: user.skillPoints,
         };
+
         Object.assign(state, updatedState);
         state.loading = false;
       })
@@ -109,7 +80,5 @@ export const {
   decreaseCurrency,
   decreaseSkillPoints,
   setUserData,
-  updateSpellsRemain,
-  refreshSpellRemainsSeconds,
 } = gameSlice.actions;
 export default gameSlice.reducer;

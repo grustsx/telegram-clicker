@@ -9,7 +9,6 @@ export type GetUserDataType = {
   user: {
     id: number;
     currency: number;
-    currencyPerSecond: number;
     skillPoints: number;
     storage: number;
     storageCurrency: number;

@@ -1,10 +1,7 @@
 import { sendCastSpell, sendUpgradeBuilding } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import {
-  selectSpellById,
-  selectUnlockedSkillsIds,
-  selectUserId,
-} from '../app/selectors';
+import { selectUnlockedSkillsIds, selectUserId } from '../app/selectors';
+import { selectSpellById } from '../state/spellsSlice';
 import { buyBuildingLevel, castSpell } from '../state/thunk';
 import type { BuildingType } from '../types/types';
 import { formatLargeNumber } from '../utils/format';

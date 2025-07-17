@@ -12,7 +12,6 @@ import {
   decreaseSkillPoints,
   increaseCurrency,
   incrementSkillPoints,
-  refreshSpellRemainsSeconds,
 } from './gameSlice';
 import {
   selectBuildingLevelsSum,
@@ -27,6 +26,7 @@ import {
   selectBuildingById,
   upgradeBuilding,
 } from './buildingsSlice';
+import { refreshSpellCooldown, selectSpellById } from './spellsSlice';
 
 export const getUserData = createAppAsyncThunk(
   'game/getUserData',
@@ -149,9 +149,14 @@ export const castSpell = createAppAsyncThunk(
       spellId,
       spellPayload,
     }: { spellId: number; spellPayload?: { buildingId: number } },
-    { dispatch },
+    { getState, dispatch },
   ) => {
-    dispatch(refreshSpellRemainsSeconds(spellId));
+    const state = getState();
+    const spell = selectSpellById(state, spellId);
+
+    if (spell.remainSeconds > 0) return;
+
+    dispatch(refreshSpellCooldown(spellId));
 
     switch (spellId) {
       case 1:

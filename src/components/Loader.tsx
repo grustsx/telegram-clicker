@@ -25,6 +25,7 @@ const Loader = ({ children }: { children: ReactElement }) => {
       clearInterval(interval);
     };
   }, []);
+
   return loading ? (
     <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-tortik-orange overflow-hidden">
       <img src={loadingGif} alt="Загрузка..." className="w-64 h-64" />

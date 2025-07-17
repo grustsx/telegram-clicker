@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAppSelector } from '../app/hooks';
-import { selectSpellById } from '../app/selectors';
 import { formatDuration } from '../utils/format';
+import { selectSpellById } from '../state/spellsSlice';
 
 const Sugar = () => {
   const sugarSpell = useAppSelector((state) => selectSpellById(state, 1));
