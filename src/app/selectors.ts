@@ -38,15 +38,15 @@ export const selectUnlockedSkillsIds = createSelector(
   },
 );
 
-export const selectSkillById = (skillId: number) =>
-  createSelector([selectSkillTree], (skills) => {
-    return findById(skills, skillId);
-  });
+export const selectSkillById = createSelector(
+  [selectSkillTree, (_: RootState, id: number) => id],
+  (skills, id) => findById(skills, id),
+);
 
-export const selectSpellById = (spellId: number) =>
-  createSelector([selectSpells], (spells) => {
-    return findById(spells, spellId);
-  });
+export const selectSpellById = createSelector(
+  [selectSpells, (_: RootState, id: number) => id],
+  (spells, id) => findById(spells, id),
+);
 
 export const selectCurrencyPerClick = createSelector(
   [selectUnlockedSkillsIds, selectBuildings],

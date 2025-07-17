@@ -14,7 +14,7 @@ const SkillHelper = ({
 }) => {
   const dispatch = useAppDispatch();
   const userId = useAppSelector(selectUserId);
-  const skill = useAppSelector(selectSkillById(skillId));
+  const skill = useAppSelector((state) => selectSkillById(state, skillId));
 
   if (!skill) return;
 

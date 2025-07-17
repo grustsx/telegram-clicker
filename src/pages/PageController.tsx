@@ -1,6 +1,6 @@
 import React from 'react';
 import MainPage from './MainPage';
-import { MenuButton } from '../components';
+import { AppVersion, MenuButton } from '../components';
 import CakeSvg from '../assets/cake.svg?react';
 import BuildingSvg from '../assets/building.svg?react';
 import UpgradeSvg from '../assets/upgrade.svg?react';
@@ -46,6 +46,7 @@ function PageController() {
           selected={tab === TabNames.UPGRADES}
         />
       </div>
+      <AppVersion />
     </>
   );
 }

@@ -4,7 +4,7 @@ import { selectSpellById } from '../app/selectors';
 import { formatDuration } from '../utils/format';
 
 const Sugar = () => {
-  const sugarSpell = useAppSelector(selectSpellById(1));
+  const sugarSpell = useAppSelector((state) => selectSpellById(state, 1));
   if (!sugarSpell) return;
 
   const { remainSeconds } = sugarSpell;

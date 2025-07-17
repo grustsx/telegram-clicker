@@ -25,7 +25,7 @@ const Building = ({
   const userId = useAppSelector(selectUserId);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
 
-  const sugarSpell = useAppSelector(selectSpellById(1));
+  const sugarSpell = useAppSelector((state) => selectSpellById(state, 1));
   if (!sugarSpell) return;
   const isSugarSpellAbailable = sugarSpell.remainSeconds <= 0;
   const handleClick = () => {
