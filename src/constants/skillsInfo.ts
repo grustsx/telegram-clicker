@@ -1,3 +1,30 @@
+export const BUILDINGS_INFO: Record<
+  string,
+  { position: { x: number; y: number } }
+> = {
+  '1': {
+    position: { x: 0, y: 0 },
+  },
+  '2': {
+    position: { x: 300, y: 0 },
+  },
+  '3': {
+    position: { x: 0, y: 300 },
+  },
+  '4': {
+    position: { x: 300, y: 300 },
+  },
+  '5': {
+    position: { x: 0, y: 600 },
+  },
+  '6': {
+    position: { x: 300, y: 600 },
+  },
+  '7': {
+    position: { x: 150, y: 0 },
+  },
+};
+
 export const SKILLS_INFO: Record<
   string,
   { description: string; position: { x: number; y: number }; hidden?: boolean }

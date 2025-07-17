@@ -1,13 +1,18 @@
+import React from 'react';
 import { useAppSelector } from '../app/hooks';
-import { selectCurrency, selectUnlockedSkillsIds } from '../app/selectors';
-import { Building } from '../components';
+import { BuildingInfo } from '../components';
+import { BUILDINGS_INFO } from '../constants/skillsInfo';
 import { selectAllBuildings } from '../state/buildingsSlice';
-import { getPrice } from '../utils/getPrice';
+import useDragScroll from '../hooks/useDragScroll';
 
 function BuildingsPage() {
+  const containerRef = useDragScroll<HTMLDivElement>();
+
   const buildings = useAppSelector(selectAllBuildings);
-  const currency = useAppSelector(selectCurrency);
-  const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
+
+  const [selectedBuilding, setSelectedBuilding] = React.useState<number | null>(
+    null,
+  );
 
   const getIsShowed = (buildingId: number): boolean => {
     if (buildingId === 1) return true;
@@ -18,25 +23,30 @@ function BuildingsPage() {
   };
 
   return (
-    <div className="pt-8 w-full h-full text-tortik-white bg-radial from-tortik-orange to-indigo-900 flex flex-col">
-      {[...buildings]
-        .sort((a, b) => a.id - b.id)
-        .map((building) => (
-          <Building
-            building={building}
-            key={building.id}
-            showed={getIsShowed(building.id)}
-            disabled={
-              currency <
-              getPrice(
-                building.basePrice,
-                building.multiplier,
-                building.level,
-                unlockedSkills,
-              )
-            }
+    <div ref={containerRef} className="w-full h-full overflow-scroll ">
+      <div className="pt-8 relative min-w-[1200px] w-full min-h-[2200px] h-full text-tortik-white bg-radial from-tortik-orange to-indigo-900 flex flex-col">
+        {buildings
+          .filter((building) => getIsShowed(building.id))
+          .map((building) => (
+            <div
+              key={building.id}
+              className={`absolute w-24 h-24 bg-sky-600 rounded-lg p-2 text-center cursor-pointer  ${building.upgraded && 'border-amber-300 border-solid border-2'}`}
+              style={{
+                left: `${BUILDINGS_INFO[building.id].position.x + 200}px`,
+                top: `${BUILDINGS_INFO[building.id].position.y + 200}px`,
+              }}
+              onClick={() => setSelectedBuilding(building.id)}
+            >
+              <strong>{building.name}</strong>
+            </div>
+          ))}
+        {selectedBuilding && (
+          <BuildingInfo
+            buildingId={selectedBuilding}
+            onClose={() => setSelectedBuilding(null)}
           />
-        ))}
+        )}
+      </div>
     </div>
   );
 }

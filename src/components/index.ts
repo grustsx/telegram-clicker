@@ -1,5 +1,4 @@
 export { default as Loader } from './Loader';
-export { default as Building } from './Building';
 export { default as IncrementButton } from './IncrementButton';
 export { default as MenuButton } from './MenuButton';
 export { default as Storage } from './Storage';
@@ -10,3 +9,4 @@ export { default as Sugar } from './Sugar';
 export { default as AppVersion } from './AppVersion';
 export { default as MainPageHud } from './MainPageHud';
 export { default as ProgressBar } from './ProgressBar';
+export { default as BuildingInfo } from './BuildingInfo';
