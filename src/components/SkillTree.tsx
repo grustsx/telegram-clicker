@@ -1,15 +1,16 @@
 import { useState } from 'react';
 import type { SkillType } from '../types/types';
 import { useAppSelector } from '../app/hooks';
-import { selectSkillPoints, selectSkillTree } from '../app/selectors';
+import { selectSkillPoints } from '../app/selectors';
 import SkillHelper from './SkillHelper';
+import { selectAllSkills } from '../state/skillsSlice';
 
 type SkillState = 'locked' | 'available' | 'unlocked' | 'mysterious';
 
 function SkillTree() {
   const [selectedSkillId, setSelectedSkillId] = useState<number | null>(null);
 
-  const skills = useAppSelector(selectSkillTree);
+  const skills = useAppSelector(selectAllSkills);
   const skillPoints = useAppSelector(selectSkillPoints);
 
   const computeState = (skill: SkillType): SkillState => {

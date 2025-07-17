@@ -1,5 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { RootState } from '../app/store';
+import { type RootState } from '../app/store';
 import api from '../axios';
 import type { AxiosError } from 'axios';
 import type {
@@ -7,8 +6,23 @@ import type {
   GetDictionariesType,
   GetUserDataType,
 } from '../types/api';
+import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
+import {
+  decreaseCurrency,
+  decreaseSkillPoints,
+  increaseCurrency,
+  incrementBuildingLevel,
+} from './gameSlice';
+import {
+  selectBuildingLevelsSum,
+  selectUnlockedSkillsIds,
+} from '../app/selectors';
+import { getCurrencyPerClick, getPrice } from '../utils';
+import { findById } from '../utils/findById';
+import { selectSkillById, unlockSkill } from './skillsSlice';
+import { createAppAsyncThunk } from '../app/thunk';
 
-export const getUserData = createAsyncThunk(
+export const getUserData = createAppAsyncThunk(
   'game/getUserData',
   async (_, { getState, rejectWithValue }) => {
     try {
@@ -18,12 +32,12 @@ export const getUserData = createAsyncThunk(
     } catch (err) {
       console.log(err);
       const error = err as AxiosError<ApiErrorResponse>;
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(String(error.response?.data) || error.message);
     }
   },
 );
 
-export const getDictionaries = createAsyncThunk(
+export const getDictionaries = createAppAsyncThunk(
   'game/getDictionaries',
   async (_, { rejectWithValue }) => {
     try {
@@ -32,12 +46,12 @@ export const getDictionaries = createAsyncThunk(
     } catch (err) {
       console.log(err);
       const error = err as AxiosError<ApiErrorResponse>;
-      return rejectWithValue(error.response?.data || error.message);
+      return rejectWithValue(String(error.response?.data) || error.message);
     }
   },
 );
 
-export const getUserAndDictionaries = createAsyncThunk(
+export const getUserAndDictionaries = createAppAsyncThunk(
   'data/getUserAndDictionaries',
   async (_, thunkAPI) => {
     const [userInfo, dictionaries] = await Promise.all([
@@ -46,5 +60,77 @@ export const getUserAndDictionaries = createAsyncThunk(
     ]);
 
     return { userInfo, dictionaries };
+  },
+);
+
+// Вызывается раз в секунду!! Важно не нахуевертить
+export const updateCurrencyByCPS = createAppAsyncThunk(
+  'game/updateCurrencyByCPS',
+  async (_, { getState, dispatch }) => {
+    const state = getState();
+
+    const unlockedSkillIds = selectUnlockedSkillsIds(state);
+
+    const buildings = state.game.buildings;
+
+    const delta = getCurrencyPerSecond(unlockedSkillIds, buildings);
+
+    dispatch(increaseCurrency(delta));
+  },
+);
+
+// Вызывается на каждый клик по печеньке!! Важно не нахуевертить
+export const updateCurrencyByClick = createAppAsyncThunk(
+  'game/updateCurrencyByClick',
+  async (_, { getState, dispatch }) => {
+    const state = getState();
+
+    const unlockedSkillIds = selectUnlockedSkillsIds(state);
+
+    const buildingsCount = selectBuildingLevelsSum(state);
+
+    const delta = getCurrencyPerClick(unlockedSkillIds, buildingsCount);
+
+    dispatch(increaseCurrency(delta));
+  },
+);
+
+export const buyBuildingLevel = createAppAsyncThunk(
+  'game/incrementBuildingLevel',
+  async (buildingId: number, { getState, dispatch }) => {
+    const state = getState();
+    const building = findById(state.game.buildings, buildingId);
+
+    if (!building) return;
+
+    const unlockedSkillIds = selectUnlockedSkillsIds(state);
+    const price = getPrice(
+      building.basePrice,
+      building.multiplier,
+      building.level,
+      unlockedSkillIds,
+    );
+
+    if (state.game.currency < price) return;
+
+    dispatch(incrementBuildingLevel(buildingId));
+    dispatch(decreaseCurrency(price));
+  },
+);
+
+export const buySkill = createAppAsyncThunk(
+  'skills/buySkill',
+  async (skillId: number, { getState, dispatch }) => {
+    const state = getState() as RootState;
+    const skill = selectSkillById(state, skillId);
+
+    if (!skill || skill.unlocked) return;
+
+    const currentPoints = state.game.skillPoints;
+
+    if (currentPoints < skill.price) return;
+
+    dispatch(decreaseSkillPoints(skill.price));
+    dispatch(unlockSkill(skillId));
   },
 );

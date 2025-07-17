@@ -1,20 +1,9 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type {
-  BuildingType,
-  SkillType,
-  SpellType,
-  TgUserType,
-} from '../types/types';
+import type { BuildingType, SpellType, TgUserType } from '../types/types';
 import { getUserAndDictionaries } from './thunk';
-import { getPrice, getCurrencyPerClick, nowUnix } from '../utils';
-import { SKILLS_INFO } from '../constants/skillsInfo';
-import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
+import { nowUnix } from '../utils';
 import { findById } from '../utils/findById';
-import type {
-  UserBuildingType,
-  UserSkillType,
-  UserSpellType,
-} from '../types/api';
+import type { UserBuildingType, UserSpellType } from '../types/api';
 
 export interface GameState {
   currency: number;
@@ -25,7 +14,6 @@ export interface GameState {
   buildings: BuildingType[];
   loading: boolean;
   errorMessage: string;
-  skillsTree: SkillType[];
   spells: SpellType[];
 }
 
@@ -36,7 +24,6 @@ const initialState: GameState = {
   user: {},
   buildings: [],
   errorMessage: '',
-  skillsTree: [],
   storage: 0,
   storageCurrency: 0,
   spells: [],
@@ -77,17 +64,14 @@ const gameSlice = createSlice({
       state.currency += state.storageCurrency;
       state.storageCurrency = 0;
     },
-    updateCurrencyByCPS(state) {
-      state.currency += getCurrencyPerSecond(
-        state.skillsTree
-          .filter((skill) => skill.unlocked)
-          .map((skill) => skill.id),
-        state.buildings.map((building: BuildingType) => ({
-          level: building.level,
-          income: building.incomePerSecond,
-          id: building.id,
-        })),
-      );
+    decreaseSkillPoints: (state, action: PayloadAction<number>) => {
+      state.skillPoints -= action.payload;
+    },
+    increaseCurrency(state, action: PayloadAction<number>) {
+      state.currency += action.payload;
+    },
+    decreaseCurrency(state, action: PayloadAction<number>) {
+      state.currency -= action.payload;
     },
     updateSpellsRemain(state, action: PayloadAction<number>) {
       const seconds = action.payload;
@@ -102,35 +86,11 @@ const gameSlice = createSlice({
 
       if (!building) return;
 
-      state.currency -= getPrice(
-        building.basePrice,
-        building.multiplier,
-        building.level,
-        state.skillsTree
-          .filter((skill) => skill.unlocked)
-          .map((skill) => skill.id),
-      );
       building.level += 1;
       state.skillPoints += 1;
     },
-    updateCurrencyByClick(state) {
-      state.currency += getCurrencyPerClick(
-        state.skillsTree
-          .filter((skill) => skill.unlocked)
-          .map((skill) => skill.id),
-        state.buildings.reduce((prev, building) => prev + building.level, 0),
-      );
-    },
     setUserData(state, action: PayloadAction<TgUserType>) {
       state.user = action.payload;
-    },
-    buySkill(state, action: PayloadAction<number>) {
-      const skillId = action.payload;
-      const skill = state.skillsTree.find((skill) => skill.id === skillId);
-
-      if (!skill || skill?.price > state.skillPoints || skill?.unlocked) return;
-      state.skillPoints = state.skillPoints - skill.price;
-      skill.unlocked = true;
     },
   },
   extraReducers: (builder) => {
@@ -140,16 +100,6 @@ const gameSlice = createSlice({
       })
       .addCase(getUserAndDictionaries.fulfilled, (state, action) => {
         const { userInfo, dictionaries } = action.payload;
-
-        const skillsTree: SkillType[] = dictionaries.skillsTree.map(
-          (skill: UserSkillType) => ({
-            ...skill,
-            description: SKILLS_INFO[skill.id].description,
-            position: SKILLS_INFO[skill.id].position,
-            hidden: !!SKILLS_INFO[skill.id].hidden,
-            unlocked: userInfo.unlockedSkills.includes(skill.id),
-          }),
-        );
 
         const updatedState = {
           currency: userInfo.user.currency,
@@ -171,7 +121,6 @@ const gameSlice = createSlice({
               incomePerSecond: building.incomePerSecond,
             };
           }),
-          skillsTree,
           spells: dictionaries.spells.map((spell) => {
             const userSpell = findById<UserSpellType>(
               userInfo.spells,
@@ -197,13 +146,13 @@ const gameSlice = createSlice({
 });
 
 export const {
-  updateCurrencyByClick,
   incrementBuildingLevel,
   claimStorage,
-  updateCurrencyByCPS,
+  increaseCurrency,
+  decreaseCurrency,
+  decreaseSkillPoints,
   setUserData,
   castSpell,
-  buySkill,
   updateSpellsRemain,
 } = gameSlice.actions;
 export default gameSlice.reducer;

@@ -1,7 +1,8 @@
 import { sendBuySkill } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { selectSkillById, selectUserId } from '../app/selectors';
-import { buySkill } from '../state/gameSlice';
+import { selectUserId } from '../app/selectors';
+import { selectSkillById } from '../state/skillsSlice';
+import { buySkill } from '../state/thunk';
 
 const SkillHelper = ({
   skillId,

@@ -9,7 +9,7 @@ const buildingIdToSkillIdMap: Record<number, number> = {
 
 export const getCurrencyPerSecond = (
   skills: number[],
-  buildings: { level: number; income: number; id: number }[],
+  buildings: { level: number; incomePerSecond: number; id: number }[],
 ) => {
   const skill = (id: number) => {
     return skills.includes(id) ? 1 : 0;
@@ -17,8 +17,9 @@ export const getCurrencyPerSecond = (
 
   return Math.ceil(
     buildings.reduce(
-      (prev, { level, income, id }) =>
-        prev + level * income * (1 + 0.1 * skill(buildingIdToSkillIdMap[id])),
+      (prev, { level, incomePerSecond, id }) =>
+        prev +
+        level * incomePerSecond * (1 + 0.1 * skill(buildingIdToSkillIdMap[id])),
       0,
     ) *
       (1 + 0.05 * skill(3)) *

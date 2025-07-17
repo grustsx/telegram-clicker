@@ -1,9 +1,9 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectCurrencyPerClick, selectUserId } from '../app/selectors';
-import { updateCurrencyByClick } from '../state/gameSlice';
 import { sendClicks } from '../api';
 import CakeScene from './CakeScene';
+import { updateCurrencyByClick } from '../state/thunk';
 
 type FloatingNumber = {
   id: number;
