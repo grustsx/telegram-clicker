@@ -23,7 +23,16 @@ function BuildingsPage() {
     );
   };
 
-  const enoughCurrency = (building: BuildingType): boolean => {
+  const getSpriteLevel = (building: BuildingType): number => {
+    const { level, id } = building;
+    if (!getIsShowed(id)) return -1;
+    if (level === 0) return 0;
+    if (level < 10) return 1;
+    if (level < 20) return 2;
+    return 3;
+  };
+
+  const getIsEnoughCurrency = (building: BuildingType): boolean => {
     return (
       getPrice(
         building.basePrice,
@@ -47,13 +56,16 @@ function BuildingsPage() {
         {buildings.map((building) => (
           <div
             key={building.id}
-            className={`relative aspect-square w-full h-full ${!getIsShowed(building.id) && 'hidden'}`}
-            onClick={() => setSelectedBuilding(building.id)}
+            className={`relative aspect-square w-full h-full`}
+            onClick={() => {
+              if (!getIsShowed(building.id)) return;
+              setSelectedBuilding(building.id);
+            }}
           >
             <div className="absolute top-1/2 left-1/2">{building.name}</div>
             <img
-              className={`w-full h-full object-contain ${!enoughCurrency(building) && 'grayscale'}`}
-              src={`/assets/buildings/1/default8x8.png`}
+              className={`w-full h-full object-contain ${!getIsEnoughCurrency(building) && getIsShowed(building.id) && 'grayscale'}`}
+              src={`/assets/buildings/1/lvl${getSpriteLevel(building)}.png`}
               style={{
                 imageRendering: 'pixelated',
               }}
