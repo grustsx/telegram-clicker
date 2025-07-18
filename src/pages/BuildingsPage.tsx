@@ -1,14 +1,15 @@
 import React from 'react';
 import { useAppSelector } from '../app/hooks';
 import { BuildingInfo } from '../components';
-import { BUILDINGS_INFO } from '../constants/skillsInfo';
 import { selectAllBuildings } from '../state/buildingsSlice';
-import useDragScroll from '../hooks/useDragScroll';
+import { selectCurrency, selectUnlockedSkillsIds } from '../app/selectors';
+import { getPrice } from '../utils';
+import type { BuildingType } from '../types/types';
 
 function BuildingsPage() {
-  const containerRef = useDragScroll<HTMLDivElement>();
-
   const buildings = useAppSelector(selectAllBuildings);
+  const currency = useAppSelector(selectCurrency);
+  const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
 
   const [selectedBuilding, setSelectedBuilding] = React.useState<number | null>(
     null,
@@ -22,31 +23,50 @@ function BuildingsPage() {
     );
   };
 
+  const enoughCurrency = (building: BuildingType): boolean => {
+    return (
+      getPrice(
+        building.basePrice,
+        building.multiplier,
+        building.level,
+        unlockedSkills,
+      ) <= currency
+    );
+  };
+
   return (
-    <div ref={containerRef} className="w-full h-full overflow-scroll ">
-      <div className="pt-8 relative min-w-[1200px] w-full min-h-[2200px] h-full text-tortik-white bg-radial from-tortik-orange to-indigo-900 flex flex-col">
-        {buildings
-          .filter((building) => getIsShowed(building.id))
-          .map((building) => (
-            <div
-              key={building.id}
-              className={`absolute w-24 h-24 bg-sky-600 rounded-lg p-2 text-center cursor-pointer  ${building.upgraded && 'border-amber-300 border-solid border-2'}`}
+    <div
+      //className="pt-8 relative w-full  h-full bg-[url('/assets/grass-tile.png')] bg-center bg-repeat flex flex-row flex-wrap"
+      className="w-screen h-screen flex items-center justify-center bg-[url('/assets/grass-tile.png')] bg-center bg-repeat pb-20 box-border"
+      style={{
+        backgroundSize: '64px 64px',
+        imageRendering: 'pixelated',
+      }}
+    >
+      <div className="grid grid-cols-2 grid-rows-3 gap-0 h-full max-h-[calc(100vh-100px)] aspect-[2/3]">
+        {buildings.map((building) => (
+          <div
+            key={building.id}
+            className={`relative aspect-square w-full h-full ${!getIsShowed(building.id) && 'hidden'}`}
+            onClick={() => setSelectedBuilding(building.id)}
+          >
+            <div className="absolute top-1/2 left-1/2">{building.name}</div>
+            <img
+              className={`w-full h-full object-contain ${!enoughCurrency(building) && 'grayscale'}`}
+              src={`/assets/buildings/1/default8x8.png`}
               style={{
-                left: `${BUILDINGS_INFO[building.id].position.x + 200}px`,
-                top: `${BUILDINGS_INFO[building.id].position.y + 200}px`,
+                imageRendering: 'pixelated',
               }}
-              onClick={() => setSelectedBuilding(building.id)}
-            >
-              <strong>{building.name}</strong>
-            </div>
-          ))}
-        {selectedBuilding && (
-          <BuildingInfo
-            buildingId={selectedBuilding}
-            onClose={() => setSelectedBuilding(null)}
-          />
-        )}
+            />
+          </div>
+        ))}
       </div>
+      {selectedBuilding && (
+        <BuildingInfo
+          buildingId={selectedBuilding}
+          onClose={() => setSelectedBuilding(null)}
+        />
+      )}
     </div>
   );
 }
