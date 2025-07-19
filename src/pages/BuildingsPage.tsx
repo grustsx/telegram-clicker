@@ -25,11 +25,12 @@ function BuildingsPage() {
 
   const getSpriteLevel = (building: BuildingType): number => {
     const { level, id } = building;
-    if (!getIsShowed(id)) return -1;
-    if (level === 0) return 0;
-    if (level < 10) return 1;
-    if (level < 20) return 2;
-    return 3;
+    if (!getIsShowed(id)) return 0;
+    if (level === 0) return 1;
+    if (level < 10) return 2;
+    if (level < 20) return 3;
+    if (level < 30) return 3;
+    return 4;
   };
 
   const getIsEnoughCurrency = (building: BuildingType): boolean => {
@@ -45,7 +46,6 @@ function BuildingsPage() {
 
   return (
     <div
-      //className="pt-8 relative w-full  h-full bg-[url('/assets/grass-tile.png')] bg-center bg-repeat flex flex-row flex-wrap"
       className="w-screen h-screen flex items-center justify-center bg-[url('/assets/grass-tile.png')] bg-center bg-repeat pb-20 box-border"
       style={{
         backgroundSize: '64px 64px',
