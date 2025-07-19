@@ -5,13 +5,7 @@ import { SkillTree } from '../components';
 function SkillTreePage() {
   const containerRef = useDragScroll<HTMLDivElement>();
   const scaleRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = useState(1);
   const [scrollPos, setScrollPos] = useState({ x: 0, y: 0 });
-
-  const zoomIn = () =>
-    setScale((prev) => Math.min(2, +(prev + 0.1).toFixed(2)));
-  const zoomOut = () =>
-    setScale((prev) => Math.max(0.5, +(prev - 0.1).toFixed(2)));
 
   useEffect(() => {
     const el = containerRef.current;
@@ -48,23 +42,7 @@ function SkillTreePage() {
         }}
       />
 
-      <div className="fixed z-40 top-4 right-4 flex flex-col gap-2">
-        <button onClick={zoomIn} className="w-10 h-10 text-xl">
-          +
-        </button>
-        <button onClick={zoomOut} className="w-10 h-10 text-xl">
-          −
-        </button>
-      </div>
-
-      <div
-        ref={scaleRef}
-        style={{
-          transform: `scale(${scale})`,
-          transformOrigin: 'top left',
-        }}
-        className="transition-transform origin-top-left z-30"
-      >
+      <div ref={scaleRef} className="transition-transform origin-top-left z-30">
         <SkillTree />
       </div>
     </div>

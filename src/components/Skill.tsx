@@ -1,4 +1,4 @@
-import type { SkillStateType } from '../types/types';
+import type { PositionType, SkillStateType } from '../types/types';
 
 function Skill({
   onClick,
@@ -11,7 +11,7 @@ function Skill({
   icon: string;
   state: SkillStateType;
   id: number;
-  position: { x: number; y: number };
+  position: PositionType;
 }) {
   const getColor = (state: SkillStateType): string => {
     switch (state) {

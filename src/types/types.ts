@@ -38,3 +38,5 @@ export type SkillStateType =
   | 'hidden'
   | 'disabled'
   | 'mysterious';
+
+export type PositionType = { x: number; y: number };

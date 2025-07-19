@@ -6,9 +6,16 @@ import SkillHelper from './SkillHelper';
 import { selectAllSkills } from '../state/skillsSlice';
 import { SKILLS_INFO } from '../constants/skillsInfo';
 import Skill from './Skill';
+import SkillLine from './SkillLine';
 
 function SkillTree() {
   const [selectedSkillId, setSelectedSkillId] = useState<number | null>(null);
+  const [scale, setScale] = useState(0.5);
+
+  const zoomIn = () =>
+    setScale((prev) => Math.min(2, +(prev + 0.1).toFixed(2)));
+  const zoomOut = () =>
+    setScale((prev) => Math.max(0.5, +(prev - 0.1).toFixed(2)));
 
   const skills = useAppSelector(selectAllSkills);
   const skillPoints = useAppSelector(selectSkillPoints);
@@ -39,6 +46,14 @@ function SkillTree() {
 
   return (
     <div className="relative min-w-[1200px] w-full min-h-[2200px] h-full z-30">
+      <div className="fixed z-40 top-1/2 right-4 flex flex-col gap-2">
+        <div onClick={zoomIn} className="w-20 h-20 text-8xl">
+          +
+        </div>
+        <div onClick={zoomOut} className="w-20 h-20 text-8xl">
+          −
+        </div>
+      </div>
       {selectedSkillId && (
         <SkillHelper
           skillId={selectedSkillId}
@@ -47,47 +62,52 @@ function SkillTree() {
         />
       )}
       <div className="fixed z-30">{'Очки улучшения: ' + skillPoints}</div>
+
       <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
+        <g
+          style={{
+            transform: `scale(${scale})`,
+            transformOrigin: 'top left',
+          }}
+        >
+          {skills
+            .filter(
+              (skill) => computeState(skill) !== 'hidden' && !skill.hidden,
+            )
+            .map((skill) => {
+              if (!skill.requires) return null;
+              return skill.requires.map((depId) => {
+                const parentId = skills.find(
+                  (skill) =>
+                    skill.id === depId && computeState(skill) !== 'hidden',
+                )?.id;
+                const from = SKILLS_INFO[skill.id].position;
+                const to = SKILLS_INFO[parentId || ''].position;
+
+                return <SkillLine from={from} to={to} />;
+              });
+            })}
+        </g>
+      </svg>
+      <div
+        style={{
+          transform: `scale(${scale})`,
+          transformOrigin: 'top left',
+        }}
+      >
         {skills
           .filter((skill) => computeState(skill) !== 'hidden' && !skill.hidden)
-          .map((skill) => {
-            if (!skill.requires) return null;
-            return skill.requires.map((depId) => {
-              const parentId = skills.find(
-                (skill) =>
-                  skill.id === depId && computeState(skill) !== 'hidden',
-              )?.id;
-              const from = SKILLS_INFO[skill.id].position;
-              const to = parentId && SKILLS_INFO[parentId].position;
-              if (!from || !to) return null;
-
-              return (
-                <line
-                  key={`${depId}->${skill.id}`}
-                  x1={from.x + 50}
-                  y1={from.y + 250}
-                  x2={to.x + 50}
-                  y2={to.y + 250}
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeOpacity="0.5"
-                />
-              );
-            });
-          })}
-      </svg>
-      {skills
-        .filter((skill) => computeState(skill) !== 'hidden' && !skill.hidden)
-        .map((skill) => (
-          <Skill
-            onClick={setSelectedSkillId}
-            icon={SKILLS_INFO[skill.id].icon || 'star.png'}
-            key={skill.id}
-            state={computeState(skill)}
-            id={skill.id}
-            position={SKILLS_INFO[skill.id].position}
-          />
-        ))}
+          .map((skill) => (
+            <Skill
+              onClick={setSelectedSkillId}
+              icon={SKILLS_INFO[skill.id].icon || 'star.png'}
+              key={skill.id}
+              state={computeState(skill)}
+              id={skill.id}
+              position={SKILLS_INFO[skill.id].position}
+            />
+          ))}
+      </div>
     </div>
   );
 }

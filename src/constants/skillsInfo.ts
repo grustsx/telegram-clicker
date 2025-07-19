@@ -1,8 +1,10 @@
+import type { PositionType } from '../types/types';
+
 export const SKILLS_INFO: Record<
   string,
   {
     description: string;
-    position: { x: number; y: number };
+    position: PositionType;
     icon?: string;
     hidden?: boolean;
   }
