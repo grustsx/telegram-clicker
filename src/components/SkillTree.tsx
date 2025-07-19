@@ -81,7 +81,7 @@ function SkillTree() {
         .map((skill) => (
           <Skill
             onClick={setSelectedSkillId}
-            icon={SKILLS_INFO[skill.id].icon || 'star'}
+            icon={SKILLS_INFO[skill.id].icon || 'star.png'}
             key={skill.id}
             state={computeState(skill)}
             id={skill.id}
