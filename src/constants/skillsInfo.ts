@@ -11,99 +11,99 @@ export const SKILLS_INFO: Record<
 > = {
   '1': {
     description: 'Два клика по цене одного.',
-    position: { x: 300, y: 50 },
+    position: { x: 0, y: 0 },
     icon: 'cursor.png',
   },
   '2': {
     description: 'Ещё в два раза, будьте добры.',
-    position: { x: 200, y: 200 },
+    position: { x: -100, y: 200 },
     icon: 'cursor-border.png',
   },
   '3': {
     description: 'Всё из-под пинка. Эффективность башен растёт на 5%.',
-    position: { x: 400, y: 200 },
+    position: { x: 100, y: 200 },
     icon: 'boot.png',
   },
   '4': {
     description: 'Ваша подлость увеличивает урон по тортику в два раза.',
-    position: { x: 100, y: 400 },
+    position: { x: -200, y: 400 },
     icon: 'david.png',
   },
   '5': {
     description: 'Все будут жопу рвать. 5% ко всему.',
-    position: { x: 300, y: 400 },
+    position: { x: 0, y: 400 },
     icon: 'wrench.png',
   },
   '6': {
     description: 'Контроль увеличивает эффективность башен на 5%.',
-    position: { x: 500, y: 400 },
+    position: { x: 200, y: 400 },
   },
   '7': {
     description: 'Дополнительный палец. Клики эффективнее ещё в 2 раза.',
-    position: { x: 100, y: 600 },
+    position: { x: -200, y: 600 },
     icon: 'finger.png',
   },
   '8': {
     description: 'Дополнительная рука. Клики эффективнее ещё в 2 раза.',
-    position: { x: 100, y: 800 },
+    position: { x: -200, y: 800 },
   },
   '9': {
     description: 'Рабинович недоволен, башни дешевле на 5%.',
-    position: { x: 600, y: 600 },
+    position: { x: 300, y: 600 },
     icon: 'dollar.png',
   },
   '10': {
     description:
       'Теперь ты сверх человек. Некоротые люди тебе поклоняются как божеству тортодобычи.',
-    position: { x: 100, y: 1000 },
+    position: { x: -200, y: 1000 },
     icon: 'alien.png',
   },
   '11': {
     description:
       'Проджект менеджеры выгоняют народ с курилок, повышая эффективность башен на 5%',
-    position: { x: 400, y: 800 },
+    position: { x: 100, y: 800 },
   },
   '12': {
     description:
       'По указу президента все башни теперь кликают по команде. Клик увеличивается на количество построек.',
-    position: { x: 300, y: 1200 },
+    position: { x: 100, y: 1200 },
   },
   '13': {
     description: 'Богданы на 10% эффективнее',
-    position: { x: 700, y: 800 },
+    position: { x: 400, y: 800 },
   },
   '14': {
     description: 'Б2 на 10% эффективнее',
-    position: { x: 700, y: 900 },
+    position: { x: 400, y: 900 },
   },
   '15': {
     description: 'Б3 на 10% эффективнее',
-    position: { x: 700, y: 1000 },
+    position: { x: 400, y: 1000 },
   },
   '16': {
     description: 'Б4 на 10% эффективнее',
-    position: { x: 700, y: 1100 },
+    position: { x: 400, y: 1100 },
   },
   '17': {
     description: 'Б5 на 10% эффективнее',
-    position: { x: 700, y: 1200 },
+    position: { x: 400, y: 1200 },
   },
   '18': {
     description: 'Б6 на 10% эффективнее',
-    position: { x: 700, y: 1300 },
+    position: { x: 400, y: 1300 },
   },
   '19': {
     description: '+ 10 мин к складу',
-    position: { x: 700, y: 100 },
+    position: { x: 400, y: 100 },
     hidden: true,
   },
   '20': {
     description: '+ 10 мин к складу',
-    position: { x: 700, y: 300 },
+    position: { x: 400, y: 300 },
   },
   '21': {
     description: '+ 10 мин к складу',
-    position: { x: 700, y: 500 },
+    position: { x: 400, y: 500 },
   },
 };
 

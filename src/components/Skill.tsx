@@ -32,7 +32,7 @@ function Skill({
       className={`absolute z-30 w-24 h-24 ${getColor(state)} rounded-lg p-2 text-center cursor-pointer flex justify-center items-center`}
       onClick={() => state !== 'mysterious' && onClick(id)}
       style={{
-        left: `${position.x}px`,
+        left: `${position.x + 200}px`,
         top: `${position.y + 200}px`,
       }}
     >

@@ -51,7 +51,7 @@ const BuildingInfo = ({
   };
 
   return (
-    <div className="fixed gap-1 flex-col p-8 bottom-0 w-full bg-slate-700 z-10 text-tortik-white cursor-pointer">
+    <div className="fixed gap-1 flex-col p-8 bottom-0 w-full bg-slate-700 text-tortik-white cursor-pointer z-60">
       <button className="bg-red-900 absolute top-4 right-4" onClick={onClose}>
         x
       </button>
