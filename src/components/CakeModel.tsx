@@ -59,11 +59,12 @@ export default function CakeModel({
     onClick(e);
     setIsHolding(true);
     playPressSound();
-    gl.domElement.setPointerCapture(e.pointerId);
+    e.currentTarget.setPointerCapture(e.pointerId);
     handlePointerMove(e.clientX, e.clientY, true);
   };
 
   const handlePointerMoveEvent = (e: React.PointerEvent) => {
+    console.log(e);
     if (!isHolding) return;
     handlePointerMove(e.clientX, e.clientY);
   };
@@ -80,6 +81,10 @@ export default function CakeModel({
     gl.domElement.releasePointerCapture(e.pointerId);
     api.start({ rotation: [0, 0, 0] });
   };
+
+  React.useEffect(() => {
+    gl.domElement.style.touchAction = 'none';
+  }, [gl]);
 
   return (
     <group
