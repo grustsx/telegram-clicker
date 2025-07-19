@@ -8,8 +8,15 @@
   --color-tortik-white: #fcfcfc;
 }
 
+@font-face {
+  font-family: 'BitCell';
+  src: url('assets/fonts/BitCell.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: 'BitCell';
   line-height: 1.5;
   font-weight: 400;
   width: 100%;

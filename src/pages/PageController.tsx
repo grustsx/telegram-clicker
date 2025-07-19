@@ -1,9 +1,9 @@
 import React from 'react';
 import MainPage from './MainPage';
 import { AppVersion, MenuButton } from '../components';
-import CakeSvg from '../assets/cake.svg?react';
-import BuildingSvg from '../assets/building.svg?react';
-import UpgradeSvg from '../assets/upgrade.svg?react';
+import CakeSvg from '../assets/List.svg?react';
+import BuildingSvg from '../assets/Home.svg?react';
+import UpgradeSvg from '../assets/Up-Arrow.svg?react';
 import BuildingsPage from './BuildingsPage';
 import SkillTreePage from './SkillTreePage';
 

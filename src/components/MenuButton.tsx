@@ -13,10 +13,10 @@ const MenuButton = ({
 }) => {
   return (
     <div onClick={onClick} className="flex flex-col items-center">
-      <Icon
-        className={`w-16 h-16 ${selected ? 'fill-tortik-orange' : 'fill-tortik-yellow'}`}
-      />
-      <div className="text-black">{name}</div>
+      <Icon className="w-16 h-16" />
+      <div className={`text-2xl ${selected && 'text-tortik-orange'}`}>
+        {name}
+      </div>
     </div>
   );
 };
