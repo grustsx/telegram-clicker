@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import useDragScroll from '../hooks/useDragScroll';
 import { SkillTree } from '../components';
 
@@ -11,31 +11,43 @@ function SkillTreePage() {
     const el = containerRef.current;
     if (!el) return;
 
-    const updateParallax = () => {
-      const x = el.scrollLeft;
-      const y = el.scrollTop;
+    let animationFrameId: number;
 
-      // Более производительный способ через transform
-      if (backRef.current) {
-        backRef.current.style.transform = `translate3d(${-x * 0.1}px, ${-y * 0.1}px, 0)`;
-      }
-      if (starsRef.current) {
-        starsRef.current.style.transform = `translate3d(${-x * 0.3}px, ${-y * 0.3}px, 0)`;
-      }
+    const onScroll = () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+      animationFrameId = requestAnimationFrame(() => {
+        const x = el.scrollLeft;
+        const y = el.scrollTop;
+
+        // Плавный GPU параллакс
+        if (backRef.current) {
+          backRef.current.style.transform = `translate3d(${-x * 0.1}px, ${-y * 0.1}px, 0)`;
+        }
+        if (starsRef.current) {
+          starsRef.current.style.transform = `translate3d(${-x * 0.3}px, ${-y * 0.3}px, 0)`;
+        }
+      });
     };
 
-    el.addEventListener('scroll', updateParallax);
-    updateParallax(); // начальная позиция
+    el.addEventListener('scroll', onScroll);
+    onScroll(); // начальная позиция
 
-    return () => el.removeEventListener('scroll', updateParallax);
-  });
+    return () => {
+      el.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full h-full overflow-scroll">
+    <div
+      ref={containerRef}
+      className="relative w-full h-full overflow-scroll touch-none"
+    >
       {/* Задний фон */}
       <div
         ref={backRef}
-        className="pointer-events-none fixed top-0 left-0 w-full h-full z-0 bg-repeat"
+        className="fixed top-0 left-0 w-full h-full z-0 bg-repeat pointer-events-none"
         style={{
           backgroundImage: "url('/assets/backgrounds/skills/blue-back.png')",
           imageRendering: 'pixelated',
@@ -43,10 +55,10 @@ function SkillTreePage() {
         }}
       />
 
-      {/* Звёзды поверх */}
+      {/* Звезды */}
       <div
         ref={starsRef}
-        className="pointer-events-none fixed top-0 left-0 w-full h-full z-10 bg-repeat"
+        className="fixed top-0 left-0 w-full h-full z-10 bg-repeat pointer-events-none"
         style={{
           backgroundImage: "url('/assets/backgrounds/skills/blue-stars.png')",
           imageRendering: 'pixelated',
@@ -54,8 +66,8 @@ function SkillTreePage() {
         }}
       />
 
-      {/* Контент */}
-      <div className="transition-transform origin-top-left z-30">
+      {/* Контент скилл-дерева */}
+      <div className="relative z-30">
         <SkillTree />
       </div>
     </div>
