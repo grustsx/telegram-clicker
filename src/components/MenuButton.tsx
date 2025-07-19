@@ -10,7 +10,7 @@ const MenuButton = ({
   selected: boolean;
 }) => {
   return (
-    <div onClick={onClick} className="flex flex-col items-center">
+    <div onClick={onClick} className="flex flex-col items-center z-50">
       <img
         className="w-8 h-8"
         src={icon}

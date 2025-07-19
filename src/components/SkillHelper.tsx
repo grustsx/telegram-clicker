@@ -27,7 +27,7 @@ const SkillHelper = ({
   };
 
   return (
-    <div className="fixed p-8 top-0 w-full bg-amber-900/60 z-10 text-tortik-white">
+    <div className="fixed p-8 top-0 w-full bg-amber-900/60 z-50 text-tortik-white">
       <button className="bg-red-900 absolute top-4 right-4" onClick={onClose}>
         x
       </button>

@@ -29,20 +29,24 @@ function Skill({
   };
   return (
     <div
-      className={`absolute w-24 h-24 ${getColor(state)} rounded-lg p-2 text-center cursor-pointer`}
+      className={`absolute z-30 w-24 h-24 ${getColor(state)} rounded-lg p-2 text-center cursor-pointer flex justify-center items-center`}
       onClick={() => state !== 'mysterious' && onClick(id)}
       style={{
         left: `${position.x}px`,
         top: `${position.y + 200}px`,
       }}
     >
-      <img
-        className="w-20 h-20"
-        style={{
-          imageRendering: 'pixelated',
-        }}
-        src={`/assets/icons/skills/${icon}`}
-      />
+      {state === 'mysterious' ? (
+        <div className="text-6xl">?</div>
+      ) : (
+        <img
+          className="w-16 h-16"
+          style={{
+            imageRendering: 'pixelated',
+          }}
+          src={`/assets/icons/skills/${icon}`}
+        />
+      )}
     </div>
   );
 }

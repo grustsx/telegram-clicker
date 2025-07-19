@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect } from 'react';
 
 export default function useDragScroll<T extends HTMLElement>() {
   const ref = useRef<T | null>(null);
@@ -17,7 +17,7 @@ export default function useDragScroll<T extends HTMLElement>() {
         scrollLeft: el.scrollLeft,
         scrollTop: el.scrollTop,
       };
-      el.style.cursor = "grabbing";
+      el.style.cursor = 'grabbing';
     };
 
     const onMouseMove = (e: MouseEvent) => {
@@ -30,7 +30,7 @@ export default function useDragScroll<T extends HTMLElement>() {
 
     const onMouseUp = () => {
       isDragging.current = false;
-      el.style.cursor = "grab";
+      el.style.cursor = 'grab';
     };
 
     const onTouchStart = (e: TouchEvent) => {
@@ -51,31 +51,31 @@ export default function useDragScroll<T extends HTMLElement>() {
       const dy = touch.pageY - start.current.y;
       el.scrollLeft = start.current.scrollLeft - dx;
       el.scrollTop = start.current.scrollTop - dy;
-      e.preventDefault(); // ключевой момент!
+      e.preventDefault();
     };
 
     const onTouchEnd = () => {
       isDragging.current = false;
     };
 
-    el.addEventListener("mousedown", onMouseDown);
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp);
+    el.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
 
-    el.addEventListener("touchstart", onTouchStart, { passive: false });
-    el.addEventListener("touchmove", onTouchMove, { passive: false });
-    el.addEventListener("touchend", onTouchEnd);
+    el.addEventListener('touchstart', onTouchStart, { passive: false });
+    el.addEventListener('touchmove', onTouchMove, { passive: false });
+    el.addEventListener('touchend', onTouchEnd);
 
-    el.style.cursor = "grab";
+    el.style.cursor = 'grab';
 
     return () => {
-      el.removeEventListener("mousedown", onMouseDown);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
+      el.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
 
-      el.removeEventListener("touchstart", onTouchStart);
-      el.removeEventListener("touchmove", onTouchMove);
-      el.removeEventListener("touchend", onTouchEnd);
+      el.removeEventListener('touchstart', onTouchStart);
+      el.removeEventListener('touchmove', onTouchMove);
+      el.removeEventListener('touchend', onTouchEnd);
     };
   }, []);
 

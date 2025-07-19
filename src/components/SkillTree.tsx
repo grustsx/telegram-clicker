@@ -38,7 +38,7 @@ function SkillTree() {
   };
 
   return (
-    <div className="relative min-w-[1200px] w-full min-h-[2200px] h-full bg-radial from-tortik-orange via-indigo-900 to-black">
+    <div className="relative min-w-[1200px] w-full min-h-[2200px] h-full z-30">
       {selectedSkillId && (
         <SkillHelper
           skillId={selectedSkillId}
@@ -46,7 +46,7 @@ function SkillTree() {
           onClose={() => setSelectedSkillId(null)}
         />
       )}
-      <div className="fixed z-20">{'Очки улучшения: ' + skillPoints}</div>
+      <div className="fixed z-30">{'Очки улучшения: ' + skillPoints}</div>
       <svg className="absolute top-0 left-0 w-full h-full pointer-events-none">
         {skills
           .filter((skill) => computeState(skill) !== 'hidden' && !skill.hidden)
