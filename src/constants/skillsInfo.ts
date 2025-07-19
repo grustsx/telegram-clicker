@@ -1,26 +1,36 @@
 export const SKILLS_INFO: Record<
   string,
-  { description: string; position: { x: number; y: number }; hidden?: boolean }
+  {
+    description: string;
+    position: { x: number; y: number };
+    icon?: string;
+    hidden?: boolean;
+  }
 > = {
   '1': {
     description: 'Два клика по цене одного.',
     position: { x: 300, y: 50 },
+    icon: 'cursor.png',
   },
   '2': {
     description: 'Ещё в два раза, будьте добры.',
     position: { x: 200, y: 200 },
+    icon: 'cursor-border.png',
   },
   '3': {
     description: 'Всё из-под пинка. Эффективность башен растёт на 5%.',
     position: { x: 400, y: 200 },
+    icon: 'boot.png',
   },
   '4': {
     description: 'Ваша подлость увеличивает урон по тортику в два раза.',
     position: { x: 100, y: 400 },
+    icon: 'david.png',
   },
   '5': {
     description: 'Все будут жопу рвать. 5% ко всему.',
     position: { x: 300, y: 400 },
+    icon: 'wrench.png',
   },
   '6': {
     description: 'Контроль увеличивает эффективность башен на 5%.',
@@ -29,6 +39,7 @@ export const SKILLS_INFO: Record<
   '7': {
     description: 'Дополнительный палец. Клики эффективнее ещё в 2 раза.',
     position: { x: 100, y: 600 },
+    icon: 'finger.png',
   },
   '8': {
     description: 'Дополнительная рука. Клики эффективнее ещё в 2 раза.',
@@ -37,11 +48,13 @@ export const SKILLS_INFO: Record<
   '9': {
     description: 'Рабинович недоволен, башни дешевле на 5%.',
     position: { x: 600, y: 600 },
+    icon: 'dollar.png',
   },
   '10': {
     description:
       'Теперь ты сверх человек. Некоротые люди тебе поклоняются как божеству тортодобычи.',
     position: { x: 100, y: 1000 },
+    icon: 'alien.png',
   },
   '11': {
     description:

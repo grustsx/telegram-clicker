@@ -20,7 +20,6 @@ export type SkillType = {
   name: string;
   description: string;
   price: number;
-  position: { x: number; y: number };
   requires?: number[];
   unlocked?: boolean;
   hidden?: boolean;
@@ -32,3 +31,10 @@ export type SpellType = {
   cooldownSeconds: number;
   remainSeconds: number;
 };
+
+export type SkillStateType =
+  | 'unlocked'
+  | 'available'
+  | 'hidden'
+  | 'disabled'
+  | 'mysterious';

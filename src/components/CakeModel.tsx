@@ -64,7 +64,6 @@ export default function CakeModel({
   };
 
   const handlePointerMoveEvent = (e: React.PointerEvent) => {
-    console.log(e);
     if (!isHolding) return;
     handlePointerMove(e.clientX, e.clientY);
   };

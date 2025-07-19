@@ -29,7 +29,6 @@ const skillsSlice = createSlice({
       const skills = dictionaries.skillsTree.map((skill) => ({
         ...skill,
         description: SKILLS_INFO[skill.id].description,
-        position: SKILLS_INFO[skill.id].position,
         hidden: !!SKILLS_INFO[skill.id].hidden,
         unlocked: userInfo.unlockedSkills.includes(skill.id),
       }));

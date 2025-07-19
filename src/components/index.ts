@@ -10,3 +10,4 @@ export { default as AppVersion } from './AppVersion';
 export { default as MainPageHud } from './MainPageHud';
 export { default as ProgressBar } from './ProgressBar';
 export { default as BuildingInfo } from './BuildingInfo';
+export { default as Skill } from './Skill';
