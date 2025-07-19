@@ -29,8 +29,8 @@ function BuildingsPage() {
     if (level === 0) return 1;
     if (level < 10) return 2;
     if (level < 20) return 3;
-    if (level < 30) return 3;
-    return 4;
+    if (level < 30) return 4;
+    return 5;
   };
 
   const getIsEnoughCurrency = (building: BuildingType): boolean => {
