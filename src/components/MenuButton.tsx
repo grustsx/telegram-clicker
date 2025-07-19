@@ -1,19 +1,23 @@
-import React from 'react';
-
 const MenuButton = ({
   onClick,
   name,
-  Icon,
+  icon,
   selected,
 }: {
   onClick: () => void;
   name: string;
-  Icon: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
+  icon: string;
   selected: boolean;
 }) => {
   return (
     <div onClick={onClick} className="flex flex-col items-center">
-      <Icon className="w-16 h-16" />
+      <img
+        className="w-8 h-8"
+        src={icon}
+        style={{
+          imageRendering: 'pixelated',
+        }}
+      />
       <div className={`text-2xl ${selected && 'text-tortik-orange'}`}>
         {name}
       </div>

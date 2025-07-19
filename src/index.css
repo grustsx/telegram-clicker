@@ -10,7 +10,7 @@
 
 @font-face {
   font-family: 'BitCell';
-  src: url('assets/fonts/BitCell.ttf') format('truetype');
+  src: url('/assets/fonts/BitCell.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
