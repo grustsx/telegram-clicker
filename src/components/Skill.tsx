@@ -12,11 +12,13 @@ function Skill({
   onClick: (id: number) => void;
   icon: string;
   skill: SkillType;
-  position: PositionType;
+  position: PositionType | null;
 }) {
   const skillPoints = useAppSelector(selectSkillPoints);
   const unlockedSkillsIds = useAppSelector(selectUnlockedSkillsIds);
   const status = getSkillStatus(skill, unlockedSkillsIds);
+
+  if (!position) return;
 
   const getColor = (): string => {
     switch (status) {

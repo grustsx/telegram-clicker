@@ -1,8 +1,6 @@
 import type { PositionType } from '../types/types';
 
-function SkillLine({ from, to }: { from?: PositionType; to?: PositionType }) {
-  if (!from || !to) return null;
-
+function SkillLine({ from, to }: { from: PositionType; to: PositionType }) {
   const id = `grad-${from.x}-${from.y}-${to.x}-${to.y}`;
 
   const x1 = from.x + 50;

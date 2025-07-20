@@ -37,9 +37,11 @@ function SkillTree({
                 layoutSize,
               );
               const to = getPositionWithLayout(
-                SKILLS_INFO[parentId || ''].position,
+                SKILLS_INFO[parentId || '']?.position,
                 layoutSize,
               );
+
+              if (!from || !to) return;
 
               return (
                 <SkillLine
