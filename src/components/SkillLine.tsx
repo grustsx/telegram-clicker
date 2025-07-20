@@ -5,10 +5,10 @@ function SkillLine({ from, to }: { from?: PositionType; to?: PositionType }) {
 
   const id = `grad-${from.x}-${from.y}-${to.x}-${to.y}`;
 
-  const x1 = from.x + 250;
-  const y1 = from.y + 250;
-  const x2 = to.x + 250;
-  const y2 = to.y + 250;
+  const x1 = from.x + 50;
+  const y1 = from.y + 50;
+  const x2 = to.x + 50;
+  const y2 = to.y + 50;
 
   return (
     <>
