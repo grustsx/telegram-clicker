@@ -7,7 +7,6 @@ import type { SkillType } from '../types/types';
 import { getUserAndDictionaries } from './thunk';
 import { SKILLS_INFO } from '../constants/skillsInfo';
 import type { RootState } from '../app/store';
-import getSkillStatus from '../utils/getSkillStatus';
 
 const skillsAdapter = createEntityAdapter<SkillType>();
 
@@ -18,8 +17,8 @@ const skillsSlice = createSlice({
     unlockSkill(state, action: PayloadAction<number>) {
       const id = action.payload;
       const skill = state.entities[id];
-      if (skill && skill.status === 'available') {
-        skill.status = 'unlocked';
+      if (skill) {
+        skill.unlocked = true;
       }
     },
   },
@@ -30,7 +29,7 @@ const skillsSlice = createSlice({
       const skills = dictionaries.skillsTree.map((skill) => ({
         ...skill,
         description: SKILLS_INFO[skill.id].description,
-        status: getSkillStatus(skill, userInfo.unlockedSkills),
+        unlocked: userInfo.unlockedSkills.includes(skill.id),
       }));
 
       skillsAdapter.setAll(state, skills);

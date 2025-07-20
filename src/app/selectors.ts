@@ -3,6 +3,8 @@ import { type RootState } from './store';
 import { getCurrencyPerClick } from '../utils';
 import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
 import { selectAllBuildings } from '../state/buildingsSlice';
+import { selectAllSkills } from '../state/skillsSlice';
+import getSkillStatus from '../utils/getSkillStatus';
 
 export const selectCurrency = (state: RootState) => state.game.currency;
 
@@ -20,21 +22,24 @@ export const selectStorage = (state: RootState) => ({
 });
 
 export const selectUnlockedSkillsIds = createSelector(
-  (state: RootState) => state.skills,
-  (skills) =>
-    skills.ids
-      .map((id) => skills.entities[id])
-      .filter((s) => s?.status === 'unlocked')
-      .map((s) => s!.id),
+  selectAllSkills,
+  (skills) => skills.filter((skill) => skill.unlocked).map((skill) => skill.id),
+);
+
+export const selectVisibleSkills = createSelector(
+  [selectAllSkills, selectUnlockedSkillsIds],
+  (skills, unlockedSkillsIds) => {
+    return skills.filter(
+      (skill) => getSkillStatus(skill, unlockedSkillsIds) !== 'hidden',
+    );
+  },
 );
 
 export const selectVisibleSkillsIds = createSelector(
-  (state: RootState) => state.skills,
-  (skills) =>
-    skills.ids
-      .map((id) => skills.entities[id])
-      .filter((s) => s?.status !== 'hidden')
-      .map((s) => s!.id),
+  [selectVisibleSkills],
+  (skills) => {
+    return skills.map((skill) => skill.id);
+  },
 );
 
 export const selectSpellsOnCooldoown = createSelector(

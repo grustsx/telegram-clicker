@@ -20,7 +20,7 @@ export type SkillType = {
   name: string;
   description: string;
   price: number;
-  status: SkillStatusType;
+  unlocked: boolean;
   requires?: number[];
 };
 

@@ -131,7 +131,7 @@ export const buySkill = createAppAsyncThunk(
     const state = getState();
     const skill = selectSkillById(state, skillId);
 
-    if (!skill || skill.status !== 'available') return;
+    if (!skill || skill.unlocked) return;
 
     const currentPoints = state.game.skillPoints;
 

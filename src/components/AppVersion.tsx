@@ -1,6 +1,6 @@
 export default function AppVersion() {
   return (
-    <div className="text-sm text-gray-400 absolute bottom-1 right-1">
+    <div className="text-xxl text-gray-400 absolute bottom-4 right-4">
       v{__APP_VERSION__}
     </div>
   );

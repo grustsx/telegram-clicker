@@ -18,7 +18,7 @@ const SkillHelper = ({
 
   if (!skill) return;
 
-  const { name, description, price, status } = skill;
+  const { name, description, price, unlocked } = skill;
 
   const buyChosenSkill = (id: number) => {
     dispatch(buySkill(id));
@@ -36,7 +36,7 @@ const SkillHelper = ({
       <div className="p-4 text-lg text-shadow-lg">
         {'Цена: ' + price + 'ОУ'}
       </div>
-      {status !== 'unlocked' && (
+      {!unlocked && (
         <button
           className="bg-indigo-950"
           disabled={skillPoints < price}
