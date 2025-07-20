@@ -1,48 +1,33 @@
-import { useState, useRef, useEffect } from 'react';
 import useDragScroll from '../hooks/useDragScroll';
 import { SkillTree } from '../components';
 
 function SkillTreePage() {
   const containerRef = useDragScroll<HTMLDivElement>();
-  const scaleRef = useRef<HTMLDivElement>(null);
-  const [scrollPos, setScrollPos] = useState({ x: 0, y: 0 });
-
-  useEffect(() => {
-    const el = containerRef.current;
-    if (!el) return;
-
-    const onScroll = () => {
-      setScrollPos({
-        x: el.scrollLeft,
-        y: el.scrollTop,
-      });
-    };
-
-    el.addEventListener('scroll', onScroll);
-    return () => el.removeEventListener('scroll', onScroll);
-  });
 
   return (
-    <div ref={containerRef} className="relative w-full h-full overflow-scroll">
+    <div
+      ref={containerRef}
+      className="relative w-full h-full overflow-scroll perspective-[1px] perspective-origin-top-left"
+    >
       <div
-        className="pointer-events-none fixed top-0 left-0 w-full h-full z-0 bg-cover bg-repeat"
+        className="origin-top-left pointer-events-none absolute top-0 left-0 w-[300vw] h-[300vh] z-0 bg-repeat bg-[length:auto_100vh]"
         style={{
           backgroundImage: "url('/assets/backgrounds/skills/blue-back.png')",
-          backgroundPosition: `${-scrollPos.x * 0.1}px ${-scrollPos.y * 0.1}px`,
+          transform: 'translateZ(-2px) scale(3)',
           imageRendering: 'pixelated',
         }}
       />
 
       <div
-        className="pointer-events-none fixed top-0 left-0 w-full h-full z-10 bg-cover bg-repeat"
+        className="origin-top-left absolute top-0 left-0 w-[300vw] h-[300vh] z-10 bg-repeat bg-[length:auto_100vh]"
         style={{
           backgroundImage: "url('/assets/backgrounds/skills/blue-stars.png')",
-          backgroundPosition: `${-scrollPos.x * 0.3}px ${-scrollPos.y * 0.3}px`,
+          transform: 'translateZ(-1px) scale(2)',
           imageRendering: 'pixelated',
         }}
       />
 
-      <div ref={scaleRef} className="transition-transform origin-top-left z-30">
+      <div className="transition-transform origin-top-left z-30">
         <SkillTree />
       </div>
     </div>
