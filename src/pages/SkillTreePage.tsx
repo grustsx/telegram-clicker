@@ -32,7 +32,7 @@ function SkillTreePage() {
         className="relative w-full h-full overflow-scroll perspective-[1px] perspective-origin-top-left"
       >
         <div
-          className={`origin-top-left pointer-events-none absolute top-0 left-0  z-0 bg-repeat bg-[length:auto_100vh]`}
+          className={`origin-top-left pointer-events-none absolute top-0 left-0 z-0 bg-repeat bg-[length:auto_100vh]`}
           style={{
             width: `${width}px`,
             height: `${height}px`,
