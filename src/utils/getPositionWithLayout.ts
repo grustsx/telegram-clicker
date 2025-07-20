@@ -2,10 +2,10 @@ import type { PositionType } from '../types/types';
 
 export const getPositionWithLayout = (
   position: PositionType,
-  layoutSize: { width: number; height: number },
+  layout: { width: number; height: number; centerX: number; centerY: number },
 ): PositionType => {
   return {
-    x: position.x + layoutSize.width / 2 - 50,
-    y: position.y + layoutSize.height / 2 - 50,
+    x: position.x + layout.width / 2 - 50 - layout.centerX,
+    y: position.y + layout.height / 2 - 50 - layout.centerY,
   };
 };

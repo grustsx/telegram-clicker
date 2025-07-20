@@ -1,25 +1,24 @@
 import { sendBuySkill } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { selectUserId } from '../app/selectors';
+import { selectSkillPoints, selectUserId } from '../app/selectors';
 import { selectSkillById } from '../state/skillsSlice';
 import { buySkill } from '../state/thunk';
 
 const SkillHelper = ({
   skillId,
-  skillPoints,
   onClose,
 }: {
   skillId: number;
-  skillPoints: number;
   onClose: () => void;
 }) => {
   const dispatch = useAppDispatch();
   const userId = useAppSelector(selectUserId);
+  const skillPoints = useAppSelector(selectSkillPoints);
   const skill = useAppSelector((state) => selectSkillById(state, skillId));
 
   if (!skill) return;
 
-  const { name, description, price, unlocked } = skill;
+  const { name, description, price, status } = skill;
 
   const buyChosenSkill = (id: number) => {
     dispatch(buySkill(id));
@@ -37,7 +36,7 @@ const SkillHelper = ({
       <div className="p-4 text-lg text-shadow-lg">
         {'Цена: ' + price + 'ОУ'}
       </div>
-      {!unlocked && (
+      {status !== 'unlocked' && (
         <button
           className="bg-indigo-950"
           disabled={skillPoints < price}

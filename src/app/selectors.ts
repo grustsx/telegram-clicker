@@ -24,7 +24,16 @@ export const selectUnlockedSkillsIds = createSelector(
   (skills) =>
     skills.ids
       .map((id) => skills.entities[id])
-      .filter((s) => s?.unlocked)
+      .filter((s) => s?.status === 'unlocked')
+      .map((s) => s!.id),
+);
+
+export const selectVisibleSkillsIds = createSelector(
+  (state: RootState) => state.skills,
+  (skills) =>
+    skills.ids
+      .map((id) => skills.entities[id])
+      .filter((s) => s?.status !== 'hidden')
       .map((s) => s!.id),
 );
 

@@ -1,13 +1,12 @@
 import useDragScroll from '../hooks/useDragScroll';
-import { SkillTree } from '../components';
+import { SkillHelper, SkillTree } from '../components';
 import useSkillsLayoutSize from '../hooks/useSkillsLayoutSize';
-import React, { useEffect } from 'react';
-import { useZoomWithWheel } from '../hooks/useZoomWithWheel';
+import React, { useEffect, useState } from 'react';
 
 function SkillTreePage() {
   const containerRef = useDragScroll<HTMLDivElement>();
   const { width, height } = useSkillsLayoutSize();
-  const { zoom, ref: zoomRef } = useZoomWithWheel();
+  const [selectedSkillId, setSelectedSkillId] = useState<number | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -16,45 +15,47 @@ function SkillTreePage() {
       const scrollY = (container.scrollHeight - container.clientHeight) / 2;
       container.scrollTo(scrollX, scrollY);
     }
-  });
+  }, [containerRef]);
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full h-full overflow-scroll perspective-[1px] perspective-origin-top-left"
-    >
+    <>
+      {selectedSkillId && (
+        <SkillHelper
+          skillId={selectedSkillId}
+          onClose={() => setSelectedSkillId(null)}
+        />
+      )}
       <div
-        className={`origin-top-left pointer-events-none absolute top-0 left-0  z-0 bg-repeat bg-[length:auto_100vh]`}
-        style={{
-          width: `${width}px`,
-          height: `${height}px`,
-          backgroundImage: "url('/assets/backgrounds/skills/blue-back.png')",
-          transform: 'translateZ(-2px) scale(3)',
-          imageRendering: 'pixelated',
-        }}
-      />
-
-      <div
-        className={`origin-top-left absolute top-0 left-0 z-0 bg-repeat bg-[length:auto_100vh]`}
-        style={{
-          width: `${width}px`,
-          height: `${height}px`,
-          backgroundImage: "url('/assets/backgrounds/skills/blue-stars.png')",
-          transform: 'translateZ(-1px) scale(2)',
-          imageRendering: 'pixelated',
-        }}
-      />
-
-      <div
-        className="transition-transform origin-top-left z-30"
-        ref={zoomRef}
-        style={{
-          transform: `scale(${zoom})`,
-        }}
+        ref={containerRef}
+        className="relative w-full h-full overflow-scroll perspective-[1px] perspective-origin-top-left"
       >
-        <SkillTree />
+        <div
+          className={`origin-top-left pointer-events-none absolute top-0 left-0  z-0 bg-repeat bg-[length:auto_100vh]`}
+          style={{
+            width: `${width}px`,
+            height: `${height}px`,
+            backgroundImage: "url('/assets/backgrounds/skills/blue-back.png')",
+            transform: 'translateZ(-2px) scale(3)',
+            imageRendering: 'pixelated',
+          }}
+        />
+
+        <div
+          className={`origin-top-left absolute top-0 left-0 z-0 bg-repeat bg-[length:auto_100vh]`}
+          style={{
+            width: `${width}px`,
+            height: `${height}px`,
+            backgroundImage: "url('/assets/backgrounds/skills/blue-stars.png')",
+            transform: 'translateZ(-1px) scale(2)',
+            imageRendering: 'pixelated',
+          }}
+        />
+
+        <div className="transition-transform origin-top-left z-30">
+          <SkillTree setSelectedSkillId={setSelectedSkillId} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

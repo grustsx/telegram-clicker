@@ -20,9 +20,8 @@ export type SkillType = {
   name: string;
   description: string;
   price: number;
+  status: SkillStatusType;
   requires?: number[];
-  unlocked?: boolean;
-  hidden?: boolean;
 };
 
 export type SpellType = {
@@ -32,11 +31,10 @@ export type SpellType = {
   remainSeconds: number;
 };
 
-export type SkillStateType =
+export type SkillStatusType =
   | 'unlocked'
   | 'available'
   | 'hidden'
-  | 'disabled'
   | 'mysterious';
 
 export type PositionType = { x: number; y: number };
