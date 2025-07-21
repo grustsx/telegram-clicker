@@ -71,3 +71,19 @@ img {
   user-select: none;
   pointer-events: auto;
 }
+
+@keyframes waterFlow {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 10px 0;
+  } /* сдвиг вправо */
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.animate-water {
+  animation: waterFlow 3s ease-in-out infinite;
+}

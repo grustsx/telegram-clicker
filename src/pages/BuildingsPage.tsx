@@ -47,18 +47,12 @@ function BuildingsPage() {
   return (
     <div className="relative w-full h-full overflow-scroll">
       <div
-        className="w-screen h-[max(200vw,100vh)] flex flex-col items-center justify-center bg-[url('/assets/buildings/water.png')] bg-center bg-repeat pb-20 pt-20 box-border"
+        className="w-screen h-[max(200vw,100vh)] flex flex-col items-center justify-center bg-[url('/assets/buildings/water.png')] bg-center bg-repeat pb-20 pt-20 box-border animate-water"
         style={{
           backgroundSize: 'calc(1/4 * 100%) auto',
           imageRendering: 'pixelated',
         }}
       >
-        <div
-          className="relative w-full object-contain bg-[url('/assets/buildings/forest.png')]  bg-repeat"
-          style={{
-            imageRendering: 'pixelated',
-          }}
-        />
         <img
           className="relative w-full object-contain"
           src="/assets/buildings/top.png"

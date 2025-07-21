@@ -9,6 +9,7 @@ export interface GameState {
   skillPoints: number;
   user: TgUserType;
   loading: boolean;
+  assetsLoading: boolean;
   errorMessage: string;
 }
 
@@ -20,6 +21,7 @@ const initialState: GameState = {
   errorMessage: '',
   storage: 0,
   storageCurrency: 0,
+  assetsLoading: true,
 };
 
 const gameSlice = createSlice({
@@ -44,6 +46,9 @@ const gameSlice = createSlice({
     },
     setUserData(state, action: PayloadAction<TgUserType>) {
       state.user = action.payload;
+    },
+    setAssetsLoading(state, action: PayloadAction<boolean>) {
+      state.assetsLoading = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -80,5 +85,6 @@ export const {
   decreaseCurrency,
   decreaseSkillPoints,
   setUserData,
+  setAssetsLoading,
 } = gameSlice.actions;
 export default gameSlice.reducer;

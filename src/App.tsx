@@ -12,6 +12,7 @@ import ErrorHandler from './components/ErrorHandler';
 import useCurrencyPerSecond from './hooks/useUpdateCurrencyByCPS';
 import useRefreshData from './hooks/useRefreshData';
 import useUpdateSpellRemailn from './hooks/useUpdateSpellRemain';
+import PreloadImages from './components/PreloadImages';
 
 const mockedTg: {
   WebApp: {
@@ -48,11 +49,14 @@ function App() {
   useUpdateSpellRemailn();
 
   return (
-    <Loader>
-      <ErrorHandler>
-        <PageController />
-      </ErrorHandler>
-    </Loader>
+    <>
+      <PreloadImages />
+      <Loader>
+        <ErrorHandler>
+          <PageController />
+        </ErrorHandler>
+      </Loader>
+    </>
   );
 }
 
