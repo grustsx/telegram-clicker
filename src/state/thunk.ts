@@ -38,7 +38,7 @@ export const getUserData = createAppAsyncThunk(
     } catch (err) {
       console.log(err);
       const error = err as AxiosError<ApiErrorResponse>;
-      return rejectWithValue(String(error.response?.data) || error.message);
+      return rejectWithValue(error.message || String(error.response?.data));
     }
   },
 );
@@ -52,7 +52,7 @@ export const getDictionaries = createAppAsyncThunk(
     } catch (err) {
       console.log(err);
       const error = err as AxiosError<ApiErrorResponse>;
-      return rejectWithValue(String(error.response?.data) || error.message);
+      return rejectWithValue(error.message || String(error.response?.data));
     }
   },
 );

@@ -50,7 +50,7 @@ function BuildingsPage() {
   return (
     <div ref={containerRef} className="relative w-full h-full overflow-scroll">
       <div
-        className="w-screen h-[max(200vw,100vh)] flex items-center justify-center bg-[url('/assets/grass-tile.png')] bg-center bg-repeat pb-20 pt-20 box-border"
+        className="w-screen h-[max(200vw,100vh)] flex items-center justify-center bg-[url('/assets/grass.png')] bg-center bg-repeat pb-20 pt-20 box-border"
         style={{
           backgroundSize: '64px 64px',
           imageRendering: 'pixelated',
@@ -69,7 +69,7 @@ function BuildingsPage() {
               <div className="absolute top-1/2 left-1/2">{building.name}</div>
               <img
                 className={`w-full h-full object-contain ${!getIsEnoughCurrency(building) && getIsShowed(building.id) && 'grayscale'}`}
-                src={`/assets/buildings/1/lvl${getSpriteLevel(building)}.png`}
+                src={`/assets/buildings/${((building.id + 1) % 2) + 1}/lvl${getSpriteLevel(building)}.png`}
                 style={{
                   imageRendering: 'pixelated',
                 }}
