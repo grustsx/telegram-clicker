@@ -11,6 +11,11 @@ const imagePaths = [
   '/assets/buildings/up.png',
   ...Array.from({ length: 6 }, (_, i) => `/assets/buildings/1/lvl${i}.png`),
   ...Array.from({ length: 6 }, (_, i) => `/assets/buildings/2/lvl${i}.png`),
+  ...Array.from({ length: 6 }, (_, i) => `/assets/buildings/3/lvl${i}.png`),
+  ...Array.from({ length: 6 }, (_, i) => `/assets/buildings/4/lvl${i}.png`),
+  ...Array.from({ length: 6 }, (_, i) => `/assets/buildings/5/lvl${i}.png`),
+  ...Array.from({ length: 6 }, (_, i) => `/assets/buildings/6/lvl${i}.png`),
+
   '/assets/icons/Home.png',
   '/assets/icons/List.png',
   '/assets/icons/Up-Arrow.png',

@@ -78,7 +78,7 @@ img {
   }
   50% {
     background-position: 10px 0;
-  } /* сдвиг вправо */
+  }
   100% {
     background-position: 0 0;
   }

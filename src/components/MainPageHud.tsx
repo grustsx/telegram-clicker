@@ -14,7 +14,7 @@ function MainPageHud() {
   const currencyPerSecond = useAppSelector(selectCurrencyPerSecond);
 
   return (
-    <div className="flex flex-col">
+    <div className="fixed w-full flex flex-col z-20">
       <div className="text-3xl text-shadow-lg">
         {formatLargeNumber(currency) + ' тортиков'}
       </div>

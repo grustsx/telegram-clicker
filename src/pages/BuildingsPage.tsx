@@ -1,6 +1,6 @@
 import React from 'react';
 import { useAppSelector } from '../app/hooks';
-import { BuildingInfo } from '../components';
+import { BuildingInfo, MainPageHud } from '../components';
 import { selectAllBuildings } from '../state/buildingsSlice';
 import { selectCurrency, selectUnlockedSkillsIds } from '../app/selectors';
 import { getPrice } from '../utils';
@@ -45,67 +45,70 @@ function BuildingsPage() {
   };
 
   return (
-    <div className="relative w-full h-full overflow-scroll">
-      <div
-        className="w-screen h-[max(200vw,100vh)] flex flex-col items-center justify-center bg-[url('/assets/buildings/water.png')] bg-center bg-repeat pb-20 pt-20 box-border animate-water"
-        style={{
-          backgroundSize: 'calc(1/4 * 100%) auto',
-          imageRendering: 'pixelated',
-        }}
-      >
-        <img
-          className="relative w-full object-contain"
-          src="/assets/buildings/top.png"
+    <>
+      <MainPageHud />
+
+      <div className="relative w-full h-full overflow-scroll">
+        <div
+          className="w-screen h-[max(200vw,100vh)] flex flex-col items-center justify-center bg-[url('/assets/buildings/water.png')] bg-center bg-repeat pb-20 pt-20 box-border animate-water"
           style={{
+            backgroundSize: 'calc(1/4 * 100%) auto',
             imageRendering: 'pixelated',
           }}
-        />
+        >
+          <img
+            className="relative w-full object-contain"
+            src="/assets/buildings/top.png"
+            style={{
+              imageRendering: 'pixelated',
+            }}
+          />
 
-        <div className="grid grid-cols-2 grid-rows-3 gap-0 w-full aspect-[2/3]">
-          {buildings.map((building) => (
-            <div
-              key={building.id}
-              className={`relative aspect-square w-full h-full`}
-              onClick={() => {
-                if (!getIsShowed(building.id)) return;
-                setSelectedBuilding(building.id);
-              }}
-            >
-              <div className="absolute top-1/2 left-1/2">{building.name}</div>
-              <img
-                className="w-full h-full object-contain"
-                src={`/assets/buildings/${((building.id + 1) % 2) + 1}/lvl${getSpriteLevel(building)}.png`}
-                style={{
-                  imageRendering: 'pixelated',
+          <div className="grid grid-cols-2 grid-rows-3 gap-0 w-full aspect-[2/3]">
+            {buildings.map((building) => (
+              <div
+                key={building.id}
+                className={`relative aspect-square w-full h-full`}
+                onClick={() => {
+                  if (!getIsShowed(building.id)) return;
+                  setSelectedBuilding(building.id);
                 }}
-              />
-              {getIsEnoughCurrency(building) && getIsShowed(building.id) && (
+              >
                 <img
-                  className="absolute top-1/4 left-1/4 w-1/8 h-1/8 animate-bounce"
-                  src="/assets/buildings/up.png"
+                  className="w-full h-full object-contain"
+                  src={`/assets/buildings/${building.id}/lvl${getSpriteLevel(building)}.png`}
                   style={{
                     imageRendering: 'pixelated',
                   }}
                 />
-              )}
-            </div>
-          ))}
-        </div>
-        <img
-          className="relative w-full object-contain"
-          src="/assets/buildings/bottom.png"
-          style={{
-            imageRendering: 'pixelated',
-          }}
-        />
-        {selectedBuilding && (
-          <BuildingInfo
-            buildingId={selectedBuilding}
-            onClose={() => setSelectedBuilding(null)}
+                {getIsEnoughCurrency(building) && getIsShowed(building.id) && (
+                  <img
+                    className="absolute top-1/4 left-1/4 w-1/8 h-1/8 animate-bounce"
+                    src="/assets/buildings/up.png"
+                    style={{
+                      imageRendering: 'pixelated',
+                    }}
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+          <img
+            className="relative w-full object-contain"
+            src="/assets/buildings/bottom.png"
+            style={{
+              imageRendering: 'pixelated',
+            }}
           />
-        )}
+          {selectedBuilding && (
+            <BuildingInfo
+              buildingId={selectedBuilding}
+              onClose={() => setSelectedBuilding(null)}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
