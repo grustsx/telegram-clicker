@@ -5,11 +5,8 @@ import { selectAllBuildings } from '../state/buildingsSlice';
 import { selectCurrency, selectUnlockedSkillsIds } from '../app/selectors';
 import { getPrice } from '../utils';
 import type { BuildingType } from '../types/types';
-import useDragScroll from '../hooks/useDragScroll';
 
 function BuildingsPage() {
-  const containerRef = useDragScroll<HTMLDivElement>();
-
   const buildings = useAppSelector(selectAllBuildings);
   const currency = useAppSelector(selectCurrency);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
@@ -48,14 +45,28 @@ function BuildingsPage() {
   };
 
   return (
-    <div ref={containerRef} className="relative w-full h-full overflow-scroll">
+    <div className="relative w-full h-full overflow-scroll">
       <div
-        className="w-screen h-[max(200vw,100vh)] flex items-center justify-center bg-[url('/assets/grass.png')] bg-center bg-repeat pb-20 pt-20 box-border"
+        className="w-screen h-[max(200vw,100vh)] flex flex-col items-center justify-center bg-[url('/assets/buildings/water.png')] bg-center bg-repeat pb-20 pt-20 box-border"
         style={{
-          backgroundSize: '64px 64px',
+          backgroundSize: 'calc(1/4 * 100%) auto',
           imageRendering: 'pixelated',
         }}
       >
+        <div
+          className="relative w-full object-contain bg-[url('/assets/buildings/forest.png')]  bg-repeat"
+          style={{
+            imageRendering: 'pixelated',
+          }}
+        />
+        <img
+          className="relative w-full object-contain"
+          src="/assets/buildings/top.png"
+          style={{
+            imageRendering: 'pixelated',
+          }}
+        />
+
         <div className="grid grid-cols-2 grid-rows-3 gap-0 w-full aspect-[2/3]">
           {buildings.map((building) => (
             <div
@@ -68,15 +79,31 @@ function BuildingsPage() {
             >
               <div className="absolute top-1/2 left-1/2">{building.name}</div>
               <img
-                className={`w-full h-full object-contain ${!getIsEnoughCurrency(building) && getIsShowed(building.id) && 'grayscale'}`}
+                className="w-full h-full object-contain"
                 src={`/assets/buildings/${((building.id + 1) % 2) + 1}/lvl${getSpriteLevel(building)}.png`}
                 style={{
                   imageRendering: 'pixelated',
                 }}
               />
+              {getIsEnoughCurrency(building) && getIsShowed(building.id) && (
+                <img
+                  className="absolute top-1/4 left-1/4 w-1/8 h-1/8 animate-bounce"
+                  src="/assets/buildings/up.png"
+                  style={{
+                    imageRendering: 'pixelated',
+                  }}
+                />
+              )}
             </div>
           ))}
         </div>
+        <img
+          className="relative w-full object-contain"
+          src="/assets/buildings/bottom.png"
+          style={{
+            imageRendering: 'pixelated',
+          }}
+        />
         {selectedBuilding && (
           <BuildingInfo
             buildingId={selectedBuilding}

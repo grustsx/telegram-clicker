@@ -65,3 +65,9 @@ button {
 *::-webkit-scrollbar {
   display: none;
 }
+
+img {
+  -webkit-user-drag: none;
+  user-select: none;
+  pointer-events: auto;
+}
