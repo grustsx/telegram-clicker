@@ -1,27 +1,32 @@
 import { sendCastSpell, sendUpgradeBuilding } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
+  selectAssetLevels,
   selectCurrency,
   selectUnlockedSkillsIds,
   selectUserId,
 } from '../app/selectors';
 import { BUILDINGS_INFO } from '../constants/buildingsInfo';
+import { selectBuildingById } from '../state/buildingsSlice';
 import { selectSpellById } from '../state/spellsSlice';
 import { buyBuildingLevel, castSpell } from '../state/thunk';
-import type { BuildingType } from '../types/types';
 import { formatLargeNumber } from '../utils/format';
 import { getPrice } from '../utils/getPrice';
 
 const BuildingInfo = ({
-  building,
-  assetLevel,
+  buildingId,
   onClose,
 }: {
-  building: BuildingType;
-  assetLevel: number;
+  buildingId: number;
   onClose: () => void;
 }) => {
   const dispatch = useAppDispatch();
+  const building = useAppSelector((state) =>
+    selectBuildingById(state, buildingId),
+  );
+
+  const assetLevels = useAppSelector(selectAssetLevels);
+
   const userId = useAppSelector(selectUserId);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
   const sugarSpell = useAppSelector((state) => selectSpellById(state, 1));
@@ -56,7 +61,7 @@ const BuildingInfo = ({
         x
       </button>
       <div>{name}</div>
-      <div>{BUILDINGS_INFO[id][assetLevel]}</div>
+      <div>{BUILDINGS_INFO[id][assetLevels[id]]}</div>
       <div>
         {'Улучшение стоит' +
           formatLargeNumber(

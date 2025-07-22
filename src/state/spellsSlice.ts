@@ -52,7 +52,7 @@ const spellsSlice = createSlice({
 });
 
 export const {
-  selectAll: selectAllspells,
+  selectAll: selectAllSpells,
   selectById: selectSpellById,
   selectIds: selectSpellIds,
 } = spellsAdapter.getSelectors((state: RootState) => state.spells);

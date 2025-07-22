@@ -5,6 +5,7 @@ import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
 import { selectAllBuildings } from '../state/buildingsSlice';
 import { selectAllSkills } from '../state/skillsSlice';
 import getSkillStatus from '../utils/getSkillStatus';
+import { selectAllSpells } from '../state/spellsSlice';
 
 export const selectCurrency = (state: RootState) => state.game.currency;
 
@@ -45,19 +46,13 @@ export const selectVisibleSkillsIds = createSelector(
 );
 
 export const selectSpellsOnCooldoown = createSelector(
-  (state: RootState) => state.spells,
-  (spells) =>
-    spells.ids
-      .map((id) => spells.entities[id])
-      .filter((s) => s?.remainSeconds > 0),
+  selectAllSpells,
+  (spells) => spells.filter((s) => s?.remainSeconds > 0),
 );
 
 export const selectBuildingLevelsSum = createSelector(
-  (state: RootState) => state.buildings,
-  (buildings) =>
-    buildings.ids
-      .map((id) => buildings.entities[id])
-      .reduce((sum, b) => sum + b.level, 0),
+  selectAllBuildings,
+  (buildings) => buildings.reduce((sum, b) => sum + b.level, 0),
 );
 
 export const selectCurrencyPerClick = createSelector(
@@ -71,5 +66,38 @@ export const selectCurrencyPerSecond = createSelector(
   [selectUnlockedSkillsIds, selectAllBuildings],
   (unlockedSkillsIds, buildings) => {
     return getCurrencyPerSecond(unlockedSkillsIds, buildings);
+  },
+);
+
+export const selectAssetLevels = createSelector(
+  [selectAllBuildings],
+  (buildings) => {
+    const result: Record<number, number> = {};
+
+    for (const building of buildings) {
+      const { id, level } = building;
+
+      const isShowed = (() => {
+        if (id === 1) return true;
+        const prev = buildings.find((b) => b.id === id - 1);
+        return (prev?.level || 0) > 0;
+      })();
+
+      if (!isShowed) {
+        result[id] = 0;
+      } else if (level === 0) {
+        result[id] = 1;
+      } else if (level < 10) {
+        result[id] = 2;
+      } else if (level < 20) {
+        result[id] = 3;
+      } else if (level < 30) {
+        result[id] = 4;
+      } else {
+        result[id] = 5;
+      }
+    }
+
+    return result;
   },
 );

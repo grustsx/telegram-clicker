@@ -2,17 +2,23 @@ import React from 'react';
 import { useAppSelector } from '../app/hooks';
 import { BuildingInfo, MainPageHud } from '../components';
 import { selectAllBuildings } from '../state/buildingsSlice';
-import { selectCurrency, selectUnlockedSkillsIds } from '../app/selectors';
-import { getPrice } from '../utils';
+import {
+  selectAssetLevels,
+  selectCurrency,
+  selectUnlockedSkillsIds,
+} from '../app/selectors';
 import type { BuildingType } from '../types/types';
+import { getPrice } from '../utils';
 
 function BuildingsPage() {
   const buildings = useAppSelector(selectAllBuildings);
   const currency = useAppSelector(selectCurrency);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
+  const assetLevels = useAppSelector(selectAssetLevels);
 
-  const [selectedBuilding, setSelectedBuilding] =
-    React.useState<BuildingType | null>(null);
+  const [selectedBuildingId, setSelectedBuildingId] = React.useState<
+    number | null
+  >(null);
 
   const getIsShowed = (buildingId: number): boolean => {
     if (buildingId === 1) return true;
@@ -20,16 +26,6 @@ function BuildingsPage() {
       (buildings.find((building) => building.id === buildingId - 1)?.level ||
         0) > 0
     );
-  };
-
-  const getAssetLevel = (building: BuildingType): number => {
-    const { level, id } = building;
-    if (!getIsShowed(id)) return 0;
-    if (level === 0) return 1;
-    if (level < 10) return 2;
-    if (level < 20) return 3;
-    if (level < 30) return 4;
-    return 5;
   };
 
   const getIsEnoughCurrency = (building: BuildingType): boolean => {
@@ -42,7 +38,6 @@ function BuildingsPage() {
       ) <= currency
     );
   };
-
   return (
     <>
       <MainPageHud />
@@ -70,12 +65,12 @@ function BuildingsPage() {
                 className={`relative aspect-square w-full h-full`}
                 onClick={() => {
                   if (!getIsShowed(building.id)) return;
-                  setSelectedBuilding(building);
+                  setSelectedBuildingId(building.id);
                 }}
               >
                 <img
                   className="w-full h-full object-contain"
-                  src={`/assets/buildings/${building.id}/lvl${getAssetLevel(building)}.png`}
+                  src={`/assets/buildings/${building.id}/lvl${assetLevels[building.id]}.png`}
                   style={{
                     imageRendering: 'pixelated',
                   }}
@@ -99,11 +94,10 @@ function BuildingsPage() {
               imageRendering: 'pixelated',
             }}
           />
-          {selectedBuilding && (
+          {selectedBuildingId && (
             <BuildingInfo
-              building={selectedBuilding}
-              assetLevel={getAssetLevel(selectedBuilding)}
-              onClose={() => setSelectedBuilding(null)}
+              buildingId={selectedBuildingId}
+              onClose={() => setSelectedBuildingId(null)}
             />
           )}
         </div>
