@@ -11,9 +11,8 @@ function BuildingsPage() {
   const currency = useAppSelector(selectCurrency);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
 
-  const [selectedBuilding, setSelectedBuilding] = React.useState<number | null>(
-    null,
-  );
+  const [selectedBuilding, setSelectedBuilding] =
+    React.useState<BuildingType | null>(null);
 
   const getIsShowed = (buildingId: number): boolean => {
     if (buildingId === 1) return true;
@@ -23,7 +22,7 @@ function BuildingsPage() {
     );
   };
 
-  const getSpriteLevel = (building: BuildingType): number => {
+  const getAssetLevel = (building: BuildingType): number => {
     const { level, id } = building;
     if (!getIsShowed(id)) return 0;
     if (level === 0) return 1;
@@ -71,12 +70,12 @@ function BuildingsPage() {
                 className={`relative aspect-square w-full h-full`}
                 onClick={() => {
                   if (!getIsShowed(building.id)) return;
-                  setSelectedBuilding(building.id);
+                  setSelectedBuilding(building);
                 }}
               >
                 <img
                   className="w-full h-full object-contain"
-                  src={`/assets/buildings/${building.id}/lvl${getSpriteLevel(building)}.png`}
+                  src={`/assets/buildings/${building.id}/lvl${getAssetLevel(building)}.png`}
                   style={{
                     imageRendering: 'pixelated',
                   }}
@@ -102,7 +101,8 @@ function BuildingsPage() {
           />
           {selectedBuilding && (
             <BuildingInfo
-              buildingId={selectedBuilding}
+              building={selectedBuilding}
+              assetLevel={getAssetLevel(selectedBuilding)}
               onClose={() => setSelectedBuilding(null)}
             />
           )}

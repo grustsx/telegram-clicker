@@ -5,22 +5,22 @@ import {
   selectUnlockedSkillsIds,
   selectUserId,
 } from '../app/selectors';
-import { selectBuildingById } from '../state/buildingsSlice';
+import { BUILDINGS_INFO } from '../constants/buildingsInfo';
 import { selectSpellById } from '../state/spellsSlice';
 import { buyBuildingLevel, castSpell } from '../state/thunk';
+import type { BuildingType } from '../types/types';
 import { formatLargeNumber } from '../utils/format';
 import { getPrice } from '../utils/getPrice';
 
 const BuildingInfo = ({
-  buildingId,
+  building,
+  assetLevel,
   onClose,
 }: {
-  buildingId: number;
+  building: BuildingType;
+  assetLevel: number;
   onClose: () => void;
 }) => {
-  const building = useAppSelector((state) =>
-    selectBuildingById(state, buildingId),
-  );
   const dispatch = useAppDispatch();
   const userId = useAppSelector(selectUserId);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
@@ -56,6 +56,7 @@ const BuildingInfo = ({
         x
       </button>
       <div>{name}</div>
+      <div>{BUILDINGS_INFO[id][assetLevel]}</div>
       <div>
         {'Улучшение стоит' +
           formatLargeNumber(
