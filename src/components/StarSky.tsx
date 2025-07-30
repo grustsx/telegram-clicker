@@ -15,10 +15,8 @@ export default function StarrySky() {
         className="absolute inset-0"
         style={{
           background: `radial-gradient(
-            circle at 415px 210px, 
-            #fc9247,
-            #351c75 3%,      
-            #161439 7%,     
+            circle at 415px 210px,      
+            #161439 20%,     
             #000000 60%   
           )`,
         }}
@@ -27,7 +25,7 @@ export default function StarrySky() {
       {stars.map((star) => (
         <div
           key={star.id}
-          className="absolute rounded-full bg-white animate-twinkle"
+          className="absolute bg-white"
           style={{
             top: `${star.top}%`,
             left: `${star.left}%`,
