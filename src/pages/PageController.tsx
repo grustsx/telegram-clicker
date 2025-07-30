@@ -3,6 +3,7 @@ import MainPage from './MainPage';
 import { AppVersion, MenuButton } from '../components';
 import BuildingsPage from './BuildingsPage';
 import SkillTreePage from './SkillTreePage';
+import { soloSounds } from '../audio/musicController';
 
 const TabNames = {
   MAIN: 'main',
@@ -18,8 +19,26 @@ const TabComponentsMap = {
   [TabNames.UPGRADES]: <SkillTreePage />,
 };
 
+const TabSounds = {
+  [TabNames.MAIN]: ['mainBass', 'mainPad', 'mainDrum', 'bells'],
+  [TabNames.BUILDINGS]: ['buildingDrum', 'buildingSynth', 'bells'],
+  [TabNames.UPGRADES]: [
+    'skillBass',
+    'skillPad',
+    'skillSnare',
+    'skillKick',
+    'skillHat',
+    'bells',
+  ],
+};
+
 function PageController() {
   const [tab, setTab] = React.useState<TabName>(TabNames.MAIN);
+
+  React.useEffect(() => {
+    soloSounds(TabSounds[tab]);
+  }, [tab]);
+
   return (
     <>
       {TabComponentsMap[tab]}

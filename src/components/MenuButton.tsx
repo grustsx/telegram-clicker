@@ -1,3 +1,5 @@
+import React from 'react';
+
 const MenuButton = ({
   onClick,
   name,
@@ -25,4 +27,4 @@ const MenuButton = ({
   );
 };
 
-export default MenuButton;
+export default React.memo(MenuButton);
