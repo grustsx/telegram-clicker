@@ -3,7 +3,7 @@ import { Howl } from 'howler';
 function createLoop(src: string) {
   return new Howl({
     src: [src],
-    autoplay: true,
+    preload: true,
     loop: true,
     volume: 0.5,
     mute: true,
@@ -25,6 +25,19 @@ const loops: Record<string, Howl> = {
   skillHat: createLoop('/sounds/music/Tortik 6-Hihat_7_closed.mp3'),
   bells: createLoop('/sounds/music/Tortik Rahels Long.mp3'),
 };
+
+const startAllLoopsSync = () => {
+  const ids: Record<string, number> = {};
+
+  for (const [name, howl] of Object.entries(loops)) {
+    ids[name] = howl.play();
+    howl.mute(true, ids[name]);
+  }
+
+  return ids;
+};
+
+startAllLoopsSync();
 
 export const unmuteSounds = (soundNames: string[]) => {
   soundNames.forEach((soundName) => {
