@@ -13,6 +13,7 @@ import useCurrencyPerSecond from './hooks/useUpdateCurrencyByCPS';
 import useRefreshData from './hooks/useRefreshData';
 import useUpdateSpellRemailn from './hooks/useUpdateSpellRemain';
 import PreloadImages from './components/PreloadImages';
+import { useAudioLoops } from './hooks/useAudioLoops';
 
 const mockedTg: {
   WebApp: {
@@ -47,6 +48,7 @@ function App() {
   useRefreshData();
   useCurrencyPerSecond();
   useUpdateSpellRemailn();
+  useAudioLoops(['bells']);
 
   return (
     <>
