@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber';
-// import { Environment } from '@react-three/drei';
 import CakeModel from './CakeModel';
 import React from 'react';
+import EarthModel from './EarthModel';
 
 function CakeScene({
   onClick,
@@ -10,11 +10,49 @@ function CakeScene({
 }) {
   return (
     <div className="w-full h-full">
-      <Canvas camera={{ position: [0, 1, 5], fov: 50 }}>
-        <ambientLight intensity={1.5} />
-        <directionalLight position={[5, 5, 5]} intensity={2} />
-        {/* <Environment preset="sunset" /> */}
+      <Canvas
+        camera={{ position: [0, 1, 5], fov: 50 }}
+        gl={{ antialias: false }}
+      >
+        <ambientLight intensity={0.3} />
+        <pointLight
+          position={[0, 1, -1]}
+          intensity={4}
+          distance={10000}
+          decay={2}
+          color={'#fffad4'}
+        />
+        <pointLight
+          position={[0, 1, 1]}
+          intensity={4}
+          distance={10000}
+          decay={2}
+          color={'#fffad4'}
+        />
+        <pointLight
+          position={[1, 2, 6]}
+          intensity={1}
+          distance={10000}
+          decay={2}
+          color={'#ff6666'}
+        />
+        <pointLight
+          position={[-1, 1, 5]}
+          intensity={11}
+          distance={10000}
+          decay={2}
+          color={'#3333ff'}
+        />
+        <pointLight
+          position={[-1, 2, 5]}
+          intensity={3}
+          distance={10000}
+          decay={2}
+          color={'#fffad4'}
+        />
+
         <CakeModel onClick={onClick} />
+        <EarthModel />
       </Canvas>
     </div>
   );

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './App.css';
 import { IS_DEV } from './env';
 import { PageController } from './pages';

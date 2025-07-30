@@ -4,7 +4,6 @@ import { useThree } from '@react-three/fiber';
 import { useSpring, a } from '@react-spring/three';
 import { Group, Raycaster, Vector2, Vector3 } from 'three';
 import { playPressSound, playReleaseSound } from '../utils/playCakeSound';
-// import ExplodingCubes from './ExplodingCubes';
 
 const MAX_TILT = Math.PI / 16;
 
@@ -19,16 +18,13 @@ export default function CakeModel({
   const baseRef = useRef<Group>(null);
   const raycaster = new Raycaster();
   const [isHolding, setIsHolding] = React.useState<boolean>(false);
-  // const [explodeCenter, setExplodeCenter] = React.useState<
-  //   [number, number, number] | null
-  // >(null);
 
   const [{ rotation }, api] = useSpring(() => ({
     rotation: [0, 0, 0],
     config: { mass: 1, tension: 1500, friction: 15 },
   }));
 
-  const handlePointerMove = (x: number, y: number, explode = false) => {
+  const handlePointerMove = (x: number, y: number) => {
     const bounds = gl.domElement.getBoundingClientRect();
     const mouse = new Vector2(
       ((x - bounds.left) / bounds.width) * 2 - 1,
@@ -46,10 +42,6 @@ export default function CakeModel({
       const tiltX = -dir.z * MAX_TILT;
       const tiltZ = dir.x * MAX_TILT;
 
-      if (explode) {
-        // setExplodeCenter([dir.x, 0, dir.z]);
-      }
-
       api.start({ rotation: [-tiltX, 0, -tiltZ] });
     }
   };
@@ -60,18 +52,13 @@ export default function CakeModel({
     setIsHolding(true);
     playPressSound();
     e.currentTarget.setPointerCapture(e.pointerId);
-    handlePointerMove(e.clientX, e.clientY, true);
+    handlePointerMove(e.clientX, e.clientY);
   };
 
   const handlePointerMoveEvent = (e: React.PointerEvent) => {
     if (!isHolding) return;
     handlePointerMove(e.clientX, e.clientY);
   };
-
-  // const savedSetExplodeCenter = React.useCallback(
-  //   () => setExplodeCenter(null),
-  //   [],
-  // );
 
   const handlePointerUp = (e: React.PointerEvent) => {
     e.stopPropagation();
@@ -87,23 +74,20 @@ export default function CakeModel({
 
   return (
     <group
+      renderOrder={1}
       ref={baseRef}
-      rotation={[Math.PI / 4, Math.PI / 6, 0]} // базовый наклон
-      position={[0.05, 0, 0]}
+      rotation={[Math.PI / 4, Math.PI / 6, 0]}
+      position={[0, 0.95, 4.8]}
     >
       <a.group
         rotation={rotation as unknown as [number, number, number]}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMoveEvent}
         onPointerUp={handlePointerUp}
-        //onPointerLeave={handlePointerUp}
         onPointerCancel={handlePointerUp}
       >
-        <primitive object={scene} scale={0.02} />
+        <primitive object={scene} scale={0.001} />
       </a.group>
-      {/* {explodeCenter && (
-        <ExplodingCubes center={explodeCenter} onDone={savedSetExplodeCenter} />
-      )} */}
     </group>
   );
 }
