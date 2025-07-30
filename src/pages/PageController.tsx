@@ -52,7 +52,7 @@ function PageController() {
         <MenuButton
           onClick={() => setTab(TabNames.MAIN)}
           name="ТОРТиК"
-          icon={'/assets/icons/List.png'}
+          icon={'/assets/icons/Tortik.png'}
           selected={tab === TabNames.MAIN}
         />
         <MenuButton
