@@ -77,7 +77,7 @@ export default function CakeModel({
       renderOrder={1}
       ref={baseRef}
       rotation={[Math.PI / 4, Math.PI / 6, 0]}
-      position={[0, 0.95, 4.8]}
+      position={[0, 0.95, 4.77]}
     >
       <a.group
         rotation={rotation as unknown as [number, number, number]}
