@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { useThree } from '@react-three/fiber';
+import { useThree, useFrame } from '@react-three/fiber';
 import { useSpring, a } from '@react-spring/three';
 import { Group, Raycaster, Vector2, Vector3 } from 'three';
 import { playPressSound, playReleaseSound } from '../utils/playCakeSound';
@@ -23,6 +23,17 @@ export default function CakeModel({
     rotation: [0, 0, 0],
     config: { mass: 1, tension: 1500, friction: 15 },
   }));
+
+  const floatingRef = useRef<Group>(null);
+  const clockRef = useRef(0);
+
+  useFrame((_, delta) => {
+    clockRef.current += delta;
+    const yOffset = Math.sin(clockRef.current * 2) * 0.001;
+    if (floatingRef.current) {
+      floatingRef.current.position.y = yOffset;
+    }
+  });
 
   const handlePointerMove = (x: number, y: number) => {
     const bounds = gl.domElement.getBoundingClientRect();
@@ -79,15 +90,17 @@ export default function CakeModel({
       rotation={[Math.PI / 4, Math.PI / 6, 0]}
       position={[0, 0.95, 4.77]}
     >
-      <a.group
-        rotation={rotation as unknown as [number, number, number]}
-        onPointerDown={handlePointerDown}
-        onPointerMove={handlePointerMoveEvent}
-        onPointerUp={handlePointerUp}
-        onPointerCancel={handlePointerUp}
-      >
-        <primitive object={scene} scale={0.001} />
-      </a.group>
+      <group ref={floatingRef}>
+        <a.group
+          rotation={rotation as unknown as [number, number, number]}
+          onPointerDown={handlePointerDown}
+          onPointerMove={handlePointerMoveEvent}
+          onPointerUp={handlePointerUp}
+          onPointerCancel={handlePointerUp}
+        >
+          <primitive object={scene} scale={0.001} />
+        </a.group>
+      </group>
     </group>
   );
 }
