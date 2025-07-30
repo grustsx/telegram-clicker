@@ -11,7 +11,18 @@ export default function StarrySky() {
 
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">
-      <div className="absolute inset-0 bg-radial from-tortik-orange from-5% via-indigo-900 via-20% to-black to-60%" />
+      <div
+        className="absolute inset-0"
+        style={{
+          background: `radial-gradient(
+            circle at 415px 210px, 
+            #fc9247,
+            #351c75 3%,      
+            #161439 7%,     
+            #000000 60%   
+          )`,
+        }}
+      />
 
       {stars.map((star) => (
         <div
