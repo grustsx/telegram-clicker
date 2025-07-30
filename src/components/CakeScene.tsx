@@ -2,6 +2,9 @@ import { Canvas } from '@react-three/fiber';
 import CakeModel from './CakeModel';
 import React from 'react';
 import EarthModel from './EarthModel';
+import SunModel from './SunModel';
+import MoonModel from './MoonModel';
+import StarrySky from './StarSky';
 
 function CakeScene({
   onClick,
@@ -10,6 +13,8 @@ function CakeScene({
 }) {
   return (
     <div className="w-full h-full">
+      <StarrySky />
+
       <Canvas
         camera={{ position: [0, 1, 5], fov: 50 }}
         gl={{ antialias: false }}
@@ -51,8 +56,18 @@ function CakeScene({
           color={'#fffad4'}
         />
 
+        <pointLight
+          position={[-5, -5, -30]}
+          intensity={3}
+          distance={0}
+          decay={1}
+          color={'#fffad4'}
+        />
+
         <CakeModel onClick={onClick} />
         <EarthModel />
+        <MoonModel />
+        <SunModel />
       </Canvas>
     </div>
   );
