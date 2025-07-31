@@ -41,8 +41,7 @@ export default function GameMessage({
       <img
         className="pixel-border--gr box-border"
         style={{
-          borderRadius: 0,
-          backgroundColor: 'transparent',
+          backgroundColor: 'black',
           width: 'calc(25vw)',
           height: 'calc(25vw)',
         }}
