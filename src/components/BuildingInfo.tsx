@@ -56,7 +56,7 @@ const BuildingInfo = ({
     : true;
 
   return (
-    <div className="fixed max-h-full flex gap-1 flex-col p-0 bottom-0 w-full pixel-border--dt  cursor-pointer z-60">
+    <div className="fixed max-h-full flex gap-1 flex-col p-0 bottom-0 w-full pixel-border--dt cursor-pointer z-60">
       <div className="overflow-scroll flex flex-col gap-1">
         <button
           className="border-white border-2 absolute top-[-16px] right-4"
@@ -72,14 +72,19 @@ const BuildingInfo = ({
             src={`/assets/icons/skills/cross.png`}
           />
         </button>
-        <GameText borderStyle="lt" size="lg" text={buildingInfo.title} />
+        <GameText
+          borderStyle="lt"
+          size="lg"
+          theme="brown"
+          text={buildingInfo.title}
+        />
         <GameText size="md" text={buildingInfo.description} />
 
         {buildingInfo.messages?.map((message, index) => (
           <GameMessage
             key={message.description + message.name}
             reversed={!!(index % 2)}
-            theme={index % 2 ? 'dark' : 'light'}
+            theme={index % 2 ? 'light' : 'dark'}
             {...message}
           />
         ))}

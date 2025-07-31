@@ -29,6 +29,7 @@ const imagePaths = [
   '/assets/borders/gray-border.png',
   '/assets/borders/light-border.png',
   '/assets/borders/white-border.png',
+  '/assets/borders/light-background.png',
 
   ...[
     'alien',

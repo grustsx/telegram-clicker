@@ -81,7 +81,9 @@ img {
 .pixel-border--dt {
   border-width: calc(1.171875vw);
   border-style: solid;
-  background-color: #cc6e46;
+  background-image: url('/assets/borders/default-background.png');
+  background-repeat: repeat;
+  background-size: calc(8 * 1.171875vw);
   border-radius: calc(3 * 1.171875vw);
   border-image-source: url('/assets/borders/default-border.png');
   border-image-slice: 3;
@@ -93,7 +95,9 @@ img {
 .pixel-border--lt {
   border-width: calc(1.171875vw);
   border-style: solid;
-  background-color: #d5845f;
+  background-image: url('/assets/borders/light-background.png');
+  background-repeat: repeat;
+  background-size: calc(8 * 1.171875vw);
   border-radius: calc(3 * 1.171875vw);
   border-image-source: url('/assets/borders/light-border.png');
   border-image-slice: 3;

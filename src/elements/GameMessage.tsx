@@ -2,13 +2,13 @@ import type { GameMessageType } from '../types/types';
 import GameText from './GameText';
 
 const messageTheme = {
-  dark: 'text-[#ddebfc] text-shadow-xs text-shadow-[#3c4045] pixel-border--w',
-  light: 'text-[#3c4045] text-shadow-xs text-shadow-[#ddebfc] pixel-border--gr',
+  dark: 'text-[#ddebfc] text-shadow-xs text-shadow-[#3c4045] pixel-border--dt',
+  light: 'text-[#3c4045] text-shadow-xs text-shadow-[#ddebfc] pixel-border--lt',
 };
 
 const innerBorder: Record<string, 'dt' | 'lt' | 'w' | 'gr'> = {
-  light: 'w',
-  dark: 'gr',
+  dark: 'lt',
+  light: 'dt',
 };
 
 export default function GameMessage({
@@ -27,11 +27,14 @@ export default function GameMessage({
           className="text-shadow-xs text-shadow-[#812a05]"
           text={name.toUpperCase()}
           size="lg"
-          theme={theme === 'dark' ? 'light' : 'dark'}
+          theme={theme === 'dark' ? 'brown' : 'light'}
           borderStyle={innerBorder[theme]}
         />
         <div className="flex grow items-center self-center">
-          <GameText theme={theme} text={description} />
+          <GameText
+            theme={theme === 'dark' ? 'light' : 'brown'}
+            text={description}
+          />
         </div>
       </div>
 
