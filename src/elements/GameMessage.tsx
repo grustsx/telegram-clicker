@@ -1,22 +1,40 @@
 import type { GameMessageType } from '../types/types';
 import GameText from './GameText';
 
+const messageTheme = {
+  dark: 'text-[#ddebfc] text-shadow-xs text-shadow-[#3c4045] pixel-border--dt',
+  light: 'text-[#3c4045] text-shadow-xs text-shadow-[#ddebfc] pixel-border--lt',
+};
+
+const innerBorder: Record<string, 'dt' | 'lt' | 'w' | 'gr'> = {
+  light: 'dt',
+  dark: 'lt',
+};
+
 export default function GameMessage({
   name,
   description,
+  reversed = false,
+  theme = 'dark',
   face = 'face',
-}: GameMessageType) {
+}: GameMessageType & { reversed?: boolean; theme?: 'dark' | 'light' }) {
   return (
-    <div className="flex gap-1 pixel-border--lt justify-between">
+    <div
+      className={`${reversed ? 'flex-row-reverse' : ''} flex gap-1 ${messageTheme[theme]} justify-between`}
+    >
       <div className="flex flex-col grow">
         <GameText
           className="text-shadow-xs text-shadow-[#812a05]"
           text={name}
           size="lg"
-          borderStyle="dt"
+          theme={theme === 'dark' ? 'brown' : 'light'}
+          borderStyle={innerBorder[theme]}
         />
         <div className="flex grow items-center self-center">
-          <GameText theme="brown" text={description} />
+          <GameText
+            theme={theme === 'dark' ? 'light' : 'brown'}
+            text={description}
+          />
         </div>
       </div>
 

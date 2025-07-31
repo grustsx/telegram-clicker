@@ -71,7 +71,14 @@ const BuildingInfo = ({
         <GameText size="lg" text={buildingInfo.title} />
         <GameText size="md" text={buildingInfo.description} />
 
-        {buildingInfo.message && <GameMessage {...buildingInfo.message} />}
+        {buildingInfo.messages?.map((message, index) => (
+          <GameMessage
+            key={message.description + message.name}
+            reversed={!!(index % 2)}
+            theme={index % 2 ? 'dark' : 'light'}
+            {...message}
+          />
+        ))}
 
         <div className="flex flex-col gap-2 pixel-border--w justify-between items-center">
           <div className="flex flex-col gap-1 w-full">
