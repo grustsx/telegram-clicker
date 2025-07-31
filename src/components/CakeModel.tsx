@@ -45,9 +45,10 @@ export default function CakeModel({
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObject(scene, true);
 
-    if (intersects.length > 0) {
+    if (intersects.length > 0 && floatingRef.current) {
       const point = intersects[0].point.clone();
-      const center = new Vector3(0, 0, 0);
+      const center = new Vector3();
+      floatingRef.current.getWorldPosition(center);
 
       const dir = point.sub(center).normalize();
       const tiltX = -dir.z * MAX_TILT;
@@ -56,7 +57,6 @@ export default function CakeModel({
       api.start({ rotation: [-tiltX, 0, -tiltZ] });
     }
   };
-
   const handlePointerDown = (e: React.PointerEvent) => {
     e.stopPropagation();
     onClick(e);
