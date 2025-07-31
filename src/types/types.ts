@@ -38,3 +38,9 @@ export type SkillStatusType =
   | 'mysterious';
 
 export type PositionType = { x: number; y: number };
+
+export type GameMessageType = {
+  name: string;
+  description: string;
+  face?: string;
+};
