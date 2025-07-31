@@ -5,6 +5,7 @@ import { setAssetsLoading } from '../state/gameSlice';
 const imagePaths = [
   '/assets/backgrounds/skills/blue-back.png',
   '/assets/backgrounds/skills/blue-stars.png',
+
   '/assets/buildings/water.png',
   '/assets/buildings/top.png',
   '/assets/buildings/bottom.png',
@@ -19,6 +20,15 @@ const imagePaths = [
   '/assets/icons/Home.png',
   '/assets/icons/List.png',
   '/assets/icons/Up-Arrow.png',
+
+  '/assets/faces/face.png',
+  '/assets/faces/nikita_smile.png',
+
+  '/assets/borders/default-border.png',
+  '/assets/borders/gray-border.png',
+  '/assets/borders/light-border.png',
+  '/assets/borders/white-border.png',
+
   ...[
     'alien',
     'boot',
