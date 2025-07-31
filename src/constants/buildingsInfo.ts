@@ -15,16 +15,6 @@ export const BUILDINGS_INFO: Record<
     '1': {
       title: 'Общага студентов',
       description: 'Приехали и рискуют капиталом страны, исследуя непонято что',
-      messages: [
-        {
-          name: 'Богдан',
-          description: 'АХАХАХ ТОРТЫ',
-        },
-        {
-          name: 'Антон',
-          description: 'Ну торты и торты ну и что',
-        },
-      ],
     },
     '2': {
       title: 'Общага студентов',
@@ -88,13 +78,6 @@ export const BUILDINGS_INFO: Record<
       title: 'База ТОРТиКа',
       description:
         'Почему-то все решили, что они должны разбираться в оранжевых тортах',
-      messages: [
-        {
-          name: 'Никита',
-          description: 'Получившиеся тортики предлагаю депнуть',
-          face: 'nikita_smile',
-        },
-      ],
     },
     '2': {
       title: 'База ТОРТиКа',
@@ -150,12 +133,6 @@ export const BUILDINGS_INFO: Record<
       title: 'Амбар Клима Шейдина',
       description:
         'В нём Клим Шейдин когда-то выиграл рэп баттл. Это была идея Тортов.',
-      messages: [
-        {
-          name: 'Санёк',
-          description: 'Мой типа дедыч или кто он там',
-        },
-      ],
     },
     '2': {
       title: 'Амбар Клима Шейдина',
@@ -206,12 +183,6 @@ export const BUILDINGS_INFO: Record<
     '1': {
       title: 'Камень в море',
       description: 'Непонятный камень в море, он зовёт',
-      messages: [
-        {
-          name: 'Егор',
-          description: 'Прикольный, как бы ему помочь только, не понятно',
-        },
-      ],
     },
     '2': {
       title: 'Камень в море',
@@ -258,12 +229,6 @@ export const BUILDINGS_INFO: Record<
     '1': {
       title: 'Яма',
       description: 'Ну давайте копать',
-      messages: [
-        {
-          name: 'Надя',
-          description: 'Обычно я копаю картошку',
-        },
-      ],
     },
     '2': {
       title: 'Яма',

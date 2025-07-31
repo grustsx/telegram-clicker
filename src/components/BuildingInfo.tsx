@@ -107,11 +107,11 @@ const BuildingInfo = ({
                 <GameText
                   borderStyle={isCount ? 'gr' : 'w'}
                   theme={isCount ? 'light' : 'dark'}
-                  text={`lvl ${level} -> ${level + 1}`}
+                  text={`lvl ${level} -> lvl ${level + 1}`}
                 />
                 <GameText
                   theme={isCount ? 'dark' : 'light'}
-                  text={`${formatLargeNumber(+level * +incomePerSecond)} -> ${formatLargeNumber((+level + 1) * +incomePerSecond)}/сек`}
+                  text={`${formatLargeNumber(+level * +incomePerSecond)}/сек -> ${formatLargeNumber((+level + 1) * +incomePerSecond)}/сек`}
                 />
               </>
             )}
