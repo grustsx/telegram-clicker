@@ -51,6 +51,10 @@ const BuildingInfo = ({
 
   const buildingInfo = BUILDINGS_INFO[id][assetLevels[id]];
 
+  const isCount: boolean = buildingInfo.messages
+    ? !!(buildingInfo.messages.length % 2)
+    : true;
+
   return (
     <div className="fixed max-h-full flex gap-1 flex-col p-0 bottom-0 w-full pixel-border--dt  cursor-pointer z-60">
       <div className="overflow-scroll flex flex-col gap-1">
@@ -68,7 +72,7 @@ const BuildingInfo = ({
             src={`/assets/icons/skills/cross.png`}
           />
         </button>
-        <GameText size="lg" text={buildingInfo.title} />
+        <GameText borderStyle="lt" size="lg" text={buildingInfo.title} />
         <GameText size="md" text={buildingInfo.description} />
 
         {buildingInfo.messages?.map((message, index) => (
@@ -80,10 +84,12 @@ const BuildingInfo = ({
           />
         ))}
 
-        <div className="flex flex-col gap-2 pixel-border--w justify-between items-center">
+        <div
+          className={`flex flex-col gap-2 pixel-border--${isCount ? 'w' : 'gr'} justify-between items-center`}
+        >
           <div className="flex flex-col gap-1 w-full">
             <GameText
-              theme="dark"
+              theme={isCount ? 'dark' : 'light'}
               text={
                 'Стоимость: ' +
                 formatLargeNumber(
@@ -99,12 +105,12 @@ const BuildingInfo = ({
             {assetLevels[id] !== 1 && (
               <>
                 <GameText
-                  theme="dark"
-                  borderStyle="gr"
+                  borderStyle={isCount ? 'gr' : 'w'}
+                  theme={isCount ? 'light' : 'dark'}
                   text={`lvl ${level} -> ${level + 1}`}
                 />
                 <GameText
-                  theme="dark"
+                  theme={isCount ? 'dark' : 'light'}
                   text={`${formatLargeNumber(+level * +incomePerSecond)} -> ${formatLargeNumber((+level + 1) * +incomePerSecond)}/сек`}
                 />
               </>

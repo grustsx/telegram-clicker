@@ -105,7 +105,7 @@ img {
 .pixel-border--gr {
   border-width: calc(1.171875vw);
   border-style: solid;
-  background-color: #c0cbdc;
+  background-color: #798089;
   border-radius: calc(3 * 1.171875vw);
   border-image-source: url('/assets/borders/gray-border.png');
   border-image-slice: 3;

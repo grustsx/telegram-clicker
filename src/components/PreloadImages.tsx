@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch } from '../app/hooks';
 import { setAssetsLoading } from '../state/gameSlice';
+import { useGLTF } from '@react-three/drei';
 
 const imagePaths = [
   '/assets/backgrounds/skills/blue-back.png',
@@ -42,9 +43,11 @@ const imagePaths = [
     'wrench',
   ].map((name) => `/assets/icons/skills/${name}.png`),
 ];
+useGLTF.preload('/models/sun/scene.gltf');
 
 export default function PreloadImagesWithLoading() {
   const dispatch = useAppDispatch();
+
   const [loadedCount, setLoadedCount] = useState(0);
 
   useEffect(() => {
