@@ -1,7 +1,7 @@
 const textSize = {
-  sm: '2xl',
-  md: '3xl',
-  lg: '4xl',
+  sm: '1xl',
+  md: '2xl',
+  lg: '3xl',
 };
 
 export default function GameText({
