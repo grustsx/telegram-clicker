@@ -5,6 +5,7 @@ import EarthModel from './EarthModel';
 import SunModel from './SunModel';
 import MoonModel from './MoonModel';
 import StarrySky from './StarSky';
+import { EffectComposer, Pixelation } from '@react-three/postprocessing';
 
 function CakeScene({
   onClick,
@@ -68,6 +69,10 @@ function CakeScene({
         <EarthModel />
         <MoonModel />
         <SunModel />
+
+        <EffectComposer>
+          <Pixelation granularity={4} />
+        </EffectComposer>
       </Canvas>
     </div>
   );
