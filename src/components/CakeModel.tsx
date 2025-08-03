@@ -87,8 +87,8 @@ export default function CakeModel({
     <group
       renderOrder={1}
       ref={baseRef}
-      rotation={[Math.PI / 4, Math.PI / 6, 0]}
-      position={[0, 0.95, 4.77]}
+      rotation={[Math.PI / 5, Math.PI / 6, 0]}
+      position={[0, 0.97, 4.77]}
     >
       <group ref={floatingRef}>
         <a.group
@@ -98,7 +98,7 @@ export default function CakeModel({
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
         >
-          <primitive object={scene} scale={0.001} />
+          <primitive object={scene} scale={0.03} />
         </a.group>
       </group>
     </group>
