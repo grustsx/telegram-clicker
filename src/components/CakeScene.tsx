@@ -71,7 +71,7 @@ function CakeScene({
         <SunModel />
 
         <EffectComposer>
-          <Pixelation granularity={4} />
+          <Pixelation granularity={2} />
         </EffectComposer>
       </Canvas>
     </div>
