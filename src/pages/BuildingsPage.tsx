@@ -59,33 +59,36 @@ function BuildingsPage() {
           />
 
           <div className="grid grid-cols-2 grid-rows-3 gap-0 w-full aspect-[2/3]">
-            {buildings.map((building) => (
-              <div
-                key={building.id}
-                className={`relative aspect-square w-full h-full`}
-                onClick={() => {
-                  if (!getIsShowed(building.id)) return;
-                  setSelectedBuildingId(building.id);
-                }}
-              >
-                <img
-                  className="w-full h-full object-contain"
-                  src={`/assets/buildings/${building.id}/lvl${assetLevels[building.id]}.png`}
-                  style={{
-                    imageRendering: 'pixelated',
+            {buildings
+              .filter((building) => building.id !== 7)
+              .map((building) => (
+                <div
+                  key={building.id}
+                  className={`relative aspect-square w-full h-full`}
+                  onClick={() => {
+                    if (!getIsShowed(building.id)) return;
+                    setSelectedBuildingId(building.id);
                   }}
-                />
-                {getIsEnoughCurrency(building) && getIsShowed(building.id) && (
+                >
                   <img
-                    className="absolute top-1/4 left-1/4 w-1/8 h-1/8 animate-bounce"
-                    src="/assets/buildings/up.png"
+                    className="w-full h-full object-contain"
+                    src={`/assets/buildings/${building.id}/lvl${assetLevels[building.id]}.png`}
                     style={{
                       imageRendering: 'pixelated',
                     }}
                   />
-                )}
-              </div>
-            ))}
+                  {getIsEnoughCurrency(building) &&
+                    getIsShowed(building.id) && (
+                      <img
+                        className="absolute top-1/4 left-1/4 w-1/8 h-1/8 animate-bounce"
+                        src="/assets/buildings/up.png"
+                        style={{
+                          imageRendering: 'pixelated',
+                        }}
+                      />
+                    )}
+                </div>
+              ))}
           </div>
           <img
             className="relative w-full object-contain"

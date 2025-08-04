@@ -14,6 +14,7 @@ import { selectSpellById } from '../state/spellsSlice';
 import { buyBuildingLevel } from '../state/thunk';
 import { formatLargeNumber } from '../utils/format';
 import { getPrice } from '../utils/getPrice';
+import VodkaWell from './BuildingUpdates/VodkaWell';
 
 const BuildingInfo = ({
   buildingId,
@@ -130,6 +131,7 @@ const BuildingInfo = ({
             <GameText text={'Купить'} size="lg" />
           </button>
         </div>
+        {id === 1 && <VodkaWell />}
       </div>
     </div>
   );
