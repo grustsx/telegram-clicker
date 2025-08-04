@@ -68,7 +68,7 @@ export default function VodkaWell({
           onClick={() => upgradeVodkaWell(VODKA_WELL_ID)}
           disabled={!isEnable}
         >
-          <GameText text={'Купить'} />
+          <GameText size="sm" text="КУПИТЬ" />
         </button>
       </div>
     </div>

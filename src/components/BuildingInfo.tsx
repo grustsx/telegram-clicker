@@ -79,7 +79,7 @@ const BuildingInfo = ({
           theme="brown"
           text={buildingInfo.title.toUpperCase()}
         />
-        <GameText size="md" text={buildingInfo.description} />
+        <GameText size="sm" text={buildingInfo.description} />
 
         {buildingInfo.messages?.map((message, index) => (
           <GameMessage
@@ -121,7 +121,7 @@ const BuildingInfo = ({
             onClick={() => handleClick(id)}
             disabled={!isEnable}
           >
-            <GameText text="Купить" />
+            <GameText size="sm" text="КУПИТЬ" />
           </button>
         </div>
         {id === 1 && <VodkaWell upgradeVodkaWell={handleClick} />}

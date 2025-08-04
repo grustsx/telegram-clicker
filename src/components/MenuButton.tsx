@@ -21,7 +21,11 @@ const MenuButton = ({
           imageRendering: 'pixelated',
         }}
       />
-      <GameText text={name} className={`${selected && 'text-tortik-orange'}`} />
+      <GameText
+        size="xs"
+        text={name}
+        className={`${selected && 'text-tortik-orange'}`}
+      />
     </div>
   );
 };
