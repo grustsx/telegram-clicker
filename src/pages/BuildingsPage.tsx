@@ -78,7 +78,7 @@ function BuildingsPage() {
                 />
                 {getIsEnoughCurrency(building) && getIsShowed(building.id) && (
                   <img
-                    className={`absolute ${building.id === 7 ? 'bottom-1/4 right-1/4' : 'top-1/4 left-1/4'} w-1/8 h-1/8 animate-bounce pointer-events-none`}
+                    className={`absolute ${building.id === 7 ? 'bottom-1/4 right-1/5' : 'top-1/4 left-1/4'} w-1/8 h-1/8 animate-bounce pointer-events-none`}
                     src="/assets/buildings/up.png"
                     style={{
                       imageRendering: 'pixelated',

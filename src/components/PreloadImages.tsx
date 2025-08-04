@@ -17,6 +17,7 @@ const imagePaths = [
   ...Array.from({ length: 6 }, (_, i) => `/assets/buildings/4/lvl${i}.png`),
   ...Array.from({ length: 6 }, (_, i) => `/assets/buildings/5/lvl${i}.png`),
   ...Array.from({ length: 6 }, (_, i) => `/assets/buildings/6/lvl${i}.png`),
+  ...Array.from({ length: 6 }, (_, i) => `/assets/buildings/7/lvl${i}.png`),
 
   '/assets/icons/Home.png',
   '/assets/icons/List.png',
@@ -29,6 +30,9 @@ const imagePaths = [
   '/assets/borders/gray-border.png',
   '/assets/borders/light-border.png',
   '/assets/borders/white-border.png',
+  '/assets/borders/light-background.png',
+  '/assets/borders/default-background.png',
+  '/assets/borders/gray-background.png',
   '/assets/borders/light-background.png',
 
   ...[
