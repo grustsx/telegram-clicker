@@ -43,17 +43,20 @@ export default function VodkaWell({
       <div className="flex flex-col gap-1 w-full">
         <GameText theme={isCount ? 'dark' : 'light'} text="Колодец водки" />
         <GameText
+          size="sm"
           theme={isCount ? 'dark' : 'light'}
           text={'Стоимость: ' + formatLargeNumber(price)}
         />
         {assetLevels[VODKA_WELL_ID] !== 1 && (
           <>
             <GameText
+              size="sm"
               borderStyle={isCount ? 'gr' : 'w'}
               theme={isCount ? 'light' : 'dark'}
               text={`lvl ${level} -> lvl ${level + 1}`}
             />
             <GameText
+              size="sm"
               theme={isCount ? 'dark' : 'light'}
               text={`${formatLargeNumber(+level * +dormLevel)}/сек -> ${formatLargeNumber((+level + 1) * +dormLevel)}/сек`}
             />
@@ -65,7 +68,7 @@ export default function VodkaWell({
           onClick={() => upgradeVodkaWell(VODKA_WELL_ID)}
           disabled={!isEnable}
         >
-          <GameText text={'Купить'} size="lg" />
+          <GameText text={'Купить'} />
         </button>
       </div>
     </div>

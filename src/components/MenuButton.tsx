@@ -1,4 +1,5 @@
 import React from 'react';
+import GameText from '../elements/GameText';
 
 const MenuButton = ({
   onClick,
@@ -20,9 +21,7 @@ const MenuButton = ({
           imageRendering: 'pixelated',
         }}
       />
-      <div className={`text-2xl ${selected && 'text-tortik-orange'}`}>
-        {name}
-      </div>
+      <GameText text={name} className={`${selected && 'text-tortik-orange'}`} />
     </div>
   );
 };

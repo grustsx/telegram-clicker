@@ -1,4 +1,5 @@
 import React, { type MouseEventHandler } from 'react';
+import GameText from '../elements/GameText';
 
 function ProgressBar({
   currentValue,
@@ -25,9 +26,11 @@ function ProgressBar({
       ></div>
 
       {!!text && (
-        <div className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-white z-20 pointer-events-none">
-          {text}
-        </div>
+        <GameText
+          size="sm"
+          text={text}
+          className="absolute inset-0 flex items-center justify-center z-20 pointer-events-none"
+        />
       )}
     </div>
   );

@@ -5,6 +5,7 @@ import {
   selectCurrencyPerSecond,
   selectSkillPoints,
 } from '../app/selectors';
+import GameText from '../elements/GameText';
 import { formatLargeNumber } from '../utils/format';
 
 function MainPageHud() {
@@ -15,13 +16,15 @@ function MainPageHud() {
 
   return (
     <div className="fixed w-full flex flex-col z-20">
-      <div className="text-3xl text-shadow-lg">
-        {formatLargeNumber(currency) + ' тортиков'}
-      </div>
-      <div className="text-2xl text-shadow-lg flex flex-row justify-around items-center">
-        <div>{formatLargeNumber(currencyPerSecond) + '/сек'}</div>
+      <GameText text={formatLargeNumber(currency) + ' тортиков'} />
+
+      <div className="text-shadow-lg flex flex-row justify-around items-center">
+        <GameText
+          size="sm"
+          text={formatLargeNumber(currencyPerSecond) + '/сек'}
+        />
         <Storage />
-        <div>{formatLargeNumber(skillPoints) + ' оу'}</div>
+        <GameText size="sm" text={formatLargeNumber(skillPoints) + ' оу'} />
       </div>
     </div>
   );

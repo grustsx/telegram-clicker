@@ -7,6 +7,12 @@
   --color-tortik-yellow: #fdcf01;
   --color-tortik-white: #fcfcfc;
 }
+@font-face {
+  font-family: 'ComicSansMSPixel';
+  src: url('/assets/fonts/ComicSansMSPixel.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @font-face {
   font-family: 'BitCell';
@@ -15,8 +21,29 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'Hardpixel';
+  src: url('/assets/fonts/Hardpixel.OTF') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'EpilepsySans';
+  src: url('/assets/fonts/EpilepsySans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'EpilepsySansBold';
+  src: url('/assets/fonts/EpilepsySansBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
 :root {
-  font-family: 'BitCell';
+  font-family: 'Hardpixel';
   line-height: 1.5;
   font-weight: 400;
   width: 100%;

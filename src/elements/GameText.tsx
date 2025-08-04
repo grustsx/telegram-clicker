@@ -1,5 +1,6 @@
 const textSize = {
-  sm: '1xl',
+  xs: 'xs',
+  sm: 'sm',
   md: '2xl',
   lg: '3xl',
 };
@@ -19,7 +20,7 @@ export default function GameText({
 }: {
   text: string;
   borderStyle?: 'dt' | 'lt' | 'w' | 'gr';
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
   theme?: 'light' | 'dark' | 'brown';
   className?: string;
 }) {

@@ -26,13 +26,13 @@ export default function GameMessage({
         <GameText
           className="text-shadow-xs text-shadow-[#812a05]"
           text={name.toUpperCase()}
-          size="lg"
           theme={theme === 'dark' ? 'brown' : 'light'}
           borderStyle={innerBorder[theme]}
         />
         <div className="flex grow items-center self-center">
           <GameText
             theme={theme === 'dark' ? 'light' : 'brown'}
+            size="sm"
             text={description}
           />
         </div>

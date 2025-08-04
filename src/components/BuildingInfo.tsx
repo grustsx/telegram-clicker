@@ -77,7 +77,7 @@ const BuildingInfo = ({
           borderStyle="lt"
           size="lg"
           theme="brown"
-          text={buildingInfo.title}
+          text={buildingInfo.title.toUpperCase()}
         />
         <GameText size="md" text={buildingInfo.description} />
 
@@ -95,17 +95,20 @@ const BuildingInfo = ({
         >
           <div className="flex flex-col gap-1 w-full">
             <GameText
+              size="sm"
               theme={isCount ? 'dark' : 'light'}
               text={'Стоимость: ' + formatLargeNumber(price)}
             />
             {assetLevels[id] !== 1 && (
               <>
                 <GameText
+                  size="sm"
                   borderStyle={isCount ? 'gr' : 'w'}
                   theme={isCount ? 'light' : 'dark'}
                   text={`lvl ${level} -> lvl ${level + 1}`}
                 />
                 <GameText
+                  size="sm"
                   theme={isCount ? 'dark' : 'light'}
                   text={`${formatLargeNumber(+level * +incomePerSecond)}/сек -> ${formatLargeNumber((+level + 1) * +incomePerSecond)}/сек`}
                 />
@@ -118,7 +121,7 @@ const BuildingInfo = ({
             onClick={() => handleClick(id)}
             disabled={!isEnable}
           >
-            <GameText text={'Купить'} size="lg" />
+            <GameText text="Купить" />
           </button>
         </div>
         {id === 1 && <VodkaWell upgradeVodkaWell={handleClick} />}
