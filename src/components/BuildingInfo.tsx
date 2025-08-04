@@ -45,9 +45,9 @@ const BuildingInfo = ({
   );
   const isEnable = currency >= price;
 
-  const handleClick = () => {
-    dispatch(buyBuildingLevel(id));
-    sendUpgradeBuilding(id, userId);
+  const handleClick = (buildingId: number) => {
+    dispatch(buyBuildingLevel(buildingId));
+    sendUpgradeBuilding(buildingId, userId);
   };
 
   const buildingInfo = BUILDINGS_INFO[id][assetLevels[id]];
@@ -96,17 +96,7 @@ const BuildingInfo = ({
           <div className="flex flex-col gap-1 w-full">
             <GameText
               theme={isCount ? 'dark' : 'light'}
-              text={
-                'Стоимость: ' +
-                formatLargeNumber(
-                  getPrice(
-                    building.basePrice,
-                    building.multiplier,
-                    building.level,
-                    unlockedSkills,
-                  ),
-                )
-              }
+              text={'Стоимость: ' + formatLargeNumber(price)}
             />
             {assetLevels[id] !== 1 && (
               <>
@@ -125,13 +115,13 @@ const BuildingInfo = ({
 
           <button
             className={`w-full border-white border-2 text-white p-2 ${isEnable ? 'bg-emerald-600' : 'bg-gray-400'}`}
-            onClick={handleClick}
+            onClick={() => handleClick(id)}
             disabled={!isEnable}
           >
             <GameText text={'Купить'} size="lg" />
           </button>
         </div>
-        {id === 1 && <VodkaWell />}
+        {id === 1 && <VodkaWell upgradeVodkaWell={handleClick} />}
       </div>
     </div>
   );

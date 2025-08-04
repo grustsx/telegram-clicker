@@ -1,6 +1,7 @@
 import { useAppSelector } from '../../app/hooks';
 import {
   selectAssetLevels,
+  selectCurrency,
   selectUnlockedSkillsIds,
 } from '../../app/selectors';
 import GameText from '../../elements/GameText';
@@ -8,9 +9,17 @@ import { selectBuildingById } from '../../state/buildingsSlice';
 import { getPrice } from '../../utils';
 import { formatLargeNumber } from '../../utils/format';
 
-export default function VodkaWell() {
+const VODKA_WELL_ID = 7;
+
+export default function VodkaWell({
+  upgradeVodkaWell,
+}: {
+  upgradeVodkaWell: (id: number) => void;
+}) {
   const isCount = true;
-  const vodkaWll = useAppSelector((state) => selectBuildingById(state, 7));
+  const vodkaWll = useAppSelector((state) =>
+    selectBuildingById(state, VODKA_WELL_ID),
+  );
   const { level: dormLevel } = useAppSelector((state) =>
     selectBuildingById(state, 1),
   );
@@ -18,27 +27,26 @@ export default function VodkaWell() {
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
   const assetLevels = useAppSelector(selectAssetLevels);
   const { level } = vodkaWll;
+  const currency = useAppSelector(selectCurrency);
+  const price = getPrice(
+    vodkaWll.basePrice,
+    vodkaWll.multiplier,
+    vodkaWll.level,
+    unlockedSkills,
+  );
+  const isEnable = currency >= price;
 
   return (
     <div
       className={`flex flex-col gap-2 pixel-border--${isCount ? 'w' : 'gr'} justify-between items-center`}
     >
       <div className="flex flex-col gap-1 w-full">
+        <GameText theme={isCount ? 'dark' : 'light'} text="Колодец водки" />
         <GameText
           theme={isCount ? 'dark' : 'light'}
-          text={
-            'Стоимость: ' +
-            formatLargeNumber(
-              getPrice(
-                vodkaWll.basePrice,
-                vodkaWll.multiplier,
-                vodkaWll.level,
-                unlockedSkills,
-              ),
-            )
-          }
+          text={'Стоимость: ' + formatLargeNumber(price)}
         />
-        {assetLevels[7] !== 1 && (
+        {assetLevels[VODKA_WELL_ID] !== 1 && (
           <>
             <GameText
               borderStyle={isCount ? 'gr' : 'w'}
@@ -51,6 +59,14 @@ export default function VodkaWell() {
             />
           </>
         )}
+
+        <button
+          className={`w-full border-white border-2 text-white p-2 ${isEnable ? 'bg-emerald-600' : 'bg-gray-400'}`}
+          onClick={() => upgradeVodkaWell(VODKA_WELL_ID)}
+          disabled={!isEnable}
+        >
+          <GameText text={'Купить'} size="lg" />
+        </button>
       </div>
     </div>
   );
