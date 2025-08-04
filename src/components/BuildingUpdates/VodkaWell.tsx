@@ -41,7 +41,7 @@ export default function VodkaWell({
       className={`flex flex-col gap-2 pixel-border--${isCount ? 'w' : 'gr'} justify-between items-center`}
     >
       <div className="flex flex-col gap-1 w-full">
-        <GameText theme={isCount ? 'dark' : 'light'} text="Колодец водки" />
+        <GameText theme={isCount ? 'dark' : 'light'} text="Колодец с водкой" />
         <GameText
           size="sm"
           theme={isCount ? 'dark' : 'light'}

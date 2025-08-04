@@ -59,36 +59,34 @@ function BuildingsPage() {
           />
 
           <div className="grid grid-cols-2 grid-rows-3 gap-0 w-full aspect-[2/3]">
-            {buildings
-              .filter((building) => building.id !== 7)
-              .map((building) => (
-                <div
-                  key={building.id}
-                  className={`relative aspect-square w-full h-full`}
-                  onClick={() => {
-                    if (!getIsShowed(building.id)) return;
-                    setSelectedBuildingId(building.id);
+            {buildings.map((building) => (
+              <div
+                key={building.id}
+                className={`${building.id === 7 ? 'absolute w-1/2 pointer-events-none' : 'relative w-full h-full'} aspect-square`}
+                onClick={() => {
+                  if (!getIsShowed(building.id)) return;
+                  setSelectedBuildingId(building.id);
+                }}
+              >
+                <img
+                  className={`w-full h-full object-contain ${building.id === 7 ? 'pointer-events-none' : ''}`}
+                  src={`/assets/buildings/${building.id}/lvl${assetLevels[building.id]}.png`}
+                  style={{
+                    pointerEvents: building.id === 7 ? 'none' : 'auto',
+                    imageRendering: 'pixelated',
                   }}
-                >
+                />
+                {getIsEnoughCurrency(building) && getIsShowed(building.id) && (
                   <img
-                    className="w-full h-full object-contain"
-                    src={`/assets/buildings/${building.id}/lvl${assetLevels[building.id]}.png`}
+                    className="absolute top-1/4 left-1/4 w-1/8 h-1/8 animate-bounce pointer-events-none'"
+                    src="/assets/buildings/up.png"
                     style={{
                       imageRendering: 'pixelated',
                     }}
                   />
-                  {getIsEnoughCurrency(building) &&
-                    getIsShowed(building.id) && (
-                      <img
-                        className="absolute top-1/4 left-1/4 w-1/8 h-1/8 animate-bounce"
-                        src="/assets/buildings/up.png"
-                        style={{
-                          imageRendering: 'pixelated',
-                        }}
-                      />
-                    )}
-                </div>
-              ))}
+                )}
+              </div>
+            ))}
           </div>
           <img
             className="relative w-full object-contain"

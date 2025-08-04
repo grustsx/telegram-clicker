@@ -79,6 +79,7 @@ export const selectAssetLevels = createSelector(
 
       const isShowed = (() => {
         if (id === 1) return true;
+        if (id === 7) return true;
         const prev = buildings.find((b) => b.id === id - 1);
         return (prev?.level || 0) > 0;
       })();

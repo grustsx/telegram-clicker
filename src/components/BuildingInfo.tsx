@@ -50,6 +50,10 @@ const BuildingInfo = ({
     sendUpgradeBuilding(buildingId, userId);
   };
 
+  const getUpgade = (id: number) => {
+    return id === 1 && <VodkaWell upgradeVodkaWell={handleClick} />;
+  };
+
   const buildingInfo = BUILDINGS_INFO[id][assetLevels[id]];
 
   const isCount: boolean = buildingInfo.messages
@@ -124,7 +128,7 @@ const BuildingInfo = ({
             <GameText size="sm" text="КУПИТЬ" />
           </button>
         </div>
-        {id === 1 && <VodkaWell upgradeVodkaWell={handleClick} />}
+        {getUpgade(id)}
       </div>
     </div>
   );
