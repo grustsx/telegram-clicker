@@ -50,6 +50,13 @@ const gameSlice = createSlice({
     setAssetsLoading(state, action: PayloadAction<boolean>) {
       state.assetsLoading = action.payload;
     },
+    depCurrency(state, action: PayloadAction<boolean>) {
+      if (action.payload) {
+        state.currency = state.currency * 2;
+      } else {
+        state.currency = 0;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -86,5 +93,6 @@ export const {
   decreaseSkillPoints,
   setUserData,
   setAssetsLoading,
+  depCurrency,
 } = gameSlice.actions;
 export default gameSlice.reducer;

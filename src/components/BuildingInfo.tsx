@@ -1,3 +1,4 @@
+import React from 'react';
 import { sendUpgradeBuilding } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
@@ -15,7 +16,9 @@ import { buyBuildingLevel } from '../state/thunk';
 import { formatLargeNumber } from '../utils/format';
 import { getPrice } from '../utils/getPrice';
 import Stones from './BuildingUpdates/Stones';
+import TortikSpells from './BuildingUpdates/TortikSpells';
 import VodkaWell from './BuildingUpdates/VodkaWell';
+import type { GameMessageType } from '../types/types';
 
 const BuildingInfo = ({
   buildingId,
@@ -35,9 +38,12 @@ const BuildingInfo = ({
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
   const sugarSpell = useAppSelector((state) => selectSpellById(state, 1));
   const currency = useAppSelector(selectCurrency);
-  if (!sugarSpell) return;
 
   const { id, level, incomePerSecond } = building;
+  const buildingInfo = BUILDINGS_INFO[id][assetLevels[id]];
+  const [messages, setMessages] = React.useState(buildingInfo.messages);
+
+  if (!sugarSpell) return;
   const price = getPrice(
     building.basePrice,
     building.multiplier,
@@ -51,18 +57,23 @@ const BuildingInfo = ({
     sendUpgradeBuilding(buildingId, userId);
   };
 
+  function showEventMessages(eventMessages: GameMessageType[], time = 3000) {
+    setMessages(eventMessages);
+    setTimeout(() => setMessages(buildingInfo.messages), time);
+  }
+
   const getUpgade = (id: number) => {
     switch (id) {
       case 1:
         return <VodkaWell upgradeVodkaWell={handleClick} />;
+      case 2:
+        return <TortikSpells showEventMessages={showEventMessages} />;
       case 4:
         return <Stones />;
       default:
         return null;
     }
   };
-
-  const buildingInfo = BUILDINGS_INFO[id][assetLevels[id]];
 
   const isCount: boolean = buildingInfo.messages
     ? !!(buildingInfo.messages.length % 2)
@@ -93,7 +104,7 @@ const BuildingInfo = ({
         />
         <GameText size="sm" text={buildingInfo.description} />
 
-        {buildingInfo.messages?.map((message, index) => (
+        {messages?.map((message, index) => (
           <GameMessage
             key={message.description + message.name}
             reversed={!!(index % 2)}

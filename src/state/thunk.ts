@@ -13,6 +13,7 @@ import {
 import {
   decreaseCurrency,
   decreaseSkillPoints,
+  depCurrency,
   increaseCurrency,
   incrementSkillPoints,
 } from './gameSlice';
@@ -156,7 +157,10 @@ export const castSpell = createAppAsyncThunk(
     {
       spellId,
       spellPayload,
-    }: { spellId: number; spellPayload?: { buildingId: number } },
+    }: {
+      spellId: number;
+      spellPayload?: { buildingId: number } | { win: boolean };
+    },
     { getState, dispatch },
   ) => {
     const state = getState();
@@ -173,9 +177,17 @@ export const castSpell = createAppAsyncThunk(
     );
 
     switch (spellId) {
-      case 1:
-        if (!spellPayload?.buildingId) return;
-        dispatch(upgradeBuilding(spellPayload.buildingId));
+      case 1: {
+        const buildingId = (spellPayload as { buildingId: number })?.buildingId;
+        if (!buildingId) return;
+        dispatch(upgradeBuilding(buildingId));
+        break;
+      }
+      case 3: {
+        const win = (spellPayload as { win: boolean })?.win;
+        dispatch(depCurrency(win));
+        break;
+      }
     }
   },
 );

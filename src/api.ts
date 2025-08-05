@@ -32,7 +32,7 @@ export const sendBuySkill = (skillId: number, userId: number | undefined) => {
 export const sendCastSpell = (
   spellId: number,
   userId: number | undefined,
-  payload?: { buildingId: number },
+  payload?: { buildingId: number } | { win: boolean },
 ) => {
   if (!userId || !spellId) return;
 
