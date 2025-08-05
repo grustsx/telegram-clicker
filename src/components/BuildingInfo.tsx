@@ -164,7 +164,7 @@ const BuildingInfo = ({
             <GameText size="sm" text="КУПИТЬ" />
           </button>
         </div>
-        {getUpgade(id)}
+        {level > 0 && getUpgade(id)}
       </div>
     </div>
   );
