@@ -53,6 +53,7 @@ export default function Stones() {
       <div className="flex flex-col gap-1 w-full">
         {[22, 23, 24].map((id) => (
           <button
+            key={id}
             className={`w-full border-white border-2 text-white p-2 ${unlockedSkillsIds.includes(id) ? 'bg-amber-600' : remainSeconds > 0 ? 'bg-gray-400' : 'bg-emerald-400'}`}
             onClick={() => chooseStone(id)}
             disabled={remainSeconds > 0}

@@ -41,7 +41,15 @@ const BuildingInfo = ({
 
   const { id, level, incomePerSecond } = building;
   const buildingInfo = BUILDINGS_INFO[id][assetLevels[id]];
-  const [messages, setMessages] = React.useState(buildingInfo.messages);
+  const [eventMessages, setEventMessages] = React.useState<
+    GameMessageType[] | null
+  >(null);
+
+  React.useEffect(() => {
+    return () => {
+      setEventMessages(null);
+    };
+  }, [buildingId]);
 
   if (!sugarSpell) return;
   const price = getPrice(
@@ -58,8 +66,8 @@ const BuildingInfo = ({
   };
 
   function showEventMessages(eventMessages: GameMessageType[], time = 3000) {
-    setMessages(eventMessages);
-    setTimeout(() => setMessages(buildingInfo.messages), time);
+    setEventMessages(eventMessages);
+    setTimeout(() => setEventMessages(null), time);
   }
 
   const getUpgade = (id: number) => {
@@ -104,14 +112,23 @@ const BuildingInfo = ({
         />
         <GameText size="sm" text={buildingInfo.description} />
 
-        {messages?.map((message, index) => (
-          <GameMessage
-            key={message.description + message.name}
-            reversed={!!(index % 2)}
-            theme={index % 2 ? 'light' : 'dark'}
-            {...message}
-          />
-        ))}
+        {eventMessages == null
+          ? buildingInfo.messages?.map((message, index) => (
+              <GameMessage
+                key={message.description + message.name}
+                reversed={!!(index % 2)}
+                theme={index % 2 ? 'light' : 'dark'}
+                {...message}
+              />
+            ))
+          : eventMessages.map((message, index) => (
+              <GameMessage
+                key={message.description + message.name}
+                reversed={!!(index % 2)}
+                theme={index % 2 ? 'light' : 'dark'}
+                {...message}
+              />
+            ))}
 
         <div
           className={`flex flex-col gap-2 pixel-border--${isCount ? 'w' : 'gr'} justify-between items-center`}

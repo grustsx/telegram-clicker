@@ -169,6 +169,9 @@ export const castSpell = createAppAsyncThunk(
 
     if (spell.remainSeconds > 0) return;
 
+    const cooldown = getCooldown(unlockedSkillIds);
+    console.log(cooldown);
+
     dispatch(
       refreshSpellCooldown({
         id: spellId,

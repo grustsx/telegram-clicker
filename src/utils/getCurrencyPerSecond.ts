@@ -44,5 +44,5 @@ export const getCooldown = (skills: number[]) => {
     return skills.includes(id) ? 1 : 0;
   };
 
-  return Math.ceil(1 - 0.2 * skill(24));
+  return 1 - 0.2 * skill(24);
 };
