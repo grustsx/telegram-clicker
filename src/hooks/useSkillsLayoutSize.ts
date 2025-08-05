@@ -12,9 +12,9 @@ export default function useSkillsLayoutSize(): {
   const visibleSkillsIds = useAppSelector(selectVisibleSkillsIds);
 
   const layoutSize = useMemo(() => {
-    const positions = visibleSkillsIds.map(
-      (skillId) => SKILLS_INFO[skillId].position,
-    );
+    const positions = visibleSkillsIds
+      .filter((skillId) => !!SKILLS_INFO[skillId]?.position)
+      .map((skillId) => SKILLS_INFO[skillId].position);
 
     if (positions.length === 0)
       return { width: 0, height: 0, centerX: 0, centerY: 0 };

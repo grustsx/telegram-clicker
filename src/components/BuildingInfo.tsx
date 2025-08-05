@@ -14,6 +14,7 @@ import { selectSpellById } from '../state/spellsSlice';
 import { buyBuildingLevel } from '../state/thunk';
 import { formatLargeNumber } from '../utils/format';
 import { getPrice } from '../utils/getPrice';
+import Stones from './BuildingUpdates/Stones';
 import VodkaWell from './BuildingUpdates/VodkaWell';
 
 const BuildingInfo = ({
@@ -51,7 +52,14 @@ const BuildingInfo = ({
   };
 
   const getUpgade = (id: number) => {
-    return id === 1 && <VodkaWell upgradeVodkaWell={handleClick} />;
+    switch (id) {
+      case 1:
+        return <VodkaWell upgradeVodkaWell={handleClick} />;
+      case 4:
+        return <Stones />;
+      default:
+        return null;
+    }
   };
 
   const buildingInfo = BUILDINGS_INFO[id][assetLevels[id]];

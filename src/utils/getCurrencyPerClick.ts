@@ -11,6 +11,7 @@ export const getCurrencyPerClick = (
       skill(1) + skill(2) + skill(4) + skill(7) + skill(8) + skill(10),
     ) +
       skill(12) * buildingsCount) *
-      (1 + 0.05 * skill(5)),
+      (1 + 0.05 * skill(5)) *
+      (1 + 0.5 * skill(23)),
   );
 };

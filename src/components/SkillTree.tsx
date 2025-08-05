@@ -33,7 +33,7 @@ function SkillTree({
                 (skill) => skill.id === depId,
               )?.id;
               const from = getPositionWithLayout(
-                SKILLS_INFO[skill.id].position,
+                SKILLS_INFO[skill.id]?.position,
                 layoutSize,
               );
               const to = getPositionWithLayout(
@@ -58,11 +58,11 @@ function SkillTree({
         {visibleSkills.map((skill) => (
           <Skill
             onClick={setSelectedSkillId}
-            icon={SKILLS_INFO[skill.id].icon || 'star.png'}
+            icon={SKILLS_INFO[skill.id]?.icon || 'star.png'}
             key={skill.id}
             skill={skill}
             position={getPositionWithLayout(
-              SKILLS_INFO[skill.id].position,
+              SKILLS_INFO[skill.id]?.position,
               layoutSize,
             )}
           />

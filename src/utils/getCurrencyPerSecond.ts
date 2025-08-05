@@ -30,10 +30,19 @@ export const getCurrencyPerSecond = (
       (1 + 0.05 * skill(3)) *
       (1 + 0.05 * skill(5)) *
       (1 + 0.05 * skill(6)) *
-      (1 + 0.1 * skill(11)),
+      (1 + 0.1 * skill(11)) *
+      (1 + 0.15 * skill(22)),
   );
 };
 
 export function nowUnix(): number {
   return Math.floor(Date.now() / 1000);
 }
+
+export const getCooldown = (skills: number[]) => {
+  const skill = (id: number) => {
+    return skills.includes(id) ? 1 : 0;
+  };
+
+  return Math.ceil(1 - 0.2 * skill(24));
+};

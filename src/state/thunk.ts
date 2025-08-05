@@ -6,7 +6,10 @@ import type {
   GetDictionariesType,
   GetUserDataType,
 } from '../types/api';
-import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
+import {
+  getCooldown,
+  getCurrencyPerSecond,
+} from '../utils/getCurrencyPerSecond';
 import {
   decreaseCurrency,
   decreaseSkillPoints,
@@ -18,7 +21,7 @@ import {
   selectUnlockedSkillsIds,
 } from '../app/selectors';
 import { getCurrencyPerClick, getPrice } from '../utils';
-import { selectSkillById, unlockSkill } from './skillsSlice';
+import { lockSkill, selectSkillById, unlockSkill } from './skillsSlice';
 import { createAppAsyncThunk } from '../app/thunk';
 import {
   incrementBuildingLevel,
@@ -137,6 +140,11 @@ export const buySkill = createAppAsyncThunk(
 
     if (currentPoints < skill.price) return;
 
+    if (skill.id === 22 || skill.id === 23 || skill.id === 24) {
+      dispatch(lockSkill(22));
+      dispatch(lockSkill(23));
+      dispatch(lockSkill(24));
+    }
     dispatch(decreaseSkillPoints(skill.price));
     dispatch(unlockSkill(skillId));
   },
@@ -153,10 +161,16 @@ export const castSpell = createAppAsyncThunk(
   ) => {
     const state = getState();
     const spell = selectSpellById(state, spellId);
+    const unlockedSkillIds = selectUnlockedSkillsIds(state);
 
     if (spell.remainSeconds > 0) return;
 
-    dispatch(refreshSpellCooldown(spellId));
+    dispatch(
+      refreshSpellCooldown({
+        id: spellId,
+        muitiplier: getCooldown(unlockedSkillIds),
+      }),
+    );
 
     switch (spellId) {
       case 1:

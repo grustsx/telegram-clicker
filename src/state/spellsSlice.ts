@@ -24,12 +24,15 @@ const spellsSlice = createSlice({
         spell.remainSeconds = Math.max(spell.remainSeconds - seconds, 0);
       });
     },
-    refreshSpellCooldown(state, action: PayloadAction<number>) {
-      const id = action.payload;
+    refreshSpellCooldown(
+      state,
+      action: PayloadAction<{ id: number; muitiplier?: number }>,
+    ) {
+      const { id, muitiplier = 1 } = action.payload;
       const spell = state.entities[id];
       if (!spell) return;
 
-      spell.remainSeconds = spell.cooldownSeconds;
+      spell.remainSeconds = spell.cooldownSeconds * muitiplier;
     },
   },
   extraReducers: (builder) => {

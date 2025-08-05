@@ -21,6 +21,14 @@ const skillsSlice = createSlice({
         skill.unlocked = true;
       }
     },
+
+    lockSkill(state, action: PayloadAction<number>) {
+      const id = action.payload;
+      const skill = state.entities[id];
+      if (skill) {
+        skill.unlocked = false;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getUserAndDictionaries.fulfilled, (state, action) => {
@@ -28,7 +36,7 @@ const skillsSlice = createSlice({
 
       const skills = dictionaries.skillsTree.map((skill) => ({
         ...skill,
-        description: SKILLS_INFO[skill.id].description,
+        description: SKILLS_INFO[skill.id]?.description || '',
         unlocked: userInfo.unlockedSkills.includes(skill.id),
       }));
 
@@ -43,5 +51,5 @@ export const {
   selectIds: selectSkillIds,
 } = skillsAdapter.getSelectors((state: RootState) => state.skills);
 
-export const { unlockSkill } = skillsSlice.actions;
+export const { unlockSkill, lockSkill } = skillsSlice.actions;
 export default skillsSlice.reducer;
