@@ -22,9 +22,9 @@ type FloatingNumber = {
 
 const INTERVAL_TIME = 2000;
 const BOOSTER_NORMAL_TIMEOUT: Record<number, number> = {
-  1: 300000,
-  2: 600000,
-  3: 1200000,
+  1: 30000,
+  2: 60000,
+  3: 120000,
 };
 
 let idCounter = 0;
