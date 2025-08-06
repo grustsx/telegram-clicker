@@ -6,11 +6,16 @@ import SunModel from './SunModel';
 import MoonModel from './MoonModel';
 import StarrySky from './StarSky';
 import { EffectComposer, Pixelation } from '@react-three/postprocessing';
+import BoosterModel from './BoosterModel';
 
 function CakeScene({
   onClick,
+  onBoosterOpen,
+  boosters,
 }: {
   onClick: (e: React.PointerEvent<Element>) => void;
+  onBoosterOpen: (id: number) => void;
+  boosters: number[];
 }) {
   return (
     <div className="w-full h-full">
@@ -69,6 +74,9 @@ function CakeScene({
         <EarthModel />
         <MoonModel />
         <SunModel />
+        {boosters.map((booster) => (
+          <BoosterModel id={booster} key={booster} onClick={onBoosterOpen} />
+        ))}
 
         <EffectComposer>
           <Pixelation granularity={2} />
@@ -78,4 +86,4 @@ function CakeScene({
   );
 }
 
-export default React.memo(CakeScene);
+export default CakeScene;

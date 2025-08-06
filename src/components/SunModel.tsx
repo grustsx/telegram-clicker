@@ -1,7 +1,7 @@
 import { useGLTF } from '@react-three/drei';
 import { useRef } from 'react';
-import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import React from 'react';
 
 const positions: Record<string, [number, number, number]> = {
   far: [120, -12, -800],
@@ -11,15 +11,9 @@ const positions: Record<string, [number, number, number]> = {
   deadly: [0, -5, -5],
 };
 
-export default function SunModel() {
+function SunModel() {
   const { scene } = useGLTF('/models/sun/scene.gltf');
   const groupRef = useRef<THREE.Group>(null);
-
-  useFrame(() => {
-    if (groupRef.current) {
-      groupRef.current.rotation.y += 0.0001;
-    }
-  });
 
   return (
     <group renderOrder={0} ref={groupRef} position={positions.far}>
@@ -27,3 +21,4 @@ export default function SunModel() {
     </group>
   );
 }
+export default React.memo(SunModel);

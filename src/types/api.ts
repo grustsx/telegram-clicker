@@ -15,12 +15,18 @@ export type GetUserDataType = {
   };
   buildings: UserBuildingType[];
   spells: UserSpellType[];
+  boosters: UserBoosterType[];
   unlockedSkills: number[];
 };
 
 export type UserSpellType = {
   id: number;
   availableAt: number;
+};
+
+export type UserBoosterType = {
+  id: number;
+  availableTo: number;
 };
 
 export type UserBuildingType = {
@@ -42,6 +48,11 @@ export type GetDictionariesType = {
     id: number;
     name: string;
     cooldownSeconds: number;
+  }[];
+  boosters: {
+    id: number;
+    name: string;
+    ttl: number;
   }[];
 };
 

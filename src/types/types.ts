@@ -31,6 +31,13 @@ export type SpellType = {
   remainSeconds: number;
 };
 
+export type BoosterType = {
+  id: number;
+  name: string;
+  ttlSeconds: number;
+  remainSeconds: number;
+};
+
 export type SkillStatusType =
   | 'unlocked'
   | 'available'

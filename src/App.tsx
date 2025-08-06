@@ -10,7 +10,7 @@ import { getUserAndDictionaries } from './state/thunk';
 import ErrorHandler from './components/ErrorHandler';
 import useCurrencyPerSecond from './hooks/useUpdateCurrencyByCPS';
 import useRefreshData from './hooks/useRefreshData';
-import useUpdateSpellRemailn from './hooks/useUpdateSpellRemain';
+import useUpdateTimers from './hooks/useUpdateTimers';
 import PreloadImages from './components/PreloadImages';
 
 const mockedTg: {
@@ -45,7 +45,7 @@ function App() {
 
   useRefreshData();
   useCurrencyPerSecond();
-  useUpdateSpellRemailn();
+  useUpdateTimers();
 
   return (
     <>

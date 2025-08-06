@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import React from 'react';
 
-export default function EarthModel() {
+function EarthModel() {
   const { scene } = useGLTF('/models/earth/scene.gltf');
   const groupRef = useRef<THREE.Group>(null);
 
@@ -27,3 +27,5 @@ export default function EarthModel() {
     </group>
   );
 }
+
+export default React.memo(EarthModel);

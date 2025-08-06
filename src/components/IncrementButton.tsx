@@ -1,9 +1,17 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
-import { selectCurrencyPerClick, selectUserId } from '../app/selectors';
-import { sendClicks } from '../api';
+import {
+  selectActiveBoosterIds,
+  selectActiveBoosters,
+  selectCurrencyPerClick,
+  selectUnlockedSkillsIds,
+  selectUserId,
+} from '../app/selectors';
+import { sendActivateBooster, sendClicks } from '../api';
 import CakeScene from './CakeScene';
-import { updateCurrencyByClick } from '../state/thunk';
+import { activateBooster, updateCurrencyByClick } from '../state/thunk';
+import GameText from '../elements/GameText';
+import { getCPCTemporaryMultipler } from '../utils/getCurrencyPerClick';
 
 type FloatingNumber = {
   id: number;
@@ -12,10 +20,20 @@ type FloatingNumber = {
   value: string;
 };
 
+const INTERVAL_TIME = 2000;
+const BOOSTER_NORMAL_TIMEOUT: Record<number, number> = {
+  1: 300000,
+  2: 600000,
+  3: 1200000,
+};
+
 let idCounter = 0;
 
 const IncrementButton = () => {
   const [numbers, setNumbers] = React.useState<FloatingNumber[]>([]);
+  const [visibleBoosters, setVisibleBoosters] = React.useState(
+    new Set<number>(),
+  );
 
   const pendingClicks = React.useRef<number>(0);
 
@@ -23,14 +41,40 @@ const IncrementButton = () => {
 
   const currencyPerClick = useAppSelector(selectCurrencyPerClick);
 
+  const activeBoosterIds = useAppSelector(selectActiveBoosterIds);
+  const activeBoosters = useAppSelector(selectActiveBoosters);
+
+  const unlockedSkillsIds = useAppSelector(selectUnlockedSkillsIds);
+
   const userId = useAppSelector(selectUserId);
 
+  const handleBooster = React.useCallback(
+    (id: number) => {
+      setVisibleBoosters((prev) => {
+        prev.delete(id);
+        return new Set(prev);
+      });
+      dispatch(activateBooster({ boosterId: id }));
+      sendActivateBooster(id, userId);
+    },
+    [dispatch, userId],
+  );
+
   React.useEffect(() => {
+    const spawnBooster = (id: number) => {
+      if (Math.random() < INTERVAL_TIME / BOOSTER_NORMAL_TIMEOUT[id])
+        setVisibleBoosters((prev) => new Set([...prev.add(id)]));
+    };
+
     const fetchInterval = setInterval(() => {
       if (!userId) return;
       sendClicks(pendingClicks.current, userId);
       pendingClicks.current = 0;
-    }, 2000);
+
+      spawnBooster(1);
+      spawnBooster(2);
+      spawnBooster(3);
+    }, INTERVAL_TIME);
 
     return () => {
       clearInterval(fetchInterval);
@@ -40,14 +84,18 @@ const IncrementButton = () => {
 
   const handleClick = React.useCallback(
     (e: React.PointerEvent<Element>) => {
-      dispatch(updateCurrencyByClick());
-      pendingClicks.current += 1;
+      const multipler = getCPCTemporaryMultipler(
+        unlockedSkillsIds,
+        activeBoosterIds,
+      );
+      dispatch(updateCurrencyByClick(multipler));
+      pendingClicks.current += multipler;
 
       const newNumber: FloatingNumber = {
         id: idCounter++,
-        x: e.clientX,
-        y: e.clientY,
-        value: `+${currencyPerClick}`, // или подставляй своё значение
+        x: e.clientX + Math.random() * -40,
+        y: e.clientY + Math.random() * -40,
+        value: `+${currencyPerClick * multipler}`,
       };
       setNumbers((prev) => [...prev, newNumber]);
 
@@ -55,12 +103,24 @@ const IncrementButton = () => {
         setNumbers((prev) => prev.filter((n) => n.id !== newNumber.id));
       }, 500);
     },
-    [currencyPerClick, dispatch],
+    [activeBoosterIds, currencyPerClick, dispatch, unlockedSkillsIds],
   );
 
   return (
     <>
-      <CakeScene onClick={handleClick} />
+      <CakeScene
+        onClick={handleClick}
+        onBoosterOpen={handleBooster}
+        boosters={[...Array.from(visibleBoosters)]}
+      />
+      <div className={`flex gap-12 absolute z-50 left-0 top-24`}>
+        {activeBoosters.map((booster) => (
+          <div key={booster.id}>
+            <GameText text={`${booster.name}`} size="xs" />
+            <GameText text={`${booster.remainSeconds}`} size="xs" />
+          </div>
+        ))}
+      </div>
       {numbers.map((n) => (
         <span
           key={n.id}

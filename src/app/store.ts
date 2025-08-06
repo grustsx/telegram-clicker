@@ -3,6 +3,7 @@ import gameReducer from '../state/gameSlice';
 import skillsReducer from '../state/skillsSlice';
 import buildingsReducer from '../state/buildingsSlice';
 import spellsReducer from '../state/spellsSlice';
+import boostersReducer from '../state/boostersSlice';
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     skills: skillsReducer,
     spells: spellsReducer,
     buildings: buildingsReducer,
+    boosters: boostersReducer,
   },
 });
 

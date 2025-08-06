@@ -1,4 +1,6 @@
-export default function StarrySky() {
+import React from 'react';
+
+function StarrySky() {
   const stars = Array.from({ length: 150 }, (_, i) => ({
     id: i,
     top: Math.random() * 100,
@@ -40,3 +42,5 @@ export default function StarrySky() {
     </div>
   );
 }
+
+export default React.memo(StarrySky);

@@ -5,6 +5,7 @@ export const getCurrencyPerClick = (
   const skill = (id: number) => {
     return skills.includes(id) ? 1 : 0;
   };
+
   return Math.ceil(
     (Math.pow(
       2,
@@ -14,4 +15,19 @@ export const getCurrencyPerClick = (
       (1 + 0.05 * skill(5)) *
       (1 + 0.5 * skill(23)),
   );
+};
+
+export const getCPCTemporaryMultipler = (
+  skills: number[],
+  boosters: number[],
+) => {
+  const skill = (id: number) => {
+    return skills.includes(id) ? 1 : 0;
+  };
+
+  const booster = (id: number) => {
+    return boosters.includes(id) ? 1 : 0;
+  };
+
+  return 1 * (1 + 499 * booster(2)) * (1 + 0 * skill(2));
 };

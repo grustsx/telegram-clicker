@@ -7,7 +7,9 @@ import type {
   GetUserDataType,
 } from '../types/api';
 import {
+  getBoosterTtlMultiplier,
   getCooldown,
+  getCurrencyByBooster,
   getCurrencyPerSecond,
 } from '../utils/getCurrencyPerSecond';
 import {
@@ -18,7 +20,10 @@ import {
   incrementSkillPoints,
 } from './gameSlice';
 import {
+  selectActiveBoosterIds,
   selectBuildingLevelsSum,
+  selectCurrency,
+  selectCurrencyPerSecond,
   selectUnlockedSkillsIds,
 } from '../app/selectors';
 import { getCurrencyPerClick, getPrice } from '../utils';
@@ -31,6 +36,7 @@ import {
   upgradeBuilding,
 } from './buildingsSlice';
 import { refreshSpellCooldown, selectSpellById } from './spellsSlice';
+import { refreshBoosterTtl } from './boostersSlice';
 
 export const getUserData = createAppAsyncThunk(
   'game/getUserData',
@@ -81,9 +87,15 @@ export const updateCurrencyByCPS = createAppAsyncThunk(
 
     const unlockedSkillIds = selectUnlockedSkillsIds(state);
 
+    const activeBoostersIds = selectActiveBoosterIds(state);
+
     const buildings = selectAllBuildings(state);
 
-    const delta = getCurrencyPerSecond(unlockedSkillIds, buildings);
+    const delta = getCurrencyPerSecond(
+      unlockedSkillIds,
+      buildings,
+      activeBoostersIds,
+    );
 
     dispatch(increaseCurrency(delta));
   },
@@ -92,7 +104,7 @@ export const updateCurrencyByCPS = createAppAsyncThunk(
 // Вызывается на каждый клик по печеньке!! Важно не нахуевертить
 export const updateCurrencyByClick = createAppAsyncThunk(
   'game/updateCurrencyByClick',
-  async (_, { getState, dispatch }) => {
+  async (multipler: number, { getState, dispatch }) => {
     const state = getState();
 
     const unlockedSkillIds = selectUnlockedSkillsIds(state);
@@ -101,7 +113,7 @@ export const updateCurrencyByClick = createAppAsyncThunk(
 
     const delta = getCurrencyPerClick(unlockedSkillIds, buildingsCount);
 
-    dispatch(increaseCurrency(delta));
+    dispatch(increaseCurrency(delta * multipler));
   },
 );
 
@@ -169,9 +181,6 @@ export const castSpell = createAppAsyncThunk(
 
     if (spell.remainSeconds > 0) return;
 
-    const cooldown = getCooldown(unlockedSkillIds);
-    console.log(cooldown);
-
     dispatch(
       refreshSpellCooldown({
         id: spellId,
@@ -192,5 +201,40 @@ export const castSpell = createAppAsyncThunk(
         break;
       }
     }
+  },
+);
+
+export const activateBooster = createAppAsyncThunk(
+  'game/activateBooster',
+  async (
+    {
+      boosterId,
+    }: {
+      boosterId: number;
+    },
+    { getState, dispatch },
+  ) => {
+    const state = getState();
+    const unlockedSkillIds = selectUnlockedSkillsIds(state);
+
+    const ttlMultiplier = getBoosterTtlMultiplier(unlockedSkillIds);
+    dispatch(
+      refreshBoosterTtl({
+        id: boosterId,
+        muitiplier: ttlMultiplier,
+      }),
+    );
+
+    if (boosterId !== 1) return;
+
+    const currency = selectCurrency(state);
+    const cps = selectCurrencyPerSecond(state);
+    const currencyByBooster = getCurrencyByBooster(
+      currency,
+      cps,
+      unlockedSkillIds,
+    );
+
+    dispatch(increaseCurrency(currencyByBooster));
   },
 );

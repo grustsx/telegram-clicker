@@ -7,7 +7,7 @@ import { playPressSound, playReleaseSound } from '../utils/playCakeSound';
 
 const MAX_TILT = Math.PI / 16;
 
-export default function CakeModel({
+function CakeModel({
   onClick,
 }: {
   onClick: (e: React.PointerEvent<Element>) => void;
@@ -88,7 +88,7 @@ export default function CakeModel({
       renderOrder={1}
       ref={baseRef}
       rotation={[Math.PI / 5, Math.PI / 6, 0]}
-      position={[0, 0.97, 4.77]}
+      position={[0, 0.97, 4.57]}
     >
       <group ref={floatingRef}>
         <a.group
@@ -98,9 +98,11 @@ export default function CakeModel({
           onPointerUp={handlePointerUp}
           onPointerCancel={handlePointerUp}
         >
-          <primitive object={scene} scale={0.03} />
+          <primitive object={scene} scale={0.06} />
         </a.group>
       </group>
     </group>
   );
 }
+
+export default React.memo(CakeModel);

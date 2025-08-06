@@ -6,6 +6,7 @@ import { selectAllBuildings } from '../state/buildingsSlice';
 import { selectAllSkills } from '../state/skillsSlice';
 import getSkillStatus from '../utils/getSkillStatus';
 import { selectAllSpells } from '../state/spellsSlice';
+import { selectAllBoosters } from '../state/boostersSlice';
 
 export const selectCurrency = (state: RootState) => state.game.currency;
 
@@ -27,6 +28,19 @@ export const selectStorage = (state: RootState) => ({
 export const selectUnlockedSkillsIds = createSelector(
   selectAllSkills,
   (skills) => skills.filter((skill) => skill.unlocked).map((skill) => skill.id),
+);
+
+export const selectActiveBoosters = createSelector(
+  selectAllBoosters,
+  (boosters) => boosters.filter((booster) => booster.remainSeconds > 0),
+);
+
+export const selectActiveBoosterIds = createSelector(
+  selectAllBoosters,
+  (boosters) =>
+    boosters
+      .filter((booster) => booster.remainSeconds > 0)
+      .map((booster) => booster.id),
 );
 
 export const selectVisibleSkills = createSelector(
@@ -63,9 +77,9 @@ export const selectCurrencyPerClick = createSelector(
 );
 
 export const selectCurrencyPerSecond = createSelector(
-  [selectUnlockedSkillsIds, selectAllBuildings],
-  (unlockedSkillsIds, buildings) => {
-    return getCurrencyPerSecond(unlockedSkillsIds, buildings);
+  [selectUnlockedSkillsIds, selectAllBuildings, selectActiveBoosterIds],
+  (unlockedSkillsIds, buildings, activeBoosterIds) => {
+    return getCurrencyPerSecond(unlockedSkillsIds, buildings, activeBoosterIds);
   },
 );
 

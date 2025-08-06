@@ -10,9 +10,14 @@ const buildingIdToSkillIdMap: Record<number, number> = {
 export const getCurrencyPerSecond = (
   skills: number[],
   buildings: { level: number; incomePerSecond: number; id: number }[],
+  boosters: number[],
 ) => {
   const skill = (id: number) => {
     return skills.includes(id) ? 1 : 0;
+  };
+
+  const booster = (id: number) => {
+    return boosters.includes(id) ? 1 : 0;
   };
 
   const firstBuildingLvl = buildings.find((b) => b.id === 1)?.level || 0;
@@ -31,7 +36,8 @@ export const getCurrencyPerSecond = (
       (1 + 0.05 * skill(5)) *
       (1 + 0.05 * skill(6)) *
       (1 + 0.1 * skill(11)) *
-      (1 + 0.15 * skill(22)),
+      (1 + 0.15 * skill(22)) *
+      (1 + 4 * booster(3)),
   );
 };
 
@@ -45,4 +51,24 @@ export const getCooldown = (skills: number[]) => {
   };
 
   return 1 - 0.2 * skill(24);
+};
+
+export const getBoosterTtlMultiplier = (skills: number[]) => {
+  const skill = (id: number) => {
+    return skills.includes(id) ? 1 : 0;
+  };
+
+  return 1 - 0 * skill(24);
+};
+
+export const getCurrencyByBooster = (
+  currency: number,
+  cps: number,
+  skills: number[],
+) => {
+  const skill = (id: number) => {
+    return skills.includes(id) ? 1 : 0;
+  };
+
+  return Math.ceil(Math.max(0.2 * currency + 69, cps * 3600) + 0 * skill(1));
 };
