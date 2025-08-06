@@ -70,5 +70,5 @@ export const getCurrencyByBooster = (
     return skills.includes(id) ? 1 : 0;
   };
 
-  return Math.ceil(Math.max(0.2 * currency + 69, cps * 3600) + 0 * skill(1));
+  return Math.ceil(Math.min(0.2 * currency + 69, cps * 3600) + 0 * skill(1));
 };
