@@ -4,8 +4,6 @@ export default function getSkillStatus(
   skill: { id: number; requires?: number[] },
   unlockedSkills: number[],
 ): SkillStatusType {
-  if (skill.id === 19) return 'hidden';
-
   if (unlockedSkills.includes(skill.id)) return 'unlocked';
 
   const available = skill.requires?.every((id) => unlockedSkills.includes(id));
