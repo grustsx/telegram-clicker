@@ -62,8 +62,6 @@ function BoosterModel({ id }: { id: number }) {
     groupRef.current.rotation.y -= 0.002 + 0.05 * +openRef.current;
     groupRef.current.rotation.z -= 0.002;
 
-    const oldXPos = groupRef.current.position.x;
-
     groupRef.current.position.x =
       0 +
       Math.sin(timeRef.current + Math.PI / 2) *
@@ -73,9 +71,6 @@ function BoosterModel({ id }: { id: number }) {
       0.95 + Math.sin(timeRef.current * 0.5 + randomPhase) * 0.06;
     groupRef.current.position.z =
       4.8 + Math.sin(timeRef.current * 0.3 + randomPhase) * 0.03;
-
-    if (id === 1 && oldXPos > groupRef.current.position.x)
-      console.log(groupRef.current.position.x);
   });
 
   return (
