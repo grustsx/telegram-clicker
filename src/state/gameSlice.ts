@@ -11,6 +11,7 @@ export interface GameState {
   loading: boolean;
   assetsLoading: boolean;
   errorMessage: string;
+  visibleBoosters: number[];
 }
 
 const initialState: GameState = {
@@ -22,6 +23,7 @@ const initialState: GameState = {
   storage: 0,
   storageCurrency: 0,
   assetsLoading: true,
+  visibleBoosters: [],
 };
 
 const gameSlice = createSlice({
@@ -31,6 +33,16 @@ const gameSlice = createSlice({
     claimStorage(state) {
       state.currency += state.storageCurrency;
       state.storageCurrency = 0;
+    },
+    spawnBooster(state, action: PayloadAction<number>) {
+      if (!state.visibleBoosters.includes(action.payload)) {
+        state.visibleBoosters = [...state.visibleBoosters, action.payload];
+      }
+    },
+    removeBooster(state, action: PayloadAction<number>) {
+      state.visibleBoosters = state.visibleBoosters.filter(
+        (id) => id !== action.payload,
+      );
     },
     decreaseSkillPoints: (state, action: PayloadAction<number>) => {
       state.skillPoints -= action.payload;
@@ -94,5 +106,7 @@ export const {
   setUserData,
   setAssetsLoading,
   depCurrency,
+  spawnBooster,
+  removeBooster,
 } = gameSlice.actions;
 export default gameSlice.reducer;

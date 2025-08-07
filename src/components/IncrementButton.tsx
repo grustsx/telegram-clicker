@@ -7,11 +7,12 @@ import {
   selectUnlockedSkillsIds,
   selectUserId,
 } from '../app/selectors';
-import { sendActivateBooster, sendClicks } from '../api';
+import { sendClicks } from '../api';
 import CakeScene from './CakeScene';
-import { activateBooster, updateCurrencyByClick } from '../state/thunk';
+import { updateCurrencyByClick } from '../state/thunk';
 import GameText from '../elements/GameText';
 import { getCPCTemporaryMultipler } from '../utils/getCurrencyPerClick';
+import { spawnBooster } from '../state/gameSlice';
 
 type FloatingNumber = {
   id: number;
@@ -23,7 +24,7 @@ type FloatingNumber = {
 const INTERVAL_TIME = 2000;
 const BOOSTER_NORMAL_TIMEOUT: Record<number, number> = {
   1: 30000,
-  2: 60000,
+  2: 180000,
   3: 120000,
 };
 
@@ -31,9 +32,6 @@ let idCounter = 0;
 
 const IncrementButton = () => {
   const [numbers, setNumbers] = React.useState<FloatingNumber[]>([]);
-  const [visibleBoosters, setVisibleBoosters] = React.useState(
-    new Set<number>(),
-  );
 
   const pendingClicks = React.useRef<number>(0);
 
@@ -48,22 +46,10 @@ const IncrementButton = () => {
 
   const userId = useAppSelector(selectUserId);
 
-  const handleBooster = React.useCallback(
-    (id: number) => {
-      setVisibleBoosters((prev) => {
-        prev.delete(id);
-        return new Set(prev);
-      });
-      dispatch(activateBooster({ boosterId: id }));
-      sendActivateBooster(id, userId);
-    },
-    [dispatch, userId],
-  );
-
   React.useEffect(() => {
-    const spawnBooster = (id: number) => {
+    const spawnRandomlyBooster = (id: number) => {
       if (Math.random() < INTERVAL_TIME / BOOSTER_NORMAL_TIMEOUT[id])
-        setVisibleBoosters((prev) => new Set([...prev.add(id)]));
+        dispatch(spawnBooster(id));
     };
 
     const fetchInterval = setInterval(() => {
@@ -71,9 +57,9 @@ const IncrementButton = () => {
       sendClicks(pendingClicks.current, userId);
       pendingClicks.current = 0;
 
-      spawnBooster(1);
-      spawnBooster(2);
-      spawnBooster(3);
+      spawnRandomlyBooster(1);
+      spawnRandomlyBooster(2);
+      spawnRandomlyBooster(3);
     }, INTERVAL_TIME);
 
     return () => {
@@ -108,11 +94,7 @@ const IncrementButton = () => {
 
   return (
     <>
-      <CakeScene
-        onClick={handleClick}
-        onBoosterOpen={handleBooster}
-        boosters={[...Array.from(visibleBoosters)]}
-      />
+      <CakeScene onClick={handleClick} />
       <div className={`flex gap-12 absolute z-50 left-0 top-24`}>
         {activeBoosters.map((booster) => (
           <div key={booster.id}>

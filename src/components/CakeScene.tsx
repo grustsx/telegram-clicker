@@ -7,16 +7,16 @@ import MoonModel from './MoonModel';
 import StarrySky from './StarSky';
 import { EffectComposer, Pixelation } from '@react-three/postprocessing';
 import BoosterModel from './BoosterModel';
+import { useAppSelector } from '../app/hooks';
+import { selectVisibleBoosters } from '../app/selectors';
 
 function CakeScene({
   onClick,
-  onBoosterOpen,
-  boosters,
 }: {
   onClick: (e: React.PointerEvent<Element>) => void;
-  onBoosterOpen: (id: number) => void;
-  boosters: number[];
 }) {
+  const visibleBosster = useAppSelector(selectVisibleBoosters);
+
   return (
     <div className="w-full h-full">
       <StarrySky />
@@ -74,8 +74,8 @@ function CakeScene({
         <EarthModel />
         <MoonModel />
         <SunModel />
-        {boosters.map((booster) => (
-          <BoosterModel id={booster} key={booster} onClick={onBoosterOpen} />
+        {visibleBosster.map((booster) => (
+          <BoosterModel id={booster} key={booster} />
         ))}
 
         <EffectComposer>

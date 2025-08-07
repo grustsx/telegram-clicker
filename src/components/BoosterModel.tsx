@@ -3,35 +3,79 @@ import * as THREE from 'three';
 import React from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Gltf } from '@react-three/drei';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { sendActivateBooster } from '../api';
+import { activateBooster } from '../state/thunk';
+import { selectUserId } from '../app/selectors';
+import { removeBooster } from '../state/gameSlice';
 
-function BoosterModel({
-  onClick,
-  id,
-}: {
-  onClick: (id: number) => void;
-  id: number;
-}) {
+const getRandomPhase = () => {
+  return (2 * Math.random() - 1) * Math.PI;
+};
+
+function BoosterModel({ id }: { id: number }) {
+  const dispatch = useAppDispatch();
   const groupRef = useRef<THREE.Group>(null);
+  const timeRef = useRef(0);
+  const openRef = useRef(false);
+  const deviationRef = useRef(3);
+
+  const userId = useAppSelector(selectUserId);
+
+  const handleBooster = () => {
+    dispatch(removeBooster(id));
+    dispatch(activateBooster({ boosterId: id }));
+    sendActivateBooster(id, userId);
+  };
+
+  const despawnBooster = React.useCallback(
+    (id: number) => {
+      dispatch(removeBooster(id));
+    },
+    [dispatch],
+  );
 
   const handlePointerDown = (e: React.PointerEvent) => {
-    console.log('press');
+    if (openRef.current) return;
     e.stopPropagation();
-    onClick(id);
+    openRef.current = true;
+    setTimeout(() => handleBooster(), 1000);
   };
-  let time = 0;
+
+  const randomPhase = +getRandomPhase();
+
+  React.useEffect(() => {
+    const timeout = setTimeout(() => despawnBooster(id), 60000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [despawnBooster, id]);
 
   useFrame((_state, delta) => {
     if (!groupRef.current) return;
 
-    time += delta;
+    timeRef.current += delta;
+
+    deviationRef.current = Math.max(0, deviationRef.current - delta);
 
     groupRef.current.rotation.x -= 0.002;
-    groupRef.current.rotation.y -= 0.002;
+    groupRef.current.rotation.y -= 0.002 + 0.05 * +openRef.current;
     groupRef.current.rotation.z -= 0.002;
 
-    groupRef.current.position.x = 0 + Math.sin(time) * 0.05;
-    groupRef.current.position.y = 0.95 + Math.sin(time * 0.5) * 0.06;
-    groupRef.current.position.z = 4.8 + Math.sin(time * 0.3) * 0.03;
+    const oldXPos = groupRef.current.position.x;
+
+    groupRef.current.position.x =
+      0 +
+      Math.sin(timeRef.current + Math.PI / 2) *
+        0.05 *
+        (1 + deviationRef.current);
+    groupRef.current.position.y =
+      0.95 + Math.sin(timeRef.current * 0.5 + randomPhase) * 0.06;
+    groupRef.current.position.z =
+      4.8 + Math.sin(timeRef.current * 0.3 + randomPhase) * 0.03;
+
+    if (id === 1 && oldXPos > groupRef.current.position.x)
+      console.log(groupRef.current.position.x);
   });
 
   return (
