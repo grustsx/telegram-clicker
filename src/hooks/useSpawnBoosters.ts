@@ -5,9 +5,9 @@ import { spawnBooster } from '../state/gameSlice';
 import { selectVisibleBoosters } from '../app/selectors';
 
 const BOOSTER_NORMAL_TIMEOUT: Record<number, number> = {
-  1: 3000,
-  2: 18000,
-  3: 12000,
+  1: 30000,
+  2: 180000,
+  3: 120000,
 };
 
 const INTERVAL_TIME = 1000;
