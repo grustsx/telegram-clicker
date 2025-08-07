@@ -12,7 +12,6 @@ import CakeScene from './CakeScene';
 import { updateCurrencyByClick } from '../state/thunk';
 import GameText from '../elements/GameText';
 import { getCPCTemporaryMultipler } from '../utils/getCurrencyPerClick';
-import { spawnBooster } from '../state/gameSlice';
 
 type FloatingNumber = {
   id: number;
@@ -22,11 +21,6 @@ type FloatingNumber = {
 };
 
 const INTERVAL_TIME = 2000;
-const BOOSTER_NORMAL_TIMEOUT: Record<number, number> = {
-  1: 30000,
-  2: 180000,
-  3: 120000,
-};
 
 let idCounter = 0;
 
@@ -47,19 +41,10 @@ const IncrementButton = () => {
   const userId = useAppSelector(selectUserId);
 
   React.useEffect(() => {
-    const spawnRandomlyBooster = (id: number) => {
-      if (Math.random() < INTERVAL_TIME / BOOSTER_NORMAL_TIMEOUT[id])
-        dispatch(spawnBooster(id));
-    };
-
     const fetchInterval = setInterval(() => {
       if (!userId) return;
       sendClicks(pendingClicks.current, userId);
       pendingClicks.current = 0;
-
-      spawnRandomlyBooster(1);
-      spawnRandomlyBooster(2);
-      spawnRandomlyBooster(3);
     }, INTERVAL_TIME);
 
     return () => {

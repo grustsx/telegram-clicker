@@ -12,6 +12,7 @@ import useCurrencyPerSecond from './hooks/useUpdateCurrencyByCPS';
 import useRefreshData from './hooks/useRefreshData';
 import useUpdateTimers from './hooks/useUpdateTimers';
 import PreloadImages from './components/PreloadImages';
+import useSpawnBoosters from './hooks/useSpawnBoosters';
 
 const mockedTg: {
   WebApp: {
@@ -46,6 +47,7 @@ function App() {
   useRefreshData();
   useCurrencyPerSecond();
   useUpdateTimers();
+  useSpawnBoosters();
 
   return (
     <>
