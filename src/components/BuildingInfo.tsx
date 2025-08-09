@@ -19,6 +19,7 @@ import Stones from './BuildingUpdates/Stones';
 import TortikSpells from './BuildingUpdates/TortikSpells';
 import VodkaWell from './BuildingUpdates/VodkaWell';
 import type { GameMessageType } from '../types/types';
+import MysteryUpgrade from './BuildingUpdates/MysteryUpgrade';
 
 const BuildingInfo = ({
   buildingId,
@@ -68,21 +69,20 @@ const BuildingInfo = ({
   const renderUpgade = (id: number) => {
     switch (id) {
       case 1:
-        return (
-          unlockedSkills.includes(27) && (
-            <VodkaWell upgradeVodkaWell={handleClick} />
-          )
+        return unlockedSkills.includes(27) ? (
+          <VodkaWell upgradeVodkaWell={handleClick} />
+        ) : (
+          <MysteryUpgrade />
         );
       case 2:
-        return (
-          unlockedSkills.includes(30) && (
-            <TortikSpells showEventMessages={showEventMessages} />
-          )
+        return unlockedSkills.includes(30) ? (
+          <TortikSpells showEventMessages={showEventMessages} />
+        ) : (
+          <MysteryUpgrade />
         );
       case 4:
-        return unlockedSkills.includes(36) && <Stones />;
+        return unlockedSkills.includes(36) ? <Stones /> : <MysteryUpgrade />;
       default:
-        return null;
     }
   };
 
