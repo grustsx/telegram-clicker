@@ -14,6 +14,7 @@ import GameText from '../elements/GameText';
 import { getCPCTemporaryMultipler } from '../utils/getCurrencyPerClick';
 
 type FloatingNumber = {
+  color: string;
   id: number;
   x: number;
   y: number;
@@ -62,8 +63,15 @@ const IncrementButton = () => {
       dispatch(updateCurrencyByClick(multipler));
       pendingClicks.current += multipler;
 
+      const getColor = () => {
+        if (multipler >= 50) return 'text-tortik-orange';
+        if (multipler >= 5) return 'text-tortik-yellow';
+        return 'text-tortik-white';
+      };
+
       const newNumber: FloatingNumber = {
         id: idCounter++,
+        color: getColor(),
         x: e.clientX + Math.random() * -40,
         y: e.clientY + Math.random() * -40,
         value: `+${currencyPerClick * multipler}`,
@@ -91,7 +99,7 @@ const IncrementButton = () => {
       {numbers.map((n) => (
         <span
           key={n.id}
-          className="fixed pointer-events-none text-tortik-white text-shadow-md text-3xl font-semibold z-50"
+          className={`fixed pointer-events-none ${n.color} text-shadow-md text-3xl font-semibold z-50`}
           style={{
             left: n.x,
             top: n.y,
