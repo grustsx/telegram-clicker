@@ -1,6 +1,6 @@
 import { sendCastSpell } from '../../api';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectUserId } from '../../app/selectors';
+import { selectUnlockedSkillsIds, selectUserId } from '../../app/selectors';
 import GameText from '../../elements/GameText';
 import { selectSpellById } from '../../state/spellsSlice';
 import { castSpell } from '../../state/thunk';
@@ -13,8 +13,11 @@ const SPELLS_INFO: Record<number, string> = {
   [DEP_ID]: 'Депнуть весь капитал в казик, шанс победы чуть меньше 50%',
 };
 
-function getDepWin(): boolean {
-  return Math.random() > 0.45;
+function getDepWin(skills: number[]): boolean {
+  const skill = (id: number) => {
+    return skills.includes(id) ? 1 : 0;
+  };
+  return Math.random() > 0.45 + 0.05 * skill(32);
 }
 
 export default function TortikSpells({
@@ -26,6 +29,7 @@ export default function TortikSpells({
     selectSpellById(state, 3),
   );
   const userId = useAppSelector(selectUserId);
+  const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
 
   const dispatch = useAppDispatch();
 
@@ -33,7 +37,7 @@ export default function TortikSpells({
     if (depRemainSeconds > 0) return;
 
     if (DEP_ID === id) {
-      const win = getDepWin();
+      const win = getDepWin(unlockedSkills);
 
       dispatch(castSpell({ spellId: id, spellPayload: { win } }));
       sendCastSpell(id, userId, { win });

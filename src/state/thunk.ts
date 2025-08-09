@@ -8,7 +8,7 @@ import type {
 } from '../types/api';
 import {
   getBoosterTtlMultiplier,
-  getCooldown,
+  getCooldownMultiplier,
   getCurrencyByBooster,
   getCurrencyPerSecond,
 } from '../utils/getCurrencyPerSecond';
@@ -21,12 +21,12 @@ import {
 } from './gameSlice';
 import {
   selectActiveBoosterIds,
-  selectBuildingLevelsSum,
   selectCurrency,
+  selectCurrencyPerClick,
   selectCurrencyPerSecond,
   selectUnlockedSkillsIds,
 } from '../app/selectors';
-import { getCurrencyPerClick, getPrice } from '../utils';
+import { getPrice } from '../utils';
 import { lockSkill, selectSkillById, unlockSkill } from './skillsSlice';
 import { createAppAsyncThunk } from '../app/thunk';
 import {
@@ -107,11 +107,7 @@ export const updateCurrencyByClick = createAppAsyncThunk(
   async (multipler: number, { getState, dispatch }) => {
     const state = getState();
 
-    const unlockedSkillIds = selectUnlockedSkillsIds(state);
-
-    const buildingsCount = selectBuildingLevelsSum(state);
-
-    const delta = getCurrencyPerClick(unlockedSkillIds, buildingsCount);
+    const delta = selectCurrencyPerClick(state);
 
     dispatch(increaseCurrency(delta * multipler));
   },
@@ -126,12 +122,7 @@ export const buyBuildingLevel = createAppAsyncThunk(
     if (!building) return;
 
     const unlockedSkillIds = selectUnlockedSkillsIds(state);
-    const price = getPrice(
-      building.basePrice,
-      building.multiplier,
-      building.level,
-      unlockedSkillIds,
-    );
+    const price = getPrice(building, unlockedSkillIds);
 
     if (state.game.currency < price) return;
 
@@ -184,7 +175,7 @@ export const castSpell = createAppAsyncThunk(
     dispatch(
       refreshSpellCooldown({
         id: spellId,
-        muitiplier: getCooldown(unlockedSkillIds),
+        muitiplier: getCooldownMultiplier(unlockedSkillIds),
       }),
     );
 

@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
   selectCurrencyPerSecond,
   selectStorage,
+  selectStorageCurrency,
   selectUserId,
 } from '../app/selectors';
 import { claimStorage } from '../state/gameSlice';
@@ -12,7 +13,9 @@ import ProgressBar from './ProgressBar';
 const Storage = () => {
   const dispatch = useAppDispatch();
 
-  const { storage, storageCurrency } = useAppSelector(selectStorage);
+  const storage = useAppSelector(selectStorage);
+  const storageCurrency = useAppSelector(selectStorageCurrency);
+
   const userId = useAppSelector(selectUserId);
 
   const cps = useAppSelector(selectCurrencyPerSecond);

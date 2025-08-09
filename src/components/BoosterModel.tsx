@@ -45,7 +45,7 @@ function BoosterModel({ id }: { id: number }) {
   const randomPhase = +getRandomPhase();
 
   React.useEffect(() => {
-    const timeout = setTimeout(() => despawnBooster(id), 60000);
+    const timeout = setTimeout(() => despawnBooster(id), 6000);
     return () => {
       clearTimeout(timeout);
     };

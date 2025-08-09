@@ -28,12 +28,7 @@ export default function VodkaWell({
   const assetLevels = useAppSelector(selectAssetLevels);
   const { level } = vodkaWll;
   const currency = useAppSelector(selectCurrency);
-  const price = getPrice(
-    vodkaWll.basePrice,
-    vodkaWll.multiplier,
-    vodkaWll.level,
-    unlockedSkills,
-  );
+  const price = getPrice(vodkaWll, unlockedSkills);
   const isEnable = currency >= price;
 
   return (

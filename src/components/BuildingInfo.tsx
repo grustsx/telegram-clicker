@@ -52,12 +52,7 @@ const BuildingInfo = ({
   }, [buildingId]);
 
   if (!sugarSpell) return;
-  const price = getPrice(
-    building.basePrice,
-    building.multiplier,
-    building.level,
-    unlockedSkills,
-  );
+  const price = getPrice(building, unlockedSkills);
   const isEnable = currency >= price;
 
   const handleClick = (buildingId: number) => {
@@ -70,14 +65,22 @@ const BuildingInfo = ({
     setTimeout(() => setEventMessages(null), time);
   }
 
-  const getUpgade = (id: number) => {
+  const renderUpgade = (id: number) => {
     switch (id) {
       case 1:
-        return <VodkaWell upgradeVodkaWell={handleClick} />;
+        return (
+          unlockedSkills.includes(27) && (
+            <VodkaWell upgradeVodkaWell={handleClick} />
+          )
+        );
       case 2:
-        return <TortikSpells showEventMessages={showEventMessages} />;
+        return (
+          unlockedSkills.includes(30) && (
+            <TortikSpells showEventMessages={showEventMessages} />
+          )
+        );
       case 4:
-        return <Stones />;
+        return unlockedSkills.includes(36) && <Stones />;
       default:
         return null;
     }
@@ -164,7 +167,7 @@ const BuildingInfo = ({
             <GameText size="sm" text="КУПИТЬ" />
           </button>
         </div>
-        {level > 0 && getUpgade(id)}
+        {level > 0 && renderUpgade(id)}
       </div>
     </div>
   );

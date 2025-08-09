@@ -1,7 +1,10 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { type RootState } from './store';
 import { getCurrencyPerClick } from '../utils';
-import { getCurrencyPerSecond } from '../utils/getCurrencyPerSecond';
+import {
+  getCurrencyPerSecond,
+  getStorage,
+} from '../utils/getCurrencyPerSecond';
 import { selectAllBuildings } from '../state/buildingsSlice';
 import { selectAllSkills } from '../state/skillsSlice';
 import getSkillStatus from '../utils/getSkillStatus';
@@ -23,14 +26,19 @@ export const selectSkillPoints = (state: RootState) => state.game.skillPoints;
 export const selectVisibleBoosters = (state: RootState) =>
   state.game.visibleBoosters;
 
-export const selectStorage = (state: RootState) => ({
-  storage: state.game.storage,
-  storageCurrency: state.game.storageCurrency,
-});
+export const selectStorageCurrency = (state: RootState) =>
+  state.game.storageCurrency;
 
 export const selectUnlockedSkillsIds = createSelector(
   selectAllSkills,
   (skills) => skills.filter((skill) => skill.unlocked).map((skill) => skill.id),
+);
+
+export const selectStorage = createSelector(
+  selectUnlockedSkillsIds,
+  (unlockedSkillsIds) => {
+    return getStorage(unlockedSkillsIds);
+  },
 );
 
 export const selectActiveBoosters = createSelector(
@@ -72,17 +80,17 @@ export const selectBuildingLevelsSum = createSelector(
   (buildings) => buildings.reduce((sum, b) => sum + b.level, 0),
 );
 
-export const selectCurrencyPerClick = createSelector(
-  [selectUnlockedSkillsIds, selectBuildingLevelsSum],
-  (unlockedSkillsIds, buildingsCount) => {
-    return getCurrencyPerClick(unlockedSkillsIds, buildingsCount);
-  },
-);
-
 export const selectCurrencyPerSecond = createSelector(
   [selectUnlockedSkillsIds, selectAllBuildings, selectActiveBoosterIds],
   (unlockedSkillsIds, buildings, activeBoosterIds) => {
     return getCurrencyPerSecond(unlockedSkillsIds, buildings, activeBoosterIds);
+  },
+);
+
+export const selectCurrencyPerClick = createSelector(
+  [selectUnlockedSkillsIds, selectBuildingLevelsSum, selectCurrencyPerSecond],
+  (unlockedSkillsIds, buildingsCount, cps) => {
+    return getCurrencyPerClick(unlockedSkillsIds, buildingsCount, cps);
   },
 );
 

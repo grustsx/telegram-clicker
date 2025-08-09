@@ -22,7 +22,9 @@ function BuildingsPage() {
 
   const getIsShowed = (buildingId: number): boolean => {
     if (buildingId === 1) return true;
-    if (buildingId === 7) return true;
+    if (buildingId === 7) {
+      return unlockedSkills.includes(27);
+    }
 
     return (
       (buildings.find((building) => building.id === buildingId - 1)?.level ||
@@ -31,14 +33,7 @@ function BuildingsPage() {
   };
 
   const getIsEnoughCurrency = (building: BuildingType): boolean => {
-    return (
-      getPrice(
-        building.basePrice,
-        building.multiplier,
-        building.level,
-        unlockedSkills,
-      ) <= currency
-    );
+    return getPrice(building, unlockedSkills) <= currency;
   };
   return (
     <>
@@ -66,7 +61,7 @@ function BuildingsPage() {
                 key={building.id}
                 className={`${building.id === 7 ? 'absolute w-1/2 pointer-events-none' : 'relative w-full h-full'} aspect-square`}
                 onClick={() => {
-                  if (!getIsShowed(building.id) || building.id === 7) return;
+                  if (!getIsShowed(building.id)) return;
                   setSelectedBuildingId(building.id);
                 }}
               >

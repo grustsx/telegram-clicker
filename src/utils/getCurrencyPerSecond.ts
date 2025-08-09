@@ -1,12 +1,3 @@
-const buildingIdToSkillIdMap: Record<number, number> = {
-  1: 13,
-  2: 14,
-  3: 15,
-  4: 16,
-  5: 17,
-  6: 18,
-};
-
 export const getCurrencyPerSecond = (
   skills: number[],
   buildings: { level: number; incomePerSecond: number; id: number }[],
@@ -28,29 +19,56 @@ export const getCurrencyPerSecond = (
         return prev + level * firstBuildingLvl;
       }
       return (
-        prev +
-        level * incomePerSecond * (1 + 0.1 * skill(buildingIdToSkillIdMap[id]))
+        prev + level * incomePerSecond * getBuildingIncomeMultiplier(skills, id)
       );
     }, 0) *
       (1 + 0.05 * skill(3)) *
       (1 + 0.05 * skill(5)) *
       (1 + 0.05 * skill(6)) *
       (1 + 0.1 * skill(11)) *
-      (1 + 0.15 * skill(22)) *
+      (1 + 0.15 * skill(22) * (1 + skill(52))) *
+      (1 + 0.5 * skill(37)) *
       (1 + 4 * booster(3)),
   );
+};
+
+const getBuildingIncomeMultiplier = (skills: number[], buildingId: number) => {
+  const skill = (id: number) => {
+    return skills.includes(id) ? 1 : 0;
+  };
+
+  switch (buildingId) {
+    case 1:
+      return (
+        (1 + 0.1 * skill(13)) * (1 + 0.5 * skill(26)) * (1 + 1 * skill(29))
+      );
+    case 2:
+      return (1 + 0.1 * skill(14)) * (1 + 0.5 * skill(31));
+    case 3:
+      return (1 + 0.1 * skill(15)) * (1 + 0.5 * skill(35));
+    case 4:
+      return 1 + 0.1 * skill(16);
+    case 5:
+      return (1 + 0.1 * skill(17)) * (1 + 0.5 * skill(42));
+    case 6:
+      return 1 + 0.1 * skill(18);
+    case 7:
+      return 1 + 0.1 * skill(28);
+    default:
+      return 1;
+  }
 };
 
 export function nowUnix(): number {
   return Math.floor(Date.now() / 1000);
 }
 
-export const getCooldown = (skills: number[]) => {
+export const getCooldownMultiplier = (skills: number[]) => {
   const skill = (id: number) => {
     return skills.includes(id) ? 1 : 0;
   };
 
-  return 1 - 0.2 * skill(24);
+  return 1 - 0.2 * skill(24) * (1 + skill(52));
 };
 
 export const getBoosterTtlMultiplier = (skills: number[]) => {
@@ -71,4 +89,14 @@ export const getCurrencyByBooster = (
   };
 
   return Math.ceil(Math.min(0.2 * currency + 69, cps * 3600) + 0 * skill(1));
+};
+
+export const getStorage = (skills: number[]) => {
+  const skill = (id: number) => {
+    return skills.includes(id) ? 1 : 0;
+  };
+
+  return Math.ceil(
+    1800 + skill(19) * 6000 + skill(20) * 1200 + skill(21) + 1800,
+  );
 };
