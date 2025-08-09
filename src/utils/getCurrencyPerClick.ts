@@ -31,10 +31,10 @@ export const getCPCTemporaryMultipler = (
     return boosters.includes(id) ? 1 : 0;
   };
 
-  const superCrit = Math.random() < 0.01 * skill(43) + 0.01 * skill(44) ? 1 : 0;
+  const superCrit = Math.random() < 0.02 * skill(43) + 0.02 * skill(44) ? 1 : 0;
 
   const crit =
-    Math.random() < 0.05 * skill(39) + 0.05 * skill(40) && !superCrit ? 1 : 0;
+    Math.random() < 0.1 * skill(39) + 0.1 * skill(40) && !superCrit ? 1 : 0;
 
   return (
     1 *
