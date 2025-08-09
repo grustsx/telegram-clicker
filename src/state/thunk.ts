@@ -21,7 +21,6 @@ import {
 } from './gameSlice';
 import {
   selectActiveBoosterIds,
-  selectCurrency,
   selectCurrencyPerClick,
   selectCurrencyPerSecond,
   selectUnlockedSkillsIds,
@@ -218,13 +217,8 @@ export const activateBooster = createAppAsyncThunk(
 
     if (boosterId !== 1) return;
 
-    const currency = selectCurrency(state);
     const cps = selectCurrencyPerSecond(state);
-    const currencyByBooster = getCurrencyByBooster(
-      currency,
-      cps,
-      unlockedSkillIds,
-    );
+    const currencyByBooster = getCurrencyByBooster(cps);
 
     dispatch(increaseCurrency(currencyByBooster));
   },

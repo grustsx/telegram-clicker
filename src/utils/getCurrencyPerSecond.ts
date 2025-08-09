@@ -79,16 +79,8 @@ export const getBoosterTtlMultiplier = (skills: number[]) => {
   return 1 - 0 * skill(24);
 };
 
-export const getCurrencyByBooster = (
-  currency: number,
-  cps: number,
-  skills: number[],
-) => {
-  const skill = (id: number) => {
-    return skills.includes(id) ? 1 : 0;
-  };
-
-  return Math.ceil(Math.min(0.2 * currency + 69, cps * 3600) + 0 * skill(1));
+export const getCurrencyByBooster = (cps: number) => {
+  return Math.ceil(cps * 600);
 };
 
 export const getStorage = (skills: number[]) => {
