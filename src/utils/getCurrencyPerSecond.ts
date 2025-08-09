@@ -97,6 +97,6 @@ export const getStorage = (skills: number[]) => {
   };
 
   return Math.ceil(
-    1800 + skill(19) * 6000 + skill(20) * 1200 + skill(21) + 1800,
+    1800 + skill(19) * 600 + skill(20) * 1200 + skill(21) * 1800,
   );
 };
