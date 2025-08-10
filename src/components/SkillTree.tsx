@@ -20,6 +20,7 @@ function SkillTree({
     <div
       className={`relative z-30`}
       style={{
+        scale: 0.5,
         width: `${layoutSize.width}px`,
         height: `${layoutSize.height}px`,
       }}
