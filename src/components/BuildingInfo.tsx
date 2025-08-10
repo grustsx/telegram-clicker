@@ -20,6 +20,7 @@ import TortikSpells from './BuildingUpdates/TortikSpells';
 import VodkaWell from './BuildingUpdates/VodkaWell';
 import type { GameMessageType } from '../types/types';
 import MysteryUpgrade from './BuildingUpdates/MysteryUpgrade';
+import { getBuildingIncome } from '../utils/getCurrencyPerSecond';
 
 const BuildingInfo = ({
   buildingId,
@@ -153,7 +154,7 @@ const BuildingInfo = ({
                 <GameText
                   size="sm"
                   theme={isCount ? 'dark' : 'light'}
-                  text={`${formatLargeNumber(+level * +incomePerSecond)}/сек -> ${formatLargeNumber((+level + 1) * +incomePerSecond)}/сек`}
+                  text={`${formatLargeNumber(getBuildingIncome(unlockedSkills, level, incomePerSecond, id))}/сек -> ${formatLargeNumber(getBuildingIncome(unlockedSkills, level + 1, incomePerSecond, id))}/сек`}
                 />
               </>
             )}
