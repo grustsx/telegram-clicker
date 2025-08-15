@@ -9,6 +9,9 @@ import {
 } from '../app/selectors';
 import { claimStorage } from '../state/gameSlice';
 import ProgressBar from './ProgressBar';
+import { STORAGE_SEGMENT } from '../constants/const';
+
+const ROOMS = [1, 2, 3, 4];
 
 const Storage = () => {
   const dispatch = useAppDispatch();
@@ -27,12 +30,16 @@ const Storage = () => {
   };
 
   return (
-    <div onClick={handleClick}>
-      <ProgressBar
-        currentValue={storageCurrency}
-        maxValue={storage * cps}
-        text="амбар"
-      />
+    <div className="flex flex-row self-center" onClick={handleClick}>
+      {ROOMS.map((i) => (
+        <ProgressBar
+          locked={storage < STORAGE_SEGMENT * i}
+          key={i}
+          currentValue={storageCurrency - STORAGE_SEGMENT * cps * (i - 1)}
+          maxValue={STORAGE_SEGMENT * cps}
+          text="амбар"
+        />
+      ))}
     </div>
   );
 };

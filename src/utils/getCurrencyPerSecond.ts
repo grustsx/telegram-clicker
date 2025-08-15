@@ -1,3 +1,5 @@
+import { STORAGE_SEGMENT } from '../constants/const';
+
 export const getCurrencyPerSecond = (
   skills: number[],
   buildings: { level: number; incomePerSecond: number; id: number }[],
@@ -99,7 +101,5 @@ export const getStorage = (skills: number[]) => {
     return skills.includes(id) ? 1 : 0;
   };
 
-  return Math.ceil(
-    1800 + skill(19) * 600 + skill(20) * 1200 + skill(21) * 1800,
-  );
+  return Math.ceil(STORAGE_SEGMENT * (1 + skill(19) + skill(20) + skill(21)));
 };
