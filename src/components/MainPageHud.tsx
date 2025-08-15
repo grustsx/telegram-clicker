@@ -18,16 +18,14 @@ function MainPageHud() {
     <div className="fixed w-full flex flex-col z-20">
       <GameText text={formatLargeNumber(currency) + ' тортиков'} />
 
-      <div className="text-shadow-lg flex flex-row justify-between items-center pl-8 pr-8">
+      <div className="text-shadow-lg flex flex-row justify-between items-center p-8">
         <GameText
           size="sm"
           text={formatLargeNumber(currencyPerSecond) + '/сек'}
         />
-
+        <Storage />
         <GameText size="sm" text={formatLargeNumber(skillPoints) + ' оу'} />
       </div>
-
-      <Storage />
     </div>
   );
 }

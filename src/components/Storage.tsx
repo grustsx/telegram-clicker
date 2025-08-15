@@ -35,9 +35,11 @@ const Storage = () => {
         <ProgressBar
           locked={storage < STORAGE_SEGMENT * i}
           key={i}
-          currentValue={storageCurrency - STORAGE_SEGMENT * cps * (i - 1)}
+          currentValue={
+            (Math.min(storageCurrency - STORAGE_SEGMENT * cps * (i - 1)), 0)
+          }
           maxValue={STORAGE_SEGMENT * cps}
-          text="амбар"
+          text={storage < STORAGE_SEGMENT * i ? '🔒' : String(i)}
         />
       ))}
     </div>
