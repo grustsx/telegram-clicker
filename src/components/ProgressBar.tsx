@@ -2,7 +2,6 @@ import React, { type MouseEventHandler } from 'react';
 import GameText from '../elements/GameText';
 
 function ProgressBar({
-  locked,
   currentValue,
   maxValue,
   text,
@@ -15,7 +14,6 @@ function ProgressBar({
   onPress?: MouseEventHandler<HTMLDivElement>;
 }) {
   const getColor = () => {
-    if (locked) return 'bg-gray-300';
     if (currentValue === maxValue) return 'bg-emerald-500';
     if (maxValue / 2 < currentValue) return 'bg-yellow-500';
     return 'bg-red-500';

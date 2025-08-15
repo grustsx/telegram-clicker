@@ -33,7 +33,6 @@ const Storage = () => {
     <div className="flex flex-row self-center" onClick={handleClick}>
       {ROOMS.map((i) => (
         <ProgressBar
-          locked={storage < STORAGE_SEGMENT * i}
           key={i}
           currentValue={
             (Math.min(storageCurrency - STORAGE_SEGMENT * cps * (i - 1)), 0)
