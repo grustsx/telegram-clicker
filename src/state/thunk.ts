@@ -15,15 +15,19 @@ import {
 import {
   decreaseCurrency,
   decreaseSkillPoints,
+  decreaseStorage,
   depCurrency,
   increaseCurrency,
   incrementSkillPoints,
+  spawnBooster,
 } from './gameSlice';
 import {
   selectActiveBoosterIds,
   selectCurrencyPerClick,
   selectCurrencyPerSecond,
+  selectStorageCurrency,
   selectUnlockedSkillsIds,
+  selectVisibleBoosters,
 } from '../app/selectors';
 import { getPrice } from '../utils';
 import { lockSkill, selectSkillById, unlockSkill } from './skillsSlice';
@@ -36,6 +40,7 @@ import {
 } from './buildingsSlice';
 import { refreshSpellCooldown, selectSpellById } from './spellsSlice';
 import { refreshBoosterTtl } from './boostersSlice';
+import { BOOSTER_NORMAL_TIMEOUT, STORAGE_SEGMENT } from '../constants/const';
 
 export const getUserData = createAppAsyncThunk(
   'game/getUserData',
@@ -168,8 +173,15 @@ export const castSpell = createAppAsyncThunk(
     const state = getState();
     const spell = selectSpellById(state, spellId);
     const unlockedSkillIds = selectUnlockedSkillsIds(state);
+    const cps = selectCurrencyPerSecond(state);
+    const visibleBoosters = selectVisibleBoosters(state);
+    const storageCurrency = selectStorageCurrency(state);
 
     if (spell.remainSeconds > 0) return;
+
+    if (spell.cost * STORAGE_SEGMENT * cps > storageCurrency) return;
+
+    dispatch(decreaseStorage(spell.cost * STORAGE_SEGMENT * cps));
 
     dispatch(
       refreshSpellCooldown({
@@ -188,6 +200,15 @@ export const castSpell = createAppAsyncThunk(
       case 3: {
         const win = (spellPayload as { win: boolean })?.win;
         dispatch(depCurrency(win));
+        break;
+      }
+      case 4: {
+        const boosters = Object.keys(BOOSTER_NORMAL_TIMEOUT)
+          .map((id) => +id)
+          .filter((id) => !visibleBoosters.includes(id));
+        dispatch(
+          spawnBooster(boosters[Math.floor(Math.random() * boosters.length)]),
+        );
         break;
       }
     }

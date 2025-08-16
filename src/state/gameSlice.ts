@@ -34,7 +34,12 @@ const gameSlice = createSlice({
       state.currency += state.storageCurrency;
       state.storageCurrency = 0;
     },
+
+    decreaseStorage(state, action: PayloadAction<number>) {
+      state.storageCurrency -= action.payload;
+    },
     spawnBooster(state, action: PayloadAction<number>) {
+      if (action.payload === 0) return;
       if (!state.visibleBoosters.includes(action.payload)) {
         state.visibleBoosters = [...state.visibleBoosters, action.payload];
       }
@@ -107,6 +112,7 @@ export const {
   setAssetsLoading,
   depCurrency,
   spawnBooster,
+  decreaseStorage,
   removeBooster,
 } = gameSlice.actions;
 export default gameSlice.reducer;

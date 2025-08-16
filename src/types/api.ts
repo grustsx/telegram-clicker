@@ -48,6 +48,7 @@ export type GetDictionariesType = {
     id: number;
     name: string;
     cooldownSeconds: number;
+    cost: number;
   }[];
   boosters: {
     id: number;

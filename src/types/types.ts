@@ -29,6 +29,7 @@ export type SpellType = {
   name: string;
   cooldownSeconds: number;
   remainSeconds: number;
+  cost: number;
 };
 
 export type BoosterType = {

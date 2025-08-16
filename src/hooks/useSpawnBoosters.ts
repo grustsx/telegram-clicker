@@ -6,12 +6,7 @@ import {
   selectUnlockedSkillsIds,
   selectVisibleBoosters,
 } from '../app/selectors';
-
-const BOOSTER_NORMAL_TIMEOUT: Record<number, number> = {
-  1: 480000, // 8 минут
-  2: 144000000, //4 часа
-  3: 2400000, // 40 минут
-};
+import { BOOSTER_NORMAL_TIMEOUT } from '../constants/const';
 
 const INTERVAL_TIME = 1000;
 
