@@ -34,9 +34,7 @@ const Storage = () => {
       {ROOMS.map((i) => (
         <ProgressBar
           key={i}
-          currentValue={
-            (Math.min(storageCurrency - STORAGE_SEGMENT * cps * (i - 1)), 0)
-          }
+          currentValue={storageCurrency - STORAGE_SEGMENT * cps * (i - 1)}
           maxValue={STORAGE_SEGMENT * cps}
           text={storage < STORAGE_SEGMENT * i ? '🔒' : String(i)}
         />

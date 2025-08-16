@@ -13,8 +13,9 @@ function ProgressBar({
   text?: string;
   onPress?: MouseEventHandler<HTMLDivElement>;
 }) {
+  const currentLimitedValue = Math.min(Math.max(currentValue, 0), maxValue);
   const getColor = () => {
-    if (currentValue === maxValue) return 'bg-emerald-500';
+    if (currentLimitedValue === maxValue) return 'bg-emerald-500';
     if (maxValue / 2 < currentValue) return 'bg-yellow-500';
     return 'bg-red-500';
   };
@@ -27,7 +28,7 @@ function ProgressBar({
       <div
         onClick={onPress}
         className={`${getColor()} h-5 transition-all duration-300`}
-        style={{ width: `${(currentValue / maxValue) * 100}%` }}
+        style={{ width: `${(currentLimitedValue / maxValue) * 100}%` }}
       />
       {!!text && (
         <GameText
