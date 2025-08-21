@@ -21,6 +21,7 @@ export type SkillType = {
   description: string;
   price: number;
   unlocked: boolean;
+  hidden: boolean;
   requires?: number[];
 };
 

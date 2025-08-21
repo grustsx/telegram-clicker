@@ -61,5 +61,6 @@ export type UserSkillType = {
   id: number;
   name: string;
   price: number;
+  hidden: boolean;
   requires: number[];
 };
