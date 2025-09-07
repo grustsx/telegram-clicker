@@ -52,13 +52,13 @@ const SkillHelper = ({
         <GameText size="sm" text={'Цена: ' + price + ' оу'} />
         {!unlocked && (
           <button
-            className={`${price > skillPoints ? 'bg-red-600/30' : 'bg-green-600'} p-2`}
+            className={`${price > skillPoints ? 'bg-red-600/30' : 'bg-green-600'} p-1`}
             disabled={skillPoints < price}
             onClick={() => buyChosenSkill(skillId)}
           >
             <GameText
-              size="md"
-              text={price > skillPoints ? 'Нет хватает ОУ' : 'Купить'}
+              size="sm"
+              text={price > skillPoints ? 'Не хватает ОУ' : 'Купить'}
             />
           </button>
         )}

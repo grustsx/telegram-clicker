@@ -25,11 +25,11 @@ function Skill({
   const getColor = (): string => {
     switch (status) {
       case 'unlocked':
-        return 'bg-emerald-400/25';
+        return 'bg-emerald-400/30';
       case 'mysterious':
         return 'bg-tortik-white/15';
       case 'available':
-        return skillPoints < skill.price ? '' : 'bg-amber-400/25';
+        return skillPoints < skill.price ? '' : 'bg-amber-400/30';
       default:
         return '';
     }
