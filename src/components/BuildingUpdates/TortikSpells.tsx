@@ -142,13 +142,6 @@ function TortikSpell({
   const cps = useAppSelector(selectCurrencyPerSecond);
   const storageCurrency = useAppSelector(selectStorageCurrency);
 
-  if (cost * cps * STORAGE_SEGMENT > storageCurrency)
-    return (
-      <div className="w-full border-white border-2 text-white p-2">
-        <GameText size="md" text={`Нужно комнат амбара: ${cost}`} />
-      </div>
-    );
-
   return (
     <div className="w-full border-white border-2 text-white p-2 flex gap-2">
       <div className="flex flex-col gap-2">
@@ -158,10 +151,18 @@ function TortikSpell({
       </div>
       <button
         onClick={castSpell}
-        disabled={remain > 0}
-        className={remain > 0 ? 'bg-tortik-orange' : 'bg-emerald-400'}
+        disabled={remain > 0 || cost * cps * STORAGE_SEGMENT > storageCurrency}
+        className={
+          remain > 0 || cost * cps * STORAGE_SEGMENT > storageCurrency
+            ? 'bg-tortik-orange'
+            : 'bg-emerald-400'
+        }
       >
-        <CooldownSquare remain={remain} cooldown={cooldown} />
+        {cost * cps * STORAGE_SEGMENT > storageCurrency ? (
+          <GameText size="sm" text={`Нужно комнат амбара: ${cost}`} />
+        ) : (
+          <CooldownSquare remain={remain} cooldown={cooldown} />
+        )}
       </button>
     </div>
   );
