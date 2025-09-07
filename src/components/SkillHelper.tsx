@@ -1,6 +1,7 @@
 import { sendBuySkill } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectSkillPoints, selectUserId } from '../app/selectors';
+import GameText from '../elements/GameText';
 import { selectSkillById } from '../state/skillsSlice';
 import { buySkill } from '../state/thunk';
 
@@ -26,25 +27,42 @@ const SkillHelper = ({
   };
 
   return (
-    <div className="fixed p-8 top-0 w-full bg-amber-900/60 z-50 text-tortik-white">
-      <button className="bg-red-900 absolute top-4 right-4" onClick={onClose}>
-        x
+    <div className="fixed p-8 top-0 w-full bg-blue-950/80 z-50 text-tortik-white border-2 border-solid">
+      <button
+        className="border-white border-2 absolute top-4 right-4"
+        onClick={onClose}
+      >
+        <img
+          className="bg-red-900"
+          style={{
+            imageRendering: 'pixelated',
+            width: 'calc(6.25vw)',
+            height: 'calc(6.25vw)',
+          }}
+          src={`/assets/icons/skills/cross.png`}
+        />
       </button>
-
-      <div className="p-4 text-2xl text-shadow-lg">{name}</div>
-      <div className="p-4 text-md text-shadow-lg">{description}</div>
-      <div className="p-4 text-lg text-shadow-lg">
-        {'Цена: ' + price + 'ОУ'}
+      <div className="flex flex-col gap-4 ">
+        <GameText
+          size="lg"
+          text={name}
+          className="border-2 border-solid p-1 bg-blue-950/80"
+        />
+        <GameText size="md" text={description} />
+        <GameText size="md" text={'Цена: ' + price + ' оу'} />
+        {!unlocked && (
+          <button
+            className={`${price > skillPoints ? 'bg-red-600/30' : 'bg-green-600'} p-2`}
+            disabled={skillPoints < price}
+            onClick={() => buyChosenSkill(skillId)}
+          >
+            <GameText
+              size="md"
+              text={price > skillPoints ? 'Нет хватает ОУ' : 'Купить'}
+            />
+          </button>
+        )}
       </div>
-      {!unlocked && (
-        <button
-          className="bg-indigo-950"
-          disabled={skillPoints < price}
-          onClick={() => buyChosenSkill(skillId)}
-        >
-          {price > skillPoints ? 'Нет хватает ОУ' : 'Купить'}
-        </button>
-      )}
     </div>
   );
 };

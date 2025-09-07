@@ -54,7 +54,10 @@ function SkillTreePage() {
         />
 
         <div className="transition-transform origin-top-left z-30">
-          <SkillTree setSelectedSkillId={setSelectedSkillId} />
+          <SkillTree
+            selectedSkillId={selectedSkillId}
+            setSelectedSkillId={setSelectedSkillId}
+          />
         </div>
       </div>
     </>

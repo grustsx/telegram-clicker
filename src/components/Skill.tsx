@@ -8,11 +8,13 @@ function Skill({
   icon,
   skill,
   position,
+  selected,
 }: {
   onClick: (id: number) => void;
   icon: string;
   skill: SkillType;
   position: PositionType | null;
+  selected?: boolean;
 }) {
   const skillPoints = useAppSelector(selectSkillPoints);
   const unlockedSkillsIds = useAppSelector(selectUnlockedSkillsIds);
@@ -23,18 +25,18 @@ function Skill({
   const getColor = (): string => {
     switch (status) {
       case 'unlocked':
-        return 'bg-emerald-700';
+        return 'bg-emerald-400/25';
       case 'mysterious':
         return 'bg-tortik-white/15';
       case 'available':
-        return skillPoints < skill.price ? 'bg-gray-500' : 'bg-amber-400';
+        return skillPoints < skill.price ? '' : 'bg-amber-400/25';
       default:
         return '';
     }
   };
   return (
     <div
-      className={`absolute z-30 w-24 h-24 ${getColor()} rounded-lg p-2 text-center cursor-pointer flex justify-center items-center`}
+      className={`absolute z-30 w-24 h-24 ${getColor()} p-2 text-center cursor-pointer flex justify-center items-center ${selected ? 'border-2 border-solid' : ''}`}
       onClick={() => status !== 'mysterious' && onClick(skill.id)}
       style={{
         left: `${position.x}px`,

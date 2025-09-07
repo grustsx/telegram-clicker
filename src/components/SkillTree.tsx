@@ -9,7 +9,9 @@ import { selectVisibleSkills } from '../app/selectors';
 
 function SkillTree({
   setSelectedSkillId,
+  selectedSkillId,
 }: {
+  selectedSkillId: number | null;
   setSelectedSkillId: (id: number | null) => void;
 }) {
   const visibleSkills = useAppSelector(selectVisibleSkills);
@@ -62,6 +64,7 @@ function SkillTree({
             icon={SKILLS_INFO[skill.id]?.icon || 'star.png'}
             key={skill.id}
             skill={skill}
+            selected={selectedSkillId === skill.id}
             position={getPositionWithLayout(
               SKILLS_INFO[skill.id]?.position,
               layoutSize,
