@@ -62,19 +62,23 @@ export const SKILLS_INFO: Record<
     description:
       'Проджект менеджеры выгоняют народ с курилок, повышая эффективность башен на 5%',
     position: { x: 100, y: 800 },
+    icon: 'manager.png',
   },
   '12': {
     description:
       'По указу президента все башни теперь кликают по команде. Клик увеличивается на количество построек.',
     position: { x: 0, y: 1200 },
+    icon: 'list.png',
   },
   '13': {
     description: 'Горячая вода делает общаги на 10% эффективнее',
     position: { x: 400, y: 800 },
+    icon: 'gradus.png',
   },
   '14': {
     description: 'ТОРТиКи на 10% эффективнее',
     position: { x: 400, y: 1000 },
+    icon: 'belarus.png',
   },
   '15': {
     description: 'Артефакт из прошлого, амбар на 10% эффективнее',
