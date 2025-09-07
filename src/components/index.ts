@@ -1,7 +1,7 @@
 export { default as Loader } from './Loader';
 export { default as IncrementButton } from './IncrementButton';
 export { default as MenuButton } from './MenuButton';
-export { default as Storage } from './Storage';
+export { default as Storage } from './BuildingUpdates/Storage';
 export { default as ExplodingCubes } from './ExplodingCubes';
 export { default as SkillTree } from './SkillTree';
 export { default as SkillHelper } from './SkillHelper';
@@ -12,3 +12,4 @@ export { default as ProgressBar } from './ProgressBar';
 export { default as BuildingInfo } from './BuildingInfo';
 export { default as Skill } from './Skill';
 export { default as SkillLine } from './SkillLine';
+export { default as StorageIndicator } from './StorageIndicator';

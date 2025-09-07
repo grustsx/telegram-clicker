@@ -18,6 +18,7 @@ import { getPrice } from '../utils/getPrice';
 import Stones from './BuildingUpdates/Stones';
 import TortikSpells from './BuildingUpdates/TortikSpells';
 import VodkaWell from './BuildingUpdates/VodkaWell';
+import Storage from './BuildingUpdates/Storage';
 import type { GameMessageType } from '../types/types';
 import MysteryUpgrade from './BuildingUpdates/MysteryUpgrade';
 import { getBuildingIncome } from '../utils/getCurrencyPerSecond';
@@ -81,6 +82,8 @@ const BuildingInfo = ({
         ) : (
           <MysteryUpgrade />
         );
+      case 3:
+        return unlockedSkills.includes(30) ? <Storage /> : <MysteryUpgrade />;
       case 4:
         return unlockedSkills.includes(36) ? <Stones /> : <MysteryUpgrade />;
       default:

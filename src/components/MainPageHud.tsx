@@ -1,4 +1,4 @@
-import { Storage } from '.';
+import { StorageIndicator } from '.';
 import { useAppSelector } from '../app/hooks';
 import {
   selectCurrency,
@@ -23,7 +23,7 @@ function MainPageHud() {
           size="sm"
           text={formatLargeNumber(currencyPerSecond) + '/сек'}
         />
-        <Storage />
+        <StorageIndicator />
         <GameText size="sm" text={formatLargeNumber(skillPoints) + ' оу'} />
       </div>
     </div>

@@ -3,20 +3,17 @@ import { sendClaimStorage } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
   selectCurrencyPerSecond,
-  selectStorage,
   selectStorageCurrency,
   selectUserId,
 } from '../app/selectors';
 import { claimStorage } from '../state/gameSlice';
-import ProgressBar from './ProgressBar';
 import { STORAGE_SEGMENT } from '../constants/const';
 
 const ROOMS = [1, 2, 3, 4];
 
-const Storage = () => {
+const StorageIndicator = () => {
   const dispatch = useAppDispatch();
 
-  const storage = useAppSelector(selectStorage);
   const storageCurrency = useAppSelector(selectStorageCurrency);
 
   const userId = useAppSelector(selectUserId);
@@ -30,16 +27,22 @@ const Storage = () => {
   };
 
   return (
-    <div className="flex flex-row self-center" onClick={handleClick}>
-      {ROOMS.map((i) => (
-        <ProgressBar
-          key={i}
-          currentValue={storageCurrency - STORAGE_SEGMENT * cps * (i - 1)}
-          maxValue={STORAGE_SEGMENT * cps}
-          text={storage < STORAGE_SEGMENT * i ? '🔒' : String(i)}
-        />
-      ))}
+    <div className={`flex flex-col items-center`}>
+      <div className="flex flex-row self-center gap-2" onClick={handleClick}>
+        {ROOMS.map((i) => (
+          <div
+            className={`w-4 h-4 rounded-xl
+              ${
+                storageCurrency <= STORAGE_SEGMENT * cps * (i - 1)
+                  ? 'bg-gray-800'
+                  : storageCurrency < STORAGE_SEGMENT * cps * i
+                    ? 'bg-amber-400'
+                    : 'bg-green-700'
+              }`}
+          />
+        ))}
+      </div>
     </div>
   );
 };
-export default React.memo(Storage);
+export default React.memo(StorageIndicator);
