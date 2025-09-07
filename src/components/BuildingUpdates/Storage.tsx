@@ -10,6 +10,7 @@ import {
 import { claimStorage } from '../../state/gameSlice';
 import ProgressBar from '../ProgressBar';
 import { STORAGE_SEGMENT } from '../../constants/const';
+import GameText from '../../elements/GameText';
 
 const ROOMS = [1, 2, 3, 4];
 
@@ -31,8 +32,12 @@ const Storage = () => {
 
   return (
     <div
-      className={`flex flex-col gap-2 pixel-border--gr justify-between items-center p-4`}
+      className={`flex flex-col gap-4 pixel-border--gr justify-between items-center p-4`}
     >
+      <GameText
+        size="sm"
+        text="Амбар хранит в себе тортики и наполняется, пока ты не смотришь, нажми, чтобы собрать"
+      />
       <div className="flex flex-row self-center" onClick={handleClick}>
         {ROOMS.map((i) => (
           <ProgressBar
