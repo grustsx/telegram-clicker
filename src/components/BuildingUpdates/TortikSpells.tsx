@@ -33,12 +33,17 @@ export default function TortikSpells({
 }: {
   showEventMessages: (messages: GameMessageType[], time?: number) => void;
 }) {
-  const { remainSeconds: depRemainSeconds } = useAppSelector((state) =>
-    selectSpellById(state, DEP_ID),
-  );
+  const {
+    remainSeconds: depRemainSeconds,
+    cooldownSeconds: depCooldownSeconds,
+    cost: depCost,
+  } = useAppSelector((state) => selectSpellById(state, DEP_ID));
 
-  const { remainSeconds: boosterSpellSeconds, cost: boosterCost } =
-    useAppSelector((state) => selectSpellById(state, BOOSTER_SPELL_ID));
+  const {
+    remainSeconds: boosterSpellSeconds,
+    cooldownSeconds: boosterCooldownSeconds,
+    cost: boosterCost,
+  } = useAppSelector((state) => selectSpellById(state, BOOSTER_SPELL_ID));
   const userId = useAppSelector(selectUserId);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
   const cps = useAppSelector(selectCurrencyPerSecond);
@@ -95,31 +100,97 @@ export default function TortikSpells({
       className={`flex flex-col gap-2 pixel-border--gr justify-between items-center`}
     >
       <div className="flex flex-col gap-1 w-full">
-        <button
-          className={`w-full border-white border-2 text-white p-2 ${depRemainSeconds > 0 ? 'bg-gray-400' : 'bg-emerald-400'}`}
-          onClick={() => castSpellById(DEP_ID)}
-          disabled={depRemainSeconds > 0}
-        >
-          <GameText size="xs" text={formatDuration(depRemainSeconds)} />
-          <GameText
-            size="sm"
-            text={`${SPELLS_INFO[DEP_ID]} ${
-              unlockedSkills.includes(32) ? '50%' : 'чуть меньше 50%'
-            }`}
-          />
-        </button>
-        <button
-          className={`w-full border-white border-2 text-white p-2 ${boosterSpellSeconds > 0 || boosterCost * cps * STORAGE_SEGMENT > storageCurrency ? 'bg-gray-400' : 'bg-emerald-400'}`}
-          onClick={() => castSpellById(BOOSTER_SPELL_ID)}
-          disabled={
-            boosterSpellSeconds > 0 ||
-            boosterCost * cps * STORAGE_SEGMENT > storageCurrency
-          }
-        >
-          <GameText size="xs" text={formatDuration(boosterSpellSeconds)} />
-          <GameText size="sm" text={SPELLS_INFO[BOOSTER_SPELL_ID]} />
-        </button>
+        <TortikSpell
+          castSpell={() => castSpellById(DEP_ID)}
+          title="Деп"
+          description={`${SPELLS_INFO[DEP_ID]} ${
+            unlockedSkills.includes(32) ? '50%' : 'чуть меньше 50%'
+          }`}
+          remain={depRemainSeconds}
+          cooldown={depCooldownSeconds}
+          cost={depCost}
+        />
+
+        <TortikSpell
+          castSpell={() => castSpellById(BOOSTER_SPELL_ID)}
+          title="Ритуал"
+          description={SPELLS_INFO[BOOSTER_SPELL_ID]}
+          remain={boosterSpellSeconds}
+          cooldown={boosterCooldownSeconds}
+          cost={boosterCost}
+        />
       </div>
+    </div>
+  );
+}
+
+function TortikSpell({
+  castSpell,
+  title,
+  description,
+  remain,
+  cooldown,
+  cost,
+}: {
+  castSpell: () => void;
+  title: string;
+  description: string;
+  remain: number;
+  cooldown: number;
+  cost: number;
+}) {
+  const cps = useAppSelector(selectCurrencyPerSecond);
+  const storageCurrency = useAppSelector(selectStorageCurrency);
+
+  if (cost * cps * STORAGE_SEGMENT > storageCurrency)
+    return (
+      <div className="w-full border-white border-2 text-white p-2">
+        <GameText size="md" text={`Нужно комнат амбара: ${cost}`} />
+      </div>
+    );
+
+  return (
+    <div className="w-full border-white border-2 text-white p-2 flex gap-2">
+      <div className="flex flex-col gap-2">
+        <GameText size="lg" text={title} />
+
+        <GameText size="xs" text={description} />
+      </div>
+      <button
+        onClick={castSpell}
+        disabled={remain > 0}
+        className={remain > 0 ? 'bg-tortik-orange' : 'bg-emerald-400'}
+      >
+        <CooldownSquare remain={remain} cooldown={cooldown} />
+      </button>
+    </div>
+  );
+}
+
+function CooldownSquare({
+  remain,
+  cooldown,
+}: {
+  remain: number;
+  cooldown: number;
+}) {
+  const progress = Math.min(1, Math.max(0, remain / cooldown));
+
+  return (
+    <div className="relative inline-grid place-items-center  text-white font-bold text-lg w-20 h-full">
+      {/* Затемняющий слой */}
+      <div
+        className="absolute inset-0 bg-black/50"
+        style={{
+          width: `${progress * 100}%`,
+          left: `${(1 - progress) * 100}%`,
+        }}
+      />
+      <GameText
+        size="sm"
+        className="z-10"
+        text={remain > 0 ? formatDuration(remain) : 'Каст'}
+      />
     </div>
   );
 }
