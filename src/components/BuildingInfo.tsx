@@ -83,7 +83,7 @@ const BuildingInfo = ({
           <MysteryUpgrade />
         );
       case 3:
-        return unlockedSkills.includes(30) ? <Storage /> : <MysteryUpgrade />;
+        return <Storage />;
       case 4:
         return unlockedSkills.includes(36) ? <Stones /> : <MysteryUpgrade />;
       default:
