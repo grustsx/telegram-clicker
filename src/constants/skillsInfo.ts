@@ -37,6 +37,7 @@ export const SKILLS_INFO: Record<
   '6': {
     description: 'Контроль увеличивает эффективность башен на 5%.',
     position: { x: 200, y: 400 },
+    icon: 'time.png',
   },
   '7': {
     description: 'Дополнительный палец. Клики эффективнее ещё в 2 раза.',
@@ -46,6 +47,7 @@ export const SKILLS_INFO: Record<
   '8': {
     description: 'Дополнительная рука. Клики эффективнее ещё в 2 раза.',
     position: { x: -200, y: 800 },
+    icon: 'hand.png',
   },
   '9': {
     description: 'Рабинович недоволен, башни дешевле на 5%.',
@@ -88,6 +90,7 @@ export const SKILLS_INFO: Record<
     description:
       'Камень заглушает голос разума, делая добычу на 10% эффективнее',
     position: { x: 400, y: 1400 },
+    icon: 'stone.png',
   },
   '17': {
     description: 'Тело Нади адаптируется к копанию, ускоряет добычу на 10%',
