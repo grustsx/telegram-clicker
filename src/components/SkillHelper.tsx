@@ -44,12 +44,12 @@ const SkillHelper = ({
       </button>
       <div className="flex flex-col gap-4 ">
         <GameText
-          size="lg"
+          size="md"
           text={name}
           className="border-2 border-solid p-1 bg-blue-950/80"
         />
-        <GameText size="md" text={description} />
-        <GameText size="md" text={'Цена: ' + price + ' оу'} />
+        <GameText size="sm" text={description} />
+        <GameText size="sm" text={'Цена: ' + price + ' оу'} />
         {!unlocked && (
           <button
             className={`${price > skillPoints ? 'bg-red-600/30' : 'bg-green-600'} p-2`}
