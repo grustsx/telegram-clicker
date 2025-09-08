@@ -3,7 +3,7 @@ import './App.css';
 import { IS_DEV } from './env';
 import { PageController } from './pages';
 import type { TgUserType } from './types/types';
-import { Loader } from './components';
+import { DialogModal, Loader } from './components';
 import { setUserData } from './state/gameSlice';
 import { useAppDispatch } from './app/hooks';
 import { getUserAndDictionaries } from './state/thunk';
@@ -54,7 +54,10 @@ function App() {
       <PreloadImages />
       <Loader>
         <ErrorHandler>
-          <PageController />
+          <>
+            <DialogModal />
+            <PageController />
+          </>
         </ErrorHandler>
       </Loader>
     </>

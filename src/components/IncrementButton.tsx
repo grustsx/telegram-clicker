@@ -3,7 +3,9 @@ import { useAppDispatch, useAppSelector } from '../app/hooks';
 import {
   selectActiveBoosterIds,
   selectActiveBoosters,
+  selectCurrency,
   selectCurrencyPerClick,
+  selectCurrencyPerSecond,
   selectUnlockedSkillsIds,
   selectUserId,
 } from '../app/selectors';
@@ -12,6 +14,7 @@ import CakeScene from './CakeScene';
 import { updateCurrencyByClick } from '../state/thunk';
 import GameText from '../elements/GameText';
 import { getCPCTemporaryMultipler } from '../utils/getCurrencyPerClick';
+import { startDialog } from '../state/dialogSlice';
 
 type FloatingNumber = {
   color: string;
@@ -33,6 +36,8 @@ const IncrementButton = () => {
   const dispatch = useAppDispatch();
 
   const currencyPerClick = useAppSelector(selectCurrencyPerClick);
+  const cps = useAppSelector(selectCurrencyPerSecond);
+  const currency = useAppSelector(selectCurrency);
 
   const activeBoosterIds = useAppSelector(selectActiveBoosterIds);
   const activeBoosters = useAppSelector(selectActiveBoosters);
@@ -56,6 +61,53 @@ const IncrementButton = () => {
 
   const handleClick = React.useCallback(
     (e: React.PointerEvent<Element>) => {
+      if (cps === 0) {
+        switch (currency) {
+          case 0:
+            dispatch(
+              startDialog([
+                { name: '???', description: '...' },
+                {
+                  name: '???',
+                  description: 'Ты чё толкаешься, ты чё больной?',
+                },
+              ]),
+            );
+            break;
+          case 10:
+            dispatch(
+              startDialog([
+                {
+                  name: '???',
+                  description: 'Ты не видишь, что по мне дамаг наносится?',
+                },
+              ]),
+            );
+            break;
+          case 33:
+            dispatch(
+              startDialog([
+                {
+                  name: '???',
+                  description: 'Нанеси мне сто урона и ты увидишь что будет',
+                },
+              ]),
+            );
+            break;
+          case 99:
+            dispatch(
+              startDialog([
+                {
+                  name: '???',
+                  description:
+                    'Снизу загорелся восклицательный знак, считай ты уже пригабенился',
+                },
+              ]),
+            );
+            break;
+        }
+      }
+
       const multipler = getCPCTemporaryMultipler(
         unlockedSkillsIds,
         activeBoosterIds,
@@ -75,7 +127,7 @@ const IncrementButton = () => {
         color: getColor(),
         x: e.clientX + Math.random() * -40,
         y: e.clientY + Math.random() * -40,
-        value: `+${currencyPerClick * multipler}`,
+        value: Math.random() < 0.03 ? 'Ай' : `+${currencyPerClick * multipler}`,
       };
       setNumbers((prev) => [...prev, newNumber]);
 
@@ -83,7 +135,14 @@ const IncrementButton = () => {
         setNumbers((prev) => prev.filter((n) => n.id !== newNumber.id));
       }, 500);
     },
-    [activeBoosterIds, currencyPerClick, dispatch, unlockedSkillsIds],
+    [
+      activeBoosterIds,
+      cps,
+      currency,
+      currencyPerClick,
+      dispatch,
+      unlockedSkillsIds,
+    ],
   );
 
   return (

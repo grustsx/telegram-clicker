@@ -1,37 +1,25 @@
 import React from 'react';
-import { sendClaimStorage } from '../api';
-import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { useAppSelector } from '../app/hooks';
 import {
   selectCurrencyPerSecond,
   selectStorageCurrency,
-  selectUserId,
 } from '../app/selectors';
-import { claimStorage } from '../state/gameSlice';
 import { STORAGE_SEGMENT } from '../constants/const';
 
 const ROOMS = [1, 2, 3, 4];
 
 const StorageIndicator = () => {
-  const dispatch = useAppDispatch();
-
   const storageCurrency = useAppSelector(selectStorageCurrency);
-
-  const userId = useAppSelector(selectUserId);
 
   const cps = useAppSelector(selectCurrencyPerSecond);
 
-  const handleClick = () => {
-    if (storageCurrency === 0) return;
-    dispatch(claimStorage());
-    sendClaimStorage(userId);
-  };
-
   return (
     <div className={`flex flex-col items-center`}>
-      <div className="flex flex-row self-center gap-2" onClick={handleClick}>
+      <div className="flex flex-row flex-wrap w-4 self-center">
         {ROOMS.map((i) => (
           <div
-            className={`w-4 h-4 rounded-xl
+            key={i}
+            className={`w-2 h-2 border-1 
               ${
                 storageCurrency <= STORAGE_SEGMENT * cps * (i - 1)
                   ? 'bg-gray-800'

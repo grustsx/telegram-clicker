@@ -22,6 +22,7 @@ import Storage from './BuildingUpdates/Storage';
 import type { GameMessageType } from '../types/types';
 import MysteryUpgrade from './BuildingUpdates/MysteryUpgrade';
 import { getBuildingIncome } from '../utils/getCurrencyPerSecond';
+import { startDialog } from '../state/dialogSlice';
 
 const BuildingInfo = ({
   buildingId,
@@ -59,6 +60,31 @@ const BuildingInfo = ({
   const isEnable = currency >= price;
 
   const handleClick = (buildingId: number) => {
+    if (level === 0) {
+      switch (buildingId) {
+        case 1:
+          dispatch(
+            startDialog([
+              {
+                name: 'Богдан',
+                description: 'Ну вот тут и будет у нас общага стоять',
+              },
+              {
+                name: 'Антон',
+                description: 'Теперь мы будем фоново получать 1/сек',
+              },
+              {
+                name: 'Богдан',
+                description: 'Понять бы ещё только чего именно',
+              },
+              {
+                name: 'Антон',
+                description: 'Куда важнее понять, сколько оно стоит',
+              },
+            ]),
+          );
+      }
+    }
     dispatch(buyBuildingLevel(buildingId));
     sendUpgradeBuilding(buildingId, userId);
   };

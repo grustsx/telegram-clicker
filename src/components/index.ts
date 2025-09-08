@@ -13,3 +13,4 @@ export { default as BuildingInfo } from './BuildingInfo';
 export { default as Skill } from './Skill';
 export { default as SkillLine } from './SkillLine';
 export { default as StorageIndicator } from './StorageIndicator';
+export { default as DialogModal } from './DialogModal';
