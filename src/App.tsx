@@ -39,7 +39,7 @@ function App() {
 
   React.useEffect(() => {
     const user: TgUserType | undefined = tg?.WebApp?.initDataUnsafe?.user;
-    if (!user) {
+    if (!user || !user.id) {
       dispatch(
         setErrorMessage(
           'юзер не найден, откройте игру через кнопку в сообщении, а не через нижнее меню',
