@@ -47,6 +47,11 @@ export const getUserData = createAppAsyncThunk(
   async (_, { getState, rejectWithValue }) => {
     try {
       const userId = (getState() as RootState).game.user.id;
+      if (!userId)
+        throw {
+          message:
+            'юзер не найден, откройте игру через кнопку в сообщении, а не через нижнее меню',
+        };
       const { data } = await api.get(`/api/users/${userId}`);
       return data as GetUserDataType;
     } catch (err) {

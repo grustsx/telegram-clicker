@@ -1,9 +1,5 @@
 import { useState, useEffect, type ReactElement } from 'react';
-import {
-  selectAssetsLoading,
-  selectLoading,
-  selectUserId,
-} from '../app/selectors';
+import { selectAssetsLoading, selectLoading } from '../app/selectors';
 import { useAppSelector } from '../app/hooks';
 import loadingGif from '../assets/loading.gif';
 
@@ -17,7 +13,6 @@ const Loader = ({ children }: { children: ReactElement }) => {
   const [messageIndex, setMessageIndex] = useState<number>(0);
   const loading = useAppSelector(selectLoading);
   const assetsLoading = useAppSelector(selectAssetsLoading);
-  const userId = useAppSelector(selectUserId);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -37,7 +32,6 @@ const Loader = ({ children }: { children: ReactElement }) => {
       <img src={loadingGif} alt="Загрузка..." className="w-64 h-64" />
       <div className="text-3xl text-tortik-white">
         {loadingMessagesArray[messageIndex]}
-        {`id: ${userId}`}
       </div>
     </div>
   ) : (
