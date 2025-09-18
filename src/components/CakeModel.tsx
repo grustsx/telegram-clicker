@@ -88,7 +88,7 @@ function CakeModel({
       renderOrder={1}
       ref={baseRef}
       rotation={[Math.PI / 5, Math.PI / 6, 0]}
-      position={[0, 0.97, 4.57]}
+      position={[0, 0.94, 4.57]}
     >
       <group ref={floatingRef}>
         <a.group
