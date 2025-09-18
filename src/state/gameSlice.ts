@@ -38,6 +38,9 @@ const gameSlice = createSlice({
     decreaseStorage(state, action: PayloadAction<number>) {
       state.storageCurrency -= action.payload;
     },
+    setErrorMessage(state, action: PayloadAction<string>) {
+      state.errorMessage = action.payload;
+    },
     spawnBooster(state, action: PayloadAction<number>) {
       if (action.payload === 0) return;
       if (!state.visibleBoosters.includes(action.payload)) {
@@ -114,5 +117,6 @@ export const {
   spawnBooster,
   decreaseStorage,
   removeBooster,
+  setErrorMessage,
 } = gameSlice.actions;
 export default gameSlice.reducer;

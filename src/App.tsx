@@ -4,7 +4,7 @@ import { IS_DEV } from './env';
 import { PageController } from './pages';
 import type { TgUserType } from './types/types';
 import { DialogModal, Loader } from './components';
-import { setUserData } from './state/gameSlice';
+import { setErrorMessage, setUserData } from './state/gameSlice';
 import { useAppDispatch } from './app/hooks';
 import { getUserAndDictionaries } from './state/thunk';
 import ErrorHandler from './components/ErrorHandler';
@@ -39,7 +39,14 @@ function App() {
 
   React.useEffect(() => {
     const user: TgUserType | undefined = tg?.WebApp?.initDataUnsafe?.user;
-    if (!user) return;
+    if (!user) {
+      dispatch(
+        setErrorMessage(
+          'юзер не найден, откройте игру через кнопку в сообщении, а не через нижнее меню',
+        ),
+      );
+      return;
+    }
     dispatch(setUserData(user));
     dispatch(getUserAndDictionaries());
   }, [dispatch, tg?.WebApp?.initDataUnsafe?.user]);
