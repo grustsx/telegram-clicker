@@ -49,7 +49,7 @@ function App() {
     }
     dispatch(setUserData(user));
     dispatch(getUserAndDictionaries());
-  }, [dispatch, tg?.WebApp?.initDataUnsafe?.user]);
+  }, [dispatch, tg]);
 
   useRefreshData();
   useCurrencyPerSecond();
