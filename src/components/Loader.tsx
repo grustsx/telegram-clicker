@@ -37,7 +37,7 @@ const Loader = ({ children }: { children: ReactElement }) => {
       <img src={loadingGif} alt="Загрузка..." className="w-64 h-64" />
       <div className="text-3xl text-tortik-white">
         {loadingMessagesArray[messageIndex]}
-        {userId}
+        {`id: ${userId}`}
       </div>
     </div>
   ) : (
