@@ -59,14 +59,14 @@ function App() {
   return (
     <>
       <PreloadImages />
-      <Loader>
-        <ErrorHandler>
+      <ErrorHandler>
+        <Loader>
           <>
             <DialogModal />
             <PageController />
           </>
-        </ErrorHandler>
-      </Loader>
+        </Loader>
+      </ErrorHandler>
     </>
   );
 }
