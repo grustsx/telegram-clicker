@@ -8,7 +8,7 @@ import {
   selectUnlockedSkillsIds,
 } from '../app/selectors';
 import type { BuildingType } from '../types/types';
-import { getPrice } from '../utils';
+import { getIsBuildingShowed, getPrice } from '../utils';
 
 function BuildingsPage() {
   const buildings = useAppSelector(selectAllBuildings);
@@ -19,18 +19,6 @@ function BuildingsPage() {
   const [selectedBuildingId, setSelectedBuildingId] = React.useState<
     number | null
   >(null);
-
-  const getIsShowed = (buildingId: number): boolean => {
-    if (buildingId === 1) return true;
-    if (buildingId === 7) {
-      return unlockedSkills.includes(27);
-    }
-
-    return (
-      (buildings.find((building) => building.id === buildingId - 1)?.level ||
-        0) > 0
-    );
-  };
 
   const getIsEnoughCurrency = (building: BuildingType): boolean => {
     return getPrice(building, unlockedSkills) <= currency;
@@ -61,7 +49,10 @@ function BuildingsPage() {
                 key={building.id}
                 className={`${building.id === 7 ? 'absolute w-1/2 pointer-events-none' : 'relative w-full h-full'} aspect-square`}
                 onClick={() => {
-                  if (!getIsShowed(building.id)) return;
+                  if (
+                    !getIsBuildingShowed(building.id, unlockedSkills, buildings)
+                  )
+                    return;
                   setSelectedBuildingId(building.id);
                 }}
               >
@@ -73,16 +64,21 @@ function BuildingsPage() {
                     imageRendering: 'pixelated',
                   }}
                 />
-                {getIsEnoughCurrency(building) && getIsShowed(building.id) && (
-                  <img
-                    className={`absolute ${building.id === 7 ? 'bottom-1/4 right-1/5' : 'top-1/4 left-1/4'} w-1/8 h-1/8 animate-bounce pointer-events-none`}
-                    src="/assets/buildings/up.png"
-                    style={{
-                      pointerEvents: 'none',
-                      imageRendering: 'pixelated',
-                    }}
-                  />
-                )}
+                {getIsEnoughCurrency(building) &&
+                  getIsBuildingShowed(
+                    building.id,
+                    unlockedSkills,
+                    buildings,
+                  ) && (
+                    <img
+                      className={`absolute ${building.id === 7 ? 'bottom-1/4 right-1/5' : 'top-1/4 left-1/4'} w-1/8 h-1/8 animate-bounce pointer-events-none`}
+                      src="/assets/buildings/up.png"
+                      style={{
+                        pointerEvents: 'none',
+                        imageRendering: 'pixelated',
+                      }}
+                    />
+                  )}
               </div>
             ))}
           </div>

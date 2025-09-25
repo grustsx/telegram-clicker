@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { type RootState } from './store';
-import { getCurrencyPerClick, getPrice } from '../utils';
+import { getCurrencyPerClick, getIsBuildingShowed, getPrice } from '../utils';
 import {
   getCurrencyPerSecond,
   getStorage,
@@ -55,10 +55,11 @@ export const selectActiveBoosterIds = createSelector(
 );
 
 export const selectVisibleSkills = createSelector(
-  [selectAllSkills, selectUnlockedSkillsIds],
-  (skills, unlockedSkillsIds) => {
+  [selectAllSkills, selectUnlockedSkillsIds, selectAllBuildings],
+  (skills, unlockedSkillsIds, buildings) => {
     return skills.filter(
-      (skill) => getSkillStatus(skill, unlockedSkillsIds) !== 'hidden',
+      (skill) =>
+        getSkillStatus(skill, unlockedSkillsIds, buildings) !== 'hidden',
     );
   },
 );
@@ -68,7 +69,10 @@ export const selectIsAnyBuildingAvailable = createSelector(
   (buildings, unlockedSkillsIds, currency) => {
     let isAvailable = false;
     buildings.forEach((building) => {
-      if (getPrice(building, unlockedSkillsIds) <= currency) {
+      if (
+        getPrice(building, unlockedSkillsIds) <= currency &&
+        getIsBuildingShowed(building.id, unlockedSkillsIds, buildings)
+      ) {
         isAvailable = true;
       }
     });
@@ -77,12 +81,17 @@ export const selectIsAnyBuildingAvailable = createSelector(
 );
 
 export const selectIsAnySkillAvailable = createSelector(
-  [selectAllSkills, selectUnlockedSkillsIds, selectSkillPoints],
-  (skills, unlockedSkillsIds, skillPoints) => {
+  [
+    selectAllSkills,
+    selectUnlockedSkillsIds,
+    selectSkillPoints,
+    selectAllBuildings,
+  ],
+  (skills, unlockedSkillsIds, skillPoints, buildings) => {
     let isAvailable = false;
     skills.forEach((skill) => {
       if (
-        getSkillStatus(skill, unlockedSkillsIds) === 'available' &&
+        getSkillStatus(skill, unlockedSkillsIds, buildings) === 'available' &&
         skillPoints >= skill.price
       ) {
         isAvailable = true;

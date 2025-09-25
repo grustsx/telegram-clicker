@@ -9,9 +9,9 @@ import { formatDuration } from '../../utils/format';
 const STONES_SPELL_ID = 2;
 
 const STONES_INFO: Record<number, string> = {
-  22: '15% к cps',
+  22: '15% к /сек',
   23: '50% к клику',
-  24: 'откат быстрее',
+  24: 'откат всех кулдаунов быстрее',
 };
 
 export default function Stones() {

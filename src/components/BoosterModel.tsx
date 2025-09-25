@@ -8,12 +8,19 @@ import { sendActivateBooster } from '../api';
 import { activateBooster } from '../state/thunk';
 import { selectUserId } from '../app/selectors';
 import { removeBooster } from '../state/gameSlice';
+import { CURRENCY_BOOSTER_ID } from '../constants/const';
 
 const getRandomPhase = () => {
   return (2 * Math.random() - 1) * Math.PI;
 };
 
-function BoosterModel({ id }: { id: number }) {
+function BoosterModel({
+  id,
+  showBoosterBonus,
+}: {
+  id: number;
+  showBoosterBonus: (e: React.PointerEvent<Element>) => void;
+}) {
   const dispatch = useAppDispatch();
   const groupRef = useRef<THREE.Group>(null);
   const timeRef = useRef(0);
@@ -22,10 +29,12 @@ function BoosterModel({ id }: { id: number }) {
 
   const userId = useAppSelector(selectUserId);
 
-  const handleBooster = () => {
+  const handleBooster = (e: React.PointerEvent<Element>) => {
     dispatch(removeBooster(id));
     dispatch(activateBooster({ boosterId: id }));
     sendActivateBooster(id, userId);
+    if (id !== CURRENCY_BOOSTER_ID) return;
+    showBoosterBonus(e);
   };
 
   const despawnBooster = React.useCallback(
@@ -39,7 +48,7 @@ function BoosterModel({ id }: { id: number }) {
     if (openRef.current) return;
     e.stopPropagation();
     openRef.current = true;
-    setTimeout(() => handleBooster(), 1000);
+    setTimeout(() => handleBooster(e), 1000);
   };
 
   const randomPhase = +getRandomPhase();

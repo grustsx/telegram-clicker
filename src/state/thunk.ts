@@ -40,7 +40,11 @@ import {
 } from './buildingsSlice';
 import { refreshSpellCooldown, selectSpellById } from './spellsSlice';
 import { refreshBoosterTtl } from './boostersSlice';
-import { BOOSTER_NORMAL_TIMEOUT, STORAGE_SEGMENT } from '../constants/const';
+import {
+  BOOSTER_NORMAL_TIMEOUT,
+  CURRENCY_BOOSTER_ID,
+  STORAGE_SEGMENT,
+} from '../constants/const';
 
 export const getUserData = createAppAsyncThunk(
   'game/getUserData',
@@ -241,7 +245,7 @@ export const activateBooster = createAppAsyncThunk(
       }),
     );
 
-    if (boosterId !== 1) return;
+    if (boosterId !== CURRENCY_BOOSTER_ID) return;
 
     const cps = selectCurrencyPerSecond(state);
     const currencyByBooster = getCurrencyByBooster(cps);

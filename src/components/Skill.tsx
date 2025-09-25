@@ -1,5 +1,6 @@
 import { useAppSelector } from '../app/hooks';
 import { selectSkillPoints, selectUnlockedSkillsIds } from '../app/selectors';
+import { selectAllBuildings } from '../state/buildingsSlice';
 import type { PositionType, SkillType } from '../types/types';
 import getSkillStatus from '../utils/getSkillStatus';
 
@@ -18,7 +19,8 @@ function Skill({
 }) {
   const skillPoints = useAppSelector(selectSkillPoints);
   const unlockedSkillsIds = useAppSelector(selectUnlockedSkillsIds);
-  const status = getSkillStatus(skill, unlockedSkillsIds);
+  const buildings = useAppSelector(selectAllBuildings);
+  const status = getSkillStatus(skill, unlockedSkillsIds, buildings);
 
   if (!position) return;
 

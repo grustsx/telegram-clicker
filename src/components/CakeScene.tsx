@@ -12,8 +12,10 @@ import { selectVisibleBoosters } from '../app/selectors';
 
 function CakeScene({
   onClick,
+  showBoosterBonus,
 }: {
   onClick: (e: React.PointerEvent<Element>) => void;
+  showBoosterBonus: (e: React.PointerEvent<Element>) => void;
 }) {
   const visibleBosster = useAppSelector(selectVisibleBoosters);
 
@@ -75,7 +77,11 @@ function CakeScene({
         <MoonModel />
         <SunModel />
         {visibleBosster.map((booster) => (
-          <BoosterModel id={booster} key={booster} />
+          <BoosterModel
+            id={booster}
+            key={booster}
+            showBoosterBonus={showBoosterBonus}
+          />
         ))}
 
         <EffectComposer>

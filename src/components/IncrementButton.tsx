@@ -15,6 +15,7 @@ import { updateCurrencyByClick } from '../state/thunk';
 import GameText from '../elements/GameText';
 import { getCPCTemporaryMultipler } from '../utils/getCurrencyPerClick';
 import { startDialog } from '../state/dialogSlice';
+import { getCurrencyByBooster } from '../utils/getCurrencyPerSecond';
 
 type FloatingNumber = {
   color: string;
@@ -58,6 +59,25 @@ const IncrementButton = () => {
       if (userId) sendClicks(pendingClicks.current, userId);
     };
   }, [dispatch, userId]);
+
+  const showBoosterBonus = React.useCallback(
+    (e: React.PointerEvent<Element>) => {
+      const newNumber = {
+        color: 'text-tortik-white',
+        id: idCounter++,
+        x: e.clientX,
+        y: e.clientY,
+        value: `+${getCurrencyByBooster(cps)}`,
+      };
+
+      setNumbers((prev) => [...prev, newNumber]);
+
+      setTimeout(() => {
+        setNumbers((prev) => prev.filter((n) => n.id !== newNumber.id));
+      }, 2000);
+    },
+    [cps],
+  );
 
   const handleClick = React.useCallback(
     (e: React.PointerEvent<Element>) => {
@@ -147,7 +167,7 @@ const IncrementButton = () => {
 
   return (
     <>
-      <CakeScene onClick={handleClick} />
+      <CakeScene onClick={handleClick} showBoosterBonus={showBoosterBonus} />
       <div className={`flex gap-12 absolute z-50 left-0 top-24`}>
         {activeBoosters.map((booster) => (
           <div key={booster.id}>
