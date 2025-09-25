@@ -16,6 +16,7 @@ import GameText from '../elements/GameText';
 import { getCPCTemporaryMultipler } from '../utils/getCurrencyPerClick';
 import { startDialog } from '../state/dialogSlice';
 import { getCurrencyByBooster } from '../utils/getCurrencyPerSecond';
+import { formatLargeNumber } from '../utils/format';
 
 type FloatingNumber = {
   color: string;
@@ -67,7 +68,7 @@ const IncrementButton = () => {
         id: idCounter++,
         x: e.clientX,
         y: e.clientY,
-        value: `+${getCurrencyByBooster(cps)}`,
+        value: `+${formatLargeNumber(getCurrencyByBooster(cps))}`,
       };
 
       setNumbers((prev) => [...prev, newNumber]);
@@ -147,7 +148,10 @@ const IncrementButton = () => {
         color: getColor(),
         x: e.clientX + Math.random() * -40,
         y: e.clientY + Math.random() * -40,
-        value: Math.random() < 0.03 ? 'Ай' : `+${currencyPerClick * multipler}`,
+        value:
+          Math.random() < 0.03
+            ? 'Ай'
+            : `+${formatLargeNumber(currencyPerClick * multipler)}`,
       };
       setNumbers((prev) => [...prev, newNumber]);
 
