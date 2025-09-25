@@ -18,7 +18,7 @@ function MainPageHud() {
     <div className="fixed w-full flex flex-col z-20">
       <GameText text={formatLargeNumber(currency) + ' тортиков'} />
 
-      <div className="text-shadow-lg flex flex-row justify-between items-center p-8">
+      <div className="text-shadow-lg flex flex-row justify-between items-center p-4 pt-0">
         <GameText
           size="sm"
           text={formatLargeNumber(currencyPerSecond) + '/сек'}
