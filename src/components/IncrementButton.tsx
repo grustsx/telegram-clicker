@@ -183,7 +183,7 @@ const IncrementButton = () => {
       {numbers.map((n) => (
         <span
           key={n.id}
-          className={`fixed pointer-events-none ${n.color} text-shadow-md text-2xl font-semibold z-50`}
+          className={`fixed pointer-events-none ${n.color} text-shadow-md text-xl font-semibold z-50`}
           style={{
             left: n.x,
             top: n.y,
