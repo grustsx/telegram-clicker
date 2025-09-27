@@ -110,15 +110,16 @@ export default function TortikSpells({
           cooldown={depCooldownSeconds}
           cost={depCost}
         />
-
-        <TortikSpell
-          castSpell={() => castSpellById(BOOSTER_SPELL_ID)}
-          title="Ритуал"
-          description={SPELLS_INFO[BOOSTER_SPELL_ID]}
-          remain={boosterSpellSeconds}
-          cooldown={boosterCooldownSeconds}
-          cost={boosterCost}
-        />
+        {unlockedSkills.includes(33) && (
+          <TortikSpell
+            castSpell={() => castSpellById(BOOSTER_SPELL_ID)}
+            title="Ритуал"
+            description={SPELLS_INFO[BOOSTER_SPELL_ID]}
+            remain={boosterSpellSeconds}
+            cooldown={boosterCooldownSeconds}
+            cost={boosterCost}
+          />
+        )}
       </div>
     </div>
   );

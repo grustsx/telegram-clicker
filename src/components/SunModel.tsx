@@ -2,6 +2,8 @@ import { useGLTF } from '@react-three/drei';
 import { useRef } from 'react';
 import * as THREE from 'three';
 import React from 'react';
+import { useAppSelector } from '../app/hooks';
+import { selectUnlockedSkillsIds } from '../app/selectors';
 
 const positions: Record<string, [number, number, number]> = {
   far: [120, -12, -800],
@@ -14,9 +16,16 @@ const positions: Record<string, [number, number, number]> = {
 function SunModel() {
   const { scene } = useGLTF('/models/sun/scene.gltf');
   const groupRef = useRef<THREE.Group>(null);
+  const unlockedSkillsIds = useAppSelector(selectUnlockedSkillsIds);
 
   return (
-    <group renderOrder={0} ref={groupRef} position={positions.far}>
+    <group
+      renderOrder={0}
+      ref={groupRef}
+      position={
+        unlockedSkillsIds.includes(24) ? positions.close : positions.far
+      }
+    >
       <primitive object={scene} scale={0.5} />
     </group>
   );

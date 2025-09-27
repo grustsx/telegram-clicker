@@ -1,3 +1,4 @@
+import React from 'react';
 import { sendBuySkill, sendCastSpell } from '../../api';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectUnlockedSkillsIds, selectUserId } from '../../app/selectors';
@@ -8,10 +9,25 @@ import { formatDuration } from '../../utils/format';
 
 const STONES_SPELL_ID = 2;
 
-const STONES_INFO: Record<number, string> = {
-  22: '15% к /сек',
-  23: '50% к клику',
-  24: 'откат всех кулдаунов быстрее',
+const STONES_INFO: Record<
+  number,
+  { title: string; description: string; icon: string }
+> = {
+  22: {
+    title: 'Прилив',
+    description: 'Прибавляет 15% к торт/сек',
+    icon: 'star',
+  },
+  23: {
+    title: 'Сила',
+    description: 'Прибавляет 50% к мощности клика',
+    icon: 'cursor',
+  },
+  24: {
+    title: 'Усиление гравитации',
+    description: 'Делает откат всех кулдаунов быстрее',
+    icon: 'time',
+  },
 };
 
 export default function Stones() {
@@ -22,6 +38,8 @@ export default function Stones() {
   const userId = useAppSelector(selectUserId);
 
   const dispatch = useAppDispatch();
+
+  const [selectedSkill, setSelectedSkill] = React.useState<number>(22);
 
   if (!stonesSpell) return;
 
@@ -39,26 +57,48 @@ export default function Stones() {
 
   return (
     <div
-      className={`flex flex-col gap-2 pixel-border--gr justify-between items-center`}
+      className={`flex flex-col gap-2 p-2 pixel-border--gr justify-between items-center`}
     >
-      <GameText
-        size="xs"
-        text={
-          remainSeconds > 0
-            ? `${formatDuration(remainSeconds)} откат`
-            : 'готов к использованию'
-        }
-      />
+      {selectedSkill && (
+        <>
+          <GameText size="md" text={STONES_INFO[selectedSkill].title} />
+          <GameText size="sm" text={STONES_INFO[selectedSkill].description} />
 
-      <div className="flex flex-col gap-1 w-full">
+          <button
+            className={`w-full border-white border-2 text-white p-2 ${unlockedSkillsIds.includes(selectedSkill) ? 'bg-amber-600' : remainSeconds <= 0 ? 'bg-emerald-600' : 'bg-gray-400'}`}
+            onClick={() => chooseStone(selectedSkill)}
+            disabled={
+              remainSeconds > 0 || unlockedSkillsIds.includes(selectedSkill)
+            }
+          >
+            <GameText
+              size="sm"
+              text={
+                unlockedSkillsIds.includes(selectedSkill)
+                  ? 'АКТИВЕН'
+                  : remainSeconds > 0
+                    ? `${formatDuration(remainSeconds)} ОТКАТ`
+                    : 'ВЫБРАТЬ'
+              }
+            />
+          </button>
+        </>
+      )}
+
+      <div className="flex flex-row gap-2 justify-around w-full">
         {[22, 23, 24].map((id) => (
           <button
             key={id}
-            className={`w-full border-white border-2 text-white p-2 ${unlockedSkillsIds.includes(id) ? 'bg-amber-600' : remainSeconds > 0 ? 'bg-gray-400' : 'bg-emerald-400'}`}
-            onClick={() => chooseStone(id)}
-            disabled={remainSeconds > 0}
+            className={`w-20 h-20 flex ite justify-center border-white border-${id === selectedSkill ? 2 : 0} text-white p-2 m-2 ${unlockedSkillsIds.includes(id) ? 'bg-amber-600' : 'bg-emerald-800'}`}
+            onClick={() => setSelectedSkill(id)}
           >
-            <GameText size="sm" text={STONES_INFO[id]} />
+            <img
+              className="w-16 h-16"
+              style={{
+                imageRendering: 'pixelated',
+              }}
+              src={`/assets/icons/skills/${STONES_INFO[id].icon}.png`}
+            />
           </button>
         ))}
       </div>

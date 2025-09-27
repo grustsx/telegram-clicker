@@ -4,12 +4,11 @@ import {
   selectCurrency,
   selectUnlockedSkillsIds,
 } from '../../app/selectors';
+import { VODKA_WELL_ID } from '../../constants/const';
 import GameText from '../../elements/GameText';
 import { selectBuildingById } from '../../state/buildingsSlice';
 import { getPrice } from '../../utils';
 import { formatLargeNumber } from '../../utils/format';
-
-const VODKA_WELL_ID = 7;
 
 export default function VodkaWell({
   upgradeVodkaWell,

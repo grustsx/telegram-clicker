@@ -5,13 +5,16 @@ import {
   selectCurrencyPerSecond,
   selectSkillPoints,
 } from '../app/selectors';
+import { AMBAR_ID } from '../constants/const';
 import GameText from '../elements/GameText';
+import { selectBuildingById } from '../state/buildingsSlice';
 import { formatLargeNumber } from '../utils/format';
 
 function MainPageHud() {
   const currency = useAppSelector(selectCurrency);
   const skillPoints = useAppSelector(selectSkillPoints);
 
+  const ambar = useAppSelector((state) => selectBuildingById(state, AMBAR_ID));
   const currencyPerSecond = useAppSelector(selectCurrencyPerSecond);
 
   return (
@@ -23,7 +26,7 @@ function MainPageHud() {
           size="sm"
           text={formatLargeNumber(currencyPerSecond) + '/сек'}
         />
-        <StorageIndicator />
+        {ambar.level > 0 && <StorageIndicator />}
         <GameText size="sm" text={formatLargeNumber(skillPoints) + ' оу'} />
       </div>
     </div>
