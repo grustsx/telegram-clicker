@@ -191,6 +191,7 @@ export const SKILLS_INFO: Record<
   '38': {
     description: 'Всё дешевле на 50%',
     position: { x: 1000, y: 1200 },
+    icon: 'arrow-down.png',
   },
   '39': {
     description: 'Даёт криты',
@@ -242,11 +243,13 @@ export const SKILLS_INFO: Record<
   '48': {
     description: 'Улучшать лабу стало на 20% дешевле',
     position: { x: 800, y: 1800 },
+    icon: 'note.png',
   },
   '49': {
     description:
       'Таинственным образом учащает появление бустеров и незначительно уменьшает ужас Павлика',
     position: { x: 1000, y: 1800 },
+    icon: 'nazar.png',
   },
   '50': {
     description: 'Колодец дешевле на 20%',
@@ -256,6 +259,7 @@ export const SKILLS_INFO: Record<
   '51': {
     description: 'Егору и Андрею больше не нужно есть, апгрейды дешевле на 15%',
     position: { x: 800, y: 1400 },
+    icon: 'hunger.png',
   },
   '52': {
     description: 'Андрей теперь тоже совершает кровавую жертву на камне',
