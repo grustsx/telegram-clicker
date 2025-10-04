@@ -168,7 +168,7 @@ export const selectAssetLevels = createSelector(
         result[id] = 0;
       } else {
         result[id] =
-          Math.min(level, 1) + getBuildingAssetLevel(unlockedSkillsIds, id);
+          1 + Math.min(level, 1) + getBuildingAssetLevel(unlockedSkillsIds, id);
       }
     }
 
