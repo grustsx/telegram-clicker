@@ -122,11 +122,13 @@ export const SKILLS_INFO: Record<
   '25': {
     description: 'Улучшение общаги на 10% дешевле',
     position: { x: 600, y: 700 },
+    icon: 'sale.png',
   },
   '26': {
     description:
       'Увеличивает эффективность студентов на 50%, по какой-то причине',
     position: { x: 800, y: 500 },
+    icon: 'sun.png',
   },
   '27': {
     description: 'Волшебный колодец, скейлится от студентов',
@@ -140,6 +142,7 @@ export const SKILLS_INFO: Record<
     description:
       'Общага приносит в 2 раза больше. ТОРТиКи рады за студентов, но не от всего сердца',
     position: { x: 1200, y: 500 },
+    icon: 'wine.png',
   },
   '30': {
     description: 'Можно будет проиграть все деньги в казик',
@@ -150,6 +153,7 @@ export const SKILLS_INFO: Record<
     description:
       'Вечером супер гулять по дороге, повышает эффективность базы на 50%',
     position: { x: 800, y: 900 },
+    icon: 'moon.png',
   },
   '32': {
     description: 'Делает вероятность выигрыша ровно 50%',
@@ -162,10 +166,12 @@ export const SKILLS_INFO: Record<
   '34': {
     description: 'Славянам аренда дешевле на 15%',
     position: { x: 800, y: 1100 },
+    icon: 'passport.png',
   },
   '35': {
     description: 'Рэп вернул амбар к своим корням, эффективноть выше на 50%',
     position: { x: 1000, y: 1000 },
+    icon: 'mic.png',
   },
   '36': {
     description: 'Открывает возможность Егору совершать кровавые обряды',
@@ -175,6 +181,7 @@ export const SKILLS_INFO: Record<
     description:
       'Утром йога, вечером дорога, такой девиз увеличивает эффективность всех построек на 50%',
     position: { x: 800, y: 700 },
+    icon: 'medicine.png',
   },
   '38': {
     description: 'Всё дешевле на 50%',
