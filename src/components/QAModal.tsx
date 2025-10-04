@@ -13,7 +13,7 @@ function Button({ text, onClick }: { text: string; onClick: () => void }) {
       className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
       onClick={onClick}
     >
-      <GameText text={text} />
+      <GameText size="sm" text={text} />
     </button>
   );
 }
