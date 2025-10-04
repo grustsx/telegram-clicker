@@ -4,6 +4,7 @@ import useSkillsLayoutSize from '../hooks/useSkillsLayoutSize';
 import React, { useEffect, useState } from 'react';
 
 const isIOS = /iP(ad|hone|od)/.test(navigator.userAgent);
+const isLinux = /Linux/i.test(navigator.userAgent);
 
 function SkillTreePage() {
   const containerRef = useDragScroll<HTMLDivElement>();
@@ -37,7 +38,7 @@ function SkillTreePage() {
             width: `${width}px`,
             height: `${height}px`,
             backgroundImage: "url('/assets/backgrounds/skills/blue-back.png')",
-            transform: isIOS ? '' : 'translateZ(-2px) scale(3)',
+            transform: isIOS || isLinux ? '' : 'translateZ(-2px) scale(3)',
             imageRendering: 'pixelated',
           }}
         />
@@ -48,7 +49,7 @@ function SkillTreePage() {
             width: `${width}px`,
             height: `${height}px`,
             backgroundImage: "url('/assets/backgrounds/skills/blue-stars.png')",
-            transform: isIOS ? '' : 'translateZ(-1px) scale(2)',
+            transform: isIOS || isLinux ? '' : 'translateZ(-1px) scale(2)',
             imageRendering: 'pixelated',
           }}
         />

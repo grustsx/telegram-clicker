@@ -20,7 +20,7 @@ export const SKILLS_INFO: Record<
     icon: 'cursor-border.png',
   },
   '3': {
-    description: 'Всё из-под пинка. Эффективность башен растёт на 5%.',
+    description: 'Всё из-под пинка. Эффективность башен растёт на 10%.',
     position: { x: 100, y: 200 },
     icon: 'boot.png',
   },
@@ -30,12 +30,12 @@ export const SKILLS_INFO: Record<
     icon: 'david.png',
   },
   '5': {
-    description: 'Все будут жопу рвать. 5% ко всему.',
+    description: 'Все будут жопу рвать. 10% ко всему.',
     position: { x: 0, y: 400 },
     icon: 'wrench.png',
   },
   '6': {
-    description: 'Контроль увеличивает эффективность башен на 5%.',
+    description: 'Контроль увеличивает эффективность башен на 10%.',
     position: { x: 200, y: 400 },
     icon: 'time.png',
   },
@@ -50,7 +50,7 @@ export const SKILLS_INFO: Record<
     icon: 'hand.png',
   },
   '9': {
-    description: 'Рабинович недоволен, башни дешевле на 5%.',
+    description: 'Рабинович недоволен, башни дешевле на 10%.',
     position: { x: 300, y: 600 },
     icon: 'dollar.png',
   },
@@ -62,7 +62,7 @@ export const SKILLS_INFO: Record<
   },
   '11': {
     description:
-      'Проджект менеджеры выгоняют народ с курилок, повышая эффективность башен на 5%',
+      'Проджект менеджеры выгоняют народ с курилок, повышая эффективность башен на 10%',
     position: { x: 100, y: 800 },
     icon: 'manager.png',
   },
@@ -73,32 +73,32 @@ export const SKILLS_INFO: Record<
     icon: 'list.png',
   },
   '13': {
-    description: 'Горячая вода делает общаги на 10% эффективнее',
+    description: 'Горячая вода делает общаги на 25% эффективнее',
     position: { x: 400, y: 800 },
     icon: 'gradus.png',
   },
   '14': {
-    description: 'ТОРТиКи на 10% эффективнее',
+    description: 'ТОРТиКи на 25% эффективнее',
     position: { x: 400, y: 1000 },
     icon: 'belarus.png',
   },
   '15': {
-    description: 'Артефакт из прошлого, амбар на 10% эффективнее',
+    description: 'Артефакт из прошлого, амбар на 25% эффективнее',
     position: { x: 400, y: 1200 },
   },
   '16': {
     description:
-      'Камень заглушает голос разума, делая добычу на 10% эффективнее',
+      'Камень заглушает голос разума, делая добычу на 25% эффективнее',
     position: { x: 400, y: 1400 },
     icon: 'stone.png',
   },
   '17': {
-    description: 'Тело Нади адаптируется к копанию, ускоряет добычу на 10%',
+    description: 'Тело Нади адаптируется к копанию, ускоряет добычу на 25%',
     position: { x: 400, y: 1600 },
   },
   '18': {
     description:
-      'Дэнис сажает пару кустов, чтобы прикрыть лабораторию. Лаборатории легче работать на 10%',
+      'Дэнис сажает пару кустов, чтобы прикрыть лабораторию. Лаборатории легче работать на 25%',
     position: { x: 400, y: 1800 },
   },
   '19': {
@@ -127,7 +127,7 @@ export const SKILLS_INFO: Record<
     position: { x: 1000, y: 500 },
   },
   '28': {
-    description: '+10% к эффективности колодца',
+    description: '+25% к эффективности колодца',
     position: { x: 1200, y: 300 },
   },
   '29': {
@@ -170,7 +170,7 @@ export const SKILLS_INFO: Record<
     position: { x: 800, y: 700 },
   },
   '38': {
-    description: 'Всё дешевле на 15%',
+    description: 'Всё дешевле на 40%',
     position: { x: 1000, y: 1200 },
   },
   '39': {

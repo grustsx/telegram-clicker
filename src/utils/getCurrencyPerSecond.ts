@@ -36,9 +36,9 @@ export const getBuildingIncome = (
     level *
       incomePerSecond *
       getBuildingIncomeMultiplier(skills, id) *
-      (1 + 0.05 * skill(3)) *
-      (1 + 0.05 * skill(5)) *
-      (1 + 0.05 * skill(6)) *
+      (1 + 0.1 * skill(3)) *
+      (1 + 0.1 * skill(5)) *
+      (1 + 0.1 * skill(6)) *
       (1 + 0.1 * skill(11)) *
       (1 + 0.15 * skill(22) * (1 + skill(52))) *
       (1 + 0.5 * skill(37)),
@@ -53,20 +53,20 @@ const getBuildingIncomeMultiplier = (skills: number[], buildingId: number) => {
   switch (buildingId) {
     case 1:
       return (
-        (1 + 0.1 * skill(13)) * (1 + 0.5 * skill(26)) * (1 + 1 * skill(29))
+        (1 + 0.25 * skill(13)) * (1 + 0.5 * skill(26)) * (1 + 1 * skill(29))
       );
     case 2:
-      return (1 + 0.1 * skill(14)) * (1 + 0.5 * skill(31));
+      return (1 + 0.25 * skill(14)) * (1 + 0.5 * skill(31));
     case 3:
-      return (1 + 0.1 * skill(15)) * (1 + 0.5 * skill(35));
+      return (1 + 0.25 * skill(15)) * (1 + 0.5 * skill(35));
     case 4:
-      return 1 + 0.1 * skill(16);
+      return 1 + 0.25 * skill(16);
     case 5:
-      return (1 + 0.1 * skill(17)) * (1 + 0.5 * skill(42));
+      return (1 + 0.25 * skill(17)) * (1 + 0.5 * skill(42));
     case 6:
-      return 1 + 0.1 * skill(18);
+      return 1 + 0.25 * skill(18);
     case 7:
-      return 1 + 0.1 * skill(28);
+      return 1 + 0.25 * skill(28);
     default:
       return 1;
   }

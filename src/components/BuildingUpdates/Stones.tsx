@@ -6,26 +6,36 @@ import GameText from '../../elements/GameText';
 import { selectSpellById } from '../../state/spellsSlice';
 import { buySkill, castSpell } from '../../state/thunk';
 import { formatDuration } from '../../utils/format';
-
-const STONES_SPELL_ID = 2;
+import {
+  STONES_SPELL_ID,
+  STONES_UPGRADE_SKILL_ID,
+} from '../../constants/const';
 
 const STONES_INFO: Record<
   number,
-  { title: string; description: string; icon: string }
+  {
+    title: string;
+    description: string;
+    upgradedDescription: string;
+    icon: string;
+  }
 > = {
   22: {
     title: 'Прилив',
     description: 'Прибавляет 15% к торт/сек',
+    upgradedDescription: 'Прибавляет 30% к торт/сек',
     icon: 'star',
   },
   23: {
     title: 'Сила',
     description: 'Прибавляет 50% к мощности клика',
+    upgradedDescription: 'Прибавляет 100% к мощности клика',
     icon: 'cursor',
   },
   24: {
     title: 'Усиление гравитации',
-    description: 'Делает откат всех кулдаунов быстрее',
+    description: 'Делает откат всех кулдаунов быстрее на 20%',
+    upgradedDescription: 'Делает откат всех кулдаунов быстрее на 40%',
     icon: 'time',
   },
 };
@@ -62,7 +72,14 @@ export default function Stones() {
       {selectedSkill && (
         <>
           <GameText size="md" text={STONES_INFO[selectedSkill].title} />
-          <GameText size="sm" text={STONES_INFO[selectedSkill].description} />
+          <GameText
+            size="sm"
+            text={
+              unlockedSkillsIds.includes(STONES_UPGRADE_SKILL_ID)
+                ? STONES_INFO[selectedSkill].upgradedDescription
+                : STONES_INFO[selectedSkill].description
+            }
+          />
 
           <button
             className={`w-full border-white border-2 text-white p-2 ${unlockedSkillsIds.includes(selectedSkill) ? 'bg-amber-600' : remainSeconds <= 0 ? 'bg-emerald-600' : 'bg-gray-400'}`}
