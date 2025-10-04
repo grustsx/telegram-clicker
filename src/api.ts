@@ -23,6 +23,12 @@ export const sendClaimStorage = (userId: number | undefined) => {
   return api.post(`/api/users/${userId}/claim-storage`);
 };
 
+export const sendRestartUser = (userId: number | undefined) => {
+  if (!userId) return;
+
+  return api.post(`/api/users/${userId}/restart-user`);
+};
+
 export const sendBuySkill = (skillId: number, userId: number | undefined) => {
   if (!userId || !skillId) return;
 
