@@ -94,13 +94,15 @@ export const SKILLS_INFO: Record<
     icon: 'stone.png',
   },
   '17': {
-    description: 'Тело Нади адаптируется к копанию, ускоряет добычу на 25%',
+    description: 'Откуда у Нади такие бицепсы, она сильнее на 25%',
     position: { x: 400, y: 1600 },
+    icon: 'biceps.png',
   },
   '18': {
     description:
       'Дэнис сажает пару кустов, чтобы прикрыть лабораторию. Лаборатории легче работать на 25%',
     position: { x: 400, y: 1800 },
+    icon: 'tree.png',
   },
   '19': {
     description: 'Подмести пыль. Немного увеличивает вмсетимость склада',
@@ -188,9 +190,9 @@ export const SKILLS_INFO: Record<
     position: { x: 0, y: 1800 },
   },
   '42': {
-    description: 'Откуда у Нади такие бицепсы, она сильнее на 50%',
+    description: 'Тело Нади адаптируется к копанию, ускоряет добычу на 50%',
     position: { x: 200, y: 1600 },
-    icon: 'biceps.png',
+    icon: 'biceps-shovel.png',
   },
   '43': {
     description: 'Даёт мегакрит',
@@ -199,6 +201,7 @@ export const SKILLS_INFO: Record<
   '44': {
     description: 'Усиливает мегакрит',
     position: { x: 200, y: 2000 },
+    icon: 'skull.png',
   },
   '45': {
     description:
@@ -213,6 +216,7 @@ export const SKILLS_INFO: Record<
     description:
       'Математическая модель показала, что бустеры появляются случайно, и этот шанс может увеличить... Кроличья лапка?',
     position: { x: 600, y: 1800 },
+    icon: 'rabbit.png',
   },
   '48': {
     description: 'Улучшать лабу стало на 20% дешевле',
@@ -238,5 +242,6 @@ export const SKILLS_INFO: Record<
   '53': {
     description: 'Башни дешевле на 50%',
     position: { x: 400, y: 2000 },
+    icon: 'double-up.png',
   },
 };
