@@ -38,8 +38,8 @@ export const getBuildingIncome = (
       getBuildingIncomeMultiplier(skills, id) *
       (1 + 0.1 * skill(3)) *
       (1 + 0.1 * skill(5)) *
-      (1 + 0.1 * skill(6)) *
-      (1 + 0.1 * skill(11)) *
+      (1 + 0.2 * skill(6)) *
+      (1 + 0.2 * skill(11)) *
       (1 + 0.15 * skill(22) * (1 + skill(52))) *
       (1 + 0.5 * skill(37)),
   );

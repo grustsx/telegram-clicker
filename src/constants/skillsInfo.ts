@@ -35,7 +35,7 @@ export const SKILLS_INFO: Record<
     icon: 'wrench.png',
   },
   '6': {
-    description: 'Контроль увеличивает эффективность башен на 10%.',
+    description: 'Контроль увеличивает эффективность башен на 20%.',
     position: { x: 200, y: 400 },
     icon: 'time.png',
   },
@@ -50,7 +50,7 @@ export const SKILLS_INFO: Record<
     icon: 'hand.png',
   },
   '9': {
-    description: 'Рабинович недоволен, башни дешевле на 10%.',
+    description: 'Рабинович недоволен, башни дешевле на 20%.',
     position: { x: 300, y: 600 },
     icon: 'dollar.png',
   },
@@ -62,7 +62,7 @@ export const SKILLS_INFO: Record<
   },
   '11': {
     description:
-      'Проджект менеджеры выгоняют народ с курилок, повышая эффективность башен на 10%',
+      'Проджект менеджеры выгоняют народ с курилок, повышая эффективность башен на 20%',
     position: { x: 100, y: 800 },
     icon: 'manager.png',
   },
@@ -170,7 +170,7 @@ export const SKILLS_INFO: Record<
     position: { x: 800, y: 700 },
   },
   '38': {
-    description: 'Всё дешевле на 40%',
+    description: 'Всё дешевле на 50%',
     position: { x: 1000, y: 1200 },
   },
   '39': {
@@ -231,5 +231,9 @@ export const SKILLS_INFO: Record<
   '52': {
     description: 'Андрей теперь тоже совершает кровавую жертву на камне',
     position: { x: 1000, y: 1400 },
+  },
+  '53': {
+    description: 'Башни дешевле на 50%',
+    position: { x: 400, y: 2000 },
   },
 };

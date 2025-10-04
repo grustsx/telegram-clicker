@@ -9,8 +9,9 @@ export const getPrice = (building: BuildingType, skills: number[]) => {
   return Math.floor(
     basePrice *
       Math.pow(multiplier, level) *
-      (1 - 0.1 * skill(9)) *
-      (1 - 0.4 * skill(38)) *
+      (1 - 0.2 * skill(9)) *
+      (1 - 0.5 * skill(53)) *
+      (1 - 0.5 * skill(38)) *
       getPriceMultiplier(skills, id),
   );
 };
