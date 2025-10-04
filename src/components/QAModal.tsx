@@ -5,6 +5,7 @@ import { selectUserId } from '../app/selectors';
 import GameText from '../elements/GameText';
 import { activateBooster } from '../state/thunk';
 import { CLICK_BOOSTER_ID } from '../constants/const';
+import { setErrorMessage } from '../state/gameSlice';
 
 function Button({ text, onClick }: { text: string; onClick: () => void }) {
   return (
@@ -34,7 +35,13 @@ export default function QAModal({
         <div className="p-6 m-6 border-2 bg-blue-950/60 shadow-lg w-full flex flex-col gap-6">
           {isConfirm ? (
             <>
-              <Button text="Да" onClick={() => sendRestartUser(userId)} />
+              <Button
+                text="Да"
+                onClick={() => {
+                  sendRestartUser(userId);
+                  dispatch(setErrorMessage('Теперь ребут игры'));
+                }}
+              />
               <Button text="Нет" onClick={() => setIsConfirm(false)} />
             </>
           ) : (
