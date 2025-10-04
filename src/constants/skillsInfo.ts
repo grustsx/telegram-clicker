@@ -105,16 +105,19 @@ export const SKILLS_INFO: Record<
     icon: 'tree.png',
   },
   '19': {
-    description: 'Подмести пыль. Немного увеличивает вмсетимость склада',
+    description: 'Открывает дополнительную комнату абара',
     position: { x: 600, y: 1100 },
+    icon: 'key-one.png',
   },
   '20': {
-    description: 'Выкинуть старый мусор. Нормально так увеличивает склад',
+    description: 'Открывает третью комнату в амбаре',
     position: { x: 1200, y: 1000 },
+    icon: 'key-two.png',
   },
   '21': {
-    description: 'Искривляет пространство, максимально увеличивая склад',
+    description: 'Мастер ключ, даёт доступ ко всем комнатам амбара',
     position: { x: 1400, y: 1000 },
+    icon: 'key-skeleton.png',
   },
   '25': {
     description: 'Улучшение общаги на 10% дешевле',
@@ -190,6 +193,7 @@ export const SKILLS_INFO: Record<
   '41': {
     description: 'Увеличивает урон крита',
     position: { x: 0, y: 1800 },
+    icon: 'block.png',
   },
   '42': {
     description: 'Тело Нади адаптируется к копанию, ускоряет добычу на 50%',
