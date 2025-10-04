@@ -4,7 +4,8 @@ import useSkillsLayoutSize from '../hooks/useSkillsLayoutSize';
 import React, { useEffect, useState } from 'react';
 
 const isIOS = /iP(ad|hone|od)/.test(navigator.userAgent);
-const isLinux = /Linux/i.test(navigator.userAgent);
+const isLinux =
+  /Linux/i.test(navigator.userAgent) && !/Android/i.test(navigator.userAgent);
 
 function SkillTreePage() {
   const containerRef = useDragScroll<HTMLDivElement>();

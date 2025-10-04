@@ -34,8 +34,8 @@ const STONES_INFO: Record<
   },
   24: {
     title: 'Усиление гравитации',
-    description: 'Делает откат всех кулдаунов быстрее на 20%',
-    upgradedDescription: 'Делает откат всех кулдаунов быстрее на 40%',
+    description: 'Откат кулдаунов быстрее на 20%',
+    upgradedDescription: 'Откат кулдаунов быстрее на 40%',
     icon: 'time',
   },
 };
