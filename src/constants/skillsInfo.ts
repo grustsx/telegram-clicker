@@ -85,6 +85,7 @@ export const SKILLS_INFO: Record<
   '15': {
     description: 'Артефакт из прошлого, амбар на 25% эффективнее',
     position: { x: 400, y: 1200 },
+    icon: 'chain.png',
   },
   '16': {
     description:
@@ -138,6 +139,7 @@ export const SKILLS_INFO: Record<
   '30': {
     description: 'Можно будет проиграть все деньги в казик',
     position: { x: 600, y: 900 },
+    icon: '777.png',
   },
   '31': {
     description:
@@ -188,6 +190,7 @@ export const SKILLS_INFO: Record<
   '42': {
     description: 'Откуда у Нади такие бицепсы, она сильнее на 50%',
     position: { x: 200, y: 1600 },
+    icon: 'biceps.png',
   },
   '43': {
     description: 'Даёт мегакрит',

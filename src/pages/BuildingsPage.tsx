@@ -5,6 +5,7 @@ import { selectAllBuildings } from '../state/buildingsSlice';
 import {
   selectAssetLevels,
   selectCurrency,
+  selectSunState,
   selectUnlockedSkillsIds,
 } from '../app/selectors';
 import type { BuildingType } from '../types/types';
@@ -15,6 +16,7 @@ function BuildingsPage() {
   const currency = useAppSelector(selectCurrency);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
   const assetLevels = useAppSelector(selectAssetLevels);
+  const sunState = useAppSelector(selectSunState);
 
   const [selectedBuildingId, setSelectedBuildingId] = React.useState<
     number | null
@@ -27,7 +29,21 @@ function BuildingsPage() {
     <>
       <MainPageHud />
 
-      <div className="relative w-full h-full overflow-scroll">
+      <div
+        className={`relative w-full h-full overflow-scroll
+           ${
+             sunState === 'deadly'
+               ? '-hue-rotate-15 saturate-120 brightness-105'
+               : sunState === 'close'
+                 ? '-hue-rotate-5 saturate-110'
+                 : ''
+           }`}
+      >
+        {sunState !== 'far' && (
+          <div
+            className={`fixed w-screen h-[max(200vw,100vh)] inset-0 bg-tortik-yellow/${sunState === 'deadly' ? '20' : '10'} pointer-events-none z-30`}
+          />
+        )}
         <div
           className="w-screen h-[max(200vw,100vh)] flex flex-col items-center justify-center bg-[url('/assets/buildings/water.png')] bg-center bg-repeat pb-20 pt-20 box-border animate-water"
           style={{
@@ -89,14 +105,14 @@ function BuildingsPage() {
               imageRendering: 'pixelated',
             }}
           />
-          {selectedBuildingId && (
-            <BuildingInfo
-              buildingId={selectedBuildingId}
-              onClose={() => setSelectedBuildingId(null)}
-            />
-          )}
         </div>
       </div>
+      {selectedBuildingId && (
+        <BuildingInfo
+          buildingId={selectedBuildingId}
+          onClose={() => setSelectedBuildingId(null)}
+        />
+      )}
     </>
   );
 }

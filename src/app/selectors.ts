@@ -10,6 +10,7 @@ import { selectAllSkills } from '../state/skillsSlice';
 import getSkillStatus from '../utils/getSkillStatus';
 import { selectAllSpells } from '../state/spellsSlice';
 import { selectAllBoosters } from '../state/boostersSlice';
+import { STONES_UPGRADE_SKILL_ID } from '../constants/const';
 
 export const selectCurrency = (state: RootState) => state.game.currency;
 
@@ -32,6 +33,17 @@ export const selectStorageCurrency = (state: RootState) =>
 export const selectUnlockedSkillsIds = createSelector(
   selectAllSkills,
   (skills) => skills.filter((skill) => skill.unlocked).map((skill) => skill.id),
+);
+
+export const selectSunState = createSelector(
+  selectUnlockedSkillsIds,
+  (skills) => {
+    return skills.includes(24)
+      ? skills.includes(STONES_UPGRADE_SKILL_ID)
+        ? 'deadly'
+        : 'close'
+      : 'far';
+  },
 );
 
 export const selectStorage = createSelector(

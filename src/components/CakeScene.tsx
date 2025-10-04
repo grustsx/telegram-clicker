@@ -8,7 +8,18 @@ import StarrySky from './StarSky';
 import { EffectComposer, Pixelation } from '@react-three/postprocessing';
 import BoosterModel from './BoosterModel';
 import { useAppSelector } from '../app/hooks';
-import { selectVisibleBoosters } from '../app/selectors';
+import { selectSunState, selectVisibleBoosters } from '../app/selectors';
+
+function getIntensity(intensity: number, sunState: string): number {
+  switch (sunState) {
+    case 'deadly':
+      return intensity / 10;
+    case 'close':
+      return intensity / 2;
+    default:
+      return intensity;
+  }
+}
 
 function CakeScene({
   onClick,
@@ -18,6 +29,7 @@ function CakeScene({
   showBoosterBonus: (e: React.PointerEvent<Element>) => void;
 }) {
   const visibleBosster = useAppSelector(selectVisibleBoosters);
+  const sunState = useAppSelector(selectSunState);
 
   return (
     <div className="w-full h-full">
@@ -30,35 +42,35 @@ function CakeScene({
         <ambientLight intensity={0.3} />
         <pointLight
           position={[0, 1, -1]}
-          intensity={4}
+          intensity={getIntensity(4, sunState)}
           distance={10000}
           decay={2}
           color={'#fffad4'}
         />
         <pointLight
           position={[0, 1, 1]}
-          intensity={4}
+          intensity={getIntensity(4, sunState)}
           distance={10000}
           decay={2}
           color={'#fffad4'}
         />
         <pointLight
           position={[1, 2, 6]}
-          intensity={1}
+          intensity={getIntensity(1, sunState)}
           distance={10000}
           decay={2}
           color={'#ff6666'}
         />
         <pointLight
           position={[-1, 1, 5]}
-          intensity={11}
+          intensity={getIntensity(11, sunState)}
           distance={10000}
           decay={2}
           color={'#3333ff'}
         />
         <pointLight
           position={[-1, 2, 5]}
-          intensity={3}
+          intensity={getIntensity(3, sunState)}
           distance={10000}
           decay={2}
           color={'#fffad4'}
@@ -66,7 +78,7 @@ function CakeScene({
 
         <pointLight
           position={[-5, -5, -30]}
-          intensity={3}
+          intensity={getIntensity(3, sunState)}
           distance={0}
           decay={1}
           color={'#fffad4'}
