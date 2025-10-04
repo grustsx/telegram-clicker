@@ -133,10 +133,12 @@ export const SKILLS_INFO: Record<
   '27': {
     description: 'Волшебный колодец, скейлится от студентов',
     position: { x: 1000, y: 500 },
+    icon: 'well.png',
   },
   '28': {
     description: '+25% к эффективности колодца',
     position: { x: 1200, y: 300 },
+    icon: 'fish.png',
   },
   '29': {
     description:
@@ -158,10 +160,12 @@ export const SKILLS_INFO: Record<
   '32': {
     description: 'Делает вероятность выигрыша ровно 50%',
     position: { x: 1000, y: 800 },
+    icon: 'cherry.png',
   },
   '33': {
     description: 'Спавнит бустер, никто не может сказать, как они это делают',
     position: { x: 1200, y: 800 },
+    icon: 'ritual.png',
   },
   '34': {
     description: 'Славянам аренда дешевле на 15%',
@@ -176,6 +180,7 @@ export const SKILLS_INFO: Record<
   '36': {
     description: 'Открывает возможность Егору совершать кровавые обряды',
     position: { x: 600, y: 1400 },
+    icon: 'altar.png',
   },
   '37': {
     description:
@@ -246,6 +251,7 @@ export const SKILLS_INFO: Record<
   '50': {
     description: 'Колодец дешевле на 20%',
     position: { x: 1400, y: 300 },
+    icon: 'blind.png',
   },
   '51': {
     description: 'Егору и Андрею больше не нужно есть, апгрейды дешевле на 15%',
@@ -254,6 +260,7 @@ export const SKILLS_INFO: Record<
   '52': {
     description: 'Андрей теперь тоже совершает кровавую жертву на камне',
     position: { x: 1000, y: 1400 },
+    icon: 'occultist.png',
   },
   '53': {
     description: 'Башни дешевле на 50%',
