@@ -26,3 +26,23 @@ export const getIsBuildingShowed = (
     0
   );
 };
+
+const buildingSkillsMap: Record<number, number[]> = {
+  1: [13, 25, 26, 29],
+  2: [14, 31, 32, 33],
+  3: [15, 35, 20, 21],
+  4: [16, 36, 51, 52],
+  5: [17, 44, 45, 46],
+  6: [18, 47, 48, 49],
+  7: [27, 28, 50],
+};
+
+export function getBuildingAssetLevel(
+  unlockedSkillsIds: number[],
+  buildingId: number,
+): number {
+  return buildingSkillsMap[buildingId].reduce((prev, currentId) => {
+    console.log(prev, currentId);
+    return unlockedSkillsIds.includes(currentId) ? prev + 1 : prev;
+  }, 0);
+}

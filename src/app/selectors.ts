@@ -1,6 +1,11 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { type RootState } from './store';
-import { getCurrencyPerClick, getIsBuildingShowed, getPrice } from '../utils';
+import {
+  getBuildingAssetLevel,
+  getCurrencyPerClick,
+  getIsBuildingShowed,
+  getPrice,
+} from '../utils';
 import {
   getCurrencyPerSecond,
   getStorage,
@@ -145,8 +150,8 @@ export const selectCurrencyPerClick = createSelector(
 );
 
 export const selectAssetLevels = createSelector(
-  [selectAllBuildings],
-  (buildings) => {
+  [selectAllBuildings, selectUnlockedSkillsIds],
+  (buildings, unlockedSkillsIds) => {
     const result: Record<number, number> = {};
 
     for (const building of buildings) {
@@ -161,16 +166,9 @@ export const selectAssetLevels = createSelector(
 
       if (!isShowed) {
         result[id] = 0;
-      } else if (level === 0) {
-        result[id] = 1;
-      } else if (level < 10) {
-        result[id] = 2;
-      } else if (level < 20) {
-        result[id] = 3;
-      } else if (level < 30) {
-        result[id] = 4;
       } else {
-        result[id] = 5;
+        result[id] =
+          Math.min(level, 1) + getBuildingAssetLevel(unlockedSkillsIds, id);
       }
     }
 
