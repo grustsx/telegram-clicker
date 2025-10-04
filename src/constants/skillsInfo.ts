@@ -180,10 +180,12 @@ export const SKILLS_INFO: Record<
   '39': {
     description: 'Даёт криты',
     position: { x: 0, y: 1400 },
+    icon: 'teeth.png',
   },
   '40': {
     description: 'Увеличивает частоту крита',
     position: { x: 0, y: 1600 },
+    icon: 'teeth-smile.png',
   },
   '41': {
     description: 'Увеличивает урон крита',
@@ -197,20 +199,23 @@ export const SKILLS_INFO: Record<
   '43': {
     description: 'Даёт мегакрит',
     position: { x: 200, y: 1800 },
+    icon: 'skull.png',
   },
   '44': {
     description: 'Усиливает мегакрит',
     position: { x: 200, y: 2000 },
-    icon: 'skull.png',
+    icon: 'on-fire.png',
   },
   '45': {
     description:
       'Глубокая связь с таинственным тортиком дарит Наде внеземную внутреннюю силу. Клик получает 1% от кпс',
     position: { x: 0, y: 2000 },
+    icon: 'on-fire-solid.png',
   },
   '46': {
     description: 'Клик получает ещё 1% кпс',
     position: { x: 0, y: 2200 },
+    icon: 'god-eye.png',
   },
   '47': {
     description:
