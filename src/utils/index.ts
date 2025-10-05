@@ -27,6 +27,13 @@ export const getIsBuildingShowed = (
   );
 };
 
+export const getBuildingLevel = (
+  buildingId: number,
+  buildings: BuildingType[],
+): number => {
+  return buildings.find((building) => building.id === buildingId)?.level || 0;
+};
+
 const buildingSkillsMap: Record<number, number[]> = {
   1: [13, 26, 29],
   2: [14, 31, 33],

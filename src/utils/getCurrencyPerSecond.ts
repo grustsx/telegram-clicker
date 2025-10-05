@@ -66,7 +66,7 @@ const getBuildingIncomeMultiplier = (skills: number[], buildingId: number) => {
     case 6:
       return 1 + 0.25 * skill(18);
     case 7:
-      return 1 + 0.25 * skill(28);
+      return 1 + 1 * skill(28);
     default:
       return 1;
   }

@@ -1,4 +1,4 @@
-import { getIsBuildingShowed } from '.';
+import { getBuildingLevel } from '.';
 import type { BuildingType, SkillStatusType } from '../types/types';
 
 export default function getSkillStatus(
@@ -14,11 +14,11 @@ export default function getSkillStatus(
 
   if (
     available &&
-    ((skill.id === 14 && !getIsBuildingShowed(2, unlockedSkills, buildings)) ||
-      (skill.id === 15 && !getIsBuildingShowed(3, unlockedSkills, buildings)) ||
-      (skill.id === 16 && !getIsBuildingShowed(4, unlockedSkills, buildings)) ||
-      (skill.id === 17 && !getIsBuildingShowed(5, unlockedSkills, buildings)) ||
-      (skill.id === 18 && !getIsBuildingShowed(6, unlockedSkills, buildings)))
+    ((skill.id === 14 && !getBuildingLevel(2, buildings)) ||
+      (skill.id === 15 && !getBuildingLevel(3, buildings)) ||
+      (skill.id === 16 && !getBuildingLevel(4, buildings)) ||
+      (skill.id === 17 && !getBuildingLevel(5, buildings)) ||
+      (skill.id === 18 && !getBuildingLevel(6, buildings)))
   )
     return 'mysterious';
 

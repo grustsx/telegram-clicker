@@ -50,7 +50,7 @@ export const SKILLS_INFO: Record<
     icon: 'hand.png',
   },
   '9': {
-    description: 'Рабинович недоволен, башни дешевле на 20%.',
+    description: 'Рабинович недоволен, башни дешевле на 10%.',
     position: { x: 300, y: 600 },
     icon: 'dollar.png',
   },
@@ -120,7 +120,7 @@ export const SKILLS_INFO: Record<
     icon: 'key-skeleton.png',
   },
   '25': {
-    description: 'Улучшение общаги на 10% дешевле',
+    description: 'Улучшение общаги в 5 раз дешевле',
     position: { x: 600, y: 700 },
     icon: 'sale.png',
   },
@@ -136,7 +136,7 @@ export const SKILLS_INFO: Record<
     icon: 'well.png',
   },
   '28': {
-    description: '+25% к эффективности колодца',
+    description: 'Колодец эффективнее в 2 раза',
     position: { x: 1200, y: 300 },
     icon: 'fish.png',
   },
@@ -252,7 +252,7 @@ export const SKILLS_INFO: Record<
     icon: 'nazar.png',
   },
   '50': {
-    description: 'Колодец дешевле на 20%',
+    description: 'Колодец дешевле в 10 раз',
     position: { x: 1400, y: 300 },
     icon: 'blind.png',
   },
@@ -267,7 +267,7 @@ export const SKILLS_INFO: Record<
     icon: 'occultist.png',
   },
   '53': {
-    description: 'Башни дешевле на 50%',
+    description: 'Башни дешевле на 25%',
     position: { x: 400, y: 2000 },
     icon: 'double-up.png',
   },
