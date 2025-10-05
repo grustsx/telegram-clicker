@@ -2,13 +2,14 @@ import { useRef } from 'react';
 import * as THREE from 'three';
 import React from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Gltf } from '@react-three/drei';
+import { useAnimations, useGLTF } from '@react-three/drei';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { sendActivateBooster } from '../api';
 import { activateBooster } from '../state/thunk';
 import { selectUserId } from '../app/selectors';
 import { removeBooster } from '../state/gameSlice';
 import { CURRENCY_BOOSTER_ID } from '../constants/const';
+import { SkeletonUtils } from 'three/examples/jsm/Addons.js';
 
 const getRandomPhase = () => {
   return (2 * Math.random() - 1) * Math.PI;
@@ -25,7 +26,12 @@ function BoosterModel({
   const groupRef = useRef<THREE.Group>(null);
   const timeRef = useRef(0);
   const openRef = useRef(false);
+
   const deviationRef = useRef(3);
+
+  const gltf = useGLTF('/models/booster/scene.gltf');
+  const clone = SkeletonUtils.clone(gltf.scene) as THREE.Group;
+  const { actions } = useAnimations(gltf.animations, groupRef);
 
   const userId = useAppSelector(selectUserId);
 
@@ -39,6 +45,7 @@ function BoosterModel({
 
   const despawnBooster = React.useCallback(
     (id: number) => {
+      if (openRef.current) return;
       dispatch(removeBooster(id));
     },
     [dispatch],
@@ -46,6 +53,8 @@ function BoosterModel({
 
   const handlePointerDown = (e: React.PointerEvent) => {
     if (openRef.current) return;
+    actions[gltf.animations[0].name]?.play();
+
     e.stopPropagation();
     openRef.current = true;
     setTimeout(() => handleBooster(e), 1000);
@@ -63,12 +72,12 @@ function BoosterModel({
   useFrame((_state, delta) => {
     if (!groupRef.current) return;
 
-    timeRef.current += delta;
+    timeRef.current += delta * (1 - +openRef.current * 0.9);
 
     deviationRef.current = Math.max(0, deviationRef.current - delta);
 
     groupRef.current.rotation.x -= 0.002;
-    groupRef.current.rotation.y -= 0.002 + 0.05 * +openRef.current;
+    groupRef.current.rotation.y -= 0.002 + 0.07 * +openRef.current;
     groupRef.current.rotation.z -= 0.002;
 
     groupRef.current.position.x =
@@ -89,7 +98,7 @@ function BoosterModel({
       position={[0, 0.95, 4.8]}
       onPointerDown={handlePointerDown}
     >
-      <Gltf src="/models/booster/scene.gltf" />
+      <primitive object={clone} />
     </group>
   );
 }

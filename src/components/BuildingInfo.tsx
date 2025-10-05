@@ -35,6 +35,7 @@ const BuildingInfo = ({
   const building = useAppSelector((state) =>
     selectBuildingById(state, buildingId),
   );
+  const [isUp, setIsUp] = React.useState(false);
 
   const assetLevels = useAppSelector(selectAssetLevels);
 
@@ -49,7 +50,13 @@ const BuildingInfo = ({
     GameMessageType[] | null
   >(null);
 
+  const handleClose = () => {
+    setIsUp(false);
+    setTimeout(() => onClose(), 300);
+  };
+
   React.useEffect(() => {
+    setIsUp(true);
     return () => {
       setEventMessages(null);
     };
@@ -121,83 +128,94 @@ const BuildingInfo = ({
     : true;
 
   return (
-    <div className="fixed max-h-full flex gap-1 flex-col p-0 bottom-0 w-full pixel-border--dt cursor-pointer z-60">
-      <div className="overflow-scroll flex flex-col gap-1">
-        <button
-          className="border-white border-2 absolute top-[-16px] right-4"
-          onClick={onClose}
-        >
-          <img
-            className="bg-red-900"
-            style={{
-              imageRendering: 'pixelated',
-              width: 'calc(6.25vw)',
-              height: 'calc(6.25vw)',
-            }}
-            src={`/assets/icons/skills/cross.png`}
-          />
-        </button>
-        <GameText
-          borderStyle="lt"
-          size="lg"
-          theme="brown"
-          text={buildingInfo.title.toUpperCase()}
-        />
-        <GameText size="sm" text={buildingInfo.description} />
-
-        {eventMessages == null
-          ? buildingInfo.messages?.map((message, index) => (
-              <GameMessage
-                key={message.description + message.name}
-                reversed={!!(index % 2)}
-                theme={index % 2 ? 'light' : 'dark'}
-                {...message}
-              />
-            ))
-          : eventMessages.map((message, index) => (
-              <GameMessage
-                key={message.description + message.name}
-                reversed={!!(index % 2)}
-                theme={index % 2 ? 'light' : 'dark'}
-                {...message}
-              />
-            ))}
-
-        <div
-          className={`flex flex-col gap-2 pixel-border--${isCount ? 'w' : 'gr'} justify-between items-center`}
-        >
-          <div className="flex flex-col gap-1 w-full">
-            <GameText
-              size="sm"
-              theme={isCount ? 'dark' : 'light'}
-              text={'Стоимость: ' + formatLargeNumber(price)}
-            />
-            {assetLevels[id] !== 1 && (
-              <>
-                <GameText
-                  size="sm"
-                  borderStyle={isCount ? 'gr' : 'w'}
-                  theme={isCount ? 'light' : 'dark'}
-                  text={`lvl ${level} -> lvl ${level + 1}`}
-                />
-                <GameText
-                  size="sm"
-                  theme={isCount ? 'dark' : 'light'}
-                  text={`${formatLargeNumber(getBuildingIncome(unlockedSkills, level, incomePerSecond, id))}/сек -> ${formatLargeNumber(getBuildingIncome(unlockedSkills, level + 1, incomePerSecond, id))}/сек`}
-                />
-              </>
-            )}
-          </div>
-
+    <div
+      onClick={handleClose}
+      className={`fixed z-5000 inset-0 flex items-center transition-opacity duration-300 justify-center bg-black/50
+          ${isUp ? 'opacity-100' : 'opacity-0'}`}
+    >
+      <div
+        onClick={(e) => e.stopPropagation()}
+        className={`fixed max-h-full p-0 bottom-0 w-full
+        pixel-border--dt z-60 transform transition-transform duration-300
+        ${isUp ? 'translate-y-0' : 'translate-y-200'}`}
+      >
+        <div className="overflow-scroll flex flex-col gap-1">
           <button
-            className={`w-full border-white border-2 text-white p-2 ${isEnable ? 'bg-emerald-600' : 'bg-gray-400'}`}
-            onClick={() => handleClick(id)}
-            disabled={!isEnable}
+            className="border-white border-2 absolute top-[-16px] right-4"
+            onClick={handleClose}
           >
-            <GameText size="sm" text="КУПИТЬ" />
+            <img
+              className="bg-red-900"
+              style={{
+                imageRendering: 'pixelated',
+                width: 'calc(6.25vw)',
+                height: 'calc(6.25vw)',
+              }}
+              src={`/assets/icons/skills/cross.png`}
+            />
           </button>
+          <GameText
+            borderStyle="lt"
+            size="lg"
+            theme="brown"
+            text={buildingInfo.title.toUpperCase()}
+          />
+          <GameText size="sm" text={buildingInfo.description} />
+
+          {eventMessages == null
+            ? buildingInfo.messages?.map((message, index) => (
+                <GameMessage
+                  key={message.description + message.name}
+                  reversed={!!(index % 2)}
+                  theme={index % 2 ? 'light' : 'dark'}
+                  {...message}
+                />
+              ))
+            : eventMessages.map((message, index) => (
+                <GameMessage
+                  key={message.description + message.name}
+                  reversed={!!(index % 2)}
+                  theme={index % 2 ? 'light' : 'dark'}
+                  {...message}
+                />
+              ))}
+
+          <div
+            className={`flex flex-col gap-2 pixel-border--${isCount ? 'w' : 'gr'} justify-between items-center`}
+          >
+            <div className="flex flex-col gap-1 w-full">
+              <GameText
+                size="sm"
+                theme={isCount ? 'dark' : 'light'}
+                text={'Стоимость: ' + formatLargeNumber(price)}
+              />
+              {assetLevels[id] !== 1 && (
+                <>
+                  <GameText
+                    size="sm"
+                    borderStyle={isCount ? 'gr' : 'w'}
+                    theme={isCount ? 'light' : 'dark'}
+                    text={`lvl ${level} -> lvl ${level + 1}`}
+                  />
+                  <GameText
+                    size="sm"
+                    theme={isCount ? 'dark' : 'light'}
+                    text={`${formatLargeNumber(getBuildingIncome(unlockedSkills, level, incomePerSecond, id))}/сек -> ${formatLargeNumber(getBuildingIncome(unlockedSkills, level + 1, incomePerSecond, id))}/сек`}
+                  />
+                </>
+              )}
+            </div>
+
+            <button
+              className={`w-full border-white border-2 text-white p-2 ${isEnable ? 'bg-emerald-600' : 'bg-gray-400'}`}
+              onClick={() => handleClick(id)}
+              disabled={!isEnable}
+            >
+              <GameText size="sm" text="КУПИТЬ" />
+            </button>
+          </div>
+          {level > 0 && renderUpgade(id)}
         </div>
-        {level > 0 && renderUpgade(id)}
       </div>
     </div>
   );

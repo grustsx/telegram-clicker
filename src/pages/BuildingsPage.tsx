@@ -33,9 +33,9 @@ function BuildingsPage() {
         className={`relative w-full h-full overflow-scroll
            ${
              sunState === 'deadly'
-               ? '-hue-rotate-15 saturate-120 brightness-105'
+               ? '-hue-rotate-15 saturate-120 brightness-105 contrast-120'
                : sunState === 'close'
-                 ? '-hue-rotate-5 saturate-110'
+                 ? '-hue-rotate-5 saturate-110 contrast-110'
                  : ''
            }`}
       >
