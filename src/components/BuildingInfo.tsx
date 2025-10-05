@@ -135,21 +135,21 @@ const BuildingInfo = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className={`fixed max-h-full p-0 bottom-0 w-full
+        className={`overflow-scroll fixed max-h-full p-0 bottom-0 w-full
         pixel-border--dt z-60 transform transition-transform duration-300
         ${isUp ? 'translate-y-0' : 'translate-y-200'}`}
       >
         <div className="overflow-scroll flex flex-col gap-1">
           <button
-            className="border-white border-2 absolute top-[-16px] right-4"
+            className="border-white border-2 absolute top-0.5 right-0.5 z-800"
             onClick={handleClose}
           >
             <img
               className="bg-red-900"
               style={{
                 imageRendering: 'pixelated',
-                width: 'calc(6.25vw)',
-                height: 'calc(6.25vw)',
+                width: 'calc(4vw)',
+                height: 'calc(4vw)',
               }}
               src={`/assets/icons/skills/cross.png`}
             />
