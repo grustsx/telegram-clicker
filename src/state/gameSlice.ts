@@ -55,6 +55,9 @@ const gameSlice = createSlice({
     decreaseSkillPoints: (state, action: PayloadAction<number>) => {
       state.skillPoints -= action.payload;
     },
+    setSkillPoints: (state, action: PayloadAction<number>) => {
+      state.skillPoints = action.payload;
+    },
     increaseCurrency(state, action: PayloadAction<number>) {
       state.currency += action.payload;
     },
@@ -118,5 +121,6 @@ export const {
   decreaseStorage,
   removeBooster,
   setErrorMessage,
+  setSkillPoints,
 } = gameSlice.actions;
 export default gameSlice.reducer;

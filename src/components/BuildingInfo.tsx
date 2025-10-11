@@ -23,6 +23,7 @@ import type { GameMessageType } from '../types/types';
 import MysteryUpgrade from './BuildingUpdates/MysteryUpgrade';
 import { getBuildingIncome } from '../utils/getCurrencyPerSecond';
 import { startDialog } from '../state/dialogSlice';
+import Leaderboard from './BuildingUpdates/Leaderboard';
 
 const BuildingInfo = ({
   buildingId,
@@ -119,6 +120,8 @@ const BuildingInfo = ({
         return <Storage />;
       case 4:
         return unlockedSkills.includes(36) ? <Stones /> : <MysteryUpgrade />;
+      case 6:
+        return <Leaderboard />;
       default:
     }
   };
@@ -130,7 +133,7 @@ const BuildingInfo = ({
   return (
     <div
       onClick={handleClose}
-      className={`fixed z-5000 inset-0 flex items-center transition-opacity duration-300 justify-center bg-black/50
+      className={`fixed z-2000 inset-0 flex items-center transition-opacity duration-300 justify-center bg-black/50
           ${isUp ? 'opacity-100' : 'opacity-0'}`}
     >
       <div

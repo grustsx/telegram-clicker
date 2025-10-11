@@ -23,6 +23,17 @@ export const sendClaimStorage = (userId: number | undefined) => {
   return api.post(`/api/users/${userId}/claim-storage`);
 };
 
+export const sendUpdateScore = (userId: number | undefined) => {
+  if (!userId) return;
+
+  return api.post(`/api/users/${userId}/update-score`);
+};
+
+export const getLeaderBoard = async () => {
+  const { data } = await api.get(`/api/leader-board`);
+  return data;
+};
+
 export const sendRestartUser = (userId: number | undefined) => {
   if (!userId) return;
 
