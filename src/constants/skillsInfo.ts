@@ -105,12 +105,12 @@ export const SKILLS_INFO: Record<
     icon: 'tree.png',
   },
   '19': {
-    description: 'Открывает дополнительную комнату абара',
+    description: 'Открывает дополнительную комнату абара, это студия',
     position: { x: 600, y: 1100 },
     icon: 'key-one.png',
   },
   '20': {
-    description: 'Открывает третью комнату в амбаре',
+    description: 'Открывает третью комнату в амбаре, там есть плейстейшон',
     position: { x: 1200, y: 1000 },
     icon: 'key-two.png',
   },

@@ -111,7 +111,7 @@ img {
   background-image: url('/assets/borders/default-background.png');
   background-repeat: repeat;
   background-size: calc(8 * 1.171875vw);
-  border-radius: calc(3 * 1.171875vw);
+  border-radius: calc(1.171875vw);
   border-image-source: url('/assets/borders/default-border.png');
   border-image-slice: 3;
   border-image-width: 1;
@@ -125,7 +125,7 @@ img {
   background-image: url('/assets/borders/light-background.png');
   background-repeat: repeat;
   background-size: calc(8 * 1.171875vw);
-  border-radius: calc(3 * 1.171875vw);
+  border-radius: calc(1.171875vw);
   border-image-source: url('/assets/borders/light-border.png');
   border-image-slice: 3;
   border-image-width: 1;
@@ -137,7 +137,7 @@ img {
   border-width: calc(1.171875vw);
   border-style: solid;
   background-color: #798089;
-  border-radius: calc(3 * 1.171875vw);
+  border-radius: calc(1.171875vw);
   border-image-source: url('/assets/borders/gray-border.png');
   border-image-slice: 3;
   border-image-width: 1;

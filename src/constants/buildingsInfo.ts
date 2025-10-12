@@ -23,6 +23,7 @@ export const BUILDINGS_INFO: Record<
         {
           name: 'Богдан',
           description: 'АХАХАХ ТОРТЫ',
+          face: 'Bogdan-smile',
         },
         {
           name: 'Антон',
@@ -37,6 +38,7 @@ export const BUILDINGS_INFO: Record<
         {
           name: 'Богдан',
           description: 'АХАХАХ ТОРТЫ',
+          face: 'Bogdan-smile',
         },
         {
           name: 'Антон',
@@ -51,6 +53,7 @@ export const BUILDINGS_INFO: Record<
         {
           name: 'Богдан',
           description: 'АХАХАХ ТОРТЫ',
+          face: 'Bogdan-smile',
         },
         {
           name: 'Антон',
@@ -65,6 +68,7 @@ export const BUILDINGS_INFO: Record<
         {
           name: 'Богдан',
           description: 'АХАХАХ ТОРТЫ',
+          face: 'Bogdan-smile',
         },
         {
           name: 'Антон',
@@ -131,50 +135,54 @@ export const BUILDINGS_INFO: Record<
   '3': {
     '1': {
       title: 'Амбар Клима Шейдина',
-      description:
-        'В нём Клим Шейдин когда-то выиграл рэп баттл. Это была идея Тортов.',
+      description: 'В амбаре можно хранить торты.',
     },
     '2': {
       title: 'Амбар Клима Шейдина',
-      description:
-        'В нём Клим Шейдин когда-то выиграл рэп баттл. Это была идея Тортов.',
+      description: 'В нём Клим Шейдин когда-то выиграл рэп баттл.',
       messages: [
         {
           name: 'Санёк',
-          description: 'Мой типа дедыч или кто он там',
+          description:
+            'Клим Шейдин это мой дед, первый чёрный частушечник на селе был, тусил в этом амбаре! Только стены тут странные, они как-будто растут...',
+          face: 'Sanek-0',
         },
       ],
     },
     '3': {
       title: 'Амбар Клима Шейдина',
-      description:
-        'В нём Клим Шейдин когда-то выиграл рэп баттл. Это была идея Тортов.',
+      description: 'В нём ещё есть две закрытые комнаты',
       messages: [
         {
           name: 'Санёк',
-          description: 'Мой типа дедыч или кто он там',
+          description:
+            'Тут всё время была музыкальная студия? Почему-то она так и манит что-нибудь зачитать в майк...',
+          face: 'Sanek-1',
         },
       ],
     },
     '4': {
       title: 'Амбар Клима Шейдина',
       description:
-        'В нём Клим Шейдин когда-то выиграл рэп баттл. Это была идея Тортов.',
+        'Битос играет на всю округу, всех качает, студенты стоят в очереди чтобы поиграть в плейстейшон 5',
       messages: [
         {
           name: 'Санёк',
-          description: 'Мой типа дедыч или кто он там',
+          description:
+            'Damn, закрыл на днях Miles Morales на платину... Shit! Это лучший spider-человек, aint gonna lie!',
+          face: 'Sanek-2',
         },
       ],
     },
     '5': {
       title: 'Амбар Клима Шейдина',
-      description:
-        'В нём Клим Шейдин когда-то выиграл рэп баттл. Это была идея Тортов.',
+      description: 'Кто бы мог подумать, что тут есть ещё и кфс',
       messages: [
         {
           name: 'Санёк',
-          description: 'Мой типа дедыч или кто он там',
+          description:
+            'Oh shit man! Yo bruh, on god you can’t go a day without chicken, huh?',
+          face: 'Sanek-2',
         },
       ],
     },
