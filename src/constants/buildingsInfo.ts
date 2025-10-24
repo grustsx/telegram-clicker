@@ -22,57 +22,43 @@ export const BUILDINGS_INFO: Record<
       messages: [
         {
           name: 'Богдан',
-          description: 'АХАХАХ ТОРТЫ',
+          description: 'АХАХАХ ТОРТ НА ОРБИТЕ ЗЕМЛИ',
           face: 'Bogdan-smile',
-        },
-        {
-          name: 'Антон',
-          description: 'Ну торты и торты ну и что',
         },
       ],
     },
     '3': {
       title: 'Общага студентов',
-      description: 'Приехали и рискуют капиталом страны, исследуя непонято что',
+      description: 'Ничего они не исследуют в итоге, курят и пьют',
       messages: [
         {
           name: 'Богдан',
-          description: 'АХАХАХ ТОРТЫ',
-          face: 'Bogdan-smile',
-        },
-        {
-          name: 'Антон',
-          description: 'Ну торты и торты ну и что',
+          description: 'Скучаю по НК...',
+          face: 'Bogdan-normal',
         },
       ],
     },
     '4': {
       title: 'Общага студентов',
-      description: 'Приехали и рискуют капиталом страны, исследуя непонято что',
+      description: 'Ничего они не исследуют в итоге, курят и пьют',
       messages: [
         {
           name: 'Богдан',
-          description: 'АХАХАХ ТОРТЫ',
+          description: 'Хорошо хоть Ардис с нами приехал!',
           face: 'Bogdan-smile',
-        },
-        {
-          name: 'Антон',
-          description: 'Ну торты и торты ну и что',
         },
       ],
     },
     '5': {
       title: 'Общага студентов',
-      description: 'Приехали и рискуют капиталом страны, исследуя непонято что',
+      description:
+        'Комиссия мало кого щадит, особенно, если ты не подготовился',
       messages: [
         {
           name: 'Богдан',
-          description: 'АХАХАХ ТОРТЫ',
-          face: 'Bogdan-smile',
-        },
-        {
-          name: 'Антон',
-          description: 'Ну торты и торты ну и что',
+          description:
+            'Ребят, у меня грустные новости... К сожалению, числанулся(((((((',
+          face: 'Bogdan-questioned',
         },
       ],
     },
@@ -91,7 +77,7 @@ export const BUILDINGS_INFO: Record<
         {
           name: 'Никита',
           description: 'Получившиеся тортики предлагаю депнуть',
-          face: 'nikita_smile',
+          face: 'Nikita-normal',
         },
       ],
     },
@@ -103,7 +89,7 @@ export const BUILDINGS_INFO: Record<
         {
           name: 'Никита',
           description: 'Получившиеся тортики предлагаю депнуть',
-          face: 'nikita_smile',
+          face: 'Nikita-normal',
         },
       ],
     },
@@ -115,7 +101,7 @@ export const BUILDINGS_INFO: Record<
         {
           name: 'Никита',
           description: 'Получившиеся тортики предлагаю депнуть',
-          face: 'nikita_smile',
+          face: 'Nikita-normal',
         },
       ],
     },
@@ -127,7 +113,7 @@ export const BUILDINGS_INFO: Record<
         {
           name: 'Никита',
           description: 'Получившиеся тортики предлагаю депнуть',
-          face: 'nikita_smile',
+          face: 'Nikita-normal',
         },
       ],
     },
@@ -199,36 +185,61 @@ export const BUILDINGS_INFO: Record<
         {
           name: 'Егор',
           description: 'Прикольный, как бы ему помочь только, не понятно',
+          face: 'Egor-0',
+        },
+        {
+          name: 'Андрей',
+          description: 'Да камень как камень, что ему помогать-то?',
+          face: 'Andrey-0',
         },
       ],
     },
     '3': {
       title: 'Камень в море',
-      description: 'Непонятный камень в море, он зовёт',
+      description: 'Непонятный камень в море, заглушает голос разума',
       messages: [
         {
           name: 'Егор',
-          description: 'Прикольный, как бы ему помочь только, не понятно',
+          description: 'Хотел бы я быть волнами, что о него бьются',
+          face: 'Egor-0',
+        },
+        {
+          name: 'Андрей',
+          description:
+            'В целом довольно красивый камень, необычно переливается на солнце',
+          face: 'Andrey-0',
         },
       ],
     },
     '4': {
       title: 'Камень в море',
-      description: 'Непонятный камень в море, он зовёт',
+      description: 'Какой же он красивый, нет слов',
       messages: [
         {
           name: 'Егор',
-          description: 'Прикольный, как бы ему помочь только, не понятно',
+          description: 'Рыбы зовут меня к себе',
+          face: 'Egor-1',
+        },
+        {
+          name: 'Андрей',
+          description: 'Мне ничего не нужно, только любоваться на него',
+          face: 'Andrey-1',
         },
       ],
     },
     '5': {
       title: 'Камень в море',
-      description: 'Непонятный камень в море, он зовёт',
+      description: 'Мы любим его',
       messages: [
         {
           name: 'Егор',
-          description: 'Прикольный, как бы ему помочь только, не понятно',
+          description: 'Я больше не вернусь на берег',
+          face: 'Egor-2',
+        },
+        {
+          name: 'Андрей',
+          description: 'Я хочу отдать ему свою жизнь',
+          face: 'Andrey-2',
         },
       ],
     },
@@ -245,36 +256,41 @@ export const BUILDINGS_INFO: Record<
         {
           name: 'Надя',
           description: 'Обычно я копаю картошку',
+          face: 'Nadya-0',
         },
       ],
     },
     '3': {
       title: 'Яма',
-      description: 'Ну давайте копать',
+      description: 'Чем глубже копаешь, тем больше тортов',
       messages: [
         {
           name: 'Надя',
-          description: 'Обычно я копаю картошку',
+          description: 'С такими руками мне и лопата-то больше не нужна',
+          face: 'Nadya-0',
         },
       ],
     },
     '4': {
       title: 'Яма',
-      description: 'Ну давайте копать',
+      description: 'Источник силы',
       messages: [
         {
-          name: 'Надя',
-          description: 'Обычно я копаю картошку',
+          name: 'Надя?',
+          description:
+            'Эта странная энергия меняет меня, но я однозначно становлюсь лучшей версией себя',
+          face: 'Nadya-1',
         },
       ],
     },
     '5': {
       title: 'Яма',
-      description: 'Ну давайте копать',
+      description: 'Источник божественной силы',
       messages: [
         {
-          name: 'Надя',
-          description: 'Обычно я копаю картошку',
+          name: '???',
+          description: 'Надя была слаба',
+          face: 'Nadya-2',
         },
       ],
     },
@@ -291,44 +307,66 @@ export const BUILDINGS_INFO: Record<
         {
           name: 'Дэнис',
           description: 'Вот мы и построили тайную лаборторию!',
+          face: 'Den-normal',
         },
         {
           name: 'Павел',
           description:
             'Вот эта бандурина ТАЙНАЯ??? Почему тогда все на неё смотрят?',
+          face: 'Pavlik-0',
         },
       ],
     },
     '3': {
       title: 'Тайная лаборатория',
-      description: 'Такой типа подземный комплекс как в Resident Evil',
+      description: 'Тут изучают таинственный торт на орбите Земли',
       messages: [
+        {
+          name: 'Дэнис',
+          description:
+            'Я посадил парочку кустиков, вроде даже и не так заметно теперь',
+          face: 'Den-normal',
+        },
         {
           name: 'Павел',
           description:
-            'Вот эта бандурина ТАЙНАЯ??? Почему тогда все на неё смотрят?',
+            'Странная история с этим тортом, каким-то образом именно он "отправляет" на этот остров необходимые нам ресурсы',
+          face: 'Pavlik-0',
         },
       ],
     },
     '4': {
       title: 'Тайная лаборатория',
-      description: 'Такой типа подземный комплекс как в Resident Evil',
+      description:
+        'Учёные обнаружили на орбите Земли ещё и "бустеры"! Но что они делают?',
       messages: [
+        {
+          name: 'Дэнис',
+          description: 'Такая конфигурация кустов даже лучше!',
+          face: 'Den-normal',
+        },
         {
           name: 'Павел',
           description:
-            'Вот эта бандурина ТАЙНАЯ??? Почему тогда все на неё смотрят?',
+            'Работа, конечно, стрессовая, но я спокойно могу функционировать в таком режиме, в конце концов мне всего 25 лет',
+          face: 'Pavlik-1',
         },
       ],
     },
     '5': {
       title: 'Тайная лаборатория',
-      description: 'Такой типа подземный комплекс как в Resident Evil',
+      description: 'Со стороны выглядит как обычный памятник',
       messages: [
         {
-          name: 'Павел',
+          name: 'Дэнис',
           description:
-            'Вот эта бандурина ТАЙНАЯ??? Почему тогда все на неё смотрят?',
+            'Вот это маскировка! Теперь Павлика точно никто не найдёт и не побеспокоит!',
+          face: 'Den-normal',
+        },
+        {
+          name: 'Павел',
+          description: 'Пожалуйста помогите мне, почему никто не приходит...',
+          face: 'Pavlik-2',
         },
       ],
     },
