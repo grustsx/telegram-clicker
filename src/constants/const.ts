@@ -4,6 +4,7 @@ export const CURRENCY_BOOSTER_ID = 1;
 export const CLICK_BOOSTER_ID = 2;
 export const STONES_SPELL_ID = 2;
 export const AMBAR_ID = 3;
+export const LAB_ID = 6;
 export const VODKA_WELL_ID = 7;
 
 export const QA_IDS = [1, 8147657134];

@@ -57,6 +57,17 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --cell-size: 16px; /* размер клетки (квадрат) */
+  --line-thickness: 1px; /* толщина синей линии */
+  --line-color: rgba(
+    3,
+    102,
+    214,
+    0.22
+  ); /* цвет "синих" линий (полупрозрачный) */
+  --margin-width: 56px; /* расстояние красной полосы от левого края */
+  --margin-color: #d32f2f; /* цвет полосы поля (красный) */
 }
 
 body {
@@ -167,4 +178,31 @@ img {
     -1px 1px #e8b098,
     0 1px #e8b098,
     1px 1px #e8b098;
+}
+
+.notebook {
+  background-image:
+      /* 1) красная полоса поля (положение определяется --margin-width) */
+    linear-gradient(
+      to left,
+      transparent calc(var(--margin-width) - 0.5px),
+      var(--margin-color) calc(var(--margin-width) - 0.5px),
+      var(--margin-color) calc(var(--margin-width) + 0.5px),
+      transparent calc(var(--margin-width) + 0.5px)
+    ),
+    /* 2) вертикальные линии (повторяются каждые --cell-size) */
+      repeating-linear-gradient(
+        90deg,
+        var(--line-color) 0 var(--line-thickness),
+        transparent var(--line-thickness) calc(var(--cell-size))
+      ),
+    /* 3) горизонтальные линии (повторяются каждые --cell-size) */
+      repeating-linear-gradient(
+        0deg,
+        var(--line-color) 0 var(--line-thickness),
+        transparent var(--line-thickness) calc(var(--cell-size))
+      );
+
+  box-shadow: 0 6px 18px rgba(16, 24, 40, 0.08);
+  box-sizing: border-box;
 }

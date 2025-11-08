@@ -24,6 +24,7 @@ import MysteryUpgrade from './BuildingUpdates/MysteryUpgrade';
 import { getBuildingIncome } from '../utils/getCurrencyPerSecond';
 import { startDialog } from '../state/dialogSlice';
 import Leaderboard from './BuildingUpdates/Leaderboard';
+import Notes from './BuildingUpdates/Notes';
 
 const BuildingInfo = ({
   buildingId,
@@ -120,8 +121,10 @@ const BuildingInfo = ({
         return <Storage />;
       case 4:
         return unlockedSkills.includes(36) ? <Stones /> : <MysteryUpgrade />;
-      case 6:
+      case 5:
         return <Leaderboard />;
+      case 6:
+        return <Notes />;
       default:
     }
   };
