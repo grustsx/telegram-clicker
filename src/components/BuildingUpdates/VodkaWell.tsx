@@ -28,6 +28,11 @@ export default function VodkaWell({
   const { level } = vodkaWll;
   const currency = useAppSelector(selectCurrency);
   const price = getPrice(vodkaWll, unlockedSkills);
+
+  const skill = (id: number) => {
+    return unlockedSkills.includes(id) ? 1 : 0;
+  };
+
   const isEnable = currency >= price;
 
   return (
@@ -52,7 +57,7 @@ export default function VodkaWell({
             <GameText
               size="sm"
               theme={isCount ? 'dark' : 'light'}
-              text={`${formatLargeNumber(+level * +dormLevel)}/сек -> ${formatLargeNumber((+level + 1) * +dormLevel)}/сек`}
+              text={`${formatLargeNumber(+level * Math.pow(+dormLevel, 1 + skill(28)))}/сек -> ${formatLargeNumber((+level + 1) * Math.pow(+dormLevel, 1 + skill(28)))}/сек`}
             />
           </>
         )}
