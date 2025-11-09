@@ -79,7 +79,7 @@ function LeaderboardModal({
   leaderboard,
   onClose,
 }: {
-  leaderboard: { id: string; score: number }[];
+  leaderboard: { id: string; score: number; name: string | null }[];
   onClose: () => void;
 }) {
   const userId = useAppSelector(selectUserId);
@@ -91,6 +91,7 @@ function LeaderboardModal({
       <div className="p-2 border-2 shadow-lg w-full flex flex-col gap-2 overflow-scroll">
         {leaderboard
           .filter((item) => !!item.id)
+          .filter((item) => !!item.score)
           .sort((a, b) => b.score - a.score)
           .map((item, index) => (
             <div
@@ -105,7 +106,7 @@ function LeaderboardModal({
               <GameText
                 className={`${userId === +item.id ? 'text-amber-300' : 'text-white'}`}
                 size="sm"
-                text={item.id}
+                text={(item.name && item.name.trim()) || item.id}
               />
               <GameText
                 className={`${userId === +item.id ? 'text-amber-300' : 'text-white'}`}

@@ -17,6 +17,14 @@ export const sendClicks = (count: number, userId: number) => {
   });
 };
 
+export const sendName = (name: string, userId: number) => {
+  if (!userId) return;
+
+  return api.post(`/api/users/${userId}/name`, {
+    name,
+  });
+};
+
 export const sendClaimStorage = (userId: number | undefined) => {
   if (!userId) return;
 

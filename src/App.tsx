@@ -27,6 +27,8 @@ const mockedTg: {
     initDataUnsafe: {
       user: {
         id: 1,
+        first_name: 'dev test',
+        last_name: 'user',
       },
     },
   },
