@@ -25,6 +25,7 @@ import { getBuildingIncome } from '../utils/getCurrencyPerSecond';
 import { startDialog } from '../state/dialogSlice';
 import Leaderboard from './BuildingUpdates/Leaderboard';
 import Notes from './BuildingUpdates/Notes';
+import GameButton from '../elements/GameButton';
 
 const BuildingInfo = ({
   buildingId,
@@ -146,20 +147,14 @@ const BuildingInfo = ({
         ${isUp ? 'translate-y-0' : 'translate-y-200'}`}
       >
         <div className="overflow-scroll flex flex-col gap-1">
-          <button
-            className="border-white border-2 absolute top-0.5 right-0.5 z-800"
+          <GameButton
+            className="absolute top-0 right-0 z-800"
             onClick={handleClose}
-          >
-            <img
-              className="bg-red-900"
-              style={{
-                imageRendering: 'pixelated',
-                width: 'calc(4vw)',
-                height: 'calc(4vw)',
-              }}
-              src={`/assets/icons/skills/cross.png`}
-            />
-          </button>
+            size="small"
+            theme="red"
+            icon="skills/cross.png"
+          />
+
           <GameText
             borderStyle="lt"
             size="lg"
@@ -211,14 +206,11 @@ const BuildingInfo = ({
                 </>
               )}
             </div>
-
-            <button
-              className={`w-full border-white border-2 text-white p-2 ${isEnable ? 'bg-emerald-600' : 'bg-gray-400'}`}
+            <GameButton
+              text="КУПИТЬ"
               onClick={() => handleClick(id)}
               disabled={!isEnable}
-            >
-              <GameText size="sm" text="КУПИТЬ" />
-            </button>
+            />
           </div>
           {level > 0 && renderUpgade(id)}
         </div>

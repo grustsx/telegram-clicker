@@ -1,6 +1,7 @@
 import { sendBuySkill } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectSkillPoints, selectUserId } from '../app/selectors';
+import GameButton from '../elements/GameButton';
 import GameText from '../elements/GameText';
 import { selectSkillById } from '../state/skillsSlice';
 import { buySkill } from '../state/thunk';
@@ -28,20 +29,13 @@ const SkillHelper = ({
 
   return (
     <div className="fixed p-8 top-0 w-full bg-blue-950/80 z-50 text-tortik-white border-2 border-solid">
-      <button
-        className="border-white border-2 absolute top-4 right-4"
+      <GameButton
+        icon="skills/cross.png"
+        size="small"
+        theme="red"
         onClick={onClose}
-      >
-        <img
-          className="bg-red-900"
-          style={{
-            imageRendering: 'pixelated',
-            width: 'calc(6.25vw)',
-            height: 'calc(6.25vw)',
-          }}
-          src={`/assets/icons/skills/cross.png`}
-        />
-      </button>
+        className="absolute top-4 right-4"
+      />
       <div className="flex flex-col gap-4 ">
         <GameText
           size="md"
@@ -51,16 +45,14 @@ const SkillHelper = ({
         <GameText size="sm" text={description} />
         <GameText size="sm" text={'Цена: ' + price + ' оу'} />
         {!unlocked && (
-          <button
-            className={`${price > skillPoints ? 'bg-red-600/30' : 'bg-green-600'} p-1`}
-            disabled={skillPoints < price}
+          <GameButton
+            text={price > skillPoints ? 'Не хватает ОУ' : 'КУПИТЬ'}
+            theme="space"
+            bordered={false}
+            size="small"
             onClick={() => buyChosenSkill(skillId)}
-          >
-            <GameText
-              size="sm"
-              text={price > skillPoints ? 'Не хватает ОУ' : 'Купить'}
-            />
-          </button>
+            disabled={skillPoints < price}
+          />
         )}
       </div>
     </div>

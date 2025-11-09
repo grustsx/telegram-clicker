@@ -5,6 +5,7 @@ import {
   selectUnlockedSkillsIds,
 } from '../../app/selectors';
 import { VODKA_WELL_ID } from '../../constants/const';
+import GameButton from '../../elements/GameButton';
 import GameText from '../../elements/GameText';
 import { selectBuildingById } from '../../state/buildingsSlice';
 import { getPrice } from '../../utils';
@@ -62,14 +63,11 @@ export default function VodkaWell({
             />
           </>
         )}
-
-        <button
-          className={`w-full border-white border-2 text-white p-2 ${isEnable ? 'bg-emerald-600' : 'bg-gray-400'}`}
+        <GameButton
           onClick={() => upgradeVodkaWell(VODKA_WELL_ID)}
+          text="КУПИТЬ"
           disabled={!isEnable}
-        >
-          <GameText size="sm" text="КУПИТЬ" />
-        </button>
+        />
       </div>
     </div>
   );

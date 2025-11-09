@@ -2,21 +2,10 @@ import React from 'react';
 import { sendActivateBooster, sendRestartUser } from '../api';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { selectUserId } from '../app/selectors';
-import GameText from '../elements/GameText';
 import { activateBooster } from '../state/thunk';
 import { CLICK_BOOSTER_ID } from '../constants/const';
 import { setErrorMessage } from '../state/gameSlice';
-
-function Button({ text, onClick }: { text: string; onClick: () => void }) {
-  return (
-    <button
-      className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-      onClick={onClick}
-    >
-      <GameText size="sm" text={text} />
-    </button>
-  );
-}
+import GameButton from '../elements/GameButton';
 
 export default function QAModal({
   isOpen,
@@ -35,29 +24,35 @@ export default function QAModal({
         <div className="p-6 m-6 border-2 bg-blue-950/60 shadow-lg w-full flex flex-col gap-6">
           {isConfirm ? (
             <>
-              <Button
+              <GameButton
                 text="Да"
                 onClick={() => {
                   sendRestartUser(userId);
                   dispatch(setErrorMessage('Теперь ребут игры'));
                 }}
               />
-              <Button text="Нет" onClick={() => setIsConfirm(false)} />
+              <GameButton
+                theme="red"
+                text="Нет"
+                onClick={() => setIsConfirm(false)}
+              />
             </>
           ) : (
             <>
-              <Button
+              <GameButton
+                theme="blue"
                 text="Сбросить пользователя"
                 onClick={() => setIsConfirm(true)}
               />
-              <Button
+              <GameButton
+                theme="blue"
                 text="Вкючить бонус кликов"
                 onClick={() => {
                   dispatch(activateBooster({ boosterId: CLICK_BOOSTER_ID }));
                   sendActivateBooster(CLICK_BOOSTER_ID, userId);
                 }}
               />
-              <Button text="Закрыть" onClick={onClose} />
+              <GameButton theme="red" text="Закрыть" onClick={onClose} />
             </>
           )}
         </div>

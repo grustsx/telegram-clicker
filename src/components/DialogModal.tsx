@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from '../app/hooks';
+import GameButton from '../elements/GameButton';
 import GameMessage from '../elements/GameMessage';
-import GameText from '../elements/GameText';
 import { nextLine } from '../state/dialogSlice';
 import { createPortal } from 'react-dom';
 
@@ -21,14 +21,11 @@ export default function DialogModal() {
       <div className="p-6 m-6 border-2 bg-blue-950/60 shadow-lg w-full flex flex-col gap-6">
         <GameMessage {...currentMessage} />
 
-        <button
-          className="py-2 px-4 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+        <GameButton
+          theme="blue"
           onClick={() => dispatch(nextLine())}
-        >
-          <GameText
-            text={currentIndex < messages.length - 1 ? '->' : 'Закончить'}
-          />
-        </button>
+          text={currentIndex < messages.length - 1 ? '->' : 'Закончить'}
+        />
       </div>
     </div>,
     dialogRoot,

@@ -10,6 +10,7 @@ import {
   STONES_SPELL_ID,
   STONES_UPGRADE_SKILL_ID,
 } from '../../constants/const';
+import GameButton from '../../elements/GameButton';
 
 const STONES_INFO: Record<
   number,
@@ -80,43 +81,38 @@ export default function Stones() {
                 : STONES_INFO[selectedSkill].description
             }
           />
-
-          <button
-            className={`w-full border-white border-2 text-white p-2 ${unlockedSkillsIds.includes(selectedSkill) ? 'bg-amber-600' : remainSeconds <= 0 ? 'bg-emerald-600' : 'bg-gray-400'}`}
-            onClick={() => chooseStone(selectedSkill)}
-            disabled={
-              remainSeconds > 0 || unlockedSkillsIds.includes(selectedSkill)
+          <GameButton
+            theme={
+              unlockedSkillsIds.includes(selectedSkill) ? 'orange' : 'green'
             }
-          >
-            <GameText
-              size="sm"
-              text={
-                unlockedSkillsIds.includes(selectedSkill)
-                  ? 'АКТИВЕН'
-                  : remainSeconds > 0
-                    ? `${formatDuration(remainSeconds)} ОТКАТ`
-                    : 'ВЫБРАТЬ'
-              }
-            />
-          </button>
+            onClick={() => {
+              if (unlockedSkillsIds.includes(selectedSkill)) return;
+              chooseStone(selectedSkill);
+            }}
+            disabled={
+              remainSeconds > 0 && !unlockedSkillsIds.includes(selectedSkill)
+            }
+            text={
+              unlockedSkillsIds.includes(selectedSkill)
+                ? 'АКТИВЕН'
+                : remainSeconds > 0
+                  ? `${formatDuration(remainSeconds)} ОТКАТ`
+                  : 'ВЫБРАТЬ'
+            }
+          />
         </>
       )}
 
       <div className="flex flex-row gap-2 justify-around w-full">
         {[22, 23, 24].map((id) => (
-          <button
-            key={id}
-            className={`w-20 h-20 flex ite justify-center border-white border-${id === selectedSkill ? 2 : 0} text-white p-2 m-2 ${unlockedSkillsIds.includes(id) ? 'bg-amber-600' : 'bg-emerald-800'}`}
+          <GameButton
+            theme={unlockedSkillsIds.includes(id) ? 'orange' : 'green'}
+            className="box-border"
+            size="large"
+            bordered={id === selectedSkill}
             onClick={() => setSelectedSkill(id)}
-          >
-            <img
-              className="w-16 h-16"
-              style={{
-                imageRendering: 'pixelated',
-              }}
-              src={`/assets/icons/skills/${STONES_INFO[id].icon}.png`}
-            />
-          </button>
+            icon={`skills/${STONES_INFO[id].icon}.png`}
+          />
         ))}
       </div>
     </div>

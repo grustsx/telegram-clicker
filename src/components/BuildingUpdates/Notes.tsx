@@ -4,6 +4,7 @@ import { createPortal } from 'react-dom';
 import { useAppSelector } from '../../app/hooks';
 import { selectBuildingById } from '../../state/buildingsSlice';
 import { LAB_ID } from '../../constants/const';
+import GameButton from '../../elements/GameButton';
 
 function Notes() {
   const [isOpened, setIsOpened] = React.useState(false);
@@ -11,15 +12,16 @@ function Notes() {
   return (
     <>
       {isOpened && <NotesModal onClose={() => setIsOpened(false)} />}
+
       <div
         className={`flex flex-col gap-4 pixel-border--gr justify-between items-center p-4`}
       >
-        <button
-          className="w-full border-white border-2 text-white p-2 bg-amber-800"
+        <GameButton
+          theme="brown"
           onClick={() => setIsOpened(true)}
-        >
-          <GameText size="sm" text="ЗАПИСКИ ПАВЛИКА" />
-        </button>
+          text="ЗАПИСКИ ПАВЛИКА"
+          icon="skills/list.png"
+        />
       </div>
     </>
   );
@@ -88,12 +90,12 @@ function NotesModal({ onClose }: { onClose: () => void }) {
           )}
         </div>
       </div>
-      <button
-        className="w-full border-white border-2 text-white p-2 bg-red-700"
+      <GameButton
+        theme="red"
         onClick={onClose}
-      >
-        <GameText size="sm" text="Закрыть" />
-      </button>
+        text="Закрыть"
+        icon="skills/cross.png"
+      />
     </div>,
     root,
   );

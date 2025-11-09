@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { selectSkillPoints, selectUserId } from '../../app/selectors';
 import { setSkillPoints } from '../../state/gameSlice';
+import GameButton from '../../elements/GameButton';
 
 function Leaderboard() {
   const [leaderboard, setLeaderboard] = React.useState(null);
@@ -43,30 +44,30 @@ function Leaderboard() {
         />
       )}
       <div
-        className={`flex flex-col gap-4 pixel-border--gr justify-between items-center p-4`}
+        className={`flex flex-col gap-4 pixel-border--gr justify-center items-center p-4`}
       >
         {isLoading ? (
-          <GameText className="min-h-24" size="lg" text="Загрузка..." />
+          <GameText
+            className="min-h-24 flex items-center justify-center"
+            size="lg"
+            text="Загрузка..."
+          />
         ) : (
           <>
-            <button
-              className="w-full border-white border-2 text-white p-2 bg-blue-900"
+            <GameButton
+              theme="blue"
               onClick={handleClick}
-            >
-              <GameText size="sm" text="ОТКРЫТЬ ЛИДЕРБОРД" />
-            </button>
-            <button
-              className={`w-full border-white border-2 text-white p-2 ${skillPoints ? 'bg-pink-950' : 'bg-gray-600'}`}
-              onClick={handleUpgrade}
+              icon="skills/star.png"
+              text="ОТКРЫТЬ ЛИДЕРБОРД"
+            />
+            <GameButton
+              theme="brown"
               disabled={!skillPoints}
-            >
-              <GameText
-                size="sm"
-                text={
-                  skillPoints ? `ВЛИТЬ ${skillPoints} ОУ В РЕЙТИНГ` : 'НЕТ ОУ'
-                }
-              />
-            </button>
+              onClick={handleUpgrade}
+              text={
+                skillPoints ? `ВЛИТЬ ${skillPoints} ОУ В РЕЙТИНГ` : 'НЕТ ОУ'
+              }
+            />
           </>
         )}
       </div>
@@ -114,12 +115,12 @@ function LeaderboardModal({
             </div>
           ))}
       </div>
-      <button
-        className="w-full border-white border-2 text-white p-2 bg-red-700"
+      <GameButton
+        theme="red"
         onClick={onClose}
-      >
-        <GameText size="sm" text="Закрыть" />
-      </button>
+        text="Закрыть"
+        icon="skills/cross.png"
+      />
     </div>,
     root,
   );
