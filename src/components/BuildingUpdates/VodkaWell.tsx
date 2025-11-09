@@ -9,6 +9,7 @@ import GameText from '../../elements/GameText';
 import { selectBuildingById } from '../../state/buildingsSlice';
 import { getPrice } from '../../utils';
 import { formatLargeNumber } from '../../utils/format';
+import { getBuildingIncomeMultiplier } from '../../utils/getCurrencyPerSecond';
 
 export default function VodkaWell({
   upgradeVodkaWell,
@@ -57,7 +58,7 @@ export default function VodkaWell({
             <GameText
               size="sm"
               theme={isCount ? 'dark' : 'light'}
-              text={`${formatLargeNumber(+level * Math.pow(+dormLevel, 1 + skill(28)))}/сек -> ${formatLargeNumber((+level + 1) * Math.pow(+dormLevel, 1 + skill(28)))}/сек`}
+              text={`${formatLargeNumber(+level * Math.pow(+dormLevel, 1 + skill(28)) * getBuildingIncomeMultiplier(unlockedSkills, VODKA_WELL_ID))}/сек -> ${formatLargeNumber((+level + 1) * Math.pow(+dormLevel, 1 + skill(28)) * getBuildingIncomeMultiplier(unlockedSkills, VODKA_WELL_ID))}/сек`}
             />
           </>
         )}

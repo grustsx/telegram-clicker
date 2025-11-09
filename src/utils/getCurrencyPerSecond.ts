@@ -56,7 +56,10 @@ export const getBuildingIncome = (
   );
 };
 
-const getBuildingIncomeMultiplier = (skills: number[], buildingId: number) => {
+export const getBuildingIncomeMultiplier = (
+  skills: number[],
+  buildingId: number,
+) => {
   const skill = (id: number) => {
     return skills.includes(id) ? 1 : 0;
   };
