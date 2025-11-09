@@ -8,13 +8,24 @@ export const getCurrencyPerSecond = (
   const booster = (id: number) => {
     return boosters.includes(id) ? 1 : 0;
   };
+  const skill = (id: number) => {
+    return skills.includes(id) ? 1 : 0;
+  };
 
   const firstBuildingLvl = buildings.find((b) => b.id === 1)?.level || 0;
 
   return Math.ceil(
     buildings.reduce((prev, { level, incomePerSecond, id }) => {
       if (id === 7) {
-        return prev + getBuildingIncome(skills, level, firstBuildingLvl, id);
+        return (
+          prev +
+          getBuildingIncome(
+            skills,
+            level,
+            Math.pow(firstBuildingLvl, 1 + skill(28)),
+            id,
+          )
+        );
       }
       return prev + getBuildingIncome(skills, level, incomePerSecond, id);
     }, 0) *
@@ -66,7 +77,7 @@ const getBuildingIncomeMultiplier = (skills: number[], buildingId: number) => {
     case 6:
       return 1 + 0.25 * skill(18);
     case 7:
-      return 1 + 1 * skill(28);
+      return 1;
     default:
       return 1;
   }

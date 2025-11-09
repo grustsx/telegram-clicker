@@ -131,12 +131,13 @@ export const SKILLS_INFO: Record<
     icon: 'sun.png',
   },
   '27': {
-    description: 'Волшебный колодец, скейлится от студентов',
+    description: 'Волшебный колодец, зависит от студентов',
     position: { x: 1000, y: 500 },
     icon: 'well.png',
   },
   '28': {
-    description: 'Колодец эффективнее в 2 раза',
+    description:
+      'Зависимость колодца от студентов (или студентов от колодца?) существенно эффективнее',
     position: { x: 1200, y: 300 },
     icon: 'fish.png',
   },
