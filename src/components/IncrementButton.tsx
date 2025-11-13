@@ -87,20 +87,20 @@ const IncrementButton = () => {
           case 0:
             dispatch(
               startDialog([
-                { name: '???', description: '...' },
                 {
-                  name: '???',
-                  description: 'Ты чё толкаешься, ты чё больной?',
+                  name: 'Павел',
+                  description: 'Нам на счёт поступил наш первый торт!',
+                  face: 'Pavlik-0',
                 },
-              ]),
-            );
-            break;
-          case 10:
-            dispatch(
-              startDialog([
                 {
-                  name: '???',
-                  description: 'Ты не видишь, что по мне дамаг наносится?',
+                  name: 'Дэнис',
+                  description: 'Так что же, теория верна?',
+                  face: 'Den-normal',
+                },
+                {
+                  name: 'Павел',
+                  description: 'Надо будет построить лабораторию, чтобы понять',
+                  face: 'Pavlik-0',
                 },
               ]),
             );
@@ -109,8 +109,35 @@ const IncrementButton = () => {
             dispatch(
               startDialog([
                 {
-                  name: '???',
-                  description: 'Нанеси мне сто урона и ты увидишь что будет',
+                  name: 'Санёк',
+                  description: 'Неплохо идёт, но надо бы побольше, побольше!',
+                  face: 'Sanek-0',
+                },
+                {
+                  name: 'Никита',
+                  description: 'Общага стоит 100',
+                  face: 'Nikita-normal',
+                },
+                {
+                  name: 'Егор',
+                  description: 'Помощь нужна?',
+                  face: 'Egor-0',
+                },
+                {
+                  name: 'Санёк',
+                  description: 'Куда бы его спровадить...',
+                  face: 'Sanek-0',
+                },
+                {
+                  name: 'Никита',
+                  description:
+                    'Егор, иди пока в море покупайся, мало ли там кто в беде!',
+                  face: 'Nikita-normal',
+                },
+                {
+                  name: 'Егор',
+                  description: 'Понял!',
+                  face: 'Egor-0',
                 },
               ]),
             );
@@ -119,9 +146,32 @@ const IncrementButton = () => {
             dispatch(
               startDialog([
                 {
-                  name: '???',
+                  name: 'Богдан',
+                  face: 'Bogdan-normal',
+                  description: 'Давайте скорее уже построим общагу!',
+                },
+                {
+                  name: 'Андрей',
+                  description: 'И колодец водки выкопаем!',
+                  face: 'Andrey-0',
+                },
+                {
+                  name: 'Надя',
                   description:
-                    'Снизу загорелся восклицательный знак, считай ты уже пригабенился',
+                    'Я отлично умею копать! У меня даже трактор есть! В Беларуси правда...',
+                  face: 'Nadya-0',
+                },
+                {
+                  name: 'Егор',
+                  description:
+                    'Андрей, го помогать морским обитателям! Я нашёл отличную бухту!',
+                  face: 'Egor-0',
+                },
+                {
+                  name: 'Андрей',
+                  description:
+                    'Сначала купим общагу, меня бесит восклицательный знак снизу!',
+                  face: 'Andrey-0',
                 },
               ]),
             );

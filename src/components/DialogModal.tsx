@@ -17,14 +17,15 @@ export default function DialogModal() {
   if (!dialogRoot) return null;
 
   return createPortal(
-    <div className="fixed z-5000 inset-0 flex items-center justify-center bg-black/50">
-      <div className="p-6 m-6 border-2 bg-blue-950/60 shadow-lg w-full flex flex-col gap-6">
+    <div className="fixed z-5000 inset-0 flex items-center justify-center bg-black/80">
+      <div className="p-2 m-2 border-2 bg-blue-950/60 shadow-lg w-full flex flex-col gap-2">
         <GameMessage {...currentMessage} />
 
         <GameButton
           theme="blue"
+          size="small"
           onClick={() => dispatch(nextLine())}
-          text={currentIndex < messages.length - 1 ? '->' : 'Закончить'}
+          text={currentIndex < messages.length - 1 ? 'Далее' : 'Закончить'}
         />
       </div>
     </div>,

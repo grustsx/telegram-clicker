@@ -77,19 +77,19 @@ const BuildingInfo = ({
             startDialog([
               {
                 name: 'Богдан',
-                description: 'Ну вот тут и будет у нас общага стоять',
+                face: 'Bogdan-smile',
+                description: 'Ура!!!',
               },
               {
-                name: 'Антон',
-                description: 'Теперь мы будем фоново получать 1/сек',
+                name: 'Павел',
+                face: 'Pavlik-0',
+                description: 'Теперь у нас 1ОУ',
               },
               {
-                name: 'Богдан',
-                description: 'Понять бы ещё только чего именно',
-              },
-              {
-                name: 'Антон',
-                description: 'Куда важнее понять, сколько оно стоит',
+                name: 'Андрей',
+                face: 'Andrey-0',
+                description:
+                  'Восклицательный знак всё ещё внизу, как это раздражает!',
               },
             ]),
           );

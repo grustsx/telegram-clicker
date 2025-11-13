@@ -29,7 +29,7 @@ export default function GameMessage({
           theme={theme === 'dark' ? 'brown' : 'light'}
           borderStyle={innerBorder[theme]}
         />
-        <div className="flex grow items-center self-center">
+        <div className="flex p-2 grow items-center self-center">
           <GameText
             theme={theme === 'dark' ? 'light' : 'brown'}
             size="sm"

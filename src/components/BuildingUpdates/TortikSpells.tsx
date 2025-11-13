@@ -64,7 +64,7 @@ export default function TortikSpells({
           {
             name: 'Никита',
             description: 'Ну респектос ничё не могу сказать',
-            face: 'Nikita_notbad',
+            face: 'Nikita-notbad',
           },
         ]);
       } else {
@@ -72,7 +72,7 @@ export default function TortikSpells({
           {
             name: 'Никита',
             description: 'АХАХАХА ЛОШАРА!!!!',
-            face: 'Nikita_smile',
+            face: 'Nikita-smile',
           },
         ]);
       }
@@ -89,7 +89,7 @@ export default function TortikSpells({
         {
           name: 'Никита',
           description: 'Что-то где-то появилось, это точно',
-          face: 'nikita_smile',
+          face: 'Nikita-smile',
         },
       ]);
     }
