@@ -83,7 +83,7 @@ const BuildingInfo = ({
               {
                 name: 'Павел',
                 face: 'Pavlik-0',
-                description: 'Теперь у нас 1ОУ',
+                description: 'Теперь у нас 1 ОУ',
               },
               {
                 name: 'Андрей',
