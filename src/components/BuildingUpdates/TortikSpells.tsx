@@ -218,7 +218,7 @@ function CooldownSquare({
           }}
           src={`/assets/icons/${icon}`}
         />
-        {isOpen && text.length && (
+        {isOpen && !!text.length && (
           <GameText
             className="z-10 bg-gray-900/70 p-2 absolute bottom-16 left-0"
             size="sm"
