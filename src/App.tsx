@@ -13,6 +13,7 @@ import useRefreshData from './hooks/useRefreshData';
 import useUpdateTimers from './hooks/useUpdateTimers';
 import PreloadImages from './components/PreloadImages';
 import useSpawnBoosters from './hooks/useSpawnBoosters';
+import ConnectionLoader from './components/ConnectionLoader';
 
 const mockedTg: {
   WebApp: {
@@ -64,6 +65,7 @@ function App() {
       <ErrorHandler>
         <Loader>
           <>
+            <ConnectionLoader />
             <DialogModal />
             <PageController />
           </>

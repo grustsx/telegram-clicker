@@ -22,6 +22,10 @@ export const selectCurrency = (state: RootState) => state.game.currency;
 export const selectUserId = (state: RootState) => state.game.user.id;
 
 export const selectLoading = (state: RootState) => state.game.loading;
+
+export const selectConnectionLoading = (state: RootState) =>
+  state.game.connectionLoading;
+
 export const selectAssetsLoading = (state: RootState) =>
   state.game.assetsLoading;
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { BACKEND_URL } from './env';
-import { setErrorMessage } from './state/gameSlice';
+import { setConnectionLoading, setErrorMessage } from './state/gameSlice';
 import { store } from './app/store';
 
 const api = axios.create({
@@ -10,11 +10,54 @@ const api = axios.create({
   },
 });
 
+const MAX_RETRIES = 3;
+
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
+  async (error) => {
     const message =
       error.response?.data?.message || error.message || 'Unknown error';
+
+    const isNetworkError = !error.response && error.message === 'Network Error';
+
+    const originalRequest = error.config;
+
+    if (isNetworkError) {
+      // Инициализируем счётчик повторов
+      originalRequest._retryCount = (originalRequest._retryCount || 0) + 1;
+
+      if (originalRequest._retryCount <= MAX_RETRIES) {
+        // Показываем лоадер только во время повторных попыток
+        if (originalRequest._retryCount === 1) {
+          store.dispatch(setConnectionLoading(true));
+        }
+
+        console.warn(
+          `Network error, retrying ${originalRequest._retryCount}...`,
+        );
+        await new Promise((res) =>
+          setTimeout(res, 2000 * originalRequest._retryCount),
+        ); // задержка перед повтором
+
+        try {
+          const retryResponse = await api(originalRequest);
+
+          // Если удалось — убираем лоадер
+          store.dispatch(setConnectionLoading(false));
+          return retryResponse;
+        } catch (retryError) {
+          if (originalRequest._retryCount >= MAX_RETRIES) {
+            store.dispatch(setConnectionLoading(false));
+            store.dispatch(
+              setErrorMessage('Не удалось восстановить соединение'),
+            );
+          }
+          return Promise.reject(retryError);
+        }
+      }
+    }
+
+    store.dispatch(setConnectionLoading(false));
     store.dispatch(setErrorMessage(message));
     return Promise.reject(error); // пробрасываем ошибку дальше
   },

@@ -9,6 +9,7 @@ export interface GameState {
   skillPoints: number;
   user: TgUserType;
   loading: boolean;
+  connectionLoading: boolean;
   assetsLoading: boolean;
   errorMessage: string;
   visibleBoosters: number[];
@@ -16,6 +17,7 @@ export interface GameState {
 
 const initialState: GameState = {
   loading: true,
+  connectionLoading: false,
   currency: 0,
   skillPoints: 0,
   user: {},
@@ -40,6 +42,9 @@ const gameSlice = createSlice({
     },
     setErrorMessage(state, action: PayloadAction<string>) {
       state.errorMessage = action.payload;
+    },
+    setConnectionLoading(state, action: PayloadAction<boolean>) {
+      state.connectionLoading = action.payload;
     },
     spawnBooster(state, action: PayloadAction<number>) {
       if (action.payload === 0) return;
@@ -122,5 +127,6 @@ export const {
   removeBooster,
   setErrorMessage,
   setSkillPoints,
+  setConnectionLoading,
 } = gameSlice.actions;
 export default gameSlice.reducer;
