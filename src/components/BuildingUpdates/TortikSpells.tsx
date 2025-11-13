@@ -19,7 +19,7 @@ const BOOSTER_SPELL_ID = 4;
 
 const SPELLS_INFO: Record<number, string> = {
   [DEP_ID]: 'Депнуть весь капитал в казик, шанс победы',
-  [BOOSTER_SPELL_ID]: 'Состредоточить амбар в спавн бустера',
+  [BOOSTER_SPELL_ID]: 'Состредоточить 2 комнаты амбара в спавн бустера',
 };
 
 function getDepWin(skills: number[]): boolean {
