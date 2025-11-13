@@ -78,7 +78,7 @@ export const SKILLS_INFO: Record<
     icon: 'gradus.png',
   },
   '14': {
-    description: 'ТОРТиКи на 25% эффективнее',
+    description: 'База ТОРТиКа на 25% эффективнее',
     position: { x: 400, y: 1000 },
     icon: 'belarus.png',
   },
