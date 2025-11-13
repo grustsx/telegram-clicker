@@ -10,9 +10,10 @@ const ConnectionLoader = () => {
   return (
     loading &&
     createPortal(
-      <div className="fixed z-5000 inset-0 w-full h-full flex flex-col items-center justify-center bg-tortik-white/90 overflow-hidden">
+      <div className="fixed z-5000 inset-0 w-full p-2 h-full flex flex-col items-center justify-center bg-tortik-white/90 overflow-hidden">
         <GameText
           className="animate-pulse"
+          size="sm"
           theme="dark"
           text={'Восстановление соединения...'}
         />
