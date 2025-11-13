@@ -12,11 +12,13 @@ import {
 import { sendClicks } from '../api';
 import CakeScene from './CakeScene';
 import { updateCurrencyByClick } from '../state/thunk';
-import GameText from '../elements/GameText';
 import { getCPCTemporaryMultipler } from '../utils/getCurrencyPerClick';
 import { startDialog } from '../state/dialogSlice';
 import { getCurrencyByBooster } from '../utils/getCurrencyPerSecond';
 import { formatLargeNumber } from '../utils/format';
+import type { BoosterType } from '../types/types';
+import { CLICK_BOOSTER_ID, CPS_BOOSTER_ID } from '../constants/const';
+import GameText from '../elements/GameText';
 
 type FloatingNumber = {
   color: string;
@@ -222,12 +224,13 @@ const IncrementButton = () => {
   return (
     <>
       <CakeScene onClick={handleClick} showBoosterBonus={showBoosterBonus} />
-      <div className={`flex gap-12 absolute z-50 left-0 top-24`}>
+      <div className={`flex flex-col gap-4 absolute z-50 left-4 top-24`}>
         {activeBoosters.map((booster) => (
-          <div key={booster.id}>
-            <GameText text={`${booster.name}`} size="xs" />
-            <GameText text={`${booster.remainSeconds}`} size="xs" />
-          </div>
+          <BoosterInfo
+            key={booster.id}
+            booster={booster}
+            icon={getBoosterIcon(booster.id)}
+          />
         ))}
       </div>
       {numbers.map((n) => (
@@ -246,4 +249,80 @@ const IncrementButton = () => {
   );
 };
 
+function getBoosterIcon(id: number): string {
+  switch (id) {
+    case CLICK_BOOSTER_ID:
+      return 'skills/cursor.png';
+    case CPS_BOOSTER_ID:
+      return 'Home.png';
+    default:
+      return '';
+  }
+}
+
 export default React.memo(IncrementButton);
+
+function BoosterInfo({
+  booster,
+  icon,
+}: {
+  booster: BoosterType;
+  icon?: string;
+}) {
+  const [isOpen, setIsOpen] = React.useState(false);
+  return (
+    <div
+      onPointerDown={() => setIsOpen(true)}
+      onPointerUp={() => setIsOpen(false)}
+      onPointerLeave={() => setIsOpen(false)}
+      className="flex flex-row gap-4"
+    >
+      <CooldownSquare
+        remain={booster.remainSeconds}
+        cooldown={booster.ttlSeconds}
+        icon={icon}
+      />
+
+      {isOpen && (
+        <div className="flex flex-col">
+          <GameText text={`${booster.name}`} size="xs" />
+          <GameText text={`${booster.remainSeconds} сек`} size="xs" />
+        </div>
+      )}
+    </div>
+  );
+}
+
+function CooldownSquare({
+  remain,
+  cooldown,
+  icon,
+}: {
+  remain: number;
+  cooldown: number;
+  icon?: string;
+}) {
+  const progress = Math.min(1, Math.max(0, 1 - remain / cooldown));
+
+  return (
+    <div className="relative inline-grid bg-tortik-orange/90 border-tortik-yellow/90 border-2 place-items-center text-white font-bold text-lg w-12 h-12">
+      {/* Затемняющий слой */}
+      <div
+        className="absolute inset-0 bg-black/50"
+        style={{
+          width: `${progress * 100}%`,
+          left: `${(1 - progress) * 100}%`,
+        }}
+      />
+      {icon && (
+        <img
+          className="w-10 h-10"
+          style={{
+            imageRendering: 'pixelated',
+          }}
+          src={`/assets/icons/${icon}`}
+        />
+      )}
+    </div>
+  );
+}
