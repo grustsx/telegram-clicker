@@ -43,6 +43,10 @@ const imagePaths = [
   '/assets/faces/Pavlik-0.png',
   '/assets/faces/Pavlik-1.png',
   '/assets/faces/Pavlik-2.png',
+  '/assets/faces/Sanek-0.png',
+  '/assets/faces/Sanek-1.png',
+  '/assets/faces/Sanek-2.png',
+  '/assets/faces/Sanek-3.png',
 
   '/assets/borders/default-border.png',
   '/assets/borders/gray-border.png',
