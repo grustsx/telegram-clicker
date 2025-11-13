@@ -59,7 +59,7 @@ export default function VodkaWell({
             <GameText
               size="sm"
               theme={isCount ? 'dark' : 'light'}
-              text={`${formatLargeNumber(getBuildingIncome(unlockedSkills, +level, Math.pow(+dormLevel, 1 + 0.5 * skill(28)), VODKA_WELL_ID))}/сек -> ${formatLargeNumber(getBuildingIncome(unlockedSkills, +level + 1, Math.pow(+dormLevel, 1 + 0.5 * skill(28)), VODKA_WELL_ID))}/сек`}
+              text={`${formatLargeNumber(getBuildingIncome(unlockedSkills, +level, Math.pow(+dormLevel, 1 + 0.6 * skill(28)), VODKA_WELL_ID))}/сек -> ${formatLargeNumber(getBuildingIncome(unlockedSkills, +level + 1, Math.pow(+dormLevel, 1 + 0.6 * skill(28)), VODKA_WELL_ID))}/сек`}
             />
           </>
         )}

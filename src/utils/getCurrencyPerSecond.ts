@@ -22,7 +22,7 @@ export const getCurrencyPerSecond = (
           getBuildingIncome(
             skills,
             level,
-            Math.pow(firstBuildingLvl, 1 + 0.5 * skill(28)),
+            Math.pow(firstBuildingLvl, 1 + 0.6 * skill(28)),
             id,
           )
         );
