@@ -79,6 +79,7 @@ export default function GameButton({
           className={getIconStyle(size)}
           style={{
             imageRendering: 'pixelated',
+            pointerEvents: 'none',
           }}
           src={`/assets/icons/${icon}`}
         />
@@ -88,7 +89,7 @@ export default function GameButton({
 
       {text && icon && (
         <img
-          className="w-4 h-4"
+          className="w-4 h-4 pointer-events-none"
           style={{
             imageRendering: 'pixelated',
           }}

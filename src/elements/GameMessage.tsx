@@ -39,7 +39,7 @@ export default function GameMessage({
       </div>
 
       <img
-        className="pixel-border--gr box-border"
+        className="pixel-border--gr box-border pointer-events-none"
         style={{
           backgroundColor: 'black',
           width: 'calc(25vw)',

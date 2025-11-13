@@ -165,7 +165,7 @@ function TortikSpell({
         className={`w-20 h-20 ${
           remain > 0 || cost * cps * STORAGE_SEGMENT > storageCurrency
             ? 'bg-tortik-orange'
-            : 'bg-emerald-400 border-2'
+            : 'bg-emerald-400 border-2 animate-pulse'
         }`}
       >
         <CooldownSquare
@@ -212,7 +212,7 @@ function CooldownSquare({
       />
       <div>
         <img
-          className="w-16 h-16"
+          className="w-16 h-16 pointer-events-none"
           style={{
             imageRendering: 'pixelated',
           }}

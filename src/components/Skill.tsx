@@ -49,7 +49,7 @@ function Skill({
         <div className="text-6xl">?</div>
       ) : (
         <img
-          className="w-16 h-16"
+          className="w-16 h-16 pointer-events-none"
           style={{
             imageRendering: 'pixelated',
           }}

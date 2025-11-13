@@ -52,7 +52,7 @@ function BuildingsPage() {
           }}
         >
           <img
-            className="relative w-full object-contain"
+            className="relative w-full object-contain pointer-events-none"
             src="/assets/buildings/top.png"
             style={{
               imageRendering: 'pixelated',
@@ -79,7 +79,7 @@ function BuildingsPage() {
                   }}
                 >
                   <img
-                    className="w-full h-full object-contain"
+                    className="w-full h-full object-contain pointer-events-none"
                     src={`/assets/buildings/${building.id}/lvl${assetLevels[building.id]}.png`}
                     style={{
                       pointerEvents: building.id === 7 ? 'none' : 'auto',
@@ -105,7 +105,7 @@ function BuildingsPage() {
               ))}
           </div>
           <img
-            className="relative w-full object-contain"
+            className="relative w-full object-contain pointer-events-none"
             src="/assets/buildings/bottom.png"
             style={{
               imageRendering: 'pixelated',

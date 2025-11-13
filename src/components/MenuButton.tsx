@@ -24,7 +24,7 @@ const MenuButton = ({
         />
       )}
       <img
-        className="w-8 h-8"
+        className="w-8 h-8 pointer-events-none"
         src={icon}
         style={{
           imageRendering: 'pixelated',

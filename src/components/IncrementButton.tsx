@@ -319,7 +319,7 @@ function CooldownSquare({
       />
       {icon && (
         <img
-          className="w-10 h-10"
+          className="w-10 h-10 pointer-events-none"
           style={{
             imageRendering: 'pixelated',
           }}
