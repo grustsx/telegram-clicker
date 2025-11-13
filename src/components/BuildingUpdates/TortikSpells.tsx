@@ -1,3 +1,4 @@
+import React from 'react';
 import { sendCastSpell } from '../../api';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
@@ -18,7 +19,7 @@ const BOOSTER_SPELL_ID = 4;
 
 const SPELLS_INFO: Record<number, string> = {
   [DEP_ID]: 'Депнуть весь капитал в казик, шанс победы',
-  [BOOSTER_SPELL_ID]: 'Состредоточить комнату амбара в спавн бустера',
+  [BOOSTER_SPELL_ID]: 'Состредоточить амбар в спавн бустера',
 };
 
 function getDepWin(skills: number[]): boolean {
@@ -109,6 +110,7 @@ export default function TortikSpells({
           remain={depRemainSeconds}
           cooldown={depCooldownSeconds}
           cost={depCost}
+          icon="skills/cherry.png"
         />
         {unlockedSkills.includes(33) && (
           <TortikSpell
@@ -118,6 +120,7 @@ export default function TortikSpells({
             remain={boosterSpellSeconds}
             cooldown={boosterCooldownSeconds}
             cost={boosterCost}
+            icon="skills/ritual.png"
           />
         )}
       </div>
@@ -132,6 +135,7 @@ function TortikSpell({
   remain,
   cooldown,
   cost,
+  icon,
 }: {
   castSpell: () => void;
   title: string;
@@ -139,31 +143,37 @@ function TortikSpell({
   remain: number;
   cooldown: number;
   cost: number;
+  icon: string;
 }) {
   const cps = useAppSelector(selectCurrencyPerSecond);
   const storageCurrency = useAppSelector(selectStorageCurrency);
 
-  return (
-    <div className="w-full border-white border-2 text-white p-2 flex gap-2">
-      <div className="flex flex-col gap-2">
-        <GameText size="xs" text={title} />
+  const message =
+    cost * cps * STORAGE_SEGMENT > storageCurrency
+      ? `Нужно ${cost} комнаты амбара`
+      : null;
 
+  return (
+    <div className="w-full border-white border-2 text-white p-2 flex flex-row justify-between items-center gap-2">
+      <div className="flex flex-col gap-2">
+        <GameText text={title} />
         <GameText size="sm" text={description} />
       </div>
       <button
         onClick={castSpell}
         disabled={remain > 0 || cost * cps * STORAGE_SEGMENT > storageCurrency}
-        className={
+        className={`w-20 h-20 ${
           remain > 0 || cost * cps * STORAGE_SEGMENT > storageCurrency
             ? 'bg-tortik-orange'
-            : 'bg-emerald-400'
-        }
+            : 'bg-emerald-400 border-2'
+        }`}
       >
-        {cost * cps * STORAGE_SEGMENT > storageCurrency ? (
-          <GameText size="sm" text={`Нужно комнат амбара: ${cost}`} />
-        ) : (
-          <CooldownSquare remain={remain} cooldown={cooldown} />
-        )}
+        <CooldownSquare
+          remain={remain}
+          cooldown={cooldown}
+          icon={icon}
+          message={message}
+        />
       </button>
     </div>
   );
@@ -172,14 +182,26 @@ function TortikSpell({
 function CooldownSquare({
   remain,
   cooldown,
+  message,
+  icon,
 }: {
   remain: number;
   cooldown: number;
+  message: string | null;
+  icon: string;
 }) {
+  const [isOpen, setIsOpen] = React.useState(false);
   const progress = Math.min(1, Math.max(0, remain / cooldown));
 
+  const text = remain > 0 ? formatDuration(remain) : message || '';
+
   return (
-    <div className="relative inline-grid place-items-center  text-white font-bold text-lg w-20 h-full">
+    <div
+      onPointerDown={() => setIsOpen(true)}
+      onPointerLeave={() => setIsOpen(false)}
+      onPointerUp={() => setIsOpen(false)}
+      className="relative inline-grid place-items-center text-white font-bold text-lg w-20 h-20"
+    >
       {/* Затемняющий слой */}
       <div
         className="absolute inset-0 bg-black/50"
@@ -188,11 +210,22 @@ function CooldownSquare({
           left: `${(1 - progress) * 100}%`,
         }}
       />
-      <GameText
-        size="sm"
-        className="z-10"
-        text={remain > 0 ? formatDuration(remain) : 'Каст'}
-      />
+      <div>
+        <img
+          className="w-16 h-16"
+          style={{
+            imageRendering: 'pixelated',
+          }}
+          src={`/assets/icons/${icon}`}
+        />
+        {isOpen && text.length && (
+          <GameText
+            className="z-10 bg-gray-900/70 p-2 absolute bottom-16 left-0"
+            size="sm"
+            text={text}
+          />
+        )}
+      </div>
     </div>
   );
 }
