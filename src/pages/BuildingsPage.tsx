@@ -82,7 +82,6 @@ function BuildingsPage() {
                     className="w-full h-full object-contain pointer-events-none"
                     src={`/assets/buildings/${building.id}/lvl${assetLevels[building.id]}.png`}
                     style={{
-                      pointerEvents: building.id === 7 ? 'none' : 'auto',
                       imageRendering: 'pixelated',
                     }}
                   />
