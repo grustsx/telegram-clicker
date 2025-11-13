@@ -20,7 +20,7 @@ export const SKILLS_INFO: Record<
     icon: 'cursor-border.png',
   },
   '3': {
-    description: 'Всё из-под пинка. Эффективность башен растёт на 10%.',
+    description: 'Всё из-под пинка. Эффективность построек растёт на 10%.',
     position: { x: 100, y: 200 },
     icon: 'boot.png',
   },
@@ -35,7 +35,7 @@ export const SKILLS_INFO: Record<
     icon: 'wrench.png',
   },
   '6': {
-    description: 'Контроль увеличивает эффективность башен на 20%.',
+    description: 'Контроль увеличивает эффективность построек на 20%.',
     position: { x: 200, y: 400 },
     icon: 'time.png',
   },
@@ -50,7 +50,7 @@ export const SKILLS_INFO: Record<
     icon: 'hand.png',
   },
   '9': {
-    description: 'Рабинович недоволен, башни дешевле на 10%.',
+    description: 'Рабинович недоволен, постройки дешевле на 10%.',
     position: { x: 300, y: 600 },
     icon: 'dollar.png',
   },
@@ -62,13 +62,13 @@ export const SKILLS_INFO: Record<
   },
   '11': {
     description:
-      'Проджект менеджеры выгоняют народ с курилок, повышая эффективность башен на 20%',
+      'Проджект менеджеры выгоняют народ с курилок, повышая эффективность построек на 20%',
     position: { x: 100, y: 800 },
     icon: 'manager.png',
   },
   '12': {
     description:
-      'По указу президента все башни теперь кликают по команде. Клик увеличивается на количество построек.',
+      'По указу президента все постройки теперь кликают по команде. Клик увеличивается на количество построек.',
     position: { x: 0, y: 1200 },
     icon: 'list.png',
   },
@@ -268,7 +268,7 @@ export const SKILLS_INFO: Record<
     icon: 'occultist.png',
   },
   '53': {
-    description: 'Башни дешевле на 25%',
+    description: 'Постройки дешевле на 25%',
     position: { x: 400, y: 2000 },
     icon: 'double-up.png',
   },
