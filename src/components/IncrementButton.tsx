@@ -15,7 +15,7 @@ import { updateCurrencyByClick } from '../state/thunk';
 import { getCPCTemporaryMultipler } from '../utils/getCurrencyPerClick';
 import { startDialog } from '../state/dialogSlice';
 import { getCurrencyByBooster } from '../utils/getCurrencyPerSecond';
-import { formatLargeNumber } from '../utils/format';
+import { formatDuration, formatLargeNumber } from '../utils/format';
 import type { BoosterType } from '../types/types';
 import { CLICK_BOOSTER_ID, CPS_BOOSTER_ID } from '../constants/const';
 import GameText from '../elements/GameText';
@@ -286,7 +286,10 @@ function BoosterInfo({
       {isOpen && (
         <div className="flex flex-col">
           <GameText text={`${booster.name}`} size="xs" />
-          <GameText text={`${booster.remainSeconds} сек`} size="xs" />
+          <GameText
+            text={`${formatDuration(booster.remainSeconds)}`}
+            size="xs"
+          />
         </div>
       )}
     </div>
