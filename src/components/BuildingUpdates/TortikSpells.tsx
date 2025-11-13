@@ -146,9 +146,9 @@ function TortikSpell({
   return (
     <div className="w-full border-white border-2 text-white p-2 flex gap-2">
       <div className="flex flex-col gap-2">
-        <GameText size="lg" text={title} />
+        <GameText size="xs" text={title} />
 
-        <GameText size="xs" text={description} />
+        <GameText size="sm" text={description} />
       </div>
       <button
         onClick={castSpell}
