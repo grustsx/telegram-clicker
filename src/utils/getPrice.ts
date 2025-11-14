@@ -33,7 +33,7 @@ const getPriceMultiplier = (skills: number[], buildingId: number) => {
     case 5:
       return 1;
     case 6:
-      return 1 - 0.2 * skill(47);
+      return 1 - 0.2 * skill(48);
     case 7:
       return 1 - 0.9 * skill(50);
     default:
