@@ -120,7 +120,7 @@ export const SKILLS_INFO: Record<
     icon: 'key-skeleton.png',
   },
   '25': {
-    description: 'Улучшение общаги в 20 раз дешевле',
+    description: 'Улучшение общаги в 10 раз дешевле',
     position: { x: 600, y: 700 },
     icon: 'sale.png',
   },
@@ -190,7 +190,7 @@ export const SKILLS_INFO: Record<
     icon: 'medicine.png',
   },
   '38': {
-    description: 'Всё дешевле на порядок',
+    description: 'Всё дешевле в 5 раз',
     position: { x: 1000, y: 1200 },
     icon: 'arrow-down.png',
   },
@@ -242,7 +242,7 @@ export const SKILLS_INFO: Record<
     icon: 'rabbit.png',
   },
   '48': {
-    description: 'Улучшать лабу стало в 20 раз дешевле',
+    description: 'Улучшать лабу стало в 10 раз дешевле',
     position: { x: 800, y: 1800 },
     icon: 'note.png',
   },
@@ -269,7 +269,7 @@ export const SKILLS_INFO: Record<
     icon: 'occultist.png',
   },
   '53': {
-    description: 'Постройки дешевле на порядок',
+    description: 'Постройки дешевле в 5 раз',
     position: { x: 400, y: 2000 },
     icon: 'double-up.png',
   },
