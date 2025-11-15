@@ -25,7 +25,7 @@ const STONES_INFO: Record<
     title: 'Прилив',
     description: 'Прибавляет 15% к торт/сек',
     upgradedDescription: 'Прибавляет 30% к торт/сек',
-    icon: 'star',
+    icon: 'moon',
   },
   23: {
     title: 'Сила',

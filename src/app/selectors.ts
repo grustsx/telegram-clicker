@@ -55,6 +55,17 @@ export const selectSunState = createSelector(
   },
 );
 
+export const selectMoonState = createSelector(
+  selectUnlockedSkillsIds,
+  (skills) => {
+    return skills.includes(22)
+      ? skills.includes(STONES_UPGRADE_SKILL_ID)
+        ? 'deadly'
+        : 'close'
+      : 'normal';
+  },
+);
+
 export const selectStorage = createSelector(
   selectUnlockedSkillsIds,
   (unlockedSkillsIds) => {
