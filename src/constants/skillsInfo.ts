@@ -50,7 +50,7 @@ export const SKILLS_INFO: Record<
     icon: 'hand.png',
   },
   '9': {
-    description: 'Рабинович недоволен, постройки дешевле на 10%.',
+    description: 'Рабинович недоволен, постройки дешевле на 25%.',
     position: { x: 300, y: 600 },
     icon: 'dollar.png',
   },
@@ -120,7 +120,7 @@ export const SKILLS_INFO: Record<
     icon: 'key-skeleton.png',
   },
   '25': {
-    description: 'Улучшение общаги в 5 раз дешевле',
+    description: 'Улучшение общаги в 20 раз дешевле',
     position: { x: 600, y: 700 },
     icon: 'sale.png',
   },
@@ -169,7 +169,7 @@ export const SKILLS_INFO: Record<
     icon: 'ritual.png',
   },
   '34': {
-    description: 'Славянам аренда дешевле на 15%',
+    description: 'Славянам аренда дешевле в 10 раз',
     position: { x: 800, y: 1100 },
     icon: 'passport.png',
   },
@@ -190,7 +190,7 @@ export const SKILLS_INFO: Record<
     icon: 'medicine.png',
   },
   '38': {
-    description: 'Всё дешевле на 50%',
+    description: 'Всё дешевле на порядок',
     position: { x: 1000, y: 1200 },
     icon: 'arrow-down.png',
   },
@@ -242,7 +242,7 @@ export const SKILLS_INFO: Record<
     icon: 'rabbit.png',
   },
   '48': {
-    description: 'Улучшать лабу стало на 20% дешевле',
+    description: 'Улучшать лабу стало в 20 раз дешевле',
     position: { x: 800, y: 1800 },
     icon: 'note.png',
   },
@@ -258,7 +258,8 @@ export const SKILLS_INFO: Record<
     icon: 'blind.png',
   },
   '51': {
-    description: 'Егору и Андрею больше не нужно есть, апгрейды дешевле на 15%',
+    description:
+      'Егору и Андрею больше не нужно есть, апгрейды на порядок дешевле',
     position: { x: 800, y: 1400 },
     icon: 'hunger.png',
   },
@@ -268,7 +269,7 @@ export const SKILLS_INFO: Record<
     icon: 'occultist.png',
   },
   '53': {
-    description: 'Постройки дешевле на 25%',
+    description: 'Постройки дешевле на порядок',
     position: { x: 400, y: 2000 },
     icon: 'double-up.png',
   },
