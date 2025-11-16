@@ -1,32 +1,36 @@
 import React from 'react';
-import { sendCastSpell } from '../../api';
+import { sendActivateBooster, sendCastSpell } from '../../api';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
+  selectActiveBoosterIds,
   selectCurrencyPerSecond,
   selectStorageCurrency,
   selectUnlockedSkillsIds,
   selectUserId,
 } from '../../app/selectors';
-import { STORAGE_SEGMENT } from '../../constants/const';
+import { CHEATING_BOOSTER_ID, STORAGE_SEGMENT } from '../../constants/const';
 import GameText from '../../elements/GameText';
 import { selectSpellById } from '../../state/spellsSlice';
-import { castSpell } from '../../state/thunk';
+import { activateBooster, castSpell } from '../../state/thunk';
 import type { GameMessageType } from '../../types/types';
 import { formatDuration } from '../../utils/format';
 
 const DEP_ID = 3;
 const BOOSTER_SPELL_ID = 4;
+const CHEATING_SPELL_ID = 5;
 
 const SPELLS_INFO: Record<number, string> = {
-  [DEP_ID]: 'Депнуть весь капитал в казик, шанс победы',
+  [DEP_ID]: 'Депнуть весь капитал в казик, шанс победы чуть меньше 50%',
+  [CHEATING_SPELL_ID]:
+    'Потратить 1 комнату амбара, чтобы отвлечь крупье на 2 минуты и понизить шанс проигрыша в 2 раза',
   [BOOSTER_SPELL_ID]: 'Состредоточить 2 комнаты амбара в спавн бустера',
 };
 
-function getDepWin(skills: number[]): boolean {
-  const skill = (id: number) => {
-    return skills.includes(id) ? 1 : 0;
+function getDepWin(boosters: number[]): boolean {
+  const booster = (id: number) => {
+    return boosters.includes(id) ? 1 : 0;
   };
-  return Math.random() > 0.45 + 0.05 * skill(32);
+  return Math.random() > 0.48 + 0.26 * booster(4);
 }
 
 export default function TortikSpells({
@@ -34,6 +38,8 @@ export default function TortikSpells({
 }: {
   showEventMessages: (messages: GameMessageType[], time?: number) => void;
 }) {
+  const activeBoosterIds = useAppSelector(selectActiveBoosterIds);
+
   const {
     remainSeconds: depRemainSeconds,
     cooldownSeconds: depCooldownSeconds,
@@ -45,6 +51,13 @@ export default function TortikSpells({
     cooldownSeconds: boosterCooldownSeconds,
     cost: boosterCost,
   } = useAppSelector((state) => selectSpellById(state, BOOSTER_SPELL_ID));
+
+  const {
+    remainSeconds: cheatingSpellSeconds,
+    cooldownSeconds: cheatingCooldownSeconds,
+    cost: cheatingCost,
+  } = useAppSelector((state) => selectSpellById(state, CHEATING_SPELL_ID));
+
   const userId = useAppSelector(selectUserId);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
   const cps = useAppSelector(selectCurrencyPerSecond);
@@ -55,7 +68,7 @@ export default function TortikSpells({
     if (DEP_ID === id) {
       if (depRemainSeconds > 0) return;
 
-      const win = getDepWin(unlockedSkills);
+      const win = getDepWin(activeBoosterIds);
 
       dispatch(castSpell({ spellId: id, spellPayload: { win } }));
       sendCastSpell(id, userId, { win });
@@ -64,7 +77,7 @@ export default function TortikSpells({
         showEventMessages([
           {
             name: 'Никита',
-            description: 'Ну респектос ничё не могу сказать',
+            description: 'Ну респектос, ничё не могу сказать',
             face: 'Nikita-notbad',
           },
         ]);
@@ -77,6 +90,21 @@ export default function TortikSpells({
           },
         ]);
       }
+    }
+
+    if (CHEATING_SPELL_ID === id) {
+      dispatch(castSpell({ spellId: id }));
+      sendCastSpell(id, userId);
+      dispatch(activateBooster({ boosterId: CHEATING_BOOSTER_ID }));
+      sendActivateBooster(CHEATING_BOOSTER_ID, userId);
+
+      showEventMessages([
+        {
+          name: 'Никита',
+          description: 'Уважаемая, скажите стоп в любом месте!',
+          face: 'Nikita-smile',
+        },
+      ]);
     }
 
     if (BOOSTER_SPELL_ID === id) {
@@ -104,14 +132,23 @@ export default function TortikSpells({
         <TortikSpell
           castSpell={() => castSpellById(DEP_ID)}
           title="Деп"
-          description={`${SPELLS_INFO[DEP_ID]} ${
-            unlockedSkills.includes(32) ? '50%' : 'чуть меньше 50%'
-          }`}
+          description={SPELLS_INFO[DEP_ID]}
           remain={depRemainSeconds}
           cooldown={depCooldownSeconds}
           cost={depCost}
           icon="skills/cherry.png"
         />
+        {unlockedSkills.includes(32) && (
+          <TortikSpell
+            castSpell={() => castSpellById(CHEATING_SPELL_ID)}
+            title="Фокус"
+            description={SPELLS_INFO[CHEATING_SPELL_ID]}
+            remain={cheatingSpellSeconds}
+            cooldown={cheatingCooldownSeconds}
+            cost={cheatingCost}
+            icon="skills/ace.png"
+          />
+        )}
         {unlockedSkills.includes(33) && (
           <TortikSpell
             castSpell={() => castSpellById(BOOSTER_SPELL_ID)}

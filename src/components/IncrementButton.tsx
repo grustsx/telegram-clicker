@@ -17,7 +17,11 @@ import { startDialog } from '../state/dialogSlice';
 import { getCurrencyByBooster } from '../utils/getCurrencyPerSecond';
 import { formatDuration, formatLargeNumber } from '../utils/format';
 import type { BoosterType } from '../types/types';
-import { CLICK_BOOSTER_ID, CPS_BOOSTER_ID } from '../constants/const';
+import {
+  CHEATING_BOOSTER_ID,
+  CLICK_BOOSTER_ID,
+  CPS_BOOSTER_ID,
+} from '../constants/const';
 import GameText from '../elements/GameText';
 
 type FloatingNumber = {
@@ -255,6 +259,8 @@ function getBoosterIcon(id: number): string {
       return 'skills/cursor.png';
     case CPS_BOOSTER_ID:
       return 'Home.png';
+    case CHEATING_BOOSTER_ID:
+      return 'skills/ace.png';
     default:
       return '';
   }
@@ -308,7 +314,7 @@ function CooldownSquare({
   const progress = Math.min(1, Math.max(0, 1 - remain / cooldown));
 
   return (
-    <div className="relative inline-grid bg-tortik-orange/90 border-tortik-yellow/90 border-2 place-items-center text-white font-bold text-lg w-12 h-12">
+    <div className="relative inline-grid bg-tortik-orange/90 border-tortik-yellow/90 border-2 place-items-center text-white font-bold text-lg min-w-12 min-h-12 w-12 h-12">
       {/* Затемняющий слой */}
       <div
         className="absolute inset-0 bg-black/50"

@@ -150,7 +150,7 @@ export const SKILLS_INFO: Record<
   '30': {
     description: 'Можно будет проиграть все деньги в казик',
     position: { x: 600, y: 900 },
-    icon: '777.png',
+    icon: 'cherry.png',
   },
   '31': {
     description:
@@ -159,9 +159,9 @@ export const SKILLS_INFO: Record<
     icon: 'moon.png',
   },
   '32': {
-    description: 'Делает вероятность выигрыша ровно 50%',
+    description: 'Никита на время отвлекает крупье карточным фокусом',
     position: { x: 1000, y: 800 },
-    icon: 'cherry.png',
+    icon: 'ace.png',
   },
   '33': {
     description: 'Спавнит бустер, никто не может сказать, как они это делают',
@@ -247,8 +247,7 @@ export const SKILLS_INFO: Record<
     icon: 'note.png',
   },
   '49': {
-    description:
-      'Таинственным образом учащает появление бустеров и незначительно уменьшает ужас Павлика',
+    description: 'Таинственным образом учащает появление бустеров',
     position: { x: 1000, y: 1800 },
     icon: 'nazar.png',
   },
