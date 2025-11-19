@@ -40,6 +40,6 @@ export const getCPCTemporaryMultipler = (
     1 *
     (1 + 499 * booster(2)) *
     (1 + (4 * skill(39) + 10 * skill(41)) * crit) *
-    (1 + (49 * skill(43) + 49 * skill(44)) * superCrit)
+    (1 + (49 * skill(43) + 50 * skill(44)) * superCrit)
   );
 };

@@ -7,6 +7,7 @@ export interface GameState {
   storage: number;
   storageCurrency: number;
   skillPoints: number;
+  banned: boolean;
   user: TgUserType;
   loading: boolean;
   connectionLoading: boolean;
@@ -20,6 +21,7 @@ const initialState: GameState = {
   connectionLoading: false,
   currency: 0,
   skillPoints: 0,
+  banned: false,
   user: {},
   errorMessage: '',
   storage: 0,
@@ -99,6 +101,7 @@ const gameSlice = createSlice({
           storage: user.storage,
           storageCurrency: user.storageCurrency,
           skillPoints: user.skillPoints,
+          banned: user.banned,
         };
 
         Object.assign(state, updatedState);

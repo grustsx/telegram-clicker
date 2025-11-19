@@ -7,6 +7,7 @@ export interface ApiErrorResponse {
 
 export type GetUserDataType = {
   user: {
+    banned: boolean;
     id: number;
     currency: number;
     skillPoints: number;

@@ -5,6 +5,7 @@ import {
   selectAssetLevels,
   selectCurrency,
   selectUnlockedSkillsIds,
+  selectUserBanned,
   selectUserId,
 } from '../app/selectors';
 import { BUILDINGS_INFO } from '../constants/buildingsInfo';
@@ -43,6 +44,7 @@ const BuildingInfo = ({
   const assetLevels = useAppSelector(selectAssetLevels);
 
   const userId = useAppSelector(selectUserId);
+  const isBanned = useAppSelector(selectUserBanned);
   const unlockedSkills = useAppSelector(selectUnlockedSkillsIds);
   const sugarSpell = useAppSelector((state) => selectSpellById(state, 1));
   const currency = useAppSelector(selectCurrency);
@@ -170,6 +172,11 @@ const BuildingInfo = ({
                   reversed={!!(index % 2)}
                   theme={index % 2 ? 'light' : 'dark'}
                   {...message}
+                  description={
+                    isBanned
+                      ? 'Мы все глубоко разочарованы тобой'
+                      : message.description
+                  }
                 />
               ))
             : eventMessages.map((message, index) => (

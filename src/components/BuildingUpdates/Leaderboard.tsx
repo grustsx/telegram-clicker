@@ -3,7 +3,11 @@ import GameText from '../../elements/GameText';
 import { getLeaderBoard, sendUpdateScore } from '../../api';
 import { createPortal } from 'react-dom';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { selectSkillPoints, selectUserId } from '../../app/selectors';
+import {
+  selectSkillPoints,
+  selectUserBanned,
+  selectUserId,
+} from '../../app/selectors';
 import { setSkillPoints } from '../../state/gameSlice';
 import GameButton from '../../elements/GameButton';
 
@@ -11,6 +15,8 @@ function Leaderboard() {
   const [leaderboard, setLeaderboard] = React.useState(null);
   const userId = useAppSelector(selectUserId);
   const skillPoints = useAppSelector(selectSkillPoints);
+  const isBanned = useAppSelector(selectUserBanned);
+
   const dispatch = useAppDispatch();
 
   const [isLoading, setIsLoading] = React.useState(false);
@@ -58,11 +64,12 @@ function Leaderboard() {
               theme="blue"
               onClick={handleClick}
               icon="skills/star.png"
+              disabled={isBanned}
               text="ОТКРЫТЬ ЛИДЕРБОРД"
             />
             <GameButton
               theme="brown"
-              disabled={!skillPoints}
+              disabled={!skillPoints || isBanned}
               onClick={handleUpgrade}
               text={
                 skillPoints ? `ВЛИТЬ ${skillPoints} ОУ В РЕЙТИНГ` : 'НЕТ ОУ'

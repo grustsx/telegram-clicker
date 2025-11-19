@@ -21,6 +21,8 @@ export const selectCurrency = (state: RootState) => state.game.currency;
 
 export const selectUserId = (state: RootState) => state.game.user.id;
 
+export const selectUserBanned = (state: RootState) => state.game.banned;
+
 export const selectLoading = (state: RootState) => state.game.loading;
 
 export const selectConnectionLoading = (state: RootState) =>
