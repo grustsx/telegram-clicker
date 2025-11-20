@@ -74,7 +74,7 @@ function App() {
         // После авторизации — загрузка пользователя и словарей
         dispatch(getUserAndDictionaries());
       } catch {
-        dispatch(setErrorMessage('Ошибка авторизации'));
+        //dispatch(setErrorMessage('Ошибка авторизации'));
       }
     }
 
