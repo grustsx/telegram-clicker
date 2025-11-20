@@ -64,6 +64,7 @@ function App() {
           token = 'testtoken';
         } else {
           const initData = window.Telegram?.WebApp?.initData;
+          console.log(initData);
           const { data } = await api.post('/api/users/authorize', { initData });
           token = data.token;
         }
