@@ -14,6 +14,7 @@ import useUpdateTimers from './hooks/useUpdateTimers';
 import PreloadImages from './components/PreloadImages';
 import useSpawnBoosters from './hooks/useSpawnBoosters';
 import ConnectionLoader from './components/ConnectionLoader';
+import api from './axios';
 
 const mockedTg: {
   WebApp: {
@@ -41,17 +42,43 @@ function App() {
   const dispatch = useAppDispatch();
 
   React.useEffect(() => {
-    const user: TgUserType | undefined = tg?.WebApp?.initDataUnsafe?.user;
-    if (!user || !user.id) {
-      dispatch(
-        setErrorMessage(
-          'юзер не найден, откройте игру через кнопку в сообщении, а не через нижнее меню',
-        ),
-      );
-      return;
+    async function authorize() {
+      const user: TgUserType | undefined = tg?.WebApp?.initDataUnsafe?.user;
+
+      if (!user || !user.id) {
+        dispatch(
+          setErrorMessage(
+            'юзер не найден, откройте игру через кнопку в сообщении, а не через нижнее меню',
+          ),
+        );
+        return;
+      }
+
+      dispatch(setUserData(user));
+
+      try {
+        let token: string;
+
+        if (IS_DEV) {
+          //const { data } = await api.post('/api/users/dev-login');
+          token = 'testtoken';
+        } else {
+          const initData = window.Telegram?.WebApp?.initData;
+          const { data } = await api.post('/api/users/authorize', { initData });
+          token = data.token;
+        }
+
+        // Сохраняем токен
+        localStorage.setItem('token', token);
+
+        // После авторизации — загрузка пользователя и словарей
+        dispatch(getUserAndDictionaries());
+      } catch {
+        dispatch(setErrorMessage('Ошибка авторизации'));
+      }
     }
-    dispatch(setUserData(user));
-    dispatch(getUserAndDictionaries());
+
+    authorize();
   }, [dispatch, tg]);
 
   useRefreshData();
