@@ -15,7 +15,6 @@ import PreloadImages from './components/PreloadImages';
 import useSpawnBoosters from './hooks/useSpawnBoosters';
 import ConnectionLoader from './components/ConnectionLoader';
 import api from './axios';
-import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
 const mockedTg: {
   WebApp: {
@@ -41,7 +40,6 @@ function App() {
   const tg = IS_DEV ? mockedTg : window.Telegram;
 
   const dispatch = useAppDispatch();
-  const { initDataRaw } = retrieveLaunchParams();
 
   React.useEffect(() => {
     async function authorize() {
@@ -65,9 +63,8 @@ function App() {
           //const { data } = await api.post('/api/users/dev-login');
           token = 'testtoken';
         } else {
-          const { data } = await api.post('/api/users/authorize', {
-            initDataRaw,
-          });
+          const initData = window.Telegram?.WebApp?.initData;
+          const { data } = await api.post('/api/users/authorize', { initData });
           token = data.token;
         }
 
@@ -77,12 +74,12 @@ function App() {
         // После авторизации — загрузка пользователя и словарей
         dispatch(getUserAndDictionaries());
       } catch {
-        ///dispatch(setErrorMessage('Ошибка авторизации'));
+        dispatch(setErrorMessage('Ошибка авторизации'));
       }
     }
 
     authorize();
-  }, [dispatch, initDataRaw, tg]);
+  }, [dispatch, tg]);
 
   useRefreshData();
   useCurrencyPerSecond();
