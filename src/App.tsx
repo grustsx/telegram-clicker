@@ -41,7 +41,7 @@ function App() {
   const tg = IS_DEV ? mockedTg : window.Telegram;
 
   const dispatch = useAppDispatch();
-  const { initData } = retrieveLaunchParams();
+  const { initDataRaw } = retrieveLaunchParams();
 
   React.useEffect(() => {
     async function authorize() {
@@ -65,7 +65,9 @@ function App() {
           //const { data } = await api.post('/api/users/dev-login');
           token = 'testtoken';
         } else {
-          const { data } = await api.post('/api/users/authorize', { initData });
+          const { data } = await api.post('/api/users/authorize', {
+            initDataRaw,
+          });
           token = data.token;
         }
 
@@ -80,7 +82,7 @@ function App() {
     }
 
     authorize();
-  }, [dispatch, tg]);
+  }, [dispatch, initDataRaw, tg]);
 
   useRefreshData();
   useCurrencyPerSecond();
