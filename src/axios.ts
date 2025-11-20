@@ -67,6 +67,7 @@ api.interceptors.response.use(
     }
 
     store.dispatch(setConnectionLoading(false));
+    if (message === 'Request failed with status code 404') return;
     store.dispatch(setErrorMessage(message));
     return Promise.reject(error); // пробрасываем ошибку дальше
   },
