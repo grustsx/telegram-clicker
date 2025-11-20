@@ -15,6 +15,7 @@ import PreloadImages from './components/PreloadImages';
 import useSpawnBoosters from './hooks/useSpawnBoosters';
 import ConnectionLoader from './components/ConnectionLoader';
 import api from './axios';
+import { retrieveLaunchParams } from '@telegram-apps/sdk';
 
 const mockedTg: {
   WebApp: {
@@ -40,6 +41,7 @@ function App() {
   const tg = IS_DEV ? mockedTg : window.Telegram;
 
   const dispatch = useAppDispatch();
+  const { initData } = retrieveLaunchParams();
 
   React.useEffect(() => {
     async function authorize() {
@@ -63,7 +65,6 @@ function App() {
           //const { data } = await api.post('/api/users/dev-login');
           token = 'testtoken';
         } else {
-          const initData = window.Telegram?.WebApp?.initData;
           const { data } = await api.post('/api/users/authorize', { initData });
           token = data.token;
         }
