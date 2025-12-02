@@ -12,6 +12,11 @@ export const VODKA_WELL_ID = 7;
 
 export const QA_IDS = [1, 8147657134];
 
+export const TORT_IDS: number[] = [
+  2105393199, 1626425581, 1477562324, 363515307, 765296507, 335666404,
+  663825280, 973162002, 798857363,
+];
+
 export const STONES_UPGRADE_SKILL_ID = 52;
 
 export const BOOSTER_NORMAL_TIMEOUT: Record<number, number> = {
