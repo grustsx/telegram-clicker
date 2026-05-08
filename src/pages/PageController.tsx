@@ -1,14 +1,15 @@
 import React from 'react';
-import MainPage from './MainPage';
-import { AppVersion, MenuButton } from '../components';
-import BuildingsPage from './BuildingsPage';
-import SkillTreePage from './SkillTreePage';
+
 import { soloSounds } from '../audio/musicController';
-import {
-  selectIsAnyBuildingAvailable,
-  selectIsAnySkillAvailable,
-} from '../app/selectors';
-import { useAppSelector } from '../app/hooks';
+
+import MainPage from './main/ui/MainPage';
+import SkillTreePage from './skill-tree/ui/SkillTreePage';
+import BuildingsPage from './buildings/ui/BuildingsPage';
+
+import { selectIsAnyBuildingAvailable } from '@/entities/building';
+import { selectIsAnySkillAvailable } from '@/entities/skill';
+
+import { useAppSelector, MenuButton, AppVersion } from '@/shared';
 
 const TabNames = {
   MAIN: 'main',

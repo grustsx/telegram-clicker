@@ -1,0 +1,63 @@
+import React, { useEffect, useState } from 'react';
+
+import useSkillsLayoutSize from '../model/useSkillsLayoutSize';
+import SkillTree from './SkillTree';
+
+import { useDragScroll } from '@/shared';
+
+const isIOS = /iP(ad|hone|od)/.test(navigator.userAgent);
+const isLinux =
+  /Linux/i.test(navigator.userAgent) && !/Android/i.test(navigator.userAgent);
+
+function SkillTreeWrapper() {
+  const containerRef = useDragScroll<HTMLDivElement>();
+  const { width, height } = useSkillsLayoutSize();
+  const [selectedSkillId, setSelectedSkillId] = useState<number | null>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (container) {
+      const scrollX = (container.scrollWidth - container.clientWidth) / 2;
+      const scrollY = (container.scrollHeight - container.clientHeight) / 2;
+      container.scrollTo(scrollX, scrollY);
+    }
+  }, [containerRef]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full h-full overflow-scroll perspective-[1px] perspective-origin-top-left"
+    >
+      <div
+        className={`origin-top-left pointer-events-none absolute top-0 left-0 z-0 bg-repeat bg-[length:auto_100vh]`}
+        style={{
+          width: `${width}px`,
+          height: `${height}px`,
+          backgroundImage: "url('/assets/backgrounds/skills/blue-back.png')",
+          transform: isIOS || isLinux ? '' : 'translateZ(-2px) scale(3)',
+          imageRendering: 'pixelated',
+        }}
+      />
+
+      <div
+        className={`origin-top-left absolute top-0 left-0 z-0 bg-repeat bg-[length:auto_100vh]`}
+        style={{
+          width: `${width}px`,
+          height: `${height}px`,
+          backgroundImage: "url('/assets/backgrounds/skills/blue-stars.png')",
+          transform: isIOS || isLinux ? '' : 'translateZ(-1px) scale(2)',
+          imageRendering: 'pixelated',
+        }}
+      />
+
+      <div className="transition-transform origin-top-left z-30">
+        <SkillTree
+          selectedSkillId={selectedSkillId}
+          setSelectedSkillId={setSelectedSkillId}
+        />
+      </div>
+    </div>
+  );
+}
+
+export default React.memo(SkillTreeWrapper);

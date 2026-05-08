@@ -1,0 +1,1 @@
+export const STONES_UPGRADE_SKILL_ID = 52;

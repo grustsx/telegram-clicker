@@ -1,0 +1,24 @@
+import { createAppAsyncThunk } from '@/app/thunk';
+import { incrementBuildingLevel, selectBuildingById } from './buildingsSlice';
+import { selectUnlockedSkillsIds } from '@/entities/skill';
+import { getPrice } from '../lib/getPrice';
+import { decreaseCurrency, incrementSkillPoints } from '@/entities/game';
+
+export const buyBuildingLevelThunk = createAppAsyncThunk(
+  'buildings/incrementBuildingLevel',
+  async (buildingId: number, { getState, dispatch }) => {
+    const state = getState();
+    const building = selectBuildingById(state, buildingId);
+
+    if (!building) return;
+
+    const unlockedSkillIds = selectUnlockedSkillsIds(state);
+    const price = getPrice(building, unlockedSkillIds);
+
+    if (state.game.currency < price) return;
+
+    dispatch(incrementBuildingLevel(buildingId));
+    dispatch(incrementSkillPoints());
+    dispatch(decreaseCurrency(price));
+  },
+);

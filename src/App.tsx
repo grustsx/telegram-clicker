@@ -2,19 +2,20 @@ import React from 'react';
 import './App.css';
 import { IS_DEV } from './env';
 import { PageController } from './pages';
-import type { TgUserType } from './types/types';
-import { DialogModal, Loader } from './components';
-import { setErrorMessage, setUserData } from './state/gameSlice';
-import { useAppDispatch } from './app/hooks';
-import { getUserAndDictionaries } from './state/thunk';
-import ErrorHandler from './components/ErrorHandler';
-import useCurrencyPerSecond from './hooks/useUpdateCurrencyByCPS';
-import useRefreshData from './hooks/useRefreshData';
-import useUpdateTimers from './hooks/useUpdateTimers';
-import PreloadImages from './components/PreloadImages';
-import useSpawnBoosters from './hooks/useSpawnBoosters';
-import ConnectionLoader from './components/ConnectionLoader';
+
+import { setErrorMessage, setUserData, type TgUserType } from '@/entities/game';
+import { useAppDispatch } from '@/shared';
 import api from './axios';
+import { getUserAndDictionariesThunk } from '@/features/init-game';
+import { DialogModal } from '@/widgets/dialog-modal';
+import { ErrorHandler } from '@/widgets/error-handler';
+import { PreloadImages } from '@/widgets/preload-images';
+import { Loader } from '@/widgets/loader';
+import { ConnectionLoader } from '@/widgets/connection-loader';
+import useRefreshData from './app/model/useRefreshData';
+import useUpdateTimers from './app/model/useUpdateTimers';
+import useSpawnBoosters from './app/model/useSpawnBoosters';
+import useUpdateCurrencyByCPS from './app/model/useUpdateCurrencyByCPS';
 
 const mockedTg: {
   WebApp: {
@@ -61,7 +62,7 @@ function App() {
 
         if (IS_DEV) {
           //const { data } = await api.post('/api/users/dev-login');
-          token = 'testtoken';
+          token = 'test-token-clicker-228';
         } else {
           const initData = window.Telegram?.WebApp?.initData;
           console.log(initData);
@@ -73,7 +74,7 @@ function App() {
         localStorage.setItem('token', token);
 
         // После авторизации — загрузка пользователя и словарей
-        dispatch(getUserAndDictionaries());
+        dispatch(getUserAndDictionariesThunk());
       } catch {
         dispatch(setErrorMessage('Ошибка авторизации'));
       }
@@ -83,7 +84,7 @@ function App() {
   }, [dispatch, tg]);
 
   useRefreshData();
-  useCurrencyPerSecond();
+  useUpdateCurrencyByCPS();
   useUpdateTimers();
   useSpawnBoosters();
 

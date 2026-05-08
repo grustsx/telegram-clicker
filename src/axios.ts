@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BACKEND_URL } from './env';
-import { setConnectionLoading, setErrorMessage } from './state/gameSlice';
 import { store } from './app/store';
+import { setConnectionLoading, setErrorMessage } from './entities/game';
 
 const api = axios.create({
   baseURL: BACKEND_URL,
