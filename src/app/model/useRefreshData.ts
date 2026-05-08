@@ -1,4 +1,5 @@
-import { selectUserId, setErrorMessage } from '@/entities/game';
+import { setErrorMessage } from '@/entities/game';
+import { selectUserId } from '@/entities/game/model/selectors';
 import { getUserAndDictionariesThunk } from '@/features/init-game';
 import { useAppDispatch, useAppSelector } from '@/shared';
 import React from 'react';

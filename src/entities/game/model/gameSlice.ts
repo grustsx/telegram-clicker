@@ -34,6 +34,22 @@ const gameSlice = createSlice({
   name: 'game',
   initialState,
   reducers: {
+    setGameData(
+      state,
+      action: PayloadAction<{
+        currency: number;
+        storage: number;
+        storageCurrency: number;
+        skillPoints: number;
+        banned: boolean;
+      }>,
+    ) {
+      Object.assign(state, action.payload);
+    },
+
+    setGameLoading(state, action: PayloadAction<boolean>) {
+      state.loading = action.payload;
+    },
     claimStorage(state) {
       state.currency += state.storageCurrency;
       state.storageCurrency = 0;
@@ -131,6 +147,8 @@ export const {
   setErrorMessage,
   setSkillPoints,
   setConnectionLoading,
+  setGameData,
+  setGameLoading,
 } = gameSlice.actions;
 
 export default gameSlice.reducer;

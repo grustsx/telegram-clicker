@@ -1,12 +1,11 @@
 import { STONES_SPELL_ID } from '@/entities/building';
-import { castSpellThunk, selectUserId } from '@/entities/game';
+import { castSpellThunk } from '@/entities/game';
 import {
   buySkillThunk,
-  selectUnlockedSkillsIds,
   sendBuySkill,
   STONES_UPGRADE_SKILL_ID,
 } from '@/entities/skill';
-import { selectSpellById, sendCastSpell } from '@/entities/spell';
+import { sendCastSpell } from '@/entities/spell';
 import {
   formatDuration,
   GameButton,
@@ -16,6 +15,9 @@ import {
 } from '@/shared';
 import React from 'react';
 import { STONES_INFO } from '../config/info';
+import { selectSpellById } from '@/entities/spell/model/selectors';
+import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
+import { selectUserId } from '@/entities/game/model/selectors';
 
 export default function Stones() {
   const stonesSpell = useAppSelector((state) =>

@@ -1,14 +1,16 @@
 import {
   getLeaderBoard,
-  selectSkillPoints,
-  selectUserBanned,
-  selectUserId,
   sendUpdateScore,
   setSkillPoints,
 } from '@/entities/game';
 import { GameButton, GameText, useAppDispatch, useAppSelector } from '@/shared';
 import React from 'react';
 import { LeaderboardModal } from './LeaderboardModal';
+import {
+  selectSkillPoints,
+  selectUserBanned,
+  selectUserId,
+} from '@/entities/game/model/selectors';
 
 export function Leaderboard() {
   const [leaderboard, setLeaderboard] = React.useState(null);

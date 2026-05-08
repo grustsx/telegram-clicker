@@ -1,6 +1,7 @@
 import { createAppAsyncThunk } from '@/app/thunk';
-import { lockSkill, selectSkillById, unlockSkill } from './skillsSlice';
+import { lockSkill, unlockSkill } from './skillsSlice';
 import { decreaseSkillPoints } from '@/entities/game';
+import { selectSkillById } from './selectors';
 
 export const buySkillThunk = createAppAsyncThunk(
   'skills/buySkill',

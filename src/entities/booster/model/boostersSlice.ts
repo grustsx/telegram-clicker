@@ -4,15 +4,9 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit';
 
-import type { RootState } from '@/app/store';
+import type { BoosterType } from './types';
 
-import type { BoosterType } from '@/entities/booster';
-
-import { getUserAndDictionariesThunk } from '@/features/init-game';
-
-import { findById, nowUnix, type UserBoosterType } from '@/shared';
-
-const boostersAdapter = createEntityAdapter<BoosterType>();
+export const boostersAdapter = createEntityAdapter<BoosterType>();
 
 const boostersSlice = createSlice({
   name: 'boosters',
@@ -36,36 +30,12 @@ const boostersSlice = createSlice({
 
       booster.remainSeconds = booster.ttlSeconds * muitiplier;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(getUserAndDictionariesThunk.fulfilled, (state, action) => {
-      const { userInfo, dictionaries } = action.payload;
-
-      const boosters = dictionaries.boosters.map((booster) => {
-        const userBooster = findById<UserBoosterType>(
-          userInfo.boosters,
-          booster.id,
-        );
-        return {
-          id: booster.id,
-          name: booster.name,
-          ttlSeconds: booster.ttl,
-          remainSeconds: userBooster
-            ? Math.max(0, userBooster.availableTo - nowUnix())
-            : 0,
-        };
-      });
-
-      boostersAdapter.setAll(state, boosters);
-    });
+    setBoosters(state, action: PayloadAction<BoosterType[]>) {
+      boostersAdapter.setAll(state, action.payload);
+    },
   },
 });
 
-export const {
-  selectAll: selectAllBoosters,
-  selectById: selectBoosterById,
-  selectIds: selectBoosterIds,
-} = boostersAdapter.getSelectors((state: RootState) => state.boosters);
-
-export const { refreshBoosterTtl, updateBoostersTimer } = boostersSlice.actions;
+export const { refreshBoosterTtl, updateBoostersTimer, setBoosters } =
+  boostersSlice.actions;
 export default boostersSlice.reducer;

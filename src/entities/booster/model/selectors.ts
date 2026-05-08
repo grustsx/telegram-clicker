@@ -1,5 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { selectAllBoosters } from './boostersSlice';
+import { boostersAdapter } from './boostersSlice';
+import type { RootState } from '@/app/store';
+
+export const {
+  selectAll: selectAllBoosters,
+  selectById: selectBoosterById,
+  selectIds: selectBoosterIds,
+} = boostersAdapter.getSelectors((state: RootState) => state.boosters);
 
 export const selectActiveBoosters = createSelector(
   selectAllBoosters,

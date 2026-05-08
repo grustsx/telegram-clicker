@@ -1,16 +1,9 @@
 export { type BuildingType } from './model/types';
 
 export {
-  selectBuildingLevelsSum,
-  selectIsAnyBuildingAvailable,
-  selectAssetLevels,
-} from './model/selectors';
-
-export {
-  selectAllBuildings,
   incrementBuildingLevel,
   upgradeBuilding,
-  selectBuildingById,
+  setBuildings,
 } from './model/buildingsSlice';
 
 export { buyBuildingLevelThunk } from './model/buyBuildingLevelThunk';

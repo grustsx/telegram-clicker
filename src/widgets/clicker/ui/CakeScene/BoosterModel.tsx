@@ -6,12 +6,9 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 
 import { SkeletonUtils } from 'three/examples/jsm/Addons.js';
 import { useAppDispatch, useAppSelector } from '@/shared';
-import {
-  activateBoosterThunk,
-  removeBooster,
-  selectUserId,
-} from '@/entities/game';
+import { activateBoosterThunk, removeBooster } from '@/entities/game';
 import { CURRENCY_BOOSTER_ID, sendActivateBooster } from '@/entities/booster';
+import { selectUserId } from '@/entities/game/model/selectors';
 
 const getRandomPhase = () => {
   return (2 * Math.random() - 1) * Math.PI;

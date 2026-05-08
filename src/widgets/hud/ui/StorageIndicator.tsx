@@ -1,7 +1,8 @@
+import {} from '@/entities/game';
 import {
   selectCurrencyPerSecond,
   selectStorageCurrency,
-} from '@/entities/game';
+} from '@/entities/game/model/selectors';
 import { STORAGE_SEGMENT } from '@/entities/skill';
 import { useAppSelector } from '@/shared';
 import React from 'react';

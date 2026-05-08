@@ -6,10 +6,11 @@ import MainPage from './main/ui/MainPage';
 import SkillTreePage from './skill-tree/ui/SkillTreePage';
 import BuildingsPage from './buildings/ui/BuildingsPage';
 
-import { selectIsAnyBuildingAvailable } from '@/entities/building';
-import { selectIsAnySkillAvailable } from '@/entities/skill';
-
 import { useAppSelector, MenuButton, AppVersion } from '@/shared';
+import {
+  selectIsAnyBuildingAvailable,
+  selectIsAnySkillAvailable,
+} from '@/entities/game/model/selectors';
 
 const TabNames = {
   MAIN: 'main',

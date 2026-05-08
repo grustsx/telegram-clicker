@@ -8,8 +8,8 @@ import dialogReducer from '../entities/dialog/model/dialogSlice';
 
 export const store = configureStore({
   reducer: {
-    game: gameReducer,
     skills: skillsReducer,
+    game: gameReducer,
     spells: spellsReducer,
     buildings: buildingsReducer,
     boosters: boostersReducer,

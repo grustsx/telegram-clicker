@@ -1,5 +1,12 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { selectAllSpells } from './spellsSlice';
+import { spellsAdapter } from './spellsSlice';
+import type { RootState } from '@/app/store';
+
+export const {
+  selectAll: selectAllSpells,
+  selectById: selectSpellById,
+  selectIds: selectSpellIds,
+} = spellsAdapter.getSelectors((state: RootState) => state.spells);
 
 export const selectSpellsOnCooldoown = createSelector(
   selectAllSpells,

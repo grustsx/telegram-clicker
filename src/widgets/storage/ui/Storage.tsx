@@ -1,14 +1,14 @@
-import {
-  claimStorage,
-  selectCurrencyPerSecond,
-  selectStorageCurrency,
-  selectUserId,
-  sendClaimStorage,
-} from '@/entities/game';
-import { STORAGE_SEGMENT, selectStorage } from '@/entities/skill';
+import { claimStorage, sendClaimStorage } from '@/entities/game';
+import { STORAGE_SEGMENT } from '@/entities/skill';
 import { GameText, useAppDispatch, useAppSelector } from '@/shared';
 import React from 'react';
 import ProgressBar from './ProgressBar';
+import { selectStorage } from '@/entities/skill/model/selectors';
+import {
+  selectCurrencyPerSecond,
+  selectStorageCurrency,
+  selectUserId,
+} from '@/entities/game/model/selectors';
 
 const ROOMS = [1, 2, 3, 4];
 

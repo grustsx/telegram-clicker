@@ -1,9 +1,9 @@
 import { GameButton, GameText, useAppSelector } from '@/shared';
 import type { LineType } from '../model/types';
-import { selectUserId } from '@/entities/game';
 import { TORT_IDS } from '../config/torts';
 import { createPortal } from 'react-dom';
 import { Line } from './Line';
+import { selectUserId } from '@/entities/game/model/selectors';
 
 export function LeaderboardModal({
   leaderboard,

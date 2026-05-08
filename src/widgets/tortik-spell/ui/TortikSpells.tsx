@@ -1,28 +1,25 @@
-import {
-  CHEATING_BOOSTER_ID,
-  selectActiveBoosterIds,
-  sendActivateBooster,
-} from '@/entities/booster';
+import { CHEATING_BOOSTER_ID, sendActivateBooster } from '@/entities/booster';
 import type { GameMessageType } from '@/entities/dialog';
-import {
-  activateBoosterThunk,
-  castSpellThunk,
-  selectCurrencyPerSecond,
-  selectStorageCurrency,
-  selectUserId,
-} from '@/entities/game';
-import { selectUnlockedSkillsIds, STORAGE_SEGMENT } from '@/entities/skill';
+import { activateBoosterThunk, castSpellThunk } from '@/entities/game';
+import { STORAGE_SEGMENT } from '@/entities/skill';
 import {
   BOOSTER_SPELL_ID,
   CHEATING_SPELL_ID,
   DEP_ID,
-  selectSpellById,
   sendCastSpell,
   SPELLS_INFO,
 } from '@/entities/spell';
 import { useAppDispatch, useAppSelector } from '@/shared';
 import { SpellUnit } from './SpellUnit';
 import { getDepWin } from '../lib/getDepWin';
+import { selectActiveBoosterIds } from '@/entities/booster/model/selectors';
+import { selectSpellById } from '@/entities/spell/model/selectors';
+import {
+  selectCurrencyPerSecond,
+  selectStorageCurrency,
+  selectUserId,
+} from '@/entities/game/model/selectors';
+import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
 
 export default function TortikSpells({
   showEventMessages,

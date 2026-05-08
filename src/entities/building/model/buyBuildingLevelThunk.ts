@@ -1,8 +1,9 @@
 import { createAppAsyncThunk } from '@/app/thunk';
-import { incrementBuildingLevel, selectBuildingById } from './buildingsSlice';
-import { selectUnlockedSkillsIds } from '@/entities/skill';
+import { incrementBuildingLevel } from './buildingsSlice';
 import { getPrice } from '../lib/getPrice';
 import { decreaseCurrency, incrementSkillPoints } from '@/entities/game';
+import { selectBuildingById } from './selectors';
+import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
 
 export const buyBuildingLevelThunk = createAppAsyncThunk(
   'buildings/incrementBuildingLevel',

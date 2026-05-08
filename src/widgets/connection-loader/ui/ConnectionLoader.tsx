@@ -1,4 +1,4 @@
-import { selectConnectionLoading } from '@/entities/game';
+import { selectConnectionLoading } from '@/entities/game/model/selectors';
 import { GameText, useAppSelector } from '@/shared';
 import { createPortal } from 'react-dom';
 

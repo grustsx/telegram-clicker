@@ -1,4 +1,4 @@
-import type { PositionType } from '../types/types';
+import type { PositionType } from '@/entities/skill';
 
 function SkillLine({ from, to }: { from: PositionType; to: PositionType }) {
   const id = `grad-${from.x}-${from.y}-${to.x}-${to.y}`;

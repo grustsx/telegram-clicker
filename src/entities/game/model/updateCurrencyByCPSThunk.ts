@@ -1,9 +1,10 @@
 import { createAppAsyncThunk } from '@/app/thunk';
-import { selectActiveBoosterIds } from '@/entities/booster';
-import { selectAllBuildings } from '@/entities/building';
-import { selectUnlockedSkillsIds } from '@/entities/skill';
+
 import { getCurrencyPerSecond } from '../lib/getCurrencyPerSecond';
 import { increaseCurrency } from './gameSlice';
+import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
+import { selectActiveBoosterIds } from '@/entities/booster/model/selectors';
+import { selectAllBuildings } from '@/entities/building/model/selectors';
 
 // Вызывается раз в секунду!! Важно не нахуевертить
 export const updateCurrencyByCPSThunk = createAppAsyncThunk(

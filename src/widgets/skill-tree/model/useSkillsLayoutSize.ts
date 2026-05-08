@@ -1,8 +1,9 @@
 import { useMemo } from 'react';
 
-import { selectVisibleSkillsIds, SKILLS_INFO } from '@/entities/skill';
+import { SKILLS_INFO } from '@/entities/skill';
 
 import { useAppSelector } from '@/shared';
+import { selectVisibleSkillsIds } from '@/entities/game/model/selectors';
 
 export default function useSkillsLayoutSize(): {
   width: number;

@@ -2,8 +2,6 @@ import {
   BUILDINGS_INFO,
   buyBuildingLevelThunk,
   getPrice,
-  selectAssetLevels,
-  selectBuildingById,
   sendUpgradeBuilding,
 } from '@/entities/building';
 import {
@@ -11,14 +9,7 @@ import {
   startDialog,
   type GameMessageType,
 } from '@/entities/dialog';
-import {
-  getBuildingIncome,
-  selectCurrency,
-  selectUserBanned,
-  selectUserId,
-} from '@/entities/game';
-import { selectUnlockedSkillsIds } from '@/entities/skill';
-import { selectSpellById } from '@/entities/spell';
+import { getBuildingIncome } from '@/entities/game';
 import {
   formatLargeNumber,
   GameButton,
@@ -35,6 +26,15 @@ import { Storage } from '@/widgets/storage';
 import { Stones } from '@/widgets/stones';
 import { Leaderboard } from '@/widgets/leaderboard';
 import { Notes } from '@/widgets/notes';
+import { selectBuildingById } from '@/entities/building/model/selectors';
+import {
+  selectAssetLevels,
+  selectCurrency,
+  selectUserBanned,
+  selectUserId,
+} from '@/entities/game/model/selectors';
+import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
+import { selectSpellById } from '@/entities/spell/model/selectors';
 
 const BuildingInfo = ({
   buildingId,

@@ -8,23 +8,22 @@ import { getBoosterIcon } from '../lib/getBoosterIcon';
 import { BoosterInfo } from './BoosterInfo';
 
 import { startDialog } from '@/entities/dialog';
+import { sendClicks, updateCurrencyByClickThunk } from '@/entities/game';
+import { getCurrencyByBooster } from '@/entities/booster';
+
+import { formatLargeNumber, useAppDispatch, useAppSelector } from '@/shared';
+import CakeScene from './CakeScene/CakeScene';
 import {
   selectCurrency,
   selectCurrencyPerClick,
   selectCurrencyPerSecond,
   selectUserId,
-  sendClicks,
-  updateCurrencyByClickThunk,
-} from '@/entities/game';
-import { selectUnlockedSkillsIds } from '@/entities/skill';
+} from '@/entities/game/model/selectors';
 import {
-  getCurrencyByBooster,
   selectActiveBoosterIds,
   selectActiveBoosters,
-} from '@/entities/booster';
-
-import { formatLargeNumber, useAppDispatch, useAppSelector } from '@/shared';
-import CakeScene from './CakeScene/CakeScene';
+} from '@/entities/booster/model/selectors';
+import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
 
 const INTERVAL_TIME = 2000;
 

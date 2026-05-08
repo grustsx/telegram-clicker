@@ -1,4 +1,3 @@
-import type { RootState } from '@/app/store';
 import { createAppAsyncThunk } from '@/app/thunk';
 import api from '@/axios';
 import { sendName } from '@/entities/game';
@@ -9,8 +8,8 @@ export const getUserDataThunk = createAppAsyncThunk(
   'game/getUserData',
   async (_, { getState, rejectWithValue }) => {
     try {
-      const userId = (getState() as RootState).game.user.id;
-      const userName = `${(getState() as RootState).game.user.first_name || ''} ${(getState() as RootState).game.user.last_name || ''}`;
+      const userId = getState().game.user.id;
+      const userName = `${getState().game.user.first_name || ''} ${getState().game.user.last_name || ''}`;
 
       if (!userId)
         throw {

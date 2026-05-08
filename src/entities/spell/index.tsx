@@ -1,8 +1,7 @@
-export { selectSpellsOnCooldoown } from './model/selectors';
 export {
-  selectSpellById,
   refreshSpellCooldown,
   updateSpellsTimer,
+  setSpells,
 } from './model/spellsSlice';
 export { sendCastSpell } from './api/sendCastSpell';
 

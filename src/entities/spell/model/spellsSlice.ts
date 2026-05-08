@@ -4,11 +4,8 @@ import {
   type PayloadAction,
 } from '@reduxjs/toolkit';
 import type { SpellType } from './types';
-import { getUserAndDictionariesThunk } from '@/features/init-game';
-import { findById, nowUnix, type UserSpellType } from '@/shared';
-import type { RootState } from '@/app/store';
 
-const spellsAdapter = createEntityAdapter<SpellType>();
+export const spellsAdapter = createEntityAdapter<SpellType>();
 
 const spellsSlice = createSlice({
   name: 'spells',
@@ -32,31 +29,12 @@ const spellsSlice = createSlice({
 
       spell.remainSeconds = spell.cooldownSeconds * muitiplier;
     },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(getUserAndDictionariesThunk.fulfilled, (state, action) => {
-      const { userInfo, dictionaries } = action.payload;
-
-      const spells = dictionaries.spells.map((spell) => {
-        const userSpell = findById<UserSpellType>(userInfo.spells, spell.id);
-        return {
-          ...spell,
-          remainSeconds: userSpell
-            ? Math.max(0, userSpell.availableAt - nowUnix())
-            : 0,
-        };
-      });
-
-      spellsAdapter.setAll(state, spells);
-    });
+    setSpells(state, action: PayloadAction<SpellType[]>) {
+      spellsAdapter.setAll(state, action.payload);
+    },
   },
 });
 
-export const {
-  selectAll: selectAllSpells,
-  selectById: selectSpellById,
-  selectIds: selectSpellIds,
-} = spellsAdapter.getSelectors((state: RootState) => state.spells);
-
-export const { refreshSpellCooldown, updateSpellsTimer } = spellsSlice.actions;
+export const { refreshSpellCooldown, updateSpellsTimer, setSpells } =
+  spellsSlice.actions;
 export default spellsSlice.reducer;

@@ -4,9 +4,10 @@ import SkillLine from './SkillLine';
 import useSkillsLayoutSize from '../model/useSkillsLayoutSize';
 import { getPositionWithLayout } from '../lib/getPositionWithLayout';
 
-import { selectVisibleSkills, Skill, SKILLS_INFO } from '@/entities/skill';
+import { Skill, SKILLS_INFO } from '@/entities/skill';
 
 import { useAppSelector } from '@/shared';
+import { selectVisibleSkills } from '@/entities/game/model/selectors';
 
 function SkillTree({
   setSelectedSkillId,

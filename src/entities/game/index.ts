@@ -1,18 +1,3 @@
-export {
-  selectSkillPoints,
-  selectCurrency,
-  selectUserId,
-  selectVisibleBoosters,
-  selectUserBanned,
-  selectLoading,
-  selectConnectionLoading,
-  selectAssetsLoading,
-  selectErrorMessage,
-  selectStorageCurrency,
-  selectCurrencyPerSecond,
-  selectCurrencyPerClick,
-} from './model/selectors';
-
 export { sendClicks } from './api/sendClicks';
 export { getLeaderBoard } from './api/getLeaderBoard';
 export { sendClaimStorage } from './api/sendClaimStorage';
@@ -35,6 +20,8 @@ export {
   setErrorMessage,
   setSkillPoints,
   setConnectionLoading,
+  setGameData,
+  setGameLoading,
 } from './model/gameSlice';
 
 export { activateBoosterThunk } from './model/activateBoosterThunk';

@@ -1,16 +1,8 @@
 export { default as Skill } from './ui/Skill';
 
-export {
-  selectUnlockedSkillsIds,
-  selectVisibleSkills,
-  selectVisibleSkillsIds,
-  selectIsAnySkillAvailable,
-  selectSunState,
-  selectMoonState,
-  selectStorage,
-} from './model/selectors';
-
 export { buySkillThunk } from './model/buySkillThunk';
+
+export { setSkills } from './model/skillsSlice';
 
 export {
   type SkillType,
@@ -19,8 +11,6 @@ export {
 } from './model/types';
 
 export { SKILLS_INFO } from './config/skillsInfo';
-
-export { selectSkillById } from './model/skillsSlice';
 
 export { sendBuySkill } from './api/sendBuySkill';
 

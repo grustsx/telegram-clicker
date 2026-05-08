@@ -1,10 +1,10 @@
 import { CLICK_BOOSTER_ID, sendActivateBooster } from '@/entities/booster';
 import {
   activateBoosterThunk,
-  selectUserId,
   sendRestartUser,
   setErrorMessage,
 } from '@/entities/game';
+import { selectUserId } from '@/entities/game/model/selectors';
 import { GameButton, useAppDispatch, useAppSelector } from '@/shared';
 import React from 'react';
 

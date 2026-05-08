@@ -1,12 +1,17 @@
 import {
   getIsBuildingShowed,
   getPrice,
-  selectAllBuildings,
-  selectAssetLevels,
   type BuildingType,
 } from '@/entities/building';
-import { selectCurrency } from '@/entities/game';
-import { selectSunState, selectUnlockedSkillsIds } from '@/entities/skill';
+import { selectAllBuildings } from '@/entities/building/model/selectors';
+import {
+  selectAssetLevels,
+  selectCurrency,
+} from '@/entities/game/model/selectors';
+import {
+  selectSunState,
+  selectUnlockedSkillsIds,
+} from '@/entities/skill/model/selectors';
 import { useAppSelector } from '@/shared';
 import { BuildingInfo } from '@/widgets/building-info';
 import { Hud } from '@/widgets/hud';

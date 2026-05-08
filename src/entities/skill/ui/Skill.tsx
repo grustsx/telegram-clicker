@@ -2,10 +2,9 @@ import type { PositionType, SkillType } from '../model/types';
 import { selectUnlockedSkillsIds } from '../model/selectors';
 import getSkillStatus from '../lib/getSkillStatus';
 
-import { selectAllBuildings } from '@/entities/building';
-import { selectSkillPoints } from '@/entities/game';
-
 import { useAppSelector } from '@/shared';
+import { selectSkillPoints } from '@/entities/game/model/selectors';
+import { selectAllBuildings } from '@/entities/building/model/selectors';
 
 function Skill({
   onClick,

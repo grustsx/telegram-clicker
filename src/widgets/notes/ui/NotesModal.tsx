@@ -1,8 +1,9 @@
-import { LAB_ID, selectBuildingById } from '@/entities/building';
+import { LAB_ID } from '@/entities/building';
 import { GameButton, useAppSelector } from '@/shared';
 import { createPortal } from 'react-dom';
 import { MESSAGES } from '../config/messages';
 import { TextNote } from './TextNote';
+import { selectBuildingById } from '@/entities/building/model/selectors';
 
 export function NotesModal({ onClose }: { onClose: () => void }) {
   const root = document.getElementById('notes-root');

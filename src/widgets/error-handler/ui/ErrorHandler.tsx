@@ -1,4 +1,4 @@
-import { selectErrorMessage } from '@/entities/game';
+import { selectErrorMessage } from '@/entities/game/model/selectors';
 import { useAppSelector } from '@/shared';
 import type { ReactElement } from 'react';
 
