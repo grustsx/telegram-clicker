@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from '@/app/thunk';
+import { createAppAsyncThunk } from '@/app/store/thunk';
 import api from '@/shared/api/axios';
 import { sendName } from '@/entities/game';
 import type { ApiErrorResponse, GetUserDataType } from '@/shared/api/types';

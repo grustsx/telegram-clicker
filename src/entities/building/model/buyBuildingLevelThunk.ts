@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from '@/app/thunk';
+import { createAppAsyncThunk } from '@/app/store/thunk';
 import { incrementBuildingLevel } from './buildingsSlice';
 import { getPrice } from '../lib/getPrice';
 import { decreaseCurrency, incrementSkillPoints } from '@/entities/game';

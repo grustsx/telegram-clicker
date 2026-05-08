@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from '@/app/thunk';
+import { createAppAsyncThunk } from '@/app/store/thunk';
 import { getDictionariesThunk } from './getDictionariesThunk';
 import { getUserDataThunk } from './getUserDataThunk';
 import {

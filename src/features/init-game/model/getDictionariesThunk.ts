@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from '@/app/thunk';
+import { createAppAsyncThunk } from '@/app/store/thunk';
 import api from '@/shared/api/axios';
 import type { ApiErrorResponse, GetDictionariesType } from '@/shared/api/types';
 import type { AxiosError } from 'axios';

@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from '@/app/thunk';
+import { createAppAsyncThunk } from '@/app/store/thunk';
 
 import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
 import { selectActiveBoosterIds } from '@/entities/booster/model/selectors';

@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from '@/app/thunk';
+import { createAppAsyncThunk } from '@/app/store/thunk';
 import {
   CURRENCY_BOOSTER_ID,
   getBoosterTtlMultiplier,

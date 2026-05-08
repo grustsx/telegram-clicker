@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from '@/app/thunk';
+import { createAppAsyncThunk } from '@/app/store/thunk';
 import { STORAGE_SEGMENT } from '@/entities/skill';
 import { selectCurrencyPerSecond } from './selectors';
 import { upgradeBuilding } from '@/entities/building';

@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from '@/app/thunk';
+import { createAppAsyncThunk } from '@/app/store/thunk';
 import { lockSkill, unlockSkill } from './skillsSlice';
 import { decreaseSkillPoints } from '@/entities/game';
 import { selectSkillById } from './selectors';
