@@ -3,7 +3,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { STONES_UPGRADE_SKILL_ID } from '../config/ids';
 import { getStorage } from '../lib/getStorage';
 import { skillsAdapter } from './skillsSlice';
-import type { RootState } from '@/app/store';
+import type { RootState } from '@/app/store/store';
 
 export const {
   selectAll: selectAllSkills,

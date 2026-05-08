@@ -1,7 +1,7 @@
 import { createSelector } from '@reduxjs/toolkit';
 
 import { buildingsAdapter } from './buildingsSlice';
-import type { RootState } from '@/app/store';
+import type { RootState } from '@/app/store/store';
 
 export const {
   selectAll: selectAllBuildings,

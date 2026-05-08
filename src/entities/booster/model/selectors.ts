@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { boostersAdapter } from './boostersSlice';
-import type { RootState } from '@/app/store';
+import type { RootState } from '@/app/store/store';
 
 export const {
   selectAll: selectAllBoosters,

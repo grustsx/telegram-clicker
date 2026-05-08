@@ -1,6 +1,6 @@
 import { createSelector } from '@reduxjs/toolkit';
 import { spellsAdapter } from './spellsSlice';
-import type { RootState } from '@/app/store';
+import type { RootState } from '@/app/store/store';
 
 export const {
   selectAll: selectAllSpells,

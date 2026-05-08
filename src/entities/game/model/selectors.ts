@@ -1,4 +1,4 @@
-import type { RootState } from '@/app/store';
+import type { RootState } from '@/app/store/store';
 
 export const selectUserId = (state: RootState) => state.game.user.id;
 

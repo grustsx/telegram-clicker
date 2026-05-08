@@ -1,4 +1,4 @@
-import type { AppDispatch, RootState } from '@/app/store';
+import type { AppDispatch, RootState } from '@/app/store/store';
 import {
   type TypedUseSelectorHook,
   useDispatch,
