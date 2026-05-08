@@ -64,7 +64,7 @@ export function Leaderboard() {
             <GameButton
               theme="blue"
               onClick={handleClick}
-              icon="skills/stsrc/widgets/leaderboard/ui/Leaderboard.tsxar.png"
+              icon="skills/star.png"
               disabled={isBanned}
               text="ОТКРЫТЬ ЛИДЕРБОРД"
             />

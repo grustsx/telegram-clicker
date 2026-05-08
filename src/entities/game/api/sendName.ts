@@ -1,4 +1,4 @@
-import api from '@/axios';
+import api from '@/shared/api/axios';
 
 export const sendName = (name: string, userId: number) => {
   if (!userId) return;

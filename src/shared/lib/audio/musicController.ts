@@ -1,6 +1,6 @@
 import { Howl } from 'howler';
-
-const FADE_TIME = 500;
+import type { Sound } from './types';
+import { FADE_TIME } from './config';
 
 function createLoop(src: string) {
   return new Howl({
@@ -10,7 +10,7 @@ function createLoop(src: string) {
   });
 }
 
-const loops: Record<string, { howl: Howl; id?: number | undefined }> = {
+const loops: Record<string, Sound> = {
   mainBass: { howl: createLoop('/sounds/music/Tortik BABurial-esque XS.mp3') },
   mainPad: { howl: createLoop('/sounds/music/Tortik Pad No.13.mp3') },
   mainDrum: {
@@ -33,7 +33,7 @@ const loops: Record<string, { howl: Howl; id?: number | undefined }> = {
 };
 
 const startAllLoopsSync = () => {
-  const loadPromises: Promise<{ howl: Howl; id?: number | undefined }>[] = [];
+  const loadPromises: Promise<Sound>[] = [];
 
   for (const loop of Object.values(loops)) {
     loadPromises.push(

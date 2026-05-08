@@ -1,21 +1,21 @@
 import React from 'react';
-import './App.css';
-import { IS_DEV } from './env';
-import { PageController } from './pages';
+import './styles/App.css';
+import { IS_DEV } from '../shared/config/env';
+import { PageController } from '../pages';
 
 import { setErrorMessage, setUserData, type TgUserType } from '@/entities/game';
 import { useAppDispatch } from '@/shared';
-import api from './axios';
+import api from '../shared/api/axios';
 import { getUserAndDictionariesThunk } from '@/features/init-game';
 import { DialogModal } from '@/widgets/dialog-modal';
 import { ErrorHandler } from '@/widgets/error-handler';
 import { PreloadImages } from '@/widgets/preload-images';
 import { Loader } from '@/widgets/loader';
 import { ConnectionLoader } from '@/widgets/connection-loader';
-import useRefreshData from './app/model/useRefreshData';
-import useUpdateTimers from './app/model/useUpdateTimers';
-import useSpawnBoosters from './app/model/useSpawnBoosters';
-import useUpdateCurrencyByCPS from './app/model/useUpdateCurrencyByCPS';
+import useRefreshData from './model/useRefreshData';
+import useUpdateTimers from './model/useUpdateTimers';
+import useSpawnBoosters from './model/useSpawnBoosters';
+import useUpdateCurrencyByCPS from './model/useUpdateCurrencyByCPS';
 
 const mockedTg: {
   WebApp: {

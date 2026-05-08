@@ -3,7 +3,10 @@ import { useGLTF } from '@react-three/drei';
 import { useThree, useFrame } from '@react-three/fiber';
 import { useSpring, a } from '@react-spring/three';
 import { Group, Raycaster, Vector2, Vector3 } from 'three';
-import { playPressSound, playReleaseSound } from '@/utils/playCakeSound';
+import {
+  playPressSound,
+  playReleaseSound,
+} from '@/shared/lib/audio/playCakeSound';
 
 const MAX_TILT = Math.PI / 16;
 

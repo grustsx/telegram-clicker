@@ -1,4 +1,4 @@
-import api from '@/axios';
+import api from '@/shared/api/axios';
 
 export const sendRestartUser = (userId: number | undefined) => {
   if (!userId) return;

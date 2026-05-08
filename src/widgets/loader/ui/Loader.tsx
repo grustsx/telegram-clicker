@@ -1,6 +1,6 @@
 import { useState, useEffect, type ReactElement } from 'react';
 
-import loadingGif from '@/assets/loading.gif';
+import loadingGif from '@/shared/assets/loading.gif';
 import { LOADING_MESSAGES } from '../config/loadingMessages';
 import { useAppSelector } from '@/shared';
 import {

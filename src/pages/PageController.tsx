@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { soloSounds } from '../audio/musicController';
+import { soloSounds } from '@/shared/lib/audio/musicController';
 
 import MainPage from './main/ui/MainPage';
 import SkillTreePage from './skill-tree/ui/SkillTreePage';
