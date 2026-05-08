@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import useSkillsLayoutSize from '../model/useSkillsLayoutSize';
 import SkillTree from './SkillTree';
@@ -9,10 +9,15 @@ const isIOS = /iP(ad|hone|od)/.test(navigator.userAgent);
 const isLinux =
   /Linux/i.test(navigator.userAgent) && !/Android/i.test(navigator.userAgent);
 
-function SkillTreeWrapper() {
+function SkillTreeWrapper({
+  selectedSkillId,
+  setSelectedSkillId,
+}: {
+  selectedSkillId: number | null;
+  setSelectedSkillId: (skillId: number | null) => void;
+}) {
   const containerRef = useDragScroll<HTMLDivElement>();
   const { width, height } = useSkillsLayoutSize();
-  const [selectedSkillId, setSelectedSkillId] = useState<number | null>(null);
 
   useEffect(() => {
     const container = containerRef.current;

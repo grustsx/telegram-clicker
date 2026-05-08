@@ -13,7 +13,10 @@ function SkillTreePage() {
           onClose={() => setSelectedSkillId(null)}
         />
       )}
-      <SkillTreeWrapper />
+      <SkillTreeWrapper
+        selectedSkillId={selectedSkillId}
+        setSelectedSkillId={setSelectedSkillId}
+      />
     </>
   );
 }
