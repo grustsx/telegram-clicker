@@ -1,6 +1,6 @@
 import { createAppAsyncThunk } from '@/app/thunk';
 import { selectCurrencyPerClick } from './selectors';
-import { increaseCurrency } from './gameSlice';
+import { increaseCurrency } from '@/entities/game';
 
 // Вызывается на каждый клик по печеньке!! Важно не нахуевертить
 export const updateCurrencyByClickThunk = createAppAsyncThunk(

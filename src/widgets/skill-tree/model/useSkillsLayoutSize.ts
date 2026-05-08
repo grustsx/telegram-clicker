@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import { SKILLS_INFO } from '@/entities/skill';
 
 import { useAppSelector } from '@/shared';
-import { selectVisibleSkillsIds } from '@/entities/game/model/selectors';
+import { selectVisibleSkillsIds } from '@/features/game-progress/model/selectors';
 
 export default function useSkillsLayoutSize(): {
   width: number;

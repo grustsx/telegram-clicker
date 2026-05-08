@@ -1,11 +1,9 @@
 import { getPrice, VODKA_WELL_ID } from '@/entities/building';
 import { selectBuildingById } from '@/entities/building/model/selectors';
 import { getBuildingIncome } from '@/entities/game';
-import {
-  selectAssetLevels,
-  selectCurrency,
-} from '@/entities/game/model/selectors';
+import { selectCurrency } from '@/entities/game/model/selectors';
 import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
+import { selectAssetLevels } from '@/features/game-progress/model/selectors';
 import {
   formatLargeNumber,
   GameButton,

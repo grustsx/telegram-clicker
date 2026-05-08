@@ -5,9 +5,9 @@ import {
   getCurrencyByBooster,
   refreshBoosterTtl,
 } from '@/entities/booster';
-import { selectCurrencyPerSecond } from './selectors';
-import { increaseCurrency } from './gameSlice';
 import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
+import { selectCurrencyPerSecond } from './selectors';
+import { increaseCurrency } from '@/entities/game';
 
 export const activateBoosterThunk = createAppAsyncThunk(
   'game/activateBooster',

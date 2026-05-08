@@ -1,5 +1,5 @@
-import { updateCurrencyByCPSThunk } from '@/entities/game';
-import { selectCurrencyPerSecond } from '@/entities/game/model/selectors';
+import { selectCurrencyPerSecond } from '@/features/game-progress/model/selectors';
+import { updateCurrencyByCPSThunk } from '@/features/game-progress/model/updateCurrencyByCPSThunk';
 import { useAppDispatch, useAppSelector } from '@/shared';
 import React from 'react';
 

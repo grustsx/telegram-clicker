@@ -1,5 +1,4 @@
 import { STONES_SPELL_ID } from '@/entities/building';
-import { castSpellThunk } from '@/entities/game';
 import {
   buySkillThunk,
   sendBuySkill,
@@ -18,6 +17,7 @@ import { STONES_INFO } from '../config/info';
 import { selectSpellById } from '@/entities/spell/model/selectors';
 import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
 import { selectUserId } from '@/entities/game/model/selectors';
+import { castSpellThunk } from '@/features/game-progress/model/castSpellThunk';
 
 export default function Stones() {
   const stonesSpell = useAppSelector((state) =>

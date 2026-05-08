@@ -24,10 +24,7 @@ export {
   setGameLoading,
 } from './model/gameSlice';
 
-export { activateBoosterThunk } from './model/activateBoosterThunk';
-export { castSpellThunk } from './model/castSpellThunk';
-export { updateCurrencyByCPSThunk } from './model/updateCurrencyByCPSThunk';
-export { updateCurrencyByClickThunk } from './model/updateCurrencyByClickThunk';
+export { activateBoosterThunk } from '../../features/game-progress/model/activateBoosterThunk';
 
 export { getBuildingIncome } from './lib/getBuildingIncome';
 export { getCooldownMultiplier } from './lib/getCooldownMultiplier';

@@ -10,7 +10,7 @@ import { useAppSelector, MenuButton, AppVersion } from '@/shared';
 import {
   selectIsAnyBuildingAvailable,
   selectIsAnySkillAvailable,
-} from '@/entities/game/model/selectors';
+} from '@/features/game-progress/model/selectors';
 
 const TabNames = {
   MAIN: 'main',

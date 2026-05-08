@@ -28,13 +28,13 @@ import { Leaderboard } from '@/widgets/leaderboard';
 import { Notes } from '@/widgets/notes';
 import { selectBuildingById } from '@/entities/building/model/selectors';
 import {
-  selectAssetLevels,
   selectCurrency,
   selectUserBanned,
   selectUserId,
 } from '@/entities/game/model/selectors';
 import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
 import { selectSpellById } from '@/entities/spell/model/selectors';
+import { selectAssetLevels } from '@/features/game-progress/model/selectors';
 
 const BuildingInfo = ({
   buildingId,

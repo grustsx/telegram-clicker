@@ -1,17 +1,21 @@
 import { createAppAsyncThunk } from '@/app/thunk';
 import { STORAGE_SEGMENT } from '@/entities/skill';
-import {
-  selectCurrencyPerSecond,
-  selectStorageCurrency,
-  selectVisibleBoosters,
-} from './selectors';
-import { decreaseStorage, depCurrency, spawnBooster } from './gameSlice';
+import { selectCurrencyPerSecond } from './selectors';
 import { upgradeBuilding } from '@/entities/building';
 import { BOOSTER_NORMAL_TIMEOUT } from '@/entities/booster';
 import { refreshSpellCooldown } from '@/entities/spell';
-import { getCooldownMultiplier } from '../lib/getCooldownMultiplier';
 import { selectSpellById } from '@/entities/spell/model/selectors';
 import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
+import {
+  selectStorageCurrency,
+  selectVisibleBoosters,
+} from '@/entities/game/model/selectors';
+import {
+  decreaseStorage,
+  depCurrency,
+  getCooldownMultiplier,
+  spawnBooster,
+} from '@/entities/game';
 
 export const castSpellThunk = createAppAsyncThunk(
   'game/castSpell',

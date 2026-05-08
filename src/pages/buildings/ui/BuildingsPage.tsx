@@ -4,14 +4,12 @@ import {
   type BuildingType,
 } from '@/entities/building';
 import { selectAllBuildings } from '@/entities/building/model/selectors';
-import {
-  selectAssetLevels,
-  selectCurrency,
-} from '@/entities/game/model/selectors';
+import { selectCurrency } from '@/entities/game/model/selectors';
 import {
   selectSunState,
   selectUnlockedSkillsIds,
 } from '@/entities/skill/model/selectors';
+import { selectAssetLevels } from '@/features/game-progress/model/selectors';
 import { useAppSelector } from '@/shared';
 import { BuildingInfo } from '@/widgets/building-info';
 import { Hud } from '@/widgets/hud';
