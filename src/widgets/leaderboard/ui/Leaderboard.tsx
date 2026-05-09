@@ -10,7 +10,7 @@ import {
   selectSkillPoints,
   selectUserBanned,
   selectUserId,
-} from '@/entities/game/model/selectors';
+} from '@/entities/game';
 
 export function Leaderboard() {
   const [leaderboard, setLeaderboard] = React.useState(null);

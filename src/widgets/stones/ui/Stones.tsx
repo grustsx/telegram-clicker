@@ -14,9 +14,9 @@ import {
 } from '@/shared';
 import React from 'react';
 import { STONES_INFO } from '../config/info';
-import { selectSpellById } from '@/entities/spell/model/selectors';
-import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
-import { selectUserId } from '@/entities/game/model/selectors';
+import { selectSpellById } from '@/entities/spell';
+import { selectUnlockedSkillsIds } from '@/entities/skill';
+import { selectUserId } from '@/entities/game';
 import { castSpellThunk } from '@/features/game-progress/model/castSpellThunk';
 
 export default function Stones() {

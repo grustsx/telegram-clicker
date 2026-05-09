@@ -12,14 +12,11 @@ import {
 import { useAppDispatch, useAppSelector } from '@/shared';
 import { SpellUnit } from './SpellUnit';
 import { getDepWin } from '../lib/getDepWin';
-import { selectActiveBoosterIds } from '@/entities/booster/model/selectors';
-import { selectSpellById } from '@/entities/spell/model/selectors';
-import {
-  selectStorageCurrency,
-  selectUserId,
-} from '@/entities/game/model/selectors';
-import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
-import { selectCurrencyPerSecond } from '@/features/game-progress/model/selectors';
+import { selectActiveBoosterIds } from '@/entities/booster';
+import { selectSpellById } from '@/entities/spell';
+import { selectStorageCurrency, selectUserId } from '@/entities/game';
+import { selectUnlockedSkillsIds } from '@/entities/skill';
+import { selectCurrencyPerSecond } from '@/features/game-progress';
 import { castSpellThunk } from '@/features/game-progress/model/castSpellThunk';
 
 export default function TortikSpells({

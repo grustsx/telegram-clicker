@@ -19,3 +19,10 @@ export { BUILDING_SKILLS_MAP } from './config/buildingSkillsMap';
 
 export { STONES_SPELL_ID, AMBAR_ID, LAB_ID, VODKA_WELL_ID } from './config/ids';
 export { BUILDINGS_INFO } from './config/buildingsInfo';
+
+export {
+  selectAllBuildings,
+  selectBuildingById,
+  selectBuildingIds,
+  selectBuildingLevelsSum,
+} from './model/selectors';

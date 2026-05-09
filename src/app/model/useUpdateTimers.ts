@@ -1,7 +1,7 @@
 import { updateBoostersTimer } from '@/entities/booster';
-import { selectActiveBoosterIds } from '@/entities/booster/model/selectors';
+import { selectActiveBoosterIds } from '@/entities/booster';
 import { updateSpellsTimer } from '@/entities/spell';
-import { selectSpellsOnCooldoown } from '@/entities/spell/model/selectors';
+import { selectSpellsOnCooldoown } from '@/entities/spell';
 import { useAppDispatch, useAppSelector } from '@/shared';
 import React from 'react';
 

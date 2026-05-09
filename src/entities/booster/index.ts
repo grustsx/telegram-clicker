@@ -19,3 +19,8 @@ export {
   updateBoostersTimer,
   setBoosters,
 } from './model/boostersSlice';
+
+export {
+  selectActiveBoosters,
+  selectActiveBoosterIds,
+} from './model/selectors';

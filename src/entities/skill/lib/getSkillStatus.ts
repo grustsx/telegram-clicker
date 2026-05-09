@@ -1,7 +1,7 @@
 import { type BuildingType, getBuildingLevel } from '@/entities/building';
 import type { SkillStatusType } from '../model/types';
 
-export default function getSkillStatus(
+export function getSkillStatus(
   skill: { id: number; requires?: number[]; hidden?: boolean },
   unlockedSkills: number[],
   buildings: BuildingType[],

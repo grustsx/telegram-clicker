@@ -7,7 +7,7 @@ import { getPositionWithLayout } from '../lib/getPositionWithLayout';
 import { Skill, SKILLS_INFO } from '@/entities/skill';
 
 import { useAppSelector } from '@/shared';
-import { selectVisibleSkills } from '@/features/game-progress/model/selectors';
+import { selectVisibleSkills } from '@/features/game-progress';
 
 function SkillTree({
   setSelectedSkillId,

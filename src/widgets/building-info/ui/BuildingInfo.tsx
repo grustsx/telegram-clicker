@@ -26,15 +26,15 @@ import { Storage } from '@/widgets/storage';
 import { Stones } from '@/widgets/stones';
 import { Leaderboard } from '@/widgets/leaderboard';
 import { Notes } from '@/widgets/notes';
-import { selectBuildingById } from '@/entities/building/model/selectors';
+import { selectBuildingById } from '@/entities/building';
 import {
   selectCurrency,
   selectUserBanned,
   selectUserId,
-} from '@/entities/game/model/selectors';
-import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
-import { selectSpellById } from '@/entities/spell/model/selectors';
-import { selectAssetLevels } from '@/features/game-progress/model/selectors';
+} from '@/entities/game';
+import { selectUnlockedSkillsIds } from '@/entities/skill';
+import { selectSpellById } from '@/entities/spell';
+import { selectAssetLevels } from '@/features/game-progress';
 
 const BuildingInfo = ({
   buildingId,

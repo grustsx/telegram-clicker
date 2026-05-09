@@ -18,6 +18,7 @@ export function BottomNavigation<T extends string>({
   items,
   onChangeItem,
 }: Props<T>) {
+  console.log('items: ', items);
   return (
     <div className="absolute inset-x-0 bottom-4 flex flex-row justify-around">
       {items.map((item) => (

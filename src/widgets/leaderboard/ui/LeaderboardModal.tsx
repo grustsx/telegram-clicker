@@ -3,7 +3,7 @@ import type { LineType } from '../model/types';
 import { TORT_IDS } from '../config/torts';
 import { createPortal } from 'react-dom';
 import { Line } from './Line';
-import { selectUserId } from '@/entities/game/model/selectors';
+import { selectUserId } from '@/entities/game';
 
 export function LeaderboardModal({
   leaderboard,

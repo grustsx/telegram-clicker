@@ -1,9 +1,9 @@
-import { PageController } from '@/pages';
 import { DialogModal } from '@/widgets/dialog-modal';
 import { ErrorHandler } from '@/widgets/error-handler';
 import { PreloadImages } from '@/widgets/preload-images';
 import { Loader } from '@/widgets/loader';
 import { ConnectionLoader } from '@/widgets/connection-loader';
+import { GameLayout } from '../layouts/GameLayout';
 
 export function AppProviders() {
   return (
@@ -15,7 +15,7 @@ export function AppProviders() {
           <>
             <ConnectionLoader />
             <DialogModal />
-            <PageController />
+            <GameLayout />
           </>
         </Loader>
       </ErrorHandler>

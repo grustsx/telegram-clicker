@@ -2,7 +2,6 @@ import React from 'react';
 
 import QAModal from './QAModal';
 import { formatLargeNumber, GameText, useAppSelector } from '@/shared';
-import {} from '@/entities/game';
 import StorageIndicator from './StorageIndicator';
 import { AMBAR_ID } from '@/entities/building';
 import { QA_IDS } from '../config/qa';
@@ -10,9 +9,9 @@ import {
   selectCurrency,
   selectSkillPoints,
   selectUserId,
-} from '@/entities/game/model/selectors';
-import { selectBuildingById } from '@/entities/building/model/selectors';
-import { selectCurrencyPerSecond } from '@/features/game-progress/model/selectors';
+} from '@/entities/game';
+import { selectBuildingById } from '@/entities/building';
+import { selectCurrencyPerSecond } from '@/features/game-progress';
 
 function Hud({ darkMode = false }: { darkMode?: boolean }) {
   const currency = useAppSelector(selectCurrency);

@@ -1,9 +1,6 @@
-import {
-  selectSkillPoints,
-  selectUserId,
-} from '@/entities/game/model/selectors';
+import { selectSkillPoints, selectUserId } from '@/entities/game';
 import { sendBuySkill, buySkillThunk } from '@/entities/skill';
-import { selectSkillById } from '@/entities/skill/model/selectors';
+import { selectSkillById } from '@/entities/skill';
 
 import { useAppDispatch, useAppSelector, GameButton, GameText } from '@/shared';
 

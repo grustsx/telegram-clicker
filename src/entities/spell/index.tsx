@@ -8,3 +8,10 @@ export { sendCastSpell } from './api/sendCastSpell';
 export { SPELLS_INFO } from './config/info';
 
 export { DEP_ID, BOOSTER_SPELL_ID, CHEATING_SPELL_ID } from './config/ids';
+
+export {
+  selectAllSpells,
+  selectSpellById,
+  selectSpellIds,
+  selectSpellsOnCooldoown,
+} from './model/selectors';

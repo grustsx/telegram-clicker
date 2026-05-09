@@ -1,7 +1,7 @@
 import { BOOSTER_NORMAL_TIMEOUT } from '@/entities/booster';
 import { spawnBooster } from '@/entities/game';
-import { selectVisibleBoosters } from '@/entities/game/model/selectors';
-import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
+import { selectVisibleBoosters } from '@/entities/game';
+import { selectUnlockedSkillsIds } from '@/entities/skill';
 import { useAppDispatch, useAppSelector } from '@/shared';
 import React from 'react';
 

@@ -28,5 +28,20 @@ export { activateBoosterThunk } from '../../features/game-progress/model/activat
 
 export { getBuildingIncome } from './lib/getBuildingIncome';
 export { getCooldownMultiplier } from './lib/getCooldownMultiplier';
+export { getCurrencyPerClick } from './lib/getCurrencyPerClick';
+export { getCurrencyPerSecond } from './lib/getCurrencyPerSecond';
 
 export { type TgUserType } from './model/types';
+
+export {
+  selectUserId,
+  selectCurrency,
+  selectSkillPoints,
+  selectVisibleBoosters,
+  selectUserBanned,
+  selectLoading,
+  selectConnectionLoading,
+  selectAssetsLoading,
+  selectErrorMessage,
+  selectStorageCurrency,
+} from './model/selectors';

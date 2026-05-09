@@ -5,7 +5,7 @@ import {
   getCurrencyByBooster,
   refreshBoosterTtl,
 } from '@/entities/booster';
-import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
+import { selectUnlockedSkillsIds } from '@/entities/skill';
 import { selectCurrencyPerSecond } from './selectors';
 import { increaseCurrency } from '@/entities/game';
 

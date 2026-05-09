@@ -8,13 +8,17 @@ import {
   selectAllBuildings,
   selectBuildingLevelsSum,
 } from '@/entities/building/model/selectors';
-import { getCurrencyPerClick } from '@/entities/game/lib/getCurrencyPerClick';
-import { getCurrencyPerSecond } from '@/entities/game/lib/getCurrencyPerSecond';
+import { getCurrencyPerClick } from '@/entities/game';
+import { getCurrencyPerSecond } from '@/entities/game';
 import {
   selectCurrency,
   selectSkillPoints,
 } from '@/entities/game/model/selectors';
-import getSkillStatus from '@/entities/skill/lib/getSkillStatus';
+import {
+  getSkillStatus,
+  getStorage,
+  STONES_UPGRADE_SKILL_ID,
+} from '@/entities/skill';
 import {
   selectAllSkills,
   selectUnlockedSkillsIds,
@@ -97,4 +101,33 @@ export const selectIsAnySkillAvailable = createSelector(
         getSkillStatus(skill, unlockedSkillsIds, buildings) === 'available' &&
         skillPoints >= skill.price,
     ),
+);
+
+export const selectSunState = createSelector(
+  selectUnlockedSkillsIds,
+  (skills) => {
+    return skills.includes(24)
+      ? skills.includes(STONES_UPGRADE_SKILL_ID)
+        ? 'deadly'
+        : 'close'
+      : 'far';
+  },
+);
+
+export const selectMoonState = createSelector(
+  selectUnlockedSkillsIds,
+  (skills) => {
+    return skills.includes(22)
+      ? skills.includes(STONES_UPGRADE_SKILL_ID)
+        ? 'deadly'
+        : 'close'
+      : 'normal';
+  },
+);
+
+export const selectStorage = createSelector(
+  selectUnlockedSkillsIds,
+  (unlockedSkillsIds) => {
+    return getStorage(unlockedSkillsIds);
+  },
 );

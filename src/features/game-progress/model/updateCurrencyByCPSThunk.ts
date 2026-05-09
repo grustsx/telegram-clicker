@@ -1,8 +1,8 @@
 import { createAppAsyncThunk } from '@/app/store/thunk';
 
-import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
-import { selectActiveBoosterIds } from '@/entities/booster/model/selectors';
-import { selectAllBuildings } from '@/entities/building/model/selectors';
+import { selectUnlockedSkillsIds } from '@/entities/skill';
+import { selectActiveBoosterIds } from '@/entities/booster';
+import { selectAllBuildings } from '@/entities/building';
 import { getCurrencyPerSecond } from '@/entities/game/lib/getCurrencyPerSecond';
 import { increaseCurrency } from '@/entities/game';
 

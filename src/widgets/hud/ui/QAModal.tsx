@@ -4,7 +4,7 @@ import {
   sendRestartUser,
   setErrorMessage,
 } from '@/entities/game';
-import { selectUserId } from '@/entities/game/model/selectors';
+import { selectUserId } from '@/entities/game';
 import { GameButton, useAppDispatch, useAppSelector } from '@/shared';
 import React from 'react';
 

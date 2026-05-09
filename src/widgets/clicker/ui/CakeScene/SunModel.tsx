@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import * as THREE from 'three';
 import React from 'react';
 import { useAppSelector } from '@/shared';
-import { selectSunState } from '@/entities/skill/model/selectors';
+import { selectSunState } from '@/features/game-progress';
 
 const positions: Record<string, [number, number, number]> = {
   far: [120, -12, -800],

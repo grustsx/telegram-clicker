@@ -1,8 +1,8 @@
 import { STORAGE_SEGMENT } from '@/entities/skill';
 import { GameText, useAppSelector } from '@/shared';
 import { CooldownSquare } from './CooldownSquare';
-import { selectStorageCurrency } from '@/entities/game/model/selectors';
-import { selectCurrencyPerSecond } from '@/features/game-progress/model/selectors';
+import { selectStorageCurrency } from '@/entities/game';
+import { selectCurrencyPerSecond } from '@/features/game-progress';
 
 export function SpellUnit({
   castSpell,

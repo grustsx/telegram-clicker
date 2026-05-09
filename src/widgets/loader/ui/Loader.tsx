@@ -3,10 +3,7 @@ import { useState, useEffect, type ReactElement } from 'react';
 import loadingGif from '@/shared/assets/loading.gif';
 import { LOADING_MESSAGES } from '../config/loadingMessages';
 import { useAppSelector } from '@/shared';
-import {
-  selectAssetsLoading,
-  selectLoading,
-} from '@/entities/game/model/selectors';
+import { selectAssetsLoading, selectLoading } from '@/entities/game';
 
 const Loader = ({ children }: { children: ReactElement }) => {
   const [messageIndex, setMessageIndex] = useState<number>(0);

@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import * as THREE from 'three';
 import React from 'react';
 import { useAppSelector } from '@/shared';
-import { selectMoonState } from '@/entities/skill/model/selectors';
+import { selectMoonState } from '@/features/game-progress';
 
 const positions: Record<string, [number, number, number]> = {
   normal: [-6, -6, -30],

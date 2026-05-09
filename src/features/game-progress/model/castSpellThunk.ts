@@ -4,12 +4,9 @@ import { selectCurrencyPerSecond } from './selectors';
 import { upgradeBuilding } from '@/entities/building';
 import { BOOSTER_NORMAL_TIMEOUT } from '@/entities/booster';
 import { refreshSpellCooldown } from '@/entities/spell';
-import { selectSpellById } from '@/entities/spell/model/selectors';
-import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
-import {
-  selectStorageCurrency,
-  selectVisibleBoosters,
-} from '@/entities/game/model/selectors';
+import { selectSpellById } from '@/entities/spell';
+import { selectUnlockedSkillsIds } from '@/entities/skill';
+import { selectStorageCurrency, selectVisibleBoosters } from '@/entities/game';
 import {
   decreaseStorage,
   depCurrency,

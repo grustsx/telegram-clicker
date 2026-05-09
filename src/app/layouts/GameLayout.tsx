@@ -11,7 +11,7 @@ import { SkillTreePage } from '@/pages/skill-tree';
 import {
   selectIsAnyBuildingAvailable,
   selectIsAnySkillAvailable,
-} from '@/features/game-progress/model/selectors';
+} from '@/features/game-progress';
 
 const TabComponentsMap = {
   [TabNames.MAIN]: MainPage,

@@ -11,8 +11,8 @@ import BoosterModel from './BoosterModel';
 import { getIntensity } from '../../lib/getIntensity';
 
 import { useAppSelector } from '@/shared';
-import { selectVisibleBoosters } from '@/entities/game/model/selectors';
-import { selectSunState } from '@/entities/skill/model/selectors';
+import { selectVisibleBoosters } from '@/entities/game';
+import { selectSunState } from '@/features/game-progress';
 
 function CakeScene({
   onClick,

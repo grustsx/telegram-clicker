@@ -13,16 +13,16 @@ import { getCurrencyByBooster } from '@/entities/booster';
 
 import { formatLargeNumber, useAppDispatch, useAppSelector } from '@/shared';
 import CakeScene from './CakeScene/CakeScene';
-import { selectCurrency, selectUserId } from '@/entities/game/model/selectors';
+import { selectCurrency, selectUserId } from '@/entities/game';
 import {
   selectActiveBoosterIds,
   selectActiveBoosters,
-} from '@/entities/booster/model/selectors';
-import { selectUnlockedSkillsIds } from '@/entities/skill/model/selectors';
+} from '@/entities/booster';
+import { selectUnlockedSkillsIds } from '@/entities/skill';
 import {
   selectCurrencyPerClick,
   selectCurrencyPerSecond,
-} from '@/features/game-progress/model/selectors';
+} from '@/features/game-progress';
 import { updateCurrencyByClickThunk } from '@/features/game-progress/model/updateCurrencyByClickThunk';
 
 const INTERVAL_TIME = 2000;

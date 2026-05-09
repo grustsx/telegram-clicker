@@ -3,12 +3,11 @@ import { STORAGE_SEGMENT } from '@/entities/skill';
 import { GameText, useAppDispatch, useAppSelector } from '@/shared';
 import React from 'react';
 import ProgressBar from './ProgressBar';
-import { selectStorage } from '@/entities/skill/model/selectors';
+import { selectStorageCurrency, selectUserId } from '@/entities/game';
 import {
-  selectStorageCurrency,
-  selectUserId,
-} from '@/entities/game/model/selectors';
-import { selectCurrencyPerSecond } from '@/features/game-progress/model/selectors';
+  selectCurrencyPerSecond,
+  selectStorage,
+} from '@/features/game-progress';
 
 const ROOMS = [1, 2, 3, 4];
 
