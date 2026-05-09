@@ -34,7 +34,7 @@ export function LeaderboardModal({
           })
           .sort((a, b) => b.score - a.score)
           .map((item, index) => (
-            <Line item={item} userId={userId} index={index} />
+            <Line item={item} userId={userId} index={index} key={item.id} />
           ))}
 
         {isTort && (
@@ -43,7 +43,7 @@ export function LeaderboardModal({
             {torts
               .sort((a, b) => b.score - a.score)
               .map((item, index) => (
-                <Line item={item} userId={userId} index={index} />
+                <Line item={item} userId={userId} index={index} key={item.id} />
               ))}
           </>
         )}
