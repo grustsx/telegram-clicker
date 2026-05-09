@@ -10,11 +10,11 @@ import { useAppSelector } from '@/shared';
 import { selectVisibleSkills } from '@/features/game-progress';
 
 function SkillTree({
-  setSelectedSkillId,
+  onSelectSkill,
   selectedSkillId,
 }: {
   selectedSkillId: number | null;
-  setSelectedSkillId: (id: number | null) => void;
+  onSelectSkill: (id: number | null) => void;
 }) {
   const visibleSkills = useAppSelector(selectVisibleSkills);
 
@@ -62,7 +62,7 @@ function SkillTree({
       <div>
         {visibleSkills.map((skill) => (
           <Skill
-            onClick={setSelectedSkillId}
+            onClick={onSelectSkill}
             icon={SKILLS_INFO[skill.id]?.icon || 'star.png'}
             key={skill.id}
             skill={skill}

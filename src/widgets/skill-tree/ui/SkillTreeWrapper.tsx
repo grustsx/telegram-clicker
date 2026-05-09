@@ -11,10 +11,10 @@ const isLinux =
 
 function SkillTreeWrapper({
   selectedSkillId,
-  setSelectedSkillId,
+  onSelectSkill,
 }: {
   selectedSkillId: number | null;
-  setSelectedSkillId: (skillId: number | null) => void;
+  onSelectSkill: (skillId: number | null) => void;
 }) {
   const containerRef = useDragScroll<HTMLDivElement>();
   const { width, height } = useSkillsLayoutSize();
@@ -58,7 +58,7 @@ function SkillTreeWrapper({
       <div className="transition-transform origin-top-left z-30">
         <SkillTree
           selectedSkillId={selectedSkillId}
-          setSelectedSkillId={setSelectedSkillId}
+          onSelectSkill={onSelectSkill}
         />
       </div>
     </div>

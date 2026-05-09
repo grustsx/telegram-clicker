@@ -15,7 +15,7 @@ function SkillTreePage() {
       )}
       <SkillTreeWrapper
         selectedSkillId={selectedSkillId}
-        setSelectedSkillId={setSelectedSkillId}
+        onSelectSkill={setSelectedSkillId}
       />
     </>
   );
