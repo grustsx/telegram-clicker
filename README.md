@@ -1,6 +1,6 @@
 # Tortik Clicker
 
-Production-like fullstack idle/clicker game built with React, TypeScript, Node.js and Telegram Web Apps API.
+Production-like fullstack idle/clicker game built with React, TypeScript, Tailwind, Node.js and Telegram Web Apps API.
 
 The project includes:
 
