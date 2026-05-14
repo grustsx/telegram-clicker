@@ -2,6 +2,8 @@
 
 Production-like fullstack idle/clicker game built with React, TypeScript, Tailwind, Node.js and Telegram Web Apps API.
 
+You can test it here https://t.me/TOPTuK_EVENTS_bot
+
 The project includes:
 
 - scalable frontend architecture based on Feature-Sliced Design (FSD)
